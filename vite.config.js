@@ -18,7 +18,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3001",
+        target: "https://localhost:5007",
         changeOrigin: true,
         configure: (proxy, options) => {
           // proxy will be an instance of 'http-proxy'

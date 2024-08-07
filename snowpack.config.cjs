@@ -1,5 +1,5 @@
 const httpProxy = require("http-proxy")
-const apiProxy = httpProxy.createServer({ target: "http://localhost:3001" }) //dev: "http://dev-bo.rpgp.cc"
+const apiProxy = httpProxy.createServer({ target: "https://localhost:5007", secure:false }) //dev: "http://dev-bo.rpgp.cc"
 
 /*
 TODO: how to setup api web socket?
