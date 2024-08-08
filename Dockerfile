@@ -15,7 +15,7 @@ RUN npm install
 COPY . .
 
 # RUN npm run build
-RUN npm run build:vite
+RUN npm run build:snowpack
 
 # Copy build to caddy server
 FROM caddy:2.4.6-alpine
