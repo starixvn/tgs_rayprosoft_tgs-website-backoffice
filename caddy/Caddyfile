@@ -34,14 +34,13 @@ rewrite @try_files {http.matchers.file.relative}
 
 # Enable the static file server.
 file_server
-route /api/* {
-    uri strip_prefix /api
-    reverse_proxy https://bo-api.nexentgame.com
-}
 templates
 encode gzip
 
 respond /healthcheck 200
 
-respond /api/* 404
-
+# respond /api/* 404
+respond /api/* {
+    uri strip_prefix /api
+    reverse_proxy https://bo-api.nexentgame.com
+}
