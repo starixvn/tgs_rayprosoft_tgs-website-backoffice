@@ -1,5 +1,9 @@
 const httpProxy = require("http-proxy")
-const apiProxy = httpProxy.createServer({ target: "https://localhost:5007", secure:false }) //dev: "http://dev-bo.rpgp.cc"
+const apiProxy = httpProxy.createServer({
+  target: "https://bo-api.nexentgame.com",
+  secure: false,
+  changeOrigin: true
+}) //dev: "http://dev-bo.rpgp.cc"
 
 /*
 TODO: how to setup api web socket?
@@ -29,13 +33,13 @@ module.exports = {
     metaUrlPath: "snowpack"
   },
   routes: [
-    /*
+    
     {
       match: "all",
       src: "/api/notify/.*",
       dest: (req, res) => {
         console.log("/api/notify/.* http route")
-        signalRHttpProxy.web(req, res)
+        // signalRHttpProxy.web(req, res)
       }
     },
     {
@@ -43,10 +47,9 @@ module.exports = {
       src: "/api/notify",
       dest: (req, res) => {
         console.log("/api/notify/ web socker route")
-        signalRWsProxy.ws(req, res.socket)
+        // signalRWsProxy.ws(req, res.socket)
       }
     },
-    */
     {
       src: "/api/.*",
       dest: (req, res) => {
