@@ -39,7 +39,4 @@ encode gzip
 
 respond /healthcheck 200
 
-route /api/* {
-    uri strip_prefix /api
-    reverse_proxy https://bo-api.nexentgame.com
-}
+respond /api/* 404
