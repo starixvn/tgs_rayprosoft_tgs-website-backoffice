@@ -95,7 +95,8 @@ export const fetchDelete = (url, options) => fetchApi("DELETE", url, options)
 
 const hardCodeBaseUrl = (url) => {
   if (window.location.host === "bo.nexentgame.com") {
-    return "https://bo-api.nexentgame.com/" + url
+    const apiUrl = "https://bo-api.nexentgame.com"
+    return url.startsWith("/") ? `${apiUrl}${url}` : `${apiUrl}/${url}`
   }
 
   return url
