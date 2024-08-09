@@ -77,7 +77,7 @@ export const get = (
     headers["Accept-Language"] = getAcceptLangCulture()
   }
 
-  return fetch(url, { headers, ...options })
+  return fetch(url, { headers, ...options, credentials: "include" })
     .catch((error) => {
       console.warn(error)
       return reject(error)
@@ -128,7 +128,8 @@ const fetchApi = async (
     body:
       body ??
       JSON.stringify(dropEmptyValuesDisabled ? data : dropEmptyValues(data)),
-    ...options
+    ...options,
+    credentials: "include"
   })
     .catch((error) => {
       console.warn(error)
