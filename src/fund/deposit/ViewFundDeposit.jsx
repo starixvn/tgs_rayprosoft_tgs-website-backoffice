@@ -153,7 +153,7 @@ export const FormBody = ({
   readOnly = false
 }) => {
   let hasAttachment = !!record?.paymentReturn?.manualReceiptFileId
-  let attachmentUrl = `/api/fs/${record?.paymentReturn?.manualReceiptFileId}`
+  let attachmentUrl = `https://bo-api.nexentgame.com/api/fs/${record?.paymentReturn?.manualReceiptFileId}`
 
   let disabled = readOnly
   return (
