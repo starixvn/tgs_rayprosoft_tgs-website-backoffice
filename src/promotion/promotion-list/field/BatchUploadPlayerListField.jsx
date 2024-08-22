@@ -18,6 +18,7 @@ import { useMount, useUnmount } from "react-use"
 import AlertDialog from "../../../dialog/Alert"
 import { PromotionUserGroupTrans } from "../../../trans/Promotion"
 import { DownloadFormatFileTrans, UploadFileTrans } from "../../../trans/Action"
+import { getApiUrl } from "../../../client"
 
 const FieldName = "batchId"
 
@@ -170,6 +171,7 @@ const BatchUploadButton = ({ name = FieldName, palette, variant }) => {
       }
     }
   })
+  const apiUrl = getApiUrl()
 
   return (
     <Set orientation="horizontal">
@@ -190,7 +192,7 @@ const BatchUploadButton = ({ name = FieldName, palette, variant }) => {
       </Box>
       <Text.Block>
         <Link
-          href="/api/offline/template"
+          href={`${apiUrl}/api/offline/template`}
           download="batch.xlsx"
           marginLeft="1rem"
         >

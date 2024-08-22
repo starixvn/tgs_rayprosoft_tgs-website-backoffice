@@ -68,6 +68,7 @@ import { ApplicationTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
 import { StatusTrans } from "../../trans/Status"
 import { AttachmentTrans, CSNoteTrans } from "../../trans/Field"
 import { PlayerNoteTrans, PlayerTrans } from "../../trans/Player"
+import { getApiUrl } from "../../client"
 
 export const ViewFundDepositDisclosure = ({
   brandId,
@@ -153,7 +154,8 @@ export const FormBody = ({
   readOnly = false
 }) => {
   let hasAttachment = !!record?.paymentReturn?.manualReceiptFileId
-  let attachmentUrl = `https://bo-api.nexentgame.com/api/fs/${record?.paymentReturn?.manualReceiptFileId}`
+  const apiUrl = getApiUrl()
+  let attachmentUrl = `${apiUrl}/api/fs/${record?.paymentReturn?.manualReceiptFileId}`
 
   let disabled = readOnly
   return (

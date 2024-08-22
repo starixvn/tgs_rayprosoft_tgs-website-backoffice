@@ -82,6 +82,7 @@ import {
   BatchAddBalanceTrans,
   useBatchAddBalanceTitleTrans
 } from "../../trans/Player"
+import { getApiUrl } from "../../client"
 
 export const PlayerBatchAddBalanceDisclosure = ({
   brandId,
@@ -460,6 +461,8 @@ const ImportBatchAddDataButton = ({ name = "items", palette, variant }) => {
   }, [JSON.stringify(items)])
 
   let isLoading = isLoadingImportBatchResult || isLoadingItems
+  const apiUrl = getApiUrl()
+
   return (
     <>
       <FieldWrapper
@@ -471,7 +474,7 @@ const ImportBatchAddDataButton = ({ name = "items", palette, variant }) => {
             <Text.Block>
               <ImportTrans />
               <Link
-                href="/api/batch-adj-balance"
+                href={`${apiUrl}/api/batch-adj-balance`}
                 download="batch.xlsx"
                 marginLeft="1rem"
               >

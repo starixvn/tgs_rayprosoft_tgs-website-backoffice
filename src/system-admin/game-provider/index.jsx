@@ -46,6 +46,7 @@ import { ActionTrans, ExportTrans, OperatorTrans } from "../../trans/Action"
 import { StatusTrans } from "../../trans/Status"
 import { UpdatedTimeTrans } from "../../trans/Date"
 import { useGameProviderNameTrans } from "../../trans/Game"
+import { getApiUrl } from "../../client"
 
 export { Code }
 
@@ -158,6 +159,7 @@ const SearchBar = ({
 const LocalizationMenuButton = ({}) => {
   let editable = useIsDisplayMenuByRoute([Update])
   let uploadGameProviderLocalizationListDialog = useModalState()
+  const apiUrl = getApiUrl()
 
   return (
     <>
@@ -168,7 +170,7 @@ const LocalizationMenuButton = ({}) => {
             <DropdownMenu.Item
               id="export-game-provider-localization"
               use="a"
-              href={`/api/gameprovider/localization/export`}
+              href={`${apiUrl}/api/gameprovider/localization/export`}
               download={`game-provider-localization.xlsx`}
             >
               <ExportTrans />

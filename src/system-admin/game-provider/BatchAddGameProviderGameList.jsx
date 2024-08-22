@@ -55,6 +55,7 @@ import { isDev } from "../../env"
 import { ActionTrans, ExportTrans } from "../../trans/Action.jsx"
 import { StatusTrans } from "../../trans/Status.jsx"
 import { GameNameTrans } from "../../trans/Game.jsx"
+import { getApiUrl } from "../../client/index.js"
 
 export const BatchAddGameProviderGameListDisclosure = ({
   gameProviderId,
@@ -68,6 +69,7 @@ export const BatchAddGameProviderGameListDisclosure = ({
   if (!viewable) {
     return null
   }
+  const apiUrl = getApiUrl()
 
   return (
     <>
@@ -77,7 +79,7 @@ export const BatchAddGameProviderGameListDisclosure = ({
             <DropdownMenu.Item
               id="download-game-list"
               use="a"
-              href={`/api/game/export/${gameProviderId}`}
+              href={`${apiUrl}/api/game/export/${gameProviderId}`}
               download={`${gameProviderCode}.xlsx`}
             >
               <ExportTrans />

@@ -72,7 +72,7 @@ export const get = (
   { searchParams = {}, headers = {}, ...options } = {}
 ) => {
   url = urlWith(searchParams, url)
-  url = hardCodeBaseUrl(url)
+  url = getUrl(url)
   if (!headers["Accept-Language"]) {
     headers["Accept-Language"] = getAcceptLangCulture()
   }
@@ -93,13 +93,11 @@ export const patch = (url, options) => fetchApi("PATCH", url, options)
 
 export const fetchDelete = (url, options) => fetchApi("DELETE", url, options)
 
-const hardCodeBaseUrl = (url) => {
-  if (window.location.host === "bo.nexentgame.com") {
-    const apiUrl = "https://bo-api.nexentgame.com"
-    return url.startsWith("/") ? `${apiUrl}${url}` : `${apiUrl}/${url}`
-  }
+export const getApiUrl = () => window?.envConfigs?.apiUrl || ""
 
-  return url
+const getUrl = (endPoint) => {
+  const apiUrl = getApiUrl()
+  return apiUrl ? new URL(endPoint, apiUrl).toString() : apiUrl + endPoint
 }
 
 const fetchApi = async (
@@ -114,7 +112,7 @@ const fetchApi = async (
 
   //TODO: rm log
   // console.log("url[", url, "], method[", method, "], data", data)
-  url = hardCodeBaseUrl(url)
+  url = getUrl(url)
   headers = notNil(data)
     ? {
         "Content-Type": "application/json",

@@ -53,6 +53,7 @@ import {
 import { useDropzone } from "react-dropzone"
 import { ActionTrans, ExportTrans, OperatorTrans } from "../../trans/Action"
 import { UpdatedTimeTrans } from "../../trans/Date"
+import { getApiUrl } from "../../client"
 
 export const SubGameProviderListDisclosure = ({ gameProviderId, ...props }) => {
   let dialog = useModalState()
@@ -167,6 +168,7 @@ const ActionBar = ({ gameProviderId, search, mutate, isLoading, ...props }) => {
 //TODO: rm
 const LocalizationMenuButton = ({}) => {
   let uploadGameProviderLocalizationListDialog = useModalState()
+  const apiUrl = getApiUrl()
 
   return (
     <>
@@ -177,7 +179,7 @@ const LocalizationMenuButton = ({}) => {
             <DropdownMenu.Item
               id="export-sub-game-provider-localization"
               use="a"
-              href={`/api/SubGameProvider/localization/export`}
+              href={`${apiUrl}/api/SubGameProvider/localization/export`}
               download={`sub-game-provider-localization.xlsx`}
             >
               <ExportTrans />

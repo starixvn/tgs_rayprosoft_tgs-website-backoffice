@@ -43,6 +43,7 @@ import { ApplicationTimeTrans } from "../../trans/Date"
 import { StatusTrans } from "../../trans/Status"
 import { AttachmentTrans } from "../../trans/Field"
 import { SWRConfig } from "swr"
+import { getApiUrl } from "../../client"
 
 export const ReviewPlayerIdDialogDisclosure = ({
   brandId,
@@ -153,7 +154,8 @@ const ReviewDialog = ({
   let readOnly = !editable
 
   let hasAttchment = !!record?.authData?.PlayerIdentityFileId
-  let attachmentUrl = `/api/fs/${record?.authData?.PlayerIdentityFileId}`
+  const apiUrl = getApiUrl()
+  let attachmentUrl = `${apiUrl}/api/fs/${record?.authData?.PlayerIdentityFileId}`
   return (
     <FormDialog
       id="review-player-id-dialog"

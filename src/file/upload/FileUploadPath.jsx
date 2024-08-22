@@ -1,3 +1,8 @@
 //export const FileUploadPath = "/fs/file/uploadFileS3"
 
-export const toFileUploadPath = (prefix) => `/api/fs/upload/${prefix}`
+import { getApiUrl } from "../../client"
+
+export const toFileUploadPath = (prefix) => {
+  const apiUrl = getApiUrl()
+  return `${apiUrl}/api/fs/upload/${prefix}`
+}

@@ -14,6 +14,7 @@ import { useUploadPlayerIdentityAttachment } from "./client"
 import AlertDialog from "../../dialog/Alert"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import { Update } from "./menu"
+import { getApiUrl } from "../../client"
 
 export const PlayerIdentityAttachment = ({
   brandId,
@@ -27,8 +28,8 @@ export const PlayerIdentityAttachment = ({
   let waitingVerify = isPlayerIdentityWaitingVerify(status)
 
   let editable = useIsDisplayMenuByRoute([Update])
-
-  let attachmentUrl = attachmentId ? `/api/fs/${attachmentId}` : ""
+  const apiUrl = getApiUrl()
+  let attachmentUrl = attachmentId ? `${apiUrl}/api/fs/${attachmentId}` : ""
   return (
     <Set {...props}>
       {attachmentUrl && (

@@ -62,6 +62,7 @@ import {
   useGameListTrans
 } from "../../trans/Game"
 import { UpdatedTimeTrans } from "../../trans/Date"
+import { getApiUrl } from "../../client"
 
 export const GameProviderGameListDisclosure = ({
   gameProviderId,
@@ -279,6 +280,7 @@ const useColumns = ({ gameProviderId, items = [], mutate }) => {
 
 const LocalizationMenuButton = ({ gameProviderCode }) => {
   let uploadGameLocalizationListDialog = useModalState()
+  const apiUrl = getApiUrl()
 
   return (
     <>
@@ -289,7 +291,7 @@ const LocalizationMenuButton = ({ gameProviderCode }) => {
             <DropdownMenu.Item
               id="export-game-localization"
               use="a"
-              href={`/api/game/localization/export?gameProviderCode=${gameProviderCode}`}
+              href={`${apiUrl}/api/game/localization/export?gameProviderCode=${gameProviderCode}`}
               download={`${gameProviderCode}.xlsx`}
             >
               <ExportTrans />

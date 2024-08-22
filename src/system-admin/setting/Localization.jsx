@@ -23,6 +23,7 @@ import { Trans, useLocale, useTrans } from "../../i18n"
 import { useDropzone } from "react-dropzone"
 import { useUploadLocalization } from "./client"
 import AlertDialog from "../../dialog/Alert"
+import { getApiUrl } from "../../client"
 
 export const LocalizationDropdownMenu = () => {
   let dialog = useModalState()
@@ -33,6 +34,7 @@ export const LocalizationDropdownMenu = () => {
   if (!viewable) {
     return null
   }
+  const apiUrl = getApiUrl()
 
   return (
     <>
@@ -42,7 +44,7 @@ export const LocalizationDropdownMenu = () => {
             <DropdownMenu.Item
               id="download-op-api-localization"
               use="a"
-              href={`/api/localization/export/OP-API`}
+              href={`${apiUrl}/api/localization/export/OP-API`}
               download={`OP-API-localization.xlsx`}
             >
               <Trans zh="汇出 OP-API" en="Export OP-API" />
@@ -61,7 +63,7 @@ export const LocalizationDropdownMenu = () => {
             <DropdownMenu.Item
               id="download-agent-api-localization"
               use="a"
-              href={`/api/localization/export/AGENT-API`}
+              href={`${apiUrl}/api/localization/export/AGENT-API`}
               download={`AGENT-API-localization.xlsx`}
             >
               <Trans zh="汇出 AGENT-API" en="Export AGENT-API" />
