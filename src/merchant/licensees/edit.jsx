@@ -440,6 +440,14 @@ const EditBody = ({
         </Box>
 
         <NormalLabel>
+          <Trans en="Reference Id" />
+        </NormalLabel>
+        <Box alignY="center">
+          {editable && <Input name="referenceId" />}
+          {readonly && <Text.Block>{record?.referenceId}</Text.Block>}
+        </Box>
+
+        <NormalLabel>
           <Trans zh="公司名称" en="Name" />
         </NormalLabel>
         <Box alignY="center">
