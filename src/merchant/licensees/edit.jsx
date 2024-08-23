@@ -402,7 +402,7 @@ const EditBody = ({
         {!userResellerId && (
           <>
             <NormalLabel>
-              <Trans zh="所属总公司" en="Licensee" />
+              <Trans zh="所属总公司" en="Reseller" />
             </NormalLabel>
             <Box alignY="center">
               {isAdd && <MerchantIdSelect end={RoleTypes.Reseller} />}
