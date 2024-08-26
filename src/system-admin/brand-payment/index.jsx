@@ -68,11 +68,6 @@ const Body = () => {
   let items = data?.items
   let columns = useColumns({ items, mutate })
 
-  const handlePageSizeChange = (e) => {
-    const pageSize = e.target.value
-    setPageSize(pageSize)
-  }
-
   return (
     <PageContent
       title={<Trans zh="平台支付管理" en="Platform Payment Management" />}
