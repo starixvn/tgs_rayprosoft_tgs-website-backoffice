@@ -1,51 +1,25 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { css, Global } from "@emotion/react"
-import {
-  Stack,
-  Button,
-  Set,
-  Text,
-  Box,
-  Level,
-  DropdownMenu,
-  useModalState
-} from "bumbag"
-import PageContent from "../../page/Content"
-import sequenceColumn from "../../table/column/sequence"
-import dateTimeColumn from "../../table/column/dateTime"
-import {
-  useIsDisplayMenuByRoute,
-  useHasSubMenuByRoute
-} from "../../user/context"
-import { Code, Update, View } from "./menu"
-import { useTable, Table, pageCount, toApiParams } from "../../table"
-import { Trans, useTrans } from "../../i18n"
-import { SearchButton } from "../../button/SearchButton"
-import equals from "fast-deep-equal"
+import { Button, DropdownMenu, Level, Set, useModalState } from "bumbag"
+import React, { useMemo } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { SearchButton } from "../../button/SearchButton"
+import AlertDialog from "../../dialog/Alert"
+import { Trans } from "../../i18n"
 import { InputField } from "../../input/Input"
-import textColumn from "../../table/column/textColumn"
-import { useBrandPaymentList } from "../../system/brandpayments/client"
 import { MerchantIdSelect } from "../../merchant/MerchantSelect"
-import { BrandPaymentTransferTypeSelect } from "../../system/brandpayments/BrandPaymentTransferType"
+import PageContent from "../../page/Content"
 import { PaymentProviderLabel } from "../../payment/PaymentProvider"
-import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
 import { PaymentChannelLabel } from "../../payment/channel/PaymentChannel"
+import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
 import {
   BrandPaymentStatusLabel,
   BrandPaymentStatusSelect,
   BrandPaymentStatusToggleButton
 } from "../../system/brandpayments/BrandPaymentStatus"
-import {
-  AddBrandPaymentDisclosure,
-  EditBrandPaymentDisclosure
-} from "./BrandPayment"
-import AlertDialog from "../../dialog/Alert"
-import { PaymentMethodChannelListDialog } from "./PaymentMethodChannelList"
+import { BrandPaymentTransferTypeSelect } from "../../system/brandpayments/BrandPaymentTransferType"
+import { useBrandPaymentList } from "../../system/brandpayments/client"
+import { pageCount, Table, toApiParams, useTable } from "../../table"
+import textColumn from "../../table/column/textColumn"
 import { SortOrder } from "../../table/order"
-import { PaymentListDialog } from "./PaymentList"
-import { PaymentMethodListDialog } from "./PaymentMethodList"
-import { PaymentChannelListDialog } from "./PaymentChannelList"
 import { ActionTrans } from "../../trans/Action"
 import {
   ChannelNameTrans,
@@ -54,6 +28,16 @@ import {
   PaymentProviderTrans
 } from "../../trans/Payment"
 import { StatusTrans } from "../../trans/Status"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import {
+  AddBrandPaymentDisclosure,
+  EditBrandPaymentDisclosure
+} from "./BrandPayment"
+import { PaymentChannelListDialog } from "./PaymentChannelList"
+import { PaymentListDialog } from "./PaymentList"
+import { PaymentMethodChannelListDialog } from "./PaymentMethodChannelList"
+import { PaymentMethodListDialog } from "./PaymentMethodList"
+import { Code, Update, View } from "./menu"
 
 export { Code }
 
@@ -69,7 +53,7 @@ export const Content = () => {
 export const CodeContentPair = [Code, Content]
 
 const Body = () => {
-  let { state, setState, setPageIndex, setSortOrder } = useTable({
+  let { state, setState, setPageIndex, setSortOrder, setPageSize } = useTable({
     brandId: "",
     transferType: "",
     keyword: ""
@@ -83,6 +67,11 @@ const Body = () => {
 
   let items = data?.items
   let columns = useColumns({ items, mutate })
+
+  const handlePageSizeChange = (e) => {
+    const pageSize = e.target.value
+    setPageSize(pageSize)
+  }
 
   return (
     <PageContent
@@ -115,6 +104,7 @@ const Body = () => {
         setPageIndex={setPageIndex}
         setSortOrder={setSortOrder}
         isLoading={isLoading}
+        setPageSize={setPageSize}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>

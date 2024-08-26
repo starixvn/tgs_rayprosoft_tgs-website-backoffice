@@ -1,45 +1,24 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  forwardRef
-} from "react"
-import { css, Global } from "@emotion/react"
-import {
-  Icon,
-  Table as _Table,
-  Pagination,
-  Set,
-  Spinner,
-  Box,
-  DropdownMenu,
-  Button,
-  Group,
-  Flex,
-  Text
-} from "bumbag"
+import { css } from "@emotion/react"
+import { Table as _Table, Box, Set, Spinner } from "bumbag"
+import clone from "clone-deep"
+import React, { useEffect, useState } from "react"
 import {
   useTable as _useTable,
-  useSortBy as useTableSortBy,
-  usePagination as useTablePagination,
+  useColumnOrder,
   useFilters as useTableFilters,
-  useRowState as useTableRowState,
-  useColumnOrder
+  usePagination as useTablePagination,
+  useSortBy as useTableSortBy
 } from "react-table"
-import { fromIsDescending, equalsDescending } from "./order"
-import { Trans, useTrans } from "../i18n"
-import clone from "clone-deep"
-import { useMeasure, useScrollbarWidth } from "react-use"
-import { get } from "lodash-es"
-import { Cell } from "./Cell"
-import { HeadCell } from "./HeadCell"
-import { ActionBar } from "./ActionBar"
-import { valueOf as cssSizeValueOf } from "../css/size"
+import { useMeasure } from "react-use"
 import Overflow from "../css/overflow"
+import { valueOf as cssSizeValueOf } from "../css/size"
 import head from "../list/head"
-import { Footer } from "./Footer"
 import { NoSearchResultTrans } from "../trans/Status"
+import { ActionBar } from "./ActionBar"
+import { Cell } from "./Cell"
+import { Footer } from "./Footer"
+import { HeadCell } from "./HeadCell"
+import { fromIsDescending } from "./order"
 
 const DefaultState = {
   pageIndex: 0,
@@ -163,6 +142,7 @@ export const Table = ({
   localStorageKey,
   menubar,
   menuAddonBefore,
+  setPageSize,
   ...props
 }) => {
   components = {
@@ -341,6 +321,7 @@ export const Table = ({
             table={table}
             totalCount={totalCount}
             setPageIndex={setPageIndex}
+            setPageSize={setPageSize}
           />
         </Set>
       )}
