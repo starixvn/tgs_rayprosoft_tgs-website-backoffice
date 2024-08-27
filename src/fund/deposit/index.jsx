@@ -542,7 +542,7 @@ const useColumns = ({ brandId, items = [], mutate, setDelayUpdate }) => {
     let columns = [
       sequenceColumn(),
       noWrapTextColumn({
-        accessor: "userName",
+        accessor: "username",
         Header: <UserNameTrans />,
         disableSortBy: true
       }),
