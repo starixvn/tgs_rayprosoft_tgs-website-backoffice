@@ -1,58 +1,44 @@
-import React, { useEffect } from "react"
-import { css, Global } from "@emotion/react"
+import { css } from "@emotion/react"
 import {
-  Spinner,
-  useModalState,
-  FieldStack,
+  faChevronDown,
+  faChevronRight
+} from "@fortawesome/free-solid-svg-icons"
+import {
   Box,
-  Text,
+  Card,
   Dialog,
-  Modal,
+  FieldStack,
   Heading,
+  Icon,
   Link,
   Set,
-  Card,
-  Icon,
-  useBreakpoint
+  useBreakpoint,
+  useModalState
 } from "bumbag"
+import React, { useEffect } from "react"
+import { getApiUrl } from "../../client"
+import AlertDialog from "../../dialog/Alert"
+import { ViewDisclosure } from "../../dialog/Disclosure"
+import LoadingBackdrop from "../../dialog/LoadingBackdrop"
+import { NormalLabel } from "../../form/Label"
 import {
   FormattedDateTime,
   FormattedNumberDecimal,
-  getTrans,
   Trans,
-  useLocale,
   useTrans
 } from "../../i18n"
-import { useIsDisplayMenuByRoute } from "../../user/context"
-import { View } from "./menu"
-import { ViewDisclosure } from "../../dialog/Disclosure"
-import { FormDialog } from "../../form/FormDialog"
-import { useFundDepositForm } from "./client"
-import LoadingBackdrop from "../../dialog/LoadingBackdrop"
-import AlertDialog from "../../dialog/Alert"
-import clone from "clone-deep"
-import { useFormContext } from "react-hook-form"
-import { FieldValues } from "../../layout/Grid"
-import { NormalLabel } from "../../form/Label"
-import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
-import Separator from "../../layout/Separator"
-import {
-  FundDepositStatusLabel,
-  isFundDepositApproved
-} from "./FundDepositStatus"
-import Textarea, { TextareaField } from "../../textarea"
-import Input, { InputField } from "../../input/Input"
+import Input from "../../input/Input"
 import { NumberInputField } from "../../input/NumberInput"
-import { useFundDepositFormData } from "./useFundDepositFormData"
-import {
-  faChevronRight,
-  faChevronDown
-} from "@fortawesome/free-solid-svg-icons"
+import { FieldValues } from "../../layout/Grid"
+import Separator from "../../layout/Separator"
 import BankType from "../../payment/BankType"
-import { PhoneTrans, RealNameTrans, UserNameTrans } from "../../trans/User"
+import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
+import { TextareaField } from "../../textarea"
+import { ApplicationTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
+import { AttachmentTrans, CSNoteTrans } from "../../trans/Field"
 import {
-  BankAccountTrans,
   ActualDepositAmountTrans,
+  BankAccountTrans,
   BankInfoTrans,
   ChannelNameTrans,
   DepositAmountTrans,
@@ -64,11 +50,16 @@ import {
   PlatformTrans,
   ThirdPartyIdTrans
 } from "../../trans/Platform"
-import { ApplicationTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
-import { StatusTrans } from "../../trans/Status"
-import { AttachmentTrans, CSNoteTrans } from "../../trans/Field"
 import { PlayerNoteTrans, PlayerTrans } from "../../trans/Player"
-import { getApiUrl } from "../../client"
+import { StatusTrans } from "../../trans/Status"
+import { PhoneTrans, RealNameTrans, UserNameTrans } from "../../trans/User"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import {
+  FundDepositStatusLabel,
+  isFundDepositApproved
+} from "./FundDepositStatus"
+import { View } from "./menu"
+import { useFundDepositFormData } from "./useFundDepositFormData"
 
 export const ViewFundDepositDisclosure = ({
   brandId,

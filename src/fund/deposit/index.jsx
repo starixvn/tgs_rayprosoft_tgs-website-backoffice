@@ -1,73 +1,41 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { css, Global } from "@emotion/react"
-import { useForm, FormProvider, useFormContext } from "react-hook-form"
-import { useLocation } from "react-router-dom"
-import {
-  Heading,
-  Stack,
-  Box,
-  Button,
-  Set,
-  Level,
-  FieldStack,
-  Blockquote
-} from "bumbag"
-import {
-  PlatformPageContent,
-  usePlatformId,
-  usePlatformPageContentWidth
-} from "../../page/PlatformPageContent"
-import AutoSizer from "react-virtualized-auto-sizer"
-import sequenceColumn from "../../table/column/sequence"
-import dateTimeColumn from "../../table/column/dateTime"
-import { useTable, Table, pageCount, toApiParams } from "../../table"
-import {
-  useIsDisplayMenuByRoute,
-  useHasSubMenuByRoute,
-  useUserBrandId
-} from "../../user/context"
-import { Code } from "./menu"
-import {
-  FormattedNumberDecimal,
-  Trans,
-  useLangCode,
-  useTrans
-} from "../../i18n"
-import SearchButton from "../../button/SearchButton"
-import equals from "fast-deep-equal"
+import { css } from "@emotion/react"
+import { Blockquote, Box, FieldStack, Heading, Level, Set } from "bumbag"
 import clone from "clone-deep"
-import { InputField } from "../../input/Input"
-import AlertDialog from "../../dialog/Alert"
-import textColumn, { noWrapTextColumn } from "../../table/column/textColumn"
-import { numberDecimalColumn } from "../../table/column/numberColumn"
+import { isAfter, isSameDay, isValid, max, parseISO, subDays } from "date-fns"
+import equals from "fast-deep-equal"
+import React, { useEffect, useMemo, useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { useLocation } from "react-router-dom"
+import DownloadButton from "../../button/DownloadButton"
+import SearchButton from "../../button/SearchButton"
+import { urlWith } from "../../client"
 import { DateInputRangeField } from "../../date/DateTimeRangeInput"
 import { today } from "../../date/range"
-import { useFundDepositFormList, API } from "./client"
-import { Update } from "./menu"
+import { startOfNextDay } from "../../date/startOfNextDay"
+import AlertDialog from "../../dialog/Alert"
+import { FormattedNumberDecimal, Trans, useLangCode } from "../../i18n"
+import { InputField } from "../../input/Input"
+import {
+  PlatformPageContent,
+  usePlatformId
+} from "../../page/PlatformPageContent"
 import {
   PaymentMethodLabel,
   PaymentMethodSelect
 } from "../../payment/method/PaymentMethod"
-import { VerifyFundDepositDisclosure } from "./VerifyFundDeposit"
-import { ViewFundDepositDisclosure } from "./ViewFundDeposit"
-import FundDepositStatus, {
-  FundDepositStatusBox,
-  FundDepositStatusLabel,
-  FundDepositStatusSelect,
-  isFundDepositApproved
-} from "./FundDepositStatus"
-import { SortOrder } from "../../table/order"
-import { startOfNextDay } from "../../date/startOfNextDay"
-import { sortBy, head, partial } from "lodash-es"
-import { isDev } from "../../env"
-import DownloadButton from "../../button/DownloadButton"
-import { urlWith } from "../../client"
-import { subDays, parseISO, isAfter, isSameDay, isValid, max } from "date-fns"
 import {
   PlatformPaymentProviderSelect,
   PlatformPaymentTransferType
 } from "../../payment/PlatformPaymentProviderSelect"
+import { pageCount, Table, toApiParams, useTable } from "../../table"
+import dateTimeColumn from "../../table/column/dateTime"
+import { numberDecimalColumn } from "../../table/column/numberColumn"
+import sequenceColumn from "../../table/column/sequence"
+import { noWrapTextColumn } from "../../table/column/textColumn"
+import { SortOrder } from "../../table/order"
 import { ActionTrans, OperatorTrans, RemarkTrans } from "../../trans/Action"
+import { ApplicationTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
+import { useTotalDepositAmountTrans } from "../../trans/Field"
 import {
   ActualDepositAmountTrans,
   DepositAmountTrans,
@@ -79,7 +47,6 @@ import {
   useDepositPaymentMethodTrans,
   usePaymentProviderTrans
 } from "../../trans/Payment"
-import { UserNameTrans, useUserNameTrans } from "../../trans/User"
 import {
   GmsIdTrans,
   ThirdPartyIdTrans,
@@ -87,12 +54,20 @@ import {
   useSystemIdTrans,
   useThirdPartyIdTrans
 } from "../../trans/Platform"
-import { ApplicationTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
-import { StatusTrans } from "../../trans/Status"
 import { PromotionAmountTrans, PromotionNameTrans } from "../../trans/Promotion"
-import { useTotalDepositAmountTrans } from "../../trans/Field"
-import { Code as PageCode } from "./menu"
+import { StatusTrans } from "../../trans/Status"
+import { UserNameTrans, useUserNameTrans } from "../../trans/User"
+import { useIsDisplayMenuByRoute } from "../../user/context"
 import { Code as ModuleCode } from "../menu"
+import { API, useFundDepositFormList } from "./client"
+import FundDepositStatus, {
+  FundDepositStatusBox,
+  FundDepositStatusSelect,
+  isFundDepositApproved
+} from "./FundDepositStatus"
+import { Code, Code as PageCode, Update } from "./menu"
+import { VerifyFundDepositDisclosure } from "./VerifyFundDeposit"
+import { ViewFundDepositDisclosure } from "./ViewFundDeposit"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`

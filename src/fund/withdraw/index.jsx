@@ -1,78 +1,40 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { css, Global } from "@emotion/react"
-import { useForm, FormProvider, useFormContext } from "react-hook-form"
+import { css } from "@emotion/react"
+import { Blockquote, Box, FieldStack, Heading, Level, Set } from "bumbag"
+import clone from "clone-deep"
+import { isAfter, isSameDay, isValid, max, parseISO, subDays } from "date-fns"
+import equals from "fast-deep-equal"
+import React, { useEffect, useMemo, useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
 import { useLocation } from "react-router-dom"
-import {
-  Heading,
-  Stack,
-  Box,
-  Button,
-  Set,
-  Flex,
-  Level,
-  FieldStack,
-  Blockquote
-} from "bumbag"
+import DownloadButton from "../../button/DownloadButton"
+import SearchButton from "../../button/SearchButton"
+import { urlWith } from "../../client"
+import { DateInputRangeField } from "../../date/DateTimeRangeInput"
+import { today } from "../../date/range"
+import { startOfNextDay } from "../../date/startOfNextDay"
+import AlertDialog from "../../dialog/Alert"
+import { FormattedNumberDecimal, useLangCode, useTrans } from "../../i18n"
+import { InputField } from "../../input/Input"
 import {
   PlatformPageContent,
-  usePlatformId,
-  usePlatformPageContentWidth
+  usePlatformId
 } from "../../page/PlatformPageContent"
-import AutoSizer from "react-virtualized-auto-sizer"
-import sequenceColumn from "../../table/column/sequence"
-import dateTimeColumn from "../../table/column/dateTime"
-import { useTable, Table, pageCount, toApiParams } from "../../table"
-import {
-  useIsDisplayMenuByRoute,
-  useHasSubMenuByRoute,
-  useUserBrandId
-} from "../../user/context"
-import { Code } from "./menu"
-import {
-  FormattedNumberDecimal,
-  Trans,
-  useLangCode,
-  useTrans
-} from "../../i18n"
-import SearchButton from "../../button/SearchButton"
-import equals from "fast-deep-equal"
-import { InputField } from "../../input/Input"
-import AlertDialog from "../../dialog/Alert"
-import textColumn, { noWrapTextColumn } from "../../table/column/textColumn"
-import { numberDecimalColumn } from "../../table/column/numberColumn"
-import { today } from "../../date/range"
-import FundWithdrawStatus, {
-  FundWithdrawStatusBox,
-  FundWithdrawStatusLabel,
-  FundWithdrawStatusSelect,
-  isFundApproved,
-  isFundInvalid,
-  isFundPaid,
-  isFundUnderReview
-} from "./FundWithdrawStatus"
-import { DateInputRangeField } from "../../date/DateTimeRangeInput"
-import { useFundWithdrawFormList, API } from "./client"
-import { startOfNextDay } from "../../date/startOfNextDay"
-import { SortOrder } from "../../table/order"
-import { Update } from "./menu"
-import { ViewFundWithdrawDisclosure } from "./ViewFundWithdraw"
-import { VerifyFundWithdrawDisclosure } from "./VerifyFundWithdraw"
-import { UserTypeLabel, UserTypeSelect } from "./UserType"
-import clone from "clone-deep"
-import { isDev } from "../../env"
-import DownloadButton from "../../button/DownloadButton"
-import { urlWith } from "../../client"
-import { subDays, parseISO, isAfter, isSameDay, isValid, max } from "date-fns"
-import { useBrandPaymentList } from "../../system/brandpayments/client"
-import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
-import { FundWithdrawPaidDialogDisclosure } from "./FundWithdrawPaid"
-import { RejectFundWithdrawDisclosure } from "./RejectFundWithdraw"
-import { BrandPaymentMultiSelect } from "../../system/brandpayments/BrandPaymentMultiSelect"
 import {
   PlatformPaymentProviderSelect,
   PlatformPaymentTransferType
 } from "../../payment/PlatformPaymentProviderSelect"
+import { BrandPaymentMultiSelect } from "../../system/brandpayments/BrandPaymentMultiSelect"
+import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
+import { useBrandPaymentList } from "../../system/brandpayments/client"
+import { Table, pageCount, toApiParams, useTable } from "../../table"
+import dateTimeColumn from "../../table/column/dateTime"
+import { numberDecimalColumn } from "../../table/column/numberColumn"
+import sequenceColumn from "../../table/column/sequence"
+import { noWrapTextColumn } from "../../table/column/textColumn"
+import { SortOrder } from "../../table/order"
 import { ActionTrans, OperatorTrans, RemarkTrans } from "../../trans/Action"
+import { ApplicationTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
+import { useTotalWithdrawAmountTrans } from "../../trans/Field"
 import {
   ActualWithdrawAmountTrans,
   PaidTimeTrans,
@@ -87,16 +49,29 @@ import {
   useSystemIdTrans,
   useThirdPartyIdTrans
 } from "../../trans/Platform"
+import { StatusTrans } from "../../trans/Status"
 import {
   UserNameTrans,
   UserTypeTrans,
   useUserNameTrans
 } from "../../trans/User"
-import { ApplicationTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
-import { StatusTrans } from "../../trans/Status"
-import { useTotalWithdrawAmountTrans } from "../../trans/Field"
-import { Code as PageCode } from "./menu"
+import { useIsDisplayMenuByRoute } from "../../user/context"
 import { Code as ModuleCode } from "../menu"
+import { API, useFundWithdrawFormList } from "./client"
+import { FundWithdrawPaidDialogDisclosure } from "./FundWithdrawPaid"
+import FundWithdrawStatus, {
+  FundWithdrawStatusBox,
+  FundWithdrawStatusSelect,
+  isFundApproved,
+  isFundInvalid,
+  isFundPaid,
+  isFundUnderReview
+} from "./FundWithdrawStatus"
+import { Code, Code as PageCode, Update } from "./menu"
+import { RejectFundWithdrawDisclosure } from "./RejectFundWithdraw"
+import { UserTypeLabel, UserTypeSelect } from "./UserType"
+import { VerifyFundWithdrawDisclosure } from "./VerifyFundWithdraw"
+import { ViewFundWithdrawDisclosure } from "./ViewFundWithdraw"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -553,7 +528,7 @@ const useColumns = ({
     let columns = [
       sequenceColumn(),
       noWrapTextColumn({
-        accessor: "userName",
+        accessor: "username",
         Header: <UserNameTrans />,
         disableSortBy: true
       }),

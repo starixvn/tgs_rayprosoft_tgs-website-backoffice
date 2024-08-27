@@ -1,68 +1,45 @@
-import React, { useState, useEffect, useMemo } from "react"
-import {
-  Spinner,
-  useModalState,
-  FieldStack,
-  Box,
-  Text,
-  Dialog,
-  Modal,
-  Heading,
-  Link,
-  Flex,
-  Set,
-  Columns
-} from "bumbag"
+import Big from "big.js"
+import { Box, Columns, FieldStack, Heading, useModalState } from "bumbag"
+import clone from "clone-deep"
+import React, { useEffect } from "react"
+import { useFormContext } from "react-hook-form"
+import { SWRConfig } from "swr"
+import AlertDialog from "../../dialog/Alert"
+import { ViewDisclosure } from "../../dialog/Disclosure"
+import LoadingBackdrop from "../../dialog/LoadingBackdrop"
+import { FormDialog } from "../../form/FormDialog"
+import { NormalLabel } from "../../form/Label"
 import {
   FormattedDateTime,
   FormattedNumberDecimal,
-  getTrans,
   Trans,
-  useLocale,
   useTrans
 } from "../../i18n"
-import { useIsDisplayMenuByRoute } from "../../user/context"
-import { Update, View } from "./menu"
-import {
-  Disclosure,
-  VerifyDisclosure,
-  ViewDisclosure
-} from "../../dialog/Disclosure"
-import { FormDialog } from "../../form/FormDialog"
-import AlertDialog from "../../dialog/Alert"
-import LoadingBackdrop from "../../dialog/LoadingBackdrop"
-import { useFundWithdrawForm } from "./client"
-import Separator from "../../layout/Separator"
+import Input from "../../input/Input"
 import { FieldValues } from "../../layout/Grid"
-import { NormalLabel } from "../../form/Label"
+import Separator from "../../layout/Separator"
+import { PaymentChannelLabel } from "../../payment/channel/PaymentChannel"
+import { BrandPaymentSelect } from "../../system/brandpayments/BrandPayment"
+import BrandPaymentStatus from "../../system/brandpayments/BrandPaymentStatus"
+import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
+import { useBrandPayment } from "../../system/brandpayments/client"
+import { parseJSON } from "../../text/json"
+import { TextareaField } from "../../textarea"
+import { ApplicationTimeTrans } from "../../trans/Date"
+import { CSNoteTrans } from "../../trans/Field"
+import { PaidTimeTrans, WithdrawAmountTrans } from "../../trans/Payment"
+import { GmsIdTrans, ThirdPartyIdTrans } from "../../trans/Platform"
+import { PlayerNoteTrans } from "../../trans/Player"
+import { StatusTrans } from "../../trans/Status"
+import { PhoneTrans, RealNameTrans, UserNameTrans } from "../../trans/User"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import { useFundWithdrawForm } from "./client"
 import {
   FundWithdrawStatusLabel,
   isFundApproved,
   isFundUnderReview
 } from "./FundWithdrawStatus"
-import {
-  PaymentChannelLabel,
-  PaymentChannelSelect
-} from "../../payment/channel/PaymentChannel"
-import { TextareaField } from "../../textarea"
-import { BrandPaymentSelect } from "../../system/brandpayments/BrandPayment"
-import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
-import clone from "clone-deep"
-import { useFormContext, useWatch } from "react-hook-form"
-import { useBrandPayment } from "../../system/brandpayments/client"
-import { parseJSON } from "../../text/json"
-import Input from "../../input/Input"
-import BrandPaymentStatus from "../../system/brandpayments/BrandPaymentStatus"
-import { CloseButtonFooter } from "../../form/ConfirmButtonFooter"
-import Big from "big.js"
-import { PhoneTrans, RealNameTrans, UserNameTrans } from "../../trans/User"
-import { GmsIdTrans, ThirdPartyIdTrans } from "../../trans/Platform"
-import { ApplicationTimeTrans } from "../../trans/Date"
-import { PaidTimeTrans, WithdrawAmountTrans } from "../../trans/Payment"
-import { StatusTrans } from "../../trans/Status"
-import { CSNoteTrans } from "../../trans/Field"
-import { PlayerNoteTrans } from "../../trans/Player"
-import { SWRConfig } from "swr"
+import { View } from "./menu"
 
 export const ViewFundWithdrawDisclosure = ({
   brandId,
@@ -147,7 +124,7 @@ export const FormBody = ({ brandId, record, readonly }) => {
           <NormalLabel>
             <UserNameTrans />
           </NormalLabel>
-          <Box alignY="center">{record?.userName}</Box>
+          <Box alignY="center">{record?.username}</Box>
 
           <RealNameBox record={record} />
 
