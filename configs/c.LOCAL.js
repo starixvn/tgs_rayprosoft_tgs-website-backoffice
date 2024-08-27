@@ -1,3 +1,3 @@
 window.envConfigs = {
-  apiUrl: "https://bo-api.nexentgame.com/"
+  apiUrl: "https://bo-api.nexentgame.com"
 }
