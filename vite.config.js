@@ -2,37 +2,38 @@ import { defineConfig, splitVendorChunkPlugin } from "vite"
 import react from "@vitejs/plugin-react"
 
 export default defineConfig({
-  define: {
-    "process.env.BUMBAG_ENV": JSON.stringify("")
-  },
-  publicDir: "public",
-  plugins: [
-    splitVendorChunkPlugin(),
-    react({
-      jsxImportSource: "@emotion/react",
-      babel: {
-        configFile: true
-      }
-    })
-  ],
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://localhost:5007", // dev
-        // target: "https://bo-api.nexentgame.com", // Local
-        changeOrigin: true,
-        configure: (proxy, options) => {
-          // proxy will be an instance of 'http-proxy'
-        }
-      }
-    }
-  },
-  build: {
-    target: ["es2020"],
-    modulePreload: {
-      polyfill: false
+    define: {
+        "process.env.BUMBAG_ENV": JSON.stringify("")
     },
-    outDir: "build",
-    sourcemap: "inline"
-  }
+    publicDir: "public",
+    plugins: [
+        splitVendorChunkPlugin(),
+        react({
+            jsxImportSource: "@emotion/react",
+            babel: {
+                configFile: true
+            }
+        })
+    ],
+    server: {
+        proxy: {
+            "/api": {
+                target: "https://localhost:5007", // dev
+                // target: "https://bo-api.nexentgame.com", // Local
+
+                changeOrigin: true,
+                configure: (proxy, options) => {
+                    // proxy will be an instance of 'http-proxy'
+                }
+            }
+        }
+    },
+    build: {
+        target: ["es2020"],
+        modulePreload: {
+            polyfill: false
+        },
+        outDir: "build",
+        sourcemap: "inline"
+    }
 })

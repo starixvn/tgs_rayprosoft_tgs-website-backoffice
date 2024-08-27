@@ -3,10 +3,13 @@ import {
   useGet,
   usePostData,
   usePutData,
-  useDelete
+  useDelete,
+  getApiUrl
 } from "../../client"
 
-export let API = "/api/withdraw"
+const apiUrl = getApiUrl()
+export let API = `${apiUrl}/api/withdraw`
+
 
 export const useFundWithdrawFormList = (brandId, searchParams, options) => {
   let url =
