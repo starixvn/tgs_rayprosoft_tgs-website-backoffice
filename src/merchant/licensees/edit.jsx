@@ -419,6 +419,9 @@ const EditBody = ({
             name="code"
             type={isAdd ? "input" : "hidden"}
             required={isAdd}
+            registerOptions={{
+              maxLength: 16
+            }}
             /*
             inputProps={
               isDev()
@@ -443,8 +446,8 @@ const EditBody = ({
           <Trans en="Reference Id" />
         </NormalLabel>
         <Box alignY="center">
-          {editable && <Input name="referenceId" />}
-          {readonly && <Text.Block>{record?.referenceId}</Text.Block>}
+          {isAdd && <Input name="referenceId" />}
+          {!isAdd && <Text.Block>{record?.referenceId}</Text.Block>}
         </Box>
 
         <NormalLabel>
