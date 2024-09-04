@@ -314,6 +314,20 @@ const UnsettledBetManualTrans = {
   en: "Unsettled Bet(Manual)"
 }
 
+// TODO: Phase 1 - Need add translation later
+const GameProviderDeductBalance = "GameProviderDeductBalance"
+const GameProviderDeductBalanceTrans = {
+  zh: "Game Provider Deduct Balance",
+  en: "Game Provider Deduct Balance"
+}
+
+// TODO: Phase 1 - Need add translation later
+const GameProviderAddBalance = "GameProviderAddBalance"
+const GameProviderAddBalanceTrans = {
+  zh: "Game Provider Add Balance",
+  en: "Game Provider Add Balance"
+}
+
 const PromotionVipLevelUpgrade = "PromotionVipLevelUpgrade"
 const PromotionVipLevelUpgradeTrans = {
   zh: "VIP晋升福利",
@@ -417,6 +431,14 @@ export const PlayerTransactionTypeSelect = ({ placeholder, ...props }) => {
       value: UnsettledBetManual
     },
     {
+      label: useTrans(GameProviderDeductBalanceTrans),
+      value: GameProviderDeductBalance
+    },
+    {
+      label: useTrans(GameProviderAddBalanceTrans),
+      value: GameProviderAddBalance
+    },
+    {
       label: useTrans(PromotionVipLevelUpgradeTrans),
       value: PromotionVipLevelUpgrade
     },
@@ -492,6 +514,10 @@ export const PlayerTransactionTypeLabel = ({ value = "" }) => {
       return <Trans {...GameProviderWithdrawalTrans} />
     case UnsettledBetManual:
       return <Trans {...UnsettledBetManualTrans} />
+    case GameProviderDeductBalance:
+      return <Trans {...GameProviderDeductBalanceTrans} />
+    case GameProviderAddBalance:
+      return <Trans {...GameProviderAddBalanceTrans} />
     case PromotionVipLevelUpgrade:
       return <Trans {...PromotionVipLevelUpgradeTrans} />
     case PromotionVipLevelSeason:
