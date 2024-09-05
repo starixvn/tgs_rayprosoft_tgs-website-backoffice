@@ -123,7 +123,8 @@ export const PlayerBalanceChangePanel = ({ brandId, playerCode, ...props }) => {
             }}
             isLoading={isLoading}
           />
-          <BalanceChangeUnsavedDataDisclosure playerCode={playerCode} />
+          {/* // TODO: Hide Unsaved Data Button for phase 1
+          <BalanceChangeUnsavedDataDisclosure playerCode={playerCode} /> */}
         </Level>
         <Table
           id="balanceChange"

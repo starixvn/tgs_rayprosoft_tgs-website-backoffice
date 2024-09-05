@@ -37,7 +37,6 @@ import { isDev } from "../../env"
 import { useBrand } from "../../merchant/platforms/client"
 import { useAllAgentSetting } from "../../agent/all-agent/client"
 import { SortOrder } from "../../table/order"
-import { PlayerWalletBalanceDialogDisclosure } from "./PlayerWalletBalanceDialog"
 import { PlayerDepositFormDialogDisclosure } from "./PlayerDepositFormDialog"
 import { PlayerWithdrawFormDialogDisclosure } from "./PlayerWithdrawFormDialog"
 import { BankInfoFieldGroup } from "./BankInfoTag"
@@ -423,10 +422,6 @@ const useColumns = ({
                 player={player}
                 showParentUsername={showAllAgent}
                 onSubmitted={mutate}
-              />
-              <PlayerWalletBalanceDialogDisclosure
-                id="player-wallet-balance-dialog-disclosure"
-                playerCode={playerCode}
               />
               <PlayerDepositFormDialogDisclosure
                 brandId={brandId}
