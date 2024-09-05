@@ -245,7 +245,16 @@ const EditForm = ({
 
   const VipUpgradeField = "vipLevelAutoState"
 
-  let { username = "", registeredOn, balance } = player
+  let {
+    username = "",
+    registeredOn,
+    balance,
+    vipLevel,
+    vipLevelAutoState
+  } = player
+
+  // Set Vip Upgrade method to manual
+  vipLevelAutoState = 0
 
   return (
     <Stack spacing="major-1" margin="major-1">
@@ -277,21 +286,14 @@ const EditForm = ({
         />
 
         <VipLevelTrans />
-        <Box>
-          <VipLevelSelect
-            name="vipId"
-            defaultValue={player?.vipId}
-            required
-            brandId={brandId}
-          />
-        </Box>
+        <VipLevelLabel value={vipLevel} />
 
         <VipUpgradeTrans />
-        <AutoOrManualSwitch name={VipUpgradeField} {...props} />
+        <AutoOrManualSwitchLabel value={vipLevelAutoState} />
 
         <UpperLevelAgentTrans />
         <Box>
-          <Input name="agentUsername" placeholder={agentUsernamePlaceholder} />
+          <Text>{player?.agentUsername}</Text>
         </Box>
 
         {showParentUsername && (
@@ -321,14 +323,14 @@ const EditForm = ({
         </Box>
         <Set>
           <FormattedNumberDecimal value={wageringRequirement} />
-          <Input type="hidden" name={WageringRequirementFieldName} />
-          <PlayerClearWageringRequirementDisclosure
+          {/* <Input type="hidden" name={WageringRequirementFieldName} /> */}
+          {/* <PlayerClearWageringRequirementDisclosure
             id="clear-player-wagering-requirement-dialog-disclosure"
             playerCode={player?.playerCode}
             onSubmitted={() => {
               setValue(WageringRequirementFieldName, 0)
             }}
-          />
+          /> */}
         </Set>
 
         <StatusTrans />
@@ -363,8 +365,11 @@ export const PlayerInfoPanel = ({
     registeredOn,
     balance,
     status,
-    playerPayment
+    playerPayment,
+    vipLevelAutoState
   } = player
+  // Set Vip Upgrade method to manual
+  vipLevelAutoState = 0
 
   return (
     <TabPanel tabId={PlayerInfoKey} {...props}>
@@ -429,9 +434,9 @@ export const PlayerInfoPanel = ({
             </Box>
             <Set>
               <FormattedNumberDecimal value={player?.wageringRequirement} />
-              <PlayerBucketListDialogDisclosure
+              {/* <PlayerBucketListDialogDisclosure
                 playerCode={player.playerCode}
-              />
+              /> */}
             </Set>
 
             <StatusTrans />
@@ -478,7 +483,7 @@ export const PlayerInfoPanel = ({
           </Heading>
           <FieldValues>
             <VipUpgradeTrans />
-            <AutoOrManualSwitchLabel value={player.vipLevelAutoState} />
+            <AutoOrManualSwitchLabel value={vipLevelAutoState} />
 
             <CurrentVipLevelTrans />
             <VipLevelLabel value={vipLevel} />
