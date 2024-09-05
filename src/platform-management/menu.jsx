@@ -77,8 +77,6 @@ const labelOf = ({ locale, code }) => {
       return getTrans(Banners, locale)
     case AnnouncementCode:
       return getTrans(Announcements, locale)
-    case StationLetterCode:
-      return getTrans(StationLetter, locale)
     case VipLevelCode:
       return getTrans(VipLevel, locale)
     case IMSettingsCode:

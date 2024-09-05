@@ -27,7 +27,6 @@ export { Code }
 const pairs = () => [
   [BannerCode, BannerContent],
   [AnnouncementCode, AnnouncementContent],
-  [StationLetterCode, StationLetterContent],
   [VipLevelCode, VipLevelContent],
   [IMSettingsCode, IMSettingsContent],
   [IPAddressCode, IPAddressContent],
