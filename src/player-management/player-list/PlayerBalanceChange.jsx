@@ -329,6 +329,13 @@ const GameProviderAddBalanceTrans = {
   en: "Game Provider Add Balance"
 }
 
+// TODO: Phase 1 - Need add translation later
+const GameProviderAdjustBalance = "GameProviderAdjustBalance"
+const GameProviderAdjustBalanceTrans = {
+  zh: "Game Provider Adjust Balance",
+  en: "Game Provider Adjust Balance"
+}
+
 const PromotionVipLevelUpgrade = "PromotionVipLevelUpgrade"
 const PromotionVipLevelUpgradeTrans = {
   zh: "VIP晋升福利",
@@ -440,6 +447,10 @@ export const PlayerTransactionTypeSelect = ({ placeholder, ...props }) => {
       value: GameProviderAddBalance
     },
     {
+      label: useTrans(GameProviderAdjustBalanceTrans),
+      value: GameProviderAdjustBalance
+    },
+    {
       label: useTrans(PromotionVipLevelUpgradeTrans),
       value: PromotionVipLevelUpgrade
     },
@@ -519,6 +530,8 @@ export const PlayerTransactionTypeLabel = ({ value = "" }) => {
       return <Trans {...GameProviderDeductBalanceTrans} />
     case GameProviderAddBalance:
       return <Trans {...GameProviderAddBalanceTrans} />
+    case GameProviderAdjustBalance:
+      return <Trans {...GameProviderAdjustBalanceTrans} />
     case PromotionVipLevelUpgrade:
       return <Trans {...PromotionVipLevelUpgradeTrans} />
     case PromotionVipLevelSeason:
