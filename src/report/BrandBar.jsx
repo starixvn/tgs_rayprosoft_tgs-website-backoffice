@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { css, Global } from "@emotion/react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
-import { Heading, Stack, Box, Button, Set, useModalState } from "bumbag"
 import {
   useUserBrandId,
   useUserRoleType,
@@ -12,6 +10,16 @@ import {
 import { MerchantIdSelect } from "../merchant/MerchantSelect"
 import { nextRoleType } from "../system/roles/type"
 import equals from "fast-deep-equal"
+import SubmitButton from "../button/SubmitButton"
+
+const localStorageKey = "selectedMerchant"
+const getSelectedMerchantLocalStorage = () => {
+  return JSON.parse(localStorage.getItem(localStorageKey))
+}
+const setMerchantLocalStorage = (key, value) => {
+  const merchant = { ...getSelectedMerchantLocalStorage(), [key]: value }
+  localStorage.setItem(localStorageKey, JSON.stringify(merchant))
+}
 
 export const BrandBar = ({
   id = "page-merchant-bar",
@@ -30,15 +38,10 @@ export const BrandBar = ({
   let userLicenseeId = useUserLicenseeId()
   let userBrandId = useUserBrandId()
 
-  // TODO: able to rm initialState?
-  // let initialState = location?.state ?? {}
   let [state, setState] = useState({
-    /*
-    ...initialState,
-    */
-    resellerId: userResellerId ?? location?.state?.resellerId,
-    licenseeId: userLicenseeId ?? location?.state?.licenseeId,
-    brandId: userBrandId ?? location?.state?.brandId
+    resellerId: userResellerId ?? getSelectedMerchantLocalStorage()?.resellerId,
+    licenseeId: userLicenseeId ?? getSelectedMerchantLocalStorage()?.licenseeId,
+    brandId: userBrandId ?? getSelectedMerchantLocalStorage()?.brandId
   })
 
   useEffect(() => {
@@ -54,16 +57,25 @@ export const BrandBar = ({
   }, [JSON.stringify(state), JSON.stringify(location?.state ?? {})])
 
   useEffect(() => {
-    onBrandChange?.(state?.brandId)
+    setMerchantLocalStorage("brandId", state.brandId)
+    // onBrandChange?.(state?.brandId)
   }, [state?.brandId])
 
   useEffect(() => {
-    onLicenseeChange?.(state?.licenseeId)
+    setMerchantLocalStorage("licenseeId", state.licenseeId)
+    // onLicenseeChange?.(state?.licenseeId)
   }, [state?.licenseeId])
 
   useEffect(() => {
-    onResellerChange?.(state?.resellerId)
+    setMerchantLocalStorage("resellerId", state.resellerId)
+    // onResellerChange?.(state?.resellerId)
   }, [state?.resellerId])
+
+  const onSubmit = () => {
+    onBrandChange?.(state?.brandId)
+    onLicenseeChange?.(state?.licenseeId)
+    onResellerChange?.(state?.resellerId)
+  }
 
   let formMethods = useForm()
 
@@ -81,7 +93,9 @@ export const BrandBar = ({
           onChange: (resellerId) => {
             setState((prevState) => ({
               ...prevState,
-              resellerId
+              resellerId,
+              licenseeId: "",
+              brandId: ""
             }))
           }
         }}
@@ -90,7 +104,8 @@ export const BrandBar = ({
           onChange: (licenseeId) => {
             setState((prevState) => ({
               ...prevState,
-              licenseeId
+              licenseeId,
+              brandId: ""
             }))
           }
         }}
@@ -104,7 +119,9 @@ export const BrandBar = ({
           }
         }}
         {...props}
-      />
+      >
+        <SubmitButton onClick={onSubmit} />
+      </MerchantIdSelect>
     </FormProvider>
   )
 }

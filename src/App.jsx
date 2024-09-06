@@ -179,6 +179,7 @@ const Header = () => {
 
   const logout = () => {
     deauth()
+    localStorage.removeItem("selectedMerchant")
     location.replace(LoginPath)
   }
 

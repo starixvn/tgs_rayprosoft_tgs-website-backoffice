@@ -6,12 +6,18 @@ import { useTrans } from "../../i18n"
 import { usePlatformTrans } from "../../trans/Platform"
 
 //TODO: rename to BrandSelect and add valueField prop?
-export const BrandIdSelect = ({ placeholder, licenseeId, ...props }) => {
+export const BrandIdSelect = ({
+  placeholder,
+  resellerId,
+  licenseeId,
+  ...props
+}) => {
   let defaultPlaceholder = usePlatformTrans()
   placeholder = placeholder ?? defaultPlaceholder
 
   let { isLoading, data, error } = useBrandList({
     showAll: true,
+    resellerId,
     licenseeId,
     sortby: "code"
   })

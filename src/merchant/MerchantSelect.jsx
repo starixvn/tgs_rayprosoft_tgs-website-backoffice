@@ -177,6 +177,7 @@ export const MerchantIdSelect = ({
             name={brandIdName}
             required={required}
             disabled={disabled}
+            resellerId={resellerId}
             licenseeId={licenseeId}
             {...brandProps}
             onChange={(event) => {
@@ -185,6 +186,7 @@ export const MerchantIdSelect = ({
             }}
           />
         )}
+        {props.children}
       </Group>
     </>
   )
