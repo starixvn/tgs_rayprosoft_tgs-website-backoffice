@@ -18,7 +18,7 @@ import {
   useIsDisplayMenuByRoute,
   useHasSubMenuByRoute
 } from "../../user/context"
-import { Code, Update } from "./menu"
+import { Code, label, Update } from "./menu"
 import { useTable, Table, pageCount, toApiParams } from "../../table"
 import { Trans, useTrans } from "../../i18n"
 import { SearchButton } from "../../button/SearchButton"
@@ -47,6 +47,7 @@ import { StatusTrans } from "../../trans/Status"
 import { UpdatedTimeTrans } from "../../trans/Date"
 import { useGameProviderNameTrans } from "../../trans/Game"
 import { getApiUrl } from "../../client"
+import { SelectField } from "../../select/Select"
 
 export { Code }
 
@@ -65,9 +66,10 @@ const Body = () => {
   let { state, setState, setPageIndex, setSortOrder } = useTable({
     code: "",
     name: "",
-    sortby: "code"
+    sortby: "code",
+    status: ""
   })
-  let { pageIndex, pageSize, name } = state
+  let { pageIndex, pageSize, name, status } = state
   let { isLoading, data, error, mutate, emptyData } = useGameProviderList({
     ...toApiParams(state),
     sortby: "code"
@@ -111,6 +113,7 @@ const Body = () => {
 const SearchBar = ({
   code = "",
   name = "",
+  status = "",
   search,
   isLoading,
   mutate,
@@ -128,6 +131,25 @@ const SearchBar = ({
     en: "game provider code"
   })
 
+  let options = [
+    {
+      label: "All",
+      value: ""
+    },
+    {
+      label: "Enable",
+      value: "0"
+    },
+    {
+      label: "Disable",
+      value: "1"
+    },
+    {
+      label: "Maintenance",
+      value: "3"
+    }
+  ]
+
   let namePlaceHolder = useGameProviderNameTrans()
   return (
     <Level>
@@ -144,6 +166,8 @@ const SearchBar = ({
               showEmptyFieldValueAddonAfter
               placeholder={namePlaceHolder}
             />
+
+            <SelectField name="status" options={options} />
             <SearchButton isLoading={isLoading} disabled={isLoading} />
           </Set>
         </form>

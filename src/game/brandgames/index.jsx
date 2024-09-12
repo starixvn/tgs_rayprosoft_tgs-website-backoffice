@@ -41,6 +41,8 @@ import {
   RecommendGameTrans
 } from "../../trans/Game.jsx"
 import { OrderTrans, SupportingDeviceTrans } from "../../trans/Field.jsx"
+import { SelectField } from "../../select/Select.jsx"
+import { pl } from "date-fns/locale"
 
 export { Code } from "./menu"
 
@@ -65,7 +67,10 @@ const Body = () => {
     brandId,
     gameProviderId: "",
     gameType: "",
-    keyword: ""
+    keyword: "",
+    platform: "",
+    status: "",
+    tag: 0
   })
 
   useEffect(() => {
@@ -210,6 +215,9 @@ const SearchBar = ({
   gameProviderId = "",
   gameType = "",
   keyword = "",
+  status = "",
+  platform = "",
+  tag = 0,
   search,
   isLoading,
   ...props
@@ -225,6 +233,59 @@ const SearchBar = ({
     en: "Input keyword"
   })
 
+  let platformOptions = [
+    {
+      value: "",
+      label: "Platform"
+    },
+    {
+      value: "1",
+      label: "PC"
+    },
+    {
+      value: "2",
+      label: "Mobile"
+    },
+    {
+      value: "3",
+      label: "PC/M"
+    }
+  ]
+
+  let statusOptions = [
+    {
+      label: "Status",
+      value: ""
+    },
+    {
+      label: "Enable",
+      value: "0"
+    },
+    {
+      label: "Disable",
+      value: "1"
+    }
+  ]
+
+  let tagOptions = [
+    {
+      label: "Tag",
+      value: 0
+    },
+    {
+      label: "New",
+      value: 1
+    },
+    {
+      label: "Hot",
+      value: 2
+    },
+    {
+      label: "Recommend",
+      value: 4
+    }
+  ]
+
   const onSubmit = (data) => search(data)
 
   return (
@@ -239,6 +300,10 @@ const SearchBar = ({
             placeholder={searchPlaceHolder}
             autocomplete="off"
           />
+
+          <SelectField name="platform" options={platformOptions} />
+          <SelectField name="status" options={statusOptions} />
+          <SelectField name="tag" options={tagOptions} />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
