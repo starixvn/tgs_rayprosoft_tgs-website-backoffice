@@ -6,8 +6,8 @@ import { useAutoTrans, useManualTrans } from "../trans/Status"
 
 export const AutoOrManualSwitch = ({ name, ...props }) => {
   let formContext = useFormContext()
-  let checked =
-    formContext?.watch(name) ?? props.checked ?? props?.defaultChecked
+  let checked = false
+  // formContext?.watch(name) ?? props.checked ?? props?.defaultChecked
 
   let label = useAutoOrManualSwitchTrans(checked)
 

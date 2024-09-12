@@ -245,16 +245,7 @@ const EditForm = ({
 
   const VipUpgradeField = "vipLevelAutoState"
 
-  let {
-    username = "",
-    registeredOn,
-    balance,
-    vipLevel,
-    vipLevelAutoState
-  } = player
-
-  // Set Vip Upgrade method to manual
-  vipLevelAutoState = 0
+  let { username = "", registeredOn, balance } = player
 
   return (
     <Stack spacing="major-1" margin="major-1">
@@ -286,14 +277,26 @@ const EditForm = ({
         />
 
         <VipLevelTrans />
-        <VipLevelLabel value={vipLevel} />
+        <Box>
+          <VipLevelSelect
+            name="vipId"
+            defaultValue={player?.vipId}
+            required
+            brandId={brandId}
+            disabled
+          />
+        </Box>
 
         <VipUpgradeTrans />
-        <AutoOrManualSwitchLabel value={vipLevelAutoState} />
+        <AutoOrManualSwitch disabled name={VipUpgradeField} {...props} />
 
         <UpperLevelAgentTrans />
         <Box>
-          <Text>{player?.agentUsername}</Text>
+          <Input
+            name="agentUsername"
+            placeholder={agentUsernamePlaceholder}
+            disabled
+          />
         </Box>
 
         {showParentUsername && (
@@ -323,14 +326,15 @@ const EditForm = ({
         </Box>
         <Set>
           <FormattedNumberDecimal value={wageringRequirement} />
-          {/* <Input type="hidden" name={WageringRequirementFieldName} /> */}
-          {/* <PlayerClearWageringRequirementDisclosure
+          <Input type="hidden" name={WageringRequirementFieldName} />
+          <PlayerClearWageringRequirementDisclosure
             id="clear-player-wagering-requirement-dialog-disclosure"
+            disabled
             playerCode={player?.playerCode}
             onSubmitted={() => {
               setValue(WageringRequirementFieldName, 0)
             }}
-          /> */}
+          />
         </Set>
 
         <StatusTrans />
@@ -434,9 +438,10 @@ export const PlayerInfoPanel = ({
             </Box>
             <Set>
               <FormattedNumberDecimal value={player?.wageringRequirement} />
-              {/* <PlayerBucketListDialogDisclosure
+              <PlayerBucketListDialogDisclosure
+                disabled
                 playerCode={player.playerCode}
-              /> */}
+              />
             </Set>
 
             <StatusTrans />
