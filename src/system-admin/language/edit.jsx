@@ -186,10 +186,11 @@ const FormBody = ({ isAdd = false }) => {
           name="cultureCode"
           label={cultureCodeLabel}
           disabled={isEdit}
+          required
         />
-        <InputField name="languageCode" label={languageCodeLabel} />
-        <InputField name="name" label={nameLabel} />
-        <InputField name="localizedName" label={localizedNameLabel} />
+        <InputField name="languageCode" label={languageCodeLabel} required />
+        <InputField name="name" label={nameLabel} required />
+        <InputField name="localizedName" label={localizedNameLabel} required />
       </FieldStack>
     </>
   )
