@@ -176,6 +176,7 @@ const FormBody = ({ isAdd = false }) => {
           name="maxBetPerMatch"
           min="0"
           label={maxBetPerMatchLabel}
+          required
         />
       </FieldStack>
     </Box>
