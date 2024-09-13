@@ -56,6 +56,7 @@ const EditDialog = ({ record = {}, onSubmitted, dialog, ...props }) => {
   })
 
   const onSubmit = (data) => {
+    console.log("DATA::: ", data)
     setSubmit(data)
   }
 
@@ -143,6 +144,7 @@ const AddDialog = ({ onSubmitted, dialog, ...props }) => {
 const FormBody = ({ isAdd = false }) => {
   let { watch } = useFormContext()
   let minBet = watch("minBet") ?? 0
+  let maxBet = watch("maxBet") ?? 0
 
   let minBetLabel = useTrans({
     zh: "最低投注",
@@ -174,7 +176,7 @@ const FormBody = ({ isAdd = false }) => {
         />
         <NumberInputField
           name="maxBetPerMatch"
-          min="0"
+          min={maxBet}
           label={maxBetPerMatchLabel}
           required
         />
