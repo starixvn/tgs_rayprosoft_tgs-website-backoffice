@@ -120,8 +120,8 @@ const AddDialog = ({ onSubmitted, dialog }) => {
   }
 
   const reset = () => {
-    deleteCache()
-    mutate(undefined, false)
+    // deleteCache()
+    // mutate(undefined, false)
     setSubmit(null)
   }
 
@@ -321,8 +321,8 @@ const EditDialog = ({ id, resellerId, onSubmitted, dialog, ...props }) => {
   }
 
   const reset = () => {
-    mutateLicensee(undefined, false)
-    deleteLicenseeCache()
+    // mutateLicensee(undefined, false)
+    // deleteLicenseeCache()
 
     deleteCache()
     mutate(undefined, false)

@@ -117,9 +117,6 @@ const AddDialog = ({ onSubmitted, dialog }) => {
   }
 
   const reset = () => {
-    muateGameProvider(undefined, false)
-    deleteGameProviderCache()
-
     deleteCache()
     mutate(undefined, false)
     setSubmit(null)
@@ -223,9 +220,6 @@ const EditDialog = ({ record, onSubmitted, dialog, ...props }) => {
   }
 
   const reset = () => {
-    mutateReseller(undefined, false)
-    deleteResellerCache()
-
     deleteCache()
     mutate(undefined, false)
     setSubmit(null)
@@ -306,6 +300,7 @@ const useResellerData = (id) => {
     mutate,
     deleteCache
   } = useReseller(id)
+
   let {
     data: languageData,
     isLoading: isLoadingLanguage,
@@ -313,6 +308,7 @@ const useResellerData = (id) => {
     mutate: muateLanguage,
     deleteCache: deleteLanguageCache
   } = useLanguageList({ showAll: true, sortby: "cultureCode" })
+
   let {
     data: currencyData,
     isLoading: isLoadingCurrency,
@@ -320,6 +316,7 @@ const useResellerData = (id) => {
     mutate: muateCurrency,
     deleteCache: deleteCurrencyCache
   } = useCurrencyList({ showAll: true })
+
   let {
     data: gameProviderData,
     isLoading: isLoadingGameProvider,
@@ -327,6 +324,7 @@ const useResellerData = (id) => {
     mutate: muateGameProvider,
     deleteCache: deleteGameProviderCache
   } = useGameProviderList({ showAll: true, sortby: "name" })
+
   let {
     data: betLimitData,
     isLoading: isLoadingBetLimit,
