@@ -263,8 +263,8 @@ const EditDialog = ({ gameProviderId, onSubmitted, dialog, ...props }) => {
   }
 
   const reset = () => {
-    mutateGameProvider(undefined, false)
-    deleteGameProviderCache()
+    // mutateGameProvider(undefined, false)
+    // deleteGameProviderCache()
 
     deleteCache()
     mutate(undefined, false)
