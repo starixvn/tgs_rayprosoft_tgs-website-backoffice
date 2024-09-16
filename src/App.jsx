@@ -39,7 +39,8 @@ import {
   Locales,
   useEnglish,
   useChinese,
-  useVietnamese
+  useVietnamese,
+  useThai
 } from "./i18n"
 import { AdminUserChangePasswordDialog } from "./system/admins/edit"
 import {
@@ -142,24 +143,6 @@ const SidebarToggleButton = () => {
   let { sidebar, isCollapsed } = usePage()
   //if (!isDev()) {
   return null
-  //}
-
-  return (
-    <Button
-      onClick={sidebar.toggle}
-      css={css`
-        position: absolute;
-        top: 1rem;
-        left: -6px;
-        padding: 0 1px;
-      `}
-    >
-      <Icon
-        icon={sidebar.isOpen ? faAngleRight : faAngleLeft}
-        type="font-awesome"
-      />
-    </Button>
-  )
 }
 
 export const getSidebarWidth = () => {
@@ -279,10 +262,12 @@ const LangItem = ({ ...props }) => {
   let chinese = "中文"
   let english = "English"
   let vietnamese = "Tiếng Việt"
+  let thai = "ไทย"
 
   let useEn = useEnglish()
   let useZh = useChinese()
   let useVi = useVietnamese()
+  let useTh = useThai()
   return (
     <TopNav.Item {...props}>
       <DropdownMenu
@@ -291,6 +276,7 @@ const LangItem = ({ ...props }) => {
             <DropdownMenu.Item onClick={useZh}>{chinese}</DropdownMenu.Item>
             <DropdownMenu.Item onClick={useEn}>{english}</DropdownMenu.Item>
             <DropdownMenu.Item onClick={useVi}>{vietnamese}</DropdownMenu.Item>
+            <DropdownMenu.Item onClick={useTh}>{thai}</DropdownMenu.Item>
           </>
         }
       >
@@ -307,6 +293,7 @@ const LangItem = ({ ...props }) => {
             {locale === Locales.zh && chinese}
             {locale === Locales.en && english}
             {locale === Locales.vi && vietnamese}
+            {locale === Locales.th && thai}
           </Hide>
         </Button>
       </DropdownMenu>

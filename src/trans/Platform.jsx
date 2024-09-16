@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react"
 import { Trans, useTrans } from "../i18n"
+import getTrans from "./getTrans"
 
 const Platform = {
   zh: "平台",
@@ -151,10 +152,12 @@ export const PlatformMarketReportNetProfitInfoTrans = () => (
 )
 
 export const Banners = {
+  ...getTrans("Platform.Banners.NewBanners"),
   zh: "Banner 管理",
   en: "Banners",
   vi: "Quản lý Banners"
 }
+
 export const BannersTrans = () => <Trans {...Banners} />
 
 export const Announcements = {

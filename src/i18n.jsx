@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react"
 import { Text, DropdownMenu, Button } from "bumbag"
 import numeral from "numeral"
 import { registerLocale, setDefaultLocale } from "react-datepicker"
-import { enUS, zhCN } from "date-fns/locale"
+import { enUS, zhCN, th } from "date-fns/locale"
 import {
   formatDateTime,
   formatHourMinuteSecondDayMonthYear,
@@ -12,6 +12,7 @@ import { isObject } from "lodash-es"
 
 registerLocale("en", enUS)
 registerLocale("zh", zhCN)
+registerLocale("th", th)
 
 const DefaultDateFormat = "yyyy/MM/dd"
 const DefaultTimeFormat = "HH:mm:ss"
@@ -19,7 +20,8 @@ const DefaultTimeFormat = "HH:mm:ss"
 export const Locales = {
   en: "en",
   zh: "zh",
-  vi: "vi"
+  vi: "vi",
+  th: "th"
 }
 
 const defaultLocale = Locales.zh
@@ -60,6 +62,8 @@ export const getAcceptLangCulture = () => {
       return "zh-CN"
     case Locales.vi:
       return "vi-VN"
+    case Locales.th:
+      return "th-TH"
     default:
       return "en-US"
   }
@@ -104,6 +108,11 @@ export const useVietnamese = () => {
   return () => setLocale(Locales.vi)
 }
 
+export const useThai = () => {
+  let { setLocale } = useContext(Store)
+  return () => setLocale(Locales.th)
+}
+
 export const useLangCode = () => {
   let enUS = "en-US"
   let Default = enUS
@@ -115,6 +124,8 @@ export const useLangCode = () => {
       return "zh-CN"
     case Locales.vi:
       return "vi-VN"
+    case Locales.th:
+      return "th-TH"
   }
   return Default
 }
@@ -125,13 +136,15 @@ export const useTrans = (messages = {}) => {
   return messages[locale] ?? messages[Default] ?? ""
 }
 
-export const Trans = ({ en = "", zh = "", vi = "", ...props }) => {
+export const Trans = ({ en = "", zh = "", vi = "", th = "", ...props }) => {
   let locale = useLocale()
   switch (locale) {
     case Locales.en:
       return <span {...props}>{en || ""}</span>
     case Locales.vi:
       return <span {...props}>{vi || en || ""}</span>
+    case Locales.th:
+      return <span {...props}>{th || en || ""}</span>
     default:
       return <span {...props}>{zh || en || ""}</span>
   }
@@ -230,10 +243,12 @@ export const LangDropdownMenu = ({ ...props }) => {
   let chinese = "中文"
   let english = "English"
   let vietnamese = "Tiếng Việt" //"Vietnamese"
+  let thai = "ไทย"
 
   let useEn = useEnglish()
   let useZh = useChinese()
   let useVi = useVietnamese()
+  let useTh = useThai()
 
   return (
     <DropdownMenu
@@ -242,6 +257,7 @@ export const LangDropdownMenu = ({ ...props }) => {
           <DropdownMenu.Item onClick={useZh}>{chinese}</DropdownMenu.Item>
           <DropdownMenu.Item onClick={useEn}>{english}</DropdownMenu.Item>
           <DropdownMenu.Item onClick={useVi}>{vietnamese}</DropdownMenu.Item>
+          <DropdownMenu.Item onClick={useTh}>{thai}</DropdownMenu.Item>
         </>
       }
     >
@@ -249,6 +265,7 @@ export const LangDropdownMenu = ({ ...props }) => {
         {locale === Locales.zh && chinese}
         {locale === Locales.en && english}
         {locale === Locales.vi && vietnamese}
+        {locale === Locales.th && thai}
       </Button>
     </DropdownMenu>
   )
