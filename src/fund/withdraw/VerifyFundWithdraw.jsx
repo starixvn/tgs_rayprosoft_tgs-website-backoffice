@@ -1,35 +1,20 @@
-import React, { useState, useEffect, useMemo } from "react"
-import {
-  Spinner,
-  useModalState,
-  FieldStack,
-  Box,
-  Text,
-  Button,
-  Level
-} from "bumbag"
-import { getTrans, Trans, useLocale, useTrans } from "../../i18n"
-import { useIsDisplayMenuByRoute } from "../../user/context"
-import { Update } from "./menu"
-import {
-  Disclosure,
-  ReviewDisclosure,
-  VerifyDisclosure
-} from "../../dialog/Disclosure"
-import { FormDialog } from "../../form/FormDialog"
-import LoadingBackdrop from "../../dialog/LoadingBackdrop"
-import AlertDialog from "../../dialog/Alert"
+import { Button, useModalState } from "bumbag"
 import clone from "clone-deep"
-import { useForm, useFormContext } from "react-hook-form"
-import { FieldValues } from "../../layout/Grid"
-import { NormalLabel } from "../../form/Label"
-import { FormBody } from "./ViewFundWithdraw"
-import { useFundWithdrawForm, useVerifyFundWithdrawForm } from "./client"
+import React, { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { SWRConfig } from "swr"
+import AlertDialog from "../../dialog/Alert"
+import { ReviewDisclosure } from "../../dialog/Disclosure"
+import LoadingBackdrop from "../../dialog/LoadingBackdrop"
+import { FormDialog } from "../../form/FormDialog"
+import { useTrans } from "../../i18n"
+import { RejectTrans, useApproveTrans } from "../../trans/Action"
+import { useIsDisplayMenuByRoute } from "../../user/context"
 import ReviewFund from "../ReviewFund"
 import { AuditAutoClearBucketDialogDisclosure } from "./AuditAutoClearBucketDialog"
-import { isDev } from "../../env"
-import { RejectTrans, useApproveTrans } from "../../trans/Action"
-import { SWRConfig } from "swr"
+import { FormBody } from "./ViewFundWithdraw"
+import { useFundWithdrawForm, useVerifyFundWithdrawForm } from "./client"
+import { Update } from "./menu"
 
 export const FundWithdrawVerified = "FundWithdrawVerified"
 
@@ -183,6 +168,7 @@ const VerifyFundWithdrawDialog = ({
       footer={
         playerCode ? (
           <AuditAutoClearBucketDialogDisclosure
+            disabled
             brandId={brandId}
             playerCode={playerCode}
           />
