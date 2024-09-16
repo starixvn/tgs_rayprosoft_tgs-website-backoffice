@@ -12,7 +12,7 @@ import { head } from "lodash-es"
 export const API = "/api/BrandGameProviderReport"
 
 export const useGameProviderReportList = (searchParams) => {
-  let url = searchParams ? urlWith(searchParams, `${API}/`) : ""
+  let url = searchParams ? urlWith(searchParams, `${API}/v2`) : ""
   let { data, ...rest } = useGet(url)
 
   return {
