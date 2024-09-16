@@ -39,7 +39,7 @@ import TransferType, {
 import {
   useChangeBrandPaymentOrders,
   useBrandPaymentList,
-  useBrandPaymentBalanceList
+  getBalance
 } from "./client"
 import { View as ViewMenu, Update as UpdateMenu } from "./menu"
 import { Detail as ConditionDetail } from "./condition"
@@ -318,7 +318,8 @@ const SearchBar = ({ search, isLoading, ...props }) => {
 const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
   let ref = useRef()
   let isVisible = useIsVisible(ref, { once: true })
-
+  const [record, setRecord] = useState()
+  const [isLoading, setIsLoading] = useState(false)
   let [params, setParams] = useState()
 
   useEffect(() => {
@@ -327,13 +328,13 @@ const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
     }
   }, [isVisible, brandPaymentId])
 
-  let {
-    isLoading,
-    data: items,
-    mutate,
-    deleteCache
-  } = useBrandPaymentBalanceList(brandId, params)
-  let record = items?.find((item) => item.brandPaymentId === brandPaymentId)
+  const handleOnClickReload = async () => {
+    setIsLoading(true)
+    let items = await getBalance(brandId, params)
+    setIsLoading(false)
+    let record = items?.find((item) => item.brandPaymentId === brandPaymentId)
+    setRecord(record)
+  }
 
   return (
     <Set
@@ -355,12 +356,7 @@ const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
         size="small"
         isLoading={isLoading}
         disabled={isLoading}
-        onClick={() => {
-          if (!isLoading) {
-            deleteCache()
-            mutate(undefined)
-          }
-        }}
+        onClick={handleOnClickReload}
       >
         <Icon icon={faRotateLeft} type="font-awesome" />
       </Button>

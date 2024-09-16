@@ -95,3 +95,11 @@ export const useUpdatePlatformAutoWithdraw = (id, data) => {
   let url = id && data ? `${API}/autowithdraw/${id}` : ""
   return usePatchData(url, data)
 }
+
+export const getBalance = async (id, searchParams) => {
+  const url =
+    id && searchParams ? urlWith(searchParams, `${API}/balance/${id}`) : "";
+  const result = await fetch(url);
+  const data = await result.json();
+  return data;
+}
