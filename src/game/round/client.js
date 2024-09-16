@@ -4,10 +4,12 @@ import {
   usePostData,
   usePut,
   usePutData,
-  usePostFormData
+  usePostFormData,
+  getApiUrl
 } from "../../client"
 
-export const API = "/api/RoundReport"
+const apiUrl = getApiUrl()
+export const API = `${apiUrl}/api/RoundReport`
 
 export const useGameRoundList = (searchParams, options) => {
   let url = searchParams ? urlWith(searchParams, API) : ""

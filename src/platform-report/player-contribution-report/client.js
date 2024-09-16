@@ -4,10 +4,12 @@ import {
   usePostData,
   usePut,
   usePutData,
-  usePostFormData
+  usePostFormData,
+  getApiUrl
 } from "../../client"
 
-export const API = "/api/PlayerReport"
+const apiUrl = getApiUrl()
+export const API = `${apiUrl}/api/PlayerReport`
 
 export const usePlayerContributionList = (searchParams) => {
   let url = searchParams ? urlWith(searchParams, `${API}/contribution`) : ""
