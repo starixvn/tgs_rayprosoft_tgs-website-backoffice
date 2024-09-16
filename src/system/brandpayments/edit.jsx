@@ -1,85 +1,48 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { css, Global } from "@emotion/react"
+import { css } from "@emotion/react"
 import {
-  useForm,
-  FormProvider,
-  useFormContext,
-  Controller,
-  useWatch
-} from "react-hook-form"
-import {
-  Stack,
+  List as _List,
+  applyTheme,
   Box,
-  Set,
   Button,
-  Text,
-  Modal,
-  Dialog,
   Columns,
   Heading,
-  Flex,
-  useModalState,
-  List as _List,
-  applyTheme
+  Set,
+  Stack,
+  Text,
+  useModalState
 } from "bumbag"
-import { useIsDisplayMenuByRoute } from "../../user/context"
-import { Update as UpdateMenu } from "./menu"
-import { Trans, useTrans } from "../../i18n"
-import { AddDisclosure, EditDisclosure } from "../../dialog/Disclosure"
-import { FieldValues } from "../../layout/Grid"
-import { NormalLabel as Label } from "../../form/Label"
-import BrandPaymentStatus, {
-  BrandPaymentStatusButton
-} from "./BrandPaymentStatus"
-import {
-  useUpdateBrandPayment,
-  useBrandPaymentUpload,
-  useAddDepositBrandPayment,
-  useAddWithdrawBrandPayment,
-  useBrandPayment
-} from "./client"
-import AlertDialog from "../../dialog/Alert"
-import {
-  AllPlayerText,
-  AccumulatedDepositText,
-  UnlimitedText,
-  IdentityAuthenticationText,
-  PhoneAuthenticationText,
-  VipLevelsText,
-  PlayerListConditionRadioGroup,
-  PlayerListCondition
-} from "./condition"
-import { VipLevelCheckboxGroup } from "../../vip-levels/CheckboxGroup"
-import LoadingBackdrop from "../../dialog/LoadingBackdrop"
-import { NumberRangeInputGroup } from "../../number/RangeInput"
-import FormDialog from "../../form/FormDialog"
-import Textarea from "../../textarea"
-import Input from "../../input/Input"
-import { Checkbox, CheckboxField } from "../../checkbox/Checkbox"
-import { Switch } from "../../switch/Switch"
 import clone from "clone-deep"
-import {
-  usePaymentList,
-  usePaymentMethodChannelList
-} from "../../payment/client"
-import { PaymentProviderLabel } from "../../payment/PaymentProvider"
-import {
-  PaymentMethodLabel,
-  PaymentMethodSelect
-} from "../../payment/method/PaymentMethod"
+import { head } from "lodash-es"
+import React, { useEffect, useRef, useState } from "react"
+import { Controller, useFormContext, useWatch } from "react-hook-form"
+import { SWRConfig } from "swr"
+import { CheckboxField } from "../../checkbox/Checkbox"
+import AlertDialog from "../../dialog/Alert"
+import { AddDisclosure, EditDisclosure } from "../../dialog/Disclosure"
+import LoadingBackdrop from "../../dialog/LoadingBackdrop"
+import FormDialog from "../../form/FormDialog"
+import { NormalLabel as Label } from "../../form/Label"
+import { Trans, useTrans } from "../../i18n"
+import Input from "../../input/Input"
+import { PercentageNumberInputField } from "../../input/NumberInput"
+import { FieldValues } from "../../layout/Grid"
+import { NumberRangeInputGroup } from "../../number/RangeInput"
 import {
   PaymentChannelLabel,
   PaymentChannelSelect
 } from "../../payment/channel/PaymentChannel"
-import { parseJSON } from "../../text/json"
-import { head } from "lodash-es"
-import ImageUploadButton from "../../file/upload/ImageUploadButton"
-import { isDev } from "../../env"
-import TransferType, {
-  isDepositPlatformPayment
-} from "./BrandPaymentTransferType"
-import { PaymentMethodSetting } from "./PaymentMethodSetting"
-import { PercentageNumberInputField } from "../../input/NumberInput"
+import {
+  usePaymentList,
+  usePaymentMethodChannelList
+} from "../../payment/client"
+import {
+  PaymentMethodLabel,
+  PaymentMethodSelect
+} from "../../payment/method/PaymentMethod"
+import { PaymentProviderLabel } from "../../payment/PaymentProvider"
+import { Switch } from "../../switch/Switch"
+import Textarea from "../../textarea"
+import { useAddTrans, useEditTrans } from "../../trans/Action"
 import {
   ChannelNameTrans,
   PaymentChannelTrans,
@@ -89,8 +52,28 @@ import {
   TransferFeeTrans
 } from "../../trans/Payment"
 import { StatusTrans } from "../../trans/Status"
-import { useAddTrans, useEditTrans } from "../../trans/Action"
-import { SWRConfig } from "swr"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import BrandPaymentStatus, {
+  BrandPaymentStatusButton
+} from "./BrandPaymentStatus"
+import { isDepositPlatformPayment } from "./BrandPaymentTransferType"
+import {
+  useAddDepositBrandPayment,
+  useAddWithdrawBrandPayment,
+  useBrandPayment,
+  useBrandPaymentUpload,
+  useUpdateBrandPayment
+} from "./client"
+import {
+  AccumulatedDepositText,
+  AllPlayerText,
+  IdentityAuthenticationText,
+  PlayerListCondition,
+  PlayerListConditionRadioGroup,
+  UnlimitedText
+} from "./condition"
+import { Update as UpdateMenu } from "./menu"
+import { PaymentMethodSetting } from "./PaymentMethodSetting"
 
 export const EditButton = ({
   brandId,
@@ -690,20 +673,6 @@ const EditBody = ({
             </Label>
             <Box alignY="center">
               <Switch name="identityAuthentication" />
-            </Box>
-
-            <Label>
-              <PhoneAuthenticationText />
-            </Label>
-            <Box alignY="center">
-              <Switch name="phoneAuthentication" />
-            </Box>
-
-            <Label>
-              <VipLevelsText />
-            </Label>
-            <Box alignY="center">
-              <VipLevelCheckboxGroup name="vipLevelIds" brandId={brandId} />
             </Box>
           </FieldValues>
         </Columns.Column>
