@@ -1,51 +1,26 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { css, Global } from "@emotion/react"
-import { useForm, FormProvider, useFormContext } from "react-hook-form"
-import {
-  Heading,
-  Stack,
-  Box,
-  Button,
-  Set,
-  useModalState,
-  Flex,
-  Level
-} from "bumbag"
-import PageContent from "../../page/Content"
-import sequenceColumn from "../../table/column/sequence"
-import dateTimeColumn from "../../table/column/dateTime"
-import { useTable, Table, pageCount, toApiParams } from "../../table"
-import {
-  useIsDisplayMenuByRoute,
-  useHasSubMenuByRoute,
-  useUserBrandId
-} from "../../user/context"
-import { Code } from "./menu"
-import {
-  FormattedNumber,
-  FormattedNumberDecimal,
-  Trans,
-  useTrans
-} from "../../i18n"
-import SearchButton from "../../button/SearchButton"
-import equals from "fast-deep-equal"
-import { InputField } from "../../input/Input"
-import AlertDialog from "../../dialog/Alert"
-import textColumn, { ellipsisTextColumn } from "../../table/column/textColumn"
-import numberColumn, {
-  numberDecimalColumn,
-  numberDecimalPercentageColumn
-} from "../../table/column/numberColumn"
-import { today } from "../../date/range"
-import DateTimeRangeInput from "../../date/DateTimeRangeInput"
-import { useApiLogList } from "./client"
-import { LogDetailDialogDisclosure } from "../LogDetailDialog"
-import { CopyTextBox } from "../../text/CopyTextBox"
-import { SortOrder } from "../../table/order"
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
-import { parseJSON } from "../../text/json"
+import { Set } from "bumbag"
 import { parseISO } from "date-fns"
+import React, { useMemo } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom"
+import SearchButton from "../../button/SearchButton"
+import DateTimeRangeInput from "../../date/DateTimeRangeInput"
+import { thisMonth } from "../../date/range"
+import AlertDialog from "../../dialog/Alert"
+import { FormattedNumber, Trans } from "../../i18n"
+import { InputField } from "../../input/Input"
+import PageContent from "../../page/Content"
+import { pageCount, Table, toApiParams, useTable } from "../../table"
+import dateTimeColumn from "../../table/column/dateTime"
+import textColumn, { ellipsisTextColumn } from "../../table/column/textColumn"
+import { SortOrder } from "../../table/order"
+import { CopyTextBox } from "../../text/CopyTextBox"
+import { parseJSON } from "../../text/json"
 import { ActionTrans } from "../../trans/Action"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import { LogDetailDialogDisclosure } from "../LogDetailDialog"
+import { useApiLogList } from "./client"
+import { Code } from "./menu"
 
 export { Code }
 
@@ -62,12 +37,15 @@ export const CodeContentPair = [Code, Content]
 
 const StateQueryName = "state"
 const Body = ({}) => {
-  let todayRange = today()
+  let thisMonthRange = thisMonth()
   let { search, ...location } = useLocation()
   let navigate = useNavigate()
   let [searchParams, setSearchParams] = useSearchParams()
   let stateString = new URLSearchParams(search).get(StateQueryName)
-  let initState = parseJSON(stateString) ?? {}
+  let initState = parseJSON(stateString) ?? {
+    from: thisMonthRange.start.toISOString(),
+    to: thisMonthRange.end.toISOString()
+  }
   if (typeof initState.from === "string") {
     initState.from = parseISO(initState.from)
   }

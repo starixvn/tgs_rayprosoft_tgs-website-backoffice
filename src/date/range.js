@@ -1,16 +1,16 @@
 import {
-  startOfYesterday,
-  endOfYesterday,
-  subWeeks,
-  startOfToday,
+  endOfMonth,
   endOfToday,
-  subMonths,
+  endOfYesterday,
+  isWithinInterval,
   startOfMonth,
-  endOfMonth
+  startOfToday,
+  startOfYesterday,
+  subMonths,
+  subWeeks
 } from "date-fns"
 import { isValidDate } from "./isValidDate"
 import { toDate } from "./toDate"
-import { isWithinInterval } from "date-fns"
 
 export const yesterday = () => {
   return {
@@ -40,6 +40,17 @@ export const lastMonth = () => {
   let lastMonth = subMonths(new Date(), 1)
   let start = startOfMonth(lastMonth)
   let end = endOfMonth(lastMonth)
+
+  return {
+    start,
+    end
+  }
+}
+
+export const thisMonth = () => {
+  let thisMonth = subMonths(new Date(), 0)
+  let start = startOfMonth(thisMonth)
+  let end = endOfMonth(thisMonth)
 
   return {
     start,
