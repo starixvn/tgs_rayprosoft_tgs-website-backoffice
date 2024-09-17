@@ -243,8 +243,8 @@ const FormBody = () => {
           hint={
             <Text fontWeight="bold" color="warning">
               <Trans
-                zh="输赢金额 > 0,代表公司赢"
-                en="Win loss > 0 means company win."
+                // zh="输赢金额 > 0,代表公司赢"
+                en="Win loss > 0 means player win."
               />
             </Text>
           }
