@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState } from "react"
 import { Trans, useTrans } from "../i18n"
+import getTrans from "./getTrans"
 
 const SMSProvider = {
+  ...getTrans("Sms.SMSProvider"),
   zh: "简讯商",
   en: "SMS Provider",
   vi: "Nhà cung cấp tin nhắn SMS"
@@ -21,6 +23,7 @@ export const useSMSVerificationTrans = () => useTrans(SMSVerification)
 */
 
 export const SMSProviderManagement = {
+  ...getTrans("Sms.SMSProviderManagement"),
   zh: "简讯商管理",
   en: "SMS Provider Management"
 }
@@ -29,12 +32,14 @@ export const SMSProviderManagementTrans = () => (
 )
 
 const SMSProviderName = {
+  ...getTrans("Sms.SMSProviderName"),
   zh: "简讯商名称",
   en: "SMS Provider Name"
 }
 export const SMSProviderNameTrans = () => <Trans {...SMSProviderName} />
 
 const SMSProviderCode = {
+  ...getTrans("Sms.SMSProviderCode"),
   zh: "简讯商代码",
   en: "SMS Provider Code"
 }
@@ -42,18 +47,21 @@ export const SMSProviderCodeTrans = () => <Trans {...SMSProviderCode} />
 export const useSMSProviderCodeTrans = () => useTrans(SMSProviderCode)
 
 const CurrentSMSProvider = {
+  ...getTrans("Sms.CurrentSMSProvider"),
   zh: "目前使用的简讯商",
   en: "Current SMS Provider"
 }
 export const useCurrentSMSProviderTrans = () => useTrans(CurrentSMSProvider)
 
 const ChangeSMSProvider = {
+  ...getTrans("Sms.ChangeSMSProvider"),
   zh: "切换简讯商",
   en: "Change SMS Provider"
 }
 export const useChangeSMSProviderTrans = () => useTrans(ChangeSMSProvider)
 
 const SetupSMSProviderWithPlatform = {
+  ...getTrans("Sms.SetupSMSProviderWithPlatform"),
   zh: "设定简讯商平台",
   en: "Setup SMS Provider with Platform"
 }

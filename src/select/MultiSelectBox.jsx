@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react"
 import { css } from "@emotion/react"
 import { Select, Input } from "bumbag"
-import { Trans, useTrans } from "../i18n"
 import ReactSelect, { components } from "react-select"
 import {
   useForm,

@@ -223,7 +223,7 @@
   "Platform": {
     "Platform": "(th)-Platform",
     "ThirdPartyId": "(th)-3rd Party Id",
-    "GmsId": "(th)-GMS Id",
+    "GmsId": "(th)-Order No",
     "SystemId": "(th)-System Id",
     "BalanceChangeReport": "(th)-Balance Change Report",
     "PlatformManagement": "(th)-Platform",

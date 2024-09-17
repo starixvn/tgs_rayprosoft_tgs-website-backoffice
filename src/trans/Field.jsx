@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState } from "react"
 import { Trans, useTrans } from "../i18n"
+import getTrans from "./getTrans"
 
 const NetProfit = {
+  ...getTrans("Field.NetProfit"),
   zh: "淨盈利",
   en: "Net Profit",
   vi: "Lợi nhuận ròng"
@@ -10,6 +12,7 @@ export const useNetProfitTrans = () => useTrans(NetProfit)
 export const NetProfitTrans = (props) => <Trans {...NetProfit} {...props} />
 
 const SettleAmount = {
+  ...getTrans("Field.SettleAmount"),
   zh: "结算金额",
   en: "Settle Amount",
   vi: "Thanh toán"
@@ -17,6 +20,7 @@ const SettleAmount = {
 export const SettleAmountTrans = () => <Trans {...SettleAmount} />
 
 export const TransactionAmount = {
+  ...getTrans("Field.TransactionAmount"),
   zh: "交易金额",
   en: "Amount",
   vi: "Số tiền giao dịch"
@@ -24,6 +28,7 @@ export const TransactionAmount = {
 export const TransactionAmountTrans = () => <Trans {...TransactionAmount} />
 
 const TransactionId = {
+  ...getTrans("Field.TransactionId"),
   zh: "交易单号",
   en: "Transaction ID",
   vi: "Mã giao dịch"
@@ -31,6 +36,7 @@ const TransactionId = {
 export const TransactionIdTrans = () => <Trans {...TransactionId} />
 
 const Sequence = {
+  ...getTrans("Field.Sequence"),
   zh: "序",
   en: "Sequence",
   vi: "Số thứ tự"
@@ -38,6 +44,7 @@ const Sequence = {
 export const SequenceTrans = () => <Trans {...Sequence} />
 
 const Order = {
+  ...getTrans("Field.Order"),
   zh: "序",
   en: "Order",
   vi: "Thứ tự/Trình tự"
@@ -45,6 +52,7 @@ const Order = {
 export const OrderTrans = () => <Trans {...Order} />
 
 const Subject = {
+  ...getTrans("Field.Subject"),
   zh: "主题",
   en: "Subject",
   vi: "Chủ đề"
@@ -52,6 +60,7 @@ const Subject = {
 export const SubjectTrans = () => <Trans {...Subject} />
 
 const TotalDepositAmount = {
+  ...getTrans("Field.TotalDepositAmount"),
   zh: "总存款",
   en: "Total Deposit Amount",
   vi: "Tổng nạp"
@@ -60,6 +69,7 @@ export const TotalDepositAmountTrans = () => <Trans {...TotalDepositAmount} />
 export const useTotalDepositAmountTrans = () => useTrans(TotalDepositAmount)
 
 const TotalWithdrawAmount = {
+  ...getTrans("Field.TotalWithdrawAmount"),
   zh: "总提款",
   en: "Total Withdraw Amount",
   vi: "Tổng rút"
@@ -68,6 +78,7 @@ export const TotalWithdrawAmountTrans = () => <Trans {...TotalWithdrawAmount} />
 export const useTotalWithdrawAmountTrans = () => useTrans(TotalWithdrawAmount)
 
 const Attachment = {
+  ...getTrans("Field.Attachment"),
   zh: "附件",
   en: "Attachment",
   vi: "File đính kèm"
@@ -75,6 +86,7 @@ const Attachment = {
 export const AttachmentTrans = () => <Trans {...Attachment} />
 
 const Unlimited = {
+  ...getTrans("Field.Unlimited"),
   zh: "无限",
   en: "Unlimited",
   vi: "Không giới hạn"
@@ -83,6 +95,7 @@ export const UnlimitedTrans = () => <Trans {...Unlimited} />
 export const useUnlimitedTrans = () => useTrans(Unlimited)
 
 const Multipliers = {
+  ...getTrans("Field.Multipliers"),
   zh: "倍",
   en: "Multipliers",
   vi: "Lần/Bội số"
@@ -91,6 +104,7 @@ export const MultipliersTrans = () => <Trans {...Multipliers} />
 
 //en use "Supporting Device" instead of "Platform"?
 const SupportingDevice = {
+  ...getTrans("Field.SupportingDevice"),
   zh: "支持设备",
   en: "Platform",
   vi: "Thiết bị hỗ trợ"
@@ -99,6 +113,7 @@ export const SupportingDeviceTrans = () => <Trans {...SupportingDevice} />
 export const useSupportingDeviceTrans = () => useTrans(SupportingDevice)
 
 const BasicInformation = {
+  ...getTrans("Field.BasicInformation"),
   zh: "基本资料",
   en: "Basic Information",
   vi: "Dữ liệu cơ bản"
@@ -106,6 +121,7 @@ const BasicInformation = {
 export const BasicInformationTrans = () => <Trans {...BasicInformation} />
 
 const Vendor = {
+  ...getTrans("Field.Vendor"),
   zh: "厂商",
   en: "Vendor",
   vi: "Nhà sản xuất"
@@ -113,6 +129,7 @@ const Vendor = {
 export const VendorTrans = () => <Trans {...Vendor} />
 
 const PeriodicMaintenance = {
+  ...getTrans("Field.PeriodicMaintenance"),
   zh: "定期维护",
   en: "Periodic Maintenance",
   vi: "Thời gian bảo trì định kỳ"
@@ -120,6 +137,7 @@ const PeriodicMaintenance = {
 export const PeriodicMaintenanceTrans = () => <Trans {...PeriodicMaintenance} />
 
 const SupportHtml5 = {
+  ...getTrans("Field.SupportHtml5"),
   zh: "支持HTML5",
   en: "HTML5",
   vi: "Hỗ trợ HTML5"
@@ -127,18 +145,21 @@ const SupportHtml5 = {
 export const SupportHtml5Trans = () => <Trans {...SupportHtml5} />
 
 const Yes = {
+  ...getTrans("Field.Yes"),
   zh: "是",
   en: "Yes"
 }
 export const YesTrans = () => <Trans {...Yes} />
 
 const No = {
+  ...getTrans("Field.No"),
   zh: "不",
   en: "No"
 }
 export const NoTrans = () => <Trans {...No} />
 
 const RecommendedSize1200X486 = {
+  ...getTrans("Field.RecommendedSize1200X486"),
   zh: "建議尺寸:  1200 x 486px",
   en: "Recommended size: 1200 x 486px",
   vi: "Kích thước đề xuất: 1200 x 486px"
@@ -148,6 +169,7 @@ export const RecommendedSize1200X486Trans = () => (
 )
 
 const RecommendedSize690X280 = {
+  ...getTrans("Field.RecommendedSize690X280"),
   zh: "建議尺寸: 690 x 280px",
   en: "Recommended size: 690 x 280px",
   vi: "Kích thước đề xuất: 690 x 280px"
@@ -157,6 +179,7 @@ export const RecommendedSize690X280Trans = () => (
 )
 
 const RecommendedSize750X310 = {
+  ...getTrans("Field.RecommendedSize750X310"),
   zh: "建議尺寸: 750 x 310px",
   en: "Recommended size: 750 x 310px",
   vi: "Kích thước đề xuất: 750 x 310px"
@@ -166,6 +189,7 @@ export const RecommendedSize750X310Trans = () => (
 )
 
 const RecommendedSize1920X600 = {
+  ...getTrans("Field.RecommendedSize1920X600"),
   zh: "建議尺寸: 1920 x 600px",
   en: "Recommended size: 1920 x 600px",
   vi: "Kích thước đề xuất: 1920 x 600px"
@@ -175,6 +199,7 @@ export const RecommendedSize1920X600Trans = () => (
 )
 
 export const Default = {
+  ...getTrans("Field.Default"),
   zh: "預設",
   en: "Default"
 }
@@ -182,6 +207,7 @@ export const DefaultTrans = () => <Trans {...Default} />
 export const useDefaultTrans = () => useTrans(Default)
 
 const CheckType = {
+  ...getTrans("Field.CheckType"),
   zh: "查核類型",
   en: "Check Type",
   vi: "Dạng kiểm tra"
@@ -190,6 +216,7 @@ export const CheckTypeTrans = () => <Trans {...CheckType} />
 export const useCheckTypeTrans = () => useTrans(CheckType)
 
 const BonusAmount = {
+  ...getTrans("Field.BonusAmount"),
   zh: "红利金额",
   en: "Bonus Amount",
   vi: "Tiền thưởng"
@@ -198,6 +225,7 @@ export const BonusAmountTrans = (props) => <Trans {...BonusAmount} {...props} />
 export const useBonusAmountTrans = () => useTrans(BonusAmount)
 
 const Total = {
+  ...getTrans("Field.Total"),
   zh: "总计",
   en: "Total",
   vi: "Tổng"
@@ -205,6 +233,7 @@ const Total = {
 export const TotalTrans = () => <Trans {...Total} />
 
 const CSNote = {
+  ...getTrans("Field.CSNote"),
   zh: "客服备註",
   en: "CS Note",
   vi: "CSKH ghi chú"
@@ -213,6 +242,7 @@ export const CSNoteTrans = () => <Trans {...CSNote} />
 export const useCSNoteTrans = () => useTrans(CSNote)
 
 const Distribution = {
+  ...getTrans("Field.Distribution"),
   zh: "派发机制",
   en: "Distribution",
   vi: "cơ chế phân phối"
@@ -220,6 +250,7 @@ const Distribution = {
 export const DistributionTrans = () => <Trans {...Distribution} />
 
 const BalanceOfCurrentPeriod = {
+  ...getTrans("Field.BalanceOfCurrentPeriod"),
   zh: "本期结馀",
   en: "Balance of current period",
   vi: "số dư hiện tại"
@@ -229,6 +260,7 @@ export const BalanceOfCurrentPeriodTrans = () => (
 )
 
 const CurrentCycle = {
+  ...getTrans("Field.CurrentCycle"),
   zh: "本期",
   en: "Current",
   vi: "Hiện tại"
@@ -237,6 +269,7 @@ export const CurrentCycleTrans = () => <Trans {...CurrentCycle} />
 export const useCurrentCycleTrans = () => useTrans(CurrentCycle)
 
 const NextCycle = {
+  ...getTrans("Field.NextCycle"),
   zh: "下期",
   en: "Next",
   vi: "Kỳ tiếp theo"
@@ -245,6 +278,7 @@ export const NextCycleTrans = () => <Trans {...NextCycle} />
 export const useNextCycleTrans = () => useTrans(NextCycle)
 
 const SocialMedia = {
+  ...getTrans("Field.SocialMedia"),
   en: "Social Media",
   zh: "社群媒体"
 }
@@ -253,6 +287,7 @@ export const useSocialMediaTrans = () => useTrans(SocialMedia)
 
 //TODO: rm?
 const SocialMediaType = {
+  ...getTrans("Field.SocialMediaType"),
   en: "Type",
   zh: "社群媒体"
 }
@@ -260,6 +295,7 @@ export const SocialMediaTypeTrans = () => <Trans {...SocialMediaType} />
 export const useSocialMediaTypeTrans = () => useTrans(SocialMediaType)
 
 const Name = {
+  ...getTrans("Field.Name"),
   en: "Name",
   zh: "名称"
 }

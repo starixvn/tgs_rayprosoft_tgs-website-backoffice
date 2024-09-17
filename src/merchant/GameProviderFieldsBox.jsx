@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
 import { Box, Set, FieldStack } from "bumbag"
-import { Trans, useTrans } from "../i18n"
 import { NormalLabel } from "../form/Label"
 import { useFormContext, useFieldArray } from "react-hook-form"
 import { GameProviderCheckboxGroup } from "../game/providers/GameProviderCheckboxGroup"
