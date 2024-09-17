@@ -22,6 +22,12 @@ import equals from "fast-deep-equal"
 import { useBetLimitList } from "../../betlimit/client"
 import { ActionTrans, OperatorTrans } from "../../trans/Action"
 import { UpdatedTimeTrans } from "../../trans/Date"
+import {
+  BetLimitTrans,
+  BetLimitMaxBetPerMatchTrans,
+  BetLimitMaxBetTrans,
+  BetLimitMinBetTrans
+} from "../../trans/BetLimit"
 
 export { Code }
 
@@ -49,7 +55,7 @@ const Body = () => {
   let columns = useColumns({ mutate, items: data?.items })
   return (
     <PageContent
-      title={<Trans zh="限红" en="Bet Limit" />}
+      title={<BetLimitTrans />}
       actionBar={
         <Flex justifyContent="space-between">
           <SearchBar
@@ -110,7 +116,7 @@ const useColumns = ({ items = [], mutate }) => {
     let columns = [
       textColumn({
         accessor: "id",
-        Header: <Trans zh="Id" en="Id" />,
+        Header: <BetLimitTrans />,
         disableSortBy: true
       }),
       textColumn({
@@ -120,17 +126,17 @@ const useColumns = ({ items = [], mutate }) => {
       }),
       textColumn({
         accessor: "minBet",
-        Header: <Trans zh="Min Bet" en="Min Bet" />,
+        Header: <BetLimitMinBetTrans />,
         disableSortBy: true
       }),
       textColumn({
         accessor: "maxBet",
-        Header: <Trans zh="Max Bet" en="Max Bet" />,
+        Header: <BetLimitMaxBetTrans />,
         disableSortBy: true
       }),
       textColumn({
         accessor: "maxBetPerMatch",
-        Header: <Trans zh="Max Bet Per Match" en="Max Bet Per Match" />,
+        Header: <BetLimitMaxBetPerMatchTrans />,
         disableSortBy: true
       }),
       dateTimeColumn({

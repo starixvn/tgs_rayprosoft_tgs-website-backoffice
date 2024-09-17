@@ -426,5 +426,11 @@
     "VipTotalValidBet": "(th)-Total Valid Bet",
     "VipTotalDeposit": "(th)-Total Deposit",
     "AgentDividendDistribution": "(th)-Agent dividend distribution"
+  },
+  "BetLimit": {
+    "BetLimitMessages": "(th)-Bet Limit",
+    "MinBetMessages": "(th)-Min Bet",
+    "MaxBetMessages": "(th)-Max Bet",
+    "MaxBetPerMatchMessages": "(th)-Max Bet Per Match"
   }
 }
