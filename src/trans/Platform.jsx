@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react"
+import React from "react"
 import { Trans, useTrans } from "../i18n"
 import getTrans from "./getTrans"
 
@@ -19,9 +19,9 @@ export const ThirdPartyIdTrans = () => <Trans {...ThirdPartyId} />
 export const useThirdPartyIdTrans = () => useTrans(ThirdPartyId)
 
 const GmsId = {
-  zh: "GMS订单号",
-  en: "GMS Id",
-  vi: "Mã đơn GMS"
+  zh: "订单号",
+  en: "Order No",
+  vi: "Mã đơn"
 }
 export const GmsIdTrans = () => <Trans {...GmsId} />
 export const useGmsIdTrans = () => useTrans(GmsId)
