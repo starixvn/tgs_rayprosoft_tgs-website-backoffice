@@ -78,6 +78,7 @@ import { numberDecimalColumn } from "../../table/column/numberColumn"
 import { faRotateLeft } from "@fortawesome/free-solid-svg-icons"
 import { useIsVisible } from "react-is-visible"
 import { isDev } from "../../env"
+import { post } from "../../client"
 
 export { Code }
 
@@ -332,7 +333,13 @@ const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
     setIsLoading(true)
     let items = await getBalance(brandId, params)
     setIsLoading(false)
-    let record = items?.find((item) => item.brandPaymentId === brandPaymentId)
+    if (!items?.isSuccess) {
+      console.warn(items?.data)
+      return
+    }
+    let record = items?.data?.find(
+      (item) => item.brandPaymentId === brandPaymentId
+    )
     setRecord(record)
   }
 

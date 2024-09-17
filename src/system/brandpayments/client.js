@@ -5,7 +5,8 @@ import {
   usePut,
   usePutData,
   usePostFormData,
-  usePatchData
+  usePatchData,
+  get
 } from "../../client"
 
 const API = "/api/brandpayment"
@@ -98,8 +99,17 @@ export const useUpdatePlatformAutoWithdraw = (id, data) => {
 
 export const getBalance = async (id, searchParams) => {
   const url =
-    id && searchParams ? urlWith(searchParams, `${API}/balance/${id}`) : "";
-  const result = await fetch(url);
-  const data = await result.json();
-  return data;
+    id && searchParams ? urlWith(searchParams, `${API}/balance/${id}`) : ""
+
+  return await get(url).then(async (data) => {
+    return {
+      isSuccess: true,
+      data,
+    };
+  }).catch((error) => {
+    return {
+      isSuccess: false,
+      data: error,
+    }
+  })
 }
