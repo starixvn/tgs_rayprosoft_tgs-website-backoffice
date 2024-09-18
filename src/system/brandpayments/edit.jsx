@@ -744,9 +744,9 @@ const List = applyTheme(_List, {
   }
 })
 
-const UploadListColumn = ({ name = "", title, fileName = "" }) => {
+const UploadListColumn = ({ name = "", title, fileName = "", list = null }) => {
   let { control, setValue, watch } = useFormContext()
-  let list = watch(name) ?? []
+  let currList = watch(name) ?? list ?? []
 
   let uploadFileInputRef = useRef()
   let [formData, setFormData] = useState()
@@ -760,8 +760,6 @@ const UploadListColumn = ({ name = "", title, fileName = "" }) => {
     deleteCache()
     setFormData(undefined)
   }
-
-  list = result?.players ?? list
 
   useEffect(() => {
     if (Array.isArray(result?.players) && !error) {
@@ -793,7 +791,7 @@ const UploadListColumn = ({ name = "", title, fileName = "" }) => {
             </Button>
           </Stack>
           <List overflowY="scroll" flex="1 0 5em" marginY="minor-1">
-            {list.map((item) => (
+            {currList.map((item) => (
               <List.Item key={item}>{item}</List.Item>
             ))}
           </List>
@@ -831,6 +829,8 @@ const UploadListColumn = ({ name = "", title, fileName = "" }) => {
               type="button"
               size="small"
               onClick={() => {
+                console.log("name what: ")
+                console.log(name)
                 setValue(name, [])
               }}
             >
