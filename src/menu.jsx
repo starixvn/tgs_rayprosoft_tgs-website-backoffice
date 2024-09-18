@@ -147,30 +147,38 @@ export const Menu = ({ title, url, codes, codePaths, itemLabel }) => {
           css={css`
             :hover {
               cursor: pointer;
+              background: #f3f4f7;
             }
+            font-size: 14px;
+            line-height: normal;
+            text-transform: uppercase;
+            border-radius: 5px;
+            padding: 5px 0px 5px 10px;
           `}
         >
           {title}
           <Button
             display={"inline-flex"}
-            variant="ghost"
+            variant="link"
+            textDecoration="none"
             size="small"
             marginRight="0.3rem"
           >
-            <Icon icon={show ? faAngleUp : faAngleDown} type="font-awesome" />
+            <Icon
+              icon={show ? faAngleUp : faAngleDown}
+              type="font-awesome"
+              color="rgba(37, 43, 54, 0.38)"
+              fontSize="12px"
+            />
           </Button>
         </Level>
       }
       css={css`
-        border-bottom: 1px solid #edf1f7;
-
         .bb-SideNavLevelTitle {
-          display: flex;
-          align-items: center;
-          line-height: 1.25rem;
-          min-height: 2.75em;
+          line-height: normal;
+          min-height: normal;
           margin-bottom: 0;
-          padding-left: 0.6rem;
+          padding-left: 0;
           text-transform: none;
         }
       `}
@@ -178,7 +186,6 @@ export const Menu = ({ title, url, codes, codePaths, itemLabel }) => {
       <SideNav.Level
         css={css`
           li.bb-ListItem {
-            border-top: 1px solid #edf1f7;
             margin-bottom: 0;
           }
         `}
@@ -209,8 +216,8 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
       isActive={isActive}
       onClick={() => setTimeout(sidebar.drawer.hide, 100)}
       css={css`
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+        font-size: 1rem;
+        line-height: normal;
       `}
       {...props}
     >
@@ -218,9 +225,28 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
         ref={ref}
         to={path}
         css={css`
-          padding-left: 2.2rem;
+          padding-left: 12px;
+          position: relative;
+          color: #080a0c !important;
+          border-radius: 5px;
+          box-shadow: none !important;
+          :hover {
+            color: #080a0c !important;
+            background: #f3f4f7;
+          }
         `}
       >
+        <span
+          className="nav-icon-bullet"
+          css={css`
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            border: 1px solid rgba(37, 43, 54, 0.38);
+            border-radius: 100%;
+            margin-right: 8px;
+          `}
+        />
         {label}
       </Link>
     </SideNav.Item>

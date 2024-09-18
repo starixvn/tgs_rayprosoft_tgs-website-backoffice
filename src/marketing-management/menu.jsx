@@ -25,13 +25,13 @@ export const DefaultCodePath = [Code]
 export const Menu = ({
   title = (
     <Flex alignY="center" color="black200">
-      <Icon
+      {/* <Icon
         icon={faTable}
         type="font-awesome"
         marginRight="0.5rem"
         fontSize="1.1rem"
         color="black200"
-      />
+      /> */}
       <MarketingManagementTrans />
     </Flex>
   ),

@@ -34,13 +34,13 @@ export const Name = ({}) => <PromotionManagementTrans />
 export const Menu = ({
   title = (
     <Flex alignY="center" color="black200">
-      <Icon
+      {/* <Icon
         icon={faGift}
         type="font-awesome"
         marginRight="0.5rem"
         fontSize="1.1rem"
         color="black200"
-      />
+      /> */}
       <Name />
     </Flex>
   ),

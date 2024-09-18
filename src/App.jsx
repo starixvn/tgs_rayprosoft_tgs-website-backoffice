@@ -95,8 +95,8 @@ function App() {
   )
 }
 
-const HeaderHeight = "60px"
-const sidebarWidth = 200
+const HeaderHeight = "65px"
+const sidebarWidth = 290
 const FooterHeight = "0px" //"30px"
 
 const Layout = ({ children }) => {
@@ -175,14 +175,18 @@ const Header = () => {
         <TopNav.Section>
           <TopNav.Item marginRight="0">
             <Button
-              paddingLeft="0.65rem"
-              paddingRight="0.65rem"
+              paddingLeft="1rem"
+              paddingRight="1rem"
               color={getHeaderButtonColor()}
               onClick={page.sidebar.toggle}
-              variant="ghost"
+              variant="link"
               boxShadow="none"
             >
-              <Icon icon="solid-bars" />
+              <Icon
+                icon="solid-bars"
+                fontSize="300"
+                color="rgba(8, 10, 12, 0.65)"
+              />
             </Button>
           </TopNav.Item>
           <TopNav.Item marginLeft="-0.15rem">
@@ -229,10 +233,12 @@ const Header = () => {
               }
             >
               <Button
-                variant="ghost"
-                iconAfter="chevron-down"
-                color={getHeaderButtonColor()}
+                variant="link"
+                textDecoration="none"
+                // iconAfter="chevron-down"
+                color="rgba(8, 10, 12, 0.65)"
                 background={getHeaderButtonBackground()}
+                padding="0 10px"
               >
                 <Hide above={collapseBelow}>
                   <Icon icon="solid-user" />
@@ -240,6 +246,12 @@ const Header = () => {
                 <Hide below={collapseBelow}>
                   <span id="username">{usename}</span>
                 </Hide>
+                <Icon
+                  icon="chevron-down"
+                  fontSize="100"
+                  marginLeft="10px"
+                  marginTop="2px"
+                />
               </Button>
             </DropdownMenu>
           </TopNav.Item>
@@ -282,10 +294,12 @@ const LangItem = ({ ...props }) => {
         }
       >
         <Button
-          variant="ghost"
-          iconAfter="chevron-down"
-          color={getHeaderButtonColor()}
+          variant="link"
+          textDecoration="none"
+          // iconAfter="chevron-down"
+          color="rgba(8, 10, 12, 0.65)"
           background={getHeaderButtonBackground()}
+          padding="0 10px"
         >
           <Hide above={collapseBelow}>
             <Icon icon="solid-language" fontSize="500" />
@@ -296,6 +310,12 @@ const LangItem = ({ ...props }) => {
             {locale === Locales.vi && vietnamese}
             {locale === Locales.th && thai}
           </Hide>
+          <Icon
+            icon="chevron-down"
+            fontSize="100"
+            marginLeft="10px"
+            marginTop="2px"
+          />
         </Button>
       </DropdownMenu>
     </TopNav.Item>
@@ -313,7 +333,13 @@ const Sidebar = () => {
   }, [isCollapsed])
 
   return (
-    <SideNav id="sidebar" selectedId={selectedId}>
+    <SideNav
+      id="sidebar"
+      selectedId={selectedId}
+      css={css`
+        padding: 8px;
+      `}
+    >
       <AllMenus />
     </SideNav>
   )
