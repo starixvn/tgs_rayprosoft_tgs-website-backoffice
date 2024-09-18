@@ -782,5 +782,6 @@
   "create_bet_limit": "(th)-Create Bet Limit",
   "edit_bet_limit": "(th)-Edit Bet Limit",
   "view_setting": "(th)-View Setting",
-  "edit_setting": "(th)-Edit Setting"
+  "edit_setting": "(th)-Edit Setting",
+  "login": "(th)-Login"
 }
