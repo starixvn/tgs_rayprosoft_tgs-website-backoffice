@@ -230,9 +230,16 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
           color: #080a0c !important;
           border-radius: 5px;
           box-shadow: none !important;
+          font-weight: 400;
           :hover {
             color: #080a0c !important;
             background: #f3f4f7;
+          }
+          &.css-16em5 {
+            background: #f3f4f7;
+            span {
+              border: 1px solid #000;
+            }
           }
         `}
       >

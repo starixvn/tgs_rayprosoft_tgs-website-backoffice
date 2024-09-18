@@ -239,6 +239,9 @@ const Header = () => {
                 color="rgba(8, 10, 12, 0.65)"
                 background={getHeaderButtonBackground()}
                 padding="0 10px"
+                css={css`
+                  font-weight: 400;
+                `}
               >
                 <Hide above={collapseBelow}>
                   <Icon icon="solid-user" />
@@ -300,6 +303,9 @@ const LangItem = ({ ...props }) => {
           color="rgba(8, 10, 12, 0.65)"
           background={getHeaderButtonBackground()}
           padding="0 10px"
+          css={css`
+            font-weight: 400;
+          `}
         >
           <Hide above={collapseBelow}>
             <Icon icon="solid-language" fontSize="500" />
