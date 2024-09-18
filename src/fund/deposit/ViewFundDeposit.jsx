@@ -246,6 +246,7 @@ export const FormBody = ({
         <ApplyInfoBox
           applyInfo={record?.applyInfo}
           paymentMethod={paymentMethod}
+          paymentReturn={record?.paymentReturn}
         />
         <NumberInputField
           name="actualAmount"
@@ -463,14 +464,18 @@ const PhoneApplyInfo = ({ value = "" }) => {
   )
 }
 
-const PlayerApplyInfoCardBody = ({ applyInfo, bankType }) => {
+const PlayerApplyInfoCardBody = ({ applyInfo, bankType, paymentReturn }) => {
   switch (bankType) {
     case BankType.Bank: //refer to ManualDeposit/ManualDepositBankApplyInfo.cs
       return (
         <>
           <BankApplyInfo
-            accountName={applyInfo?.sendBankName}
-            account={applyInfo?.sendBankAccount}
+            accountName={
+              applyInfo?.sendBankName ?? paymentReturn?.sendAccountName
+            }
+            account={
+              applyInfo?.sendBankAccount ?? paymentReturn?.sendBankAccount
+            }
           />
         </>
       )
@@ -508,7 +513,7 @@ const PlayerApplyInfoCardBody = ({ applyInfo, bankType }) => {
   }
 }
 
-const PlayerApplyInfoCard = ({ applyInfo, bankType }) => {
+const PlayerApplyInfoCard = ({ applyInfo, bankType, paymentReturn }) => {
   return (
     <Card
       variant="bordered"
@@ -522,19 +527,27 @@ const PlayerApplyInfoCard = ({ applyInfo, bankType }) => {
       `}
     >
       <FieldValues>
-        <PlayerApplyInfoCardBody applyInfo={applyInfo} bankType={bankType} />
+        <PlayerApplyInfoCardBody
+          applyInfo={applyInfo}
+          bankType={bankType}
+          paymentReturn={paymentReturn}
+        />
       </FieldValues>
     </Card>
   )
 }
 
-const PlatformApplyInfoCardBody = ({ applyInfo, bankType }) => {
+const PlatformApplyInfoCardBody = ({ applyInfo, bankType, paymentReturn }) => {
   switch (bankType) {
     case BankType.Bank:
       return (
         <BankApplyInfo
-          accountName={applyInfo?.receiveAccountName}
-          account={applyInfo?.receiveBankAccount}
+          accountName={
+            applyInfo?.receiveAccountName ?? paymentReturn?.receiveAccountName
+          }
+          account={
+            applyInfo?.receiveBankAccount ?? paymentReturn?.receiveBankAccount
+          }
         />
       )
     case BankType.FPS:
@@ -560,7 +573,7 @@ const PlatformApplyInfoCardBody = ({ applyInfo, bankType }) => {
   }
 }
 
-const PlatformApplyInfoCard = ({ applyInfo, bankType }) => {
+const PlatformApplyInfoCard = ({ applyInfo, bankType, paymentReturn }) => {
   return (
     <Card
       variant="bordered"
@@ -574,7 +587,11 @@ const PlatformApplyInfoCard = ({ applyInfo, bankType }) => {
       `}
     >
       <FieldValues>
-        <PlatformApplyInfoCardBody applyInfo={applyInfo} bankType={bankType} />
+        <PlatformApplyInfoCardBody
+          applyInfo={applyInfo}
+          bankType={bankType}
+          paymentReturn={paymentReturn}
+        />
       </FieldValues>
     </Card>
   )
@@ -587,7 +604,7 @@ let applyInfoSupportedBankType = [
   BankType.Pulsa,
   BankType.Coinsph
 ]
-const ApplyInfoBox = ({ applyInfo, paymentMethod }) => {
+const ApplyInfoBox = ({ applyInfo, paymentMethod, paymentReturn }) => {
   let bankType = paymentMethod?.bankType
   let isTablet = useBreakpoint("max-tablet")
 
@@ -605,6 +622,7 @@ const ApplyInfoBox = ({ applyInfo, paymentMethod }) => {
         <PlayerApplyInfoCard
           applyInfo={applyInfo}
           bankType={bankType}
+          paymentReturn={paymentReturn}
           flex="1"
         />
         <Box alignX="center" alignY="center">
@@ -616,6 +634,7 @@ const ApplyInfoBox = ({ applyInfo, paymentMethod }) => {
         <PlatformApplyInfoCard
           applyInfo={applyInfo}
           bankType={bankType}
+          paymentReturn={paymentReturn}
           flex="1"
         />
       </Set>
