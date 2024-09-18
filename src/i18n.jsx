@@ -9,6 +9,7 @@ import {
   HourMinuteSecondDayMonthYear
 } from "./date/format"
 import { isObject } from "lodash-es"
+import getTranslations from "./trans/getTranslations"
 
 registerLocale("en", enUS)
 registerLocale("zh", zhCN)
@@ -133,10 +134,72 @@ export const useLangCode = () => {
 export const useTrans = (messages = {}) => {
   let Default = Locales.en
   let locale = useLocale()
-  return messages[locale] ?? messages[Default] ?? ""
+
+  const en = messages[Locales.en]
+  const key = convertEnToKey(en)
+  const translations = getTranslations(key)
+  // Begin debug and collect translations
+  //   if (messages[Locales.en] != "") {
+  //     addTransInMemory(key, en)
+  //   }
+  //End debug and collect translations
+
+  return messages[locale] ?? translations[locale] ?? messages[Default] ?? ""
 }
 
+export const convertEnToKey = (en) => {
+  return en.toLowerCase().replace(/[^A-Z0-9]+/gi, "_")
+}
+
+// Begin debug and collect translations
+// const handleAddTranslation = async (object, lang) => {
+//   try {
+//     const response = await fetch("http://localhost:5001/api/translations/add", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({ key, value, lang })
+//     })
+
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok")
+//     }
+
+//     const data = await response.json()
+//     console.log("Success:", data)
+//   } catch (error) {
+//     console.error("Error:", error)
+//   }
+// }
+
+// let transInMemory = {}
+
+// const addTransInMemory = (key, value) => {
+//   transInMemory[key] = value
+// }
+//End debug and collect translations
+
 export const Trans = ({ en = "", zh = "", vi = "", th = "", ...props }) => {
+  const key = convertEnToKey(en)
+  // Begin debug and collect translations
+  //   console.log("KEY:::: ", key)
+  //   console.log("en zh vi th:::: ", en, zh, vi, th)
+
+  //   if (en != "") {
+  //     addTransInMemory(key, en)
+  //   }
+  //   console.log("transInMemory:::: ", transInMemory)
+  // End debug and collect translations
+
+  const translations = getTranslations(key)
+  if (translations) {
+    en = en || translations.en || ""
+    zh = zh || translations.zh || ""
+    vi = vi || translations.vi || ""
+    th = th || translations.th || ""
+  }
+
   let locale = useLocale()
   switch (locale) {
     case Locales.en:
@@ -233,10 +296,19 @@ export const FormattedNumberDecimalPercentage = ({
   ...props
 }) => <FormattedNumberDecimal postfix={postfix} {...props} />
 
-export const getTrans = (messages = {}, locale = Locales.zh) =>
-  isObject(messages)
-    ? Reflect.get(messages, locale) ?? Reflect.get(messages, Locales.en) ?? ""
-    : messages
+export const getTrans = (messages = {}, locale = Locales.zh) => {
+  if (isObject(messages)) {
+    let en = Reflect.get(messages, Locales.en) ?? ""
+    let key = convertEnToKey(en)
+    let translations = getTranslations(key)
+    if (translations) {
+      return Reflect.get(messages, locale) ?? translations[locale] ?? en
+    }
+  }
+  // isObject(messages)
+  //   ? Reflect.get(messages, locale) ?? Reflect.get(messages, Locales.en) ?? ""
+  //   : messages
+}
 
 export const LangDropdownMenu = ({ ...props }) => {
   let locale = useLocale()

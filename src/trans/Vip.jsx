@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState } from "react"
 import { Trans, useTrans } from "../i18n"
-import getTrans from "./getTrans"
 
 export const VipLevel = {
-  ...getTrans("Vip.VipLevel"),
   zh: "VIP 等级",
   en: "VIP Level",
   vi: "Cấp VIP"
@@ -12,7 +10,6 @@ export const VipLevelTrans = () => <Trans {...VipLevel} />
 export const useVipLevelTrans = () => useTrans(VipLevel)
 
 const VipBefore = {
-  ...getTrans("Vip.VipBefore"),
   zh: "结算前等級",
   en: "Before",
   vi: "Cấp VIP trước kết toán"
@@ -20,7 +17,6 @@ const VipBefore = {
 export const VipBeforeTrans = () => <Trans {...VipBefore} />
 
 const VipAfter = {
-  ...getTrans("Vip.VipAfter"),
   zh: "结算后等級",
   en: "After",
   vi: "Cấp VIP sau kết toán"
@@ -28,7 +24,6 @@ const VipAfter = {
 export const VipAfterTrans = () => <Trans {...VipAfter} />
 
 const VipHistoryRecord = {
-  ...getTrans("Vip.VipHistoryRecord"),
   zh: "VIP升降級記錄",
   en: "VIP History Record",
   vi: "Lịch sử thăng hạng VIP"
@@ -36,7 +31,6 @@ const VipHistoryRecord = {
 export const VipHistoryRecordTrans = () => <Trans {...VipHistoryRecord} />
 
 const Requirements = {
-  ...getTrans("Vip.Requirements"),
   zh: "需满足条件",
   en: "Requirements",
   vi: "Điều kiện nhận thưởng"
@@ -44,7 +38,6 @@ const Requirements = {
 export const RequirementsTrans = () => <Trans {...Requirements} />
 
 const RequiredBetAmountToLevelUp = {
-  ...getTrans("Vip.RequiredBetAmountToLevelUp"),
   zh: "累积投注金额(即时)",
   en: "Total Bet Amount (Real-time)",
   vi: "số tiền đặt cược tích lũy( thời giac thực )"
@@ -54,7 +47,6 @@ export const RequiredBetAmountToLevelUpTrans = () => (
 )
 
 const RequiredDepositAmountToLevelUp = {
-  ...getTrans("Vip.RequiredDepositAmountToLevelUp"),
   zh: "累积存款金额(即时)",
   en: "Total Deposit Amount (Real-time)",
   vi: "số tiền nạp tích lũy ( thời giac thực )"
@@ -64,7 +56,6 @@ export const RequiredDepositAmountToLevelUpTrans = () => (
 )
 
 const VipBenefits = {
-  ...getTrans("Vip.VipBenefits"),
   zh: "VIP福利",
   en: "VIP benefits",
   vi: "phúc lợi VIP"
@@ -72,7 +63,6 @@ const VipBenefits = {
 export const VipBenefitsTrans = () => <Trans {...VipBenefits} />
 
 const BirthdayBonus = {
-  ...getTrans("Vip.BirthdayBonus"),
   zh: "生日福利",
   en: "Birthday Bonus",
   vi: "phúc lợi sinh nhật"
@@ -80,7 +70,6 @@ const BirthdayBonus = {
 export const BirthdayBonusTrans = () => <Trans {...BirthdayBonus} />
 
 const PromotionBonus = {
-  ...getTrans("Vip.PromotionBonus"),
   zh: "晋升福利",
   en: "Level Up Bonus",
   vi: "phúc lợi thăng cấp"
@@ -88,7 +77,6 @@ const PromotionBonus = {
 export const PromotionBonusTrans = () => <Trans {...PromotionBonus} />
 
 const QuarterlyBonus = {
-  ...getTrans("Vip.QuarterlyBonus"),
   zh: "季度福利",
   en: "Quarterly Bonus",
   vi: "phúc lợi theo quý"
@@ -96,7 +84,6 @@ const QuarterlyBonus = {
 export const QuarterlyBonusTrans = () => <Trans {...QuarterlyBonus} />
 
 const WithdrawalPolicy = {
-  ...getTrans("Vip.WithdrawalPolicy"),
   zh: "提款限制",
   en: "Withdrawal Policy",
   vi: "giới hạn rút tiền"
@@ -104,7 +91,6 @@ const WithdrawalPolicy = {
 export const WithdrawalPolicyTrans = () => <Trans {...WithdrawalPolicy} />
 
 const TransactionsPerDay = {
-  ...getTrans("Vip.TransactionsPerDay"),
   zh: "单日次数",
   en: "Transactions per Day",
   vi: "số lần trong ngày"
@@ -112,7 +98,6 @@ const TransactionsPerDay = {
 export const TransactionsPerDayTrans = () => <Trans {...TransactionsPerDay} />
 
 const TotalAmountPerDay = {
-  ...getTrans("Vip.TotalAmountPerDay"),
   zh: "单日总额",
   en: "Total Amount per Day",
   vi: "tổng cộng trong ngày"
@@ -120,7 +105,6 @@ const TotalAmountPerDay = {
 export const TotalAmountPerDayTrans = () => <Trans {...TotalAmountPerDay} />
 
 const VipCommissionRebate = {
-  ...getTrans("Vip.VipCommissionRebate"),
   zh: "VIP返水比例",
   en: "VIP Commission Rebate",
   vi: "Tỉ lệ hoàn trả VIP"
@@ -128,7 +112,6 @@ const VipCommissionRebate = {
 export const VipCommissionRebateTrans = () => <Trans {...VipCommissionRebate} />
 
 const LiveDealerCommissionRebate = {
-  ...getTrans("Vip.LiveDealerCommissionRebate"),
   zh: "真人返水比例(%)",
   en: "Live Dealer Commission Rebate",
   vi: "tỉ lệ hoàn trả casino (%)"
@@ -138,7 +121,6 @@ export const LiveDealerCommissionRebateTrans = () => (
 )
 
 const EGameCommissionRebate = {
-  ...getTrans("Vip.EGameCommissionRebate"),
   zh: "电子返水比例(%)",
   en: "EGame Commission Rebate",
   vi: "tỉ lệ hoàn trả điện tử (%)"
@@ -148,7 +130,6 @@ export const EGameCommissionRebateTrans = () => (
 )
 
 const CardGameCommissionRebate = {
-  ...getTrans("Vip.CardGameCommissionRebate"),
   zh: "棋牌返水比例(%)",
   en: "Card Game Commission Rebate",
   vi: "tỉ lệ hoàn trả game bài (%)"
@@ -158,7 +139,6 @@ export const CardGameCommissionRebateTrans = () => (
 )
 
 const SportsbookCommissionRebate = {
-  ...getTrans("Vip.SportsbookCommissionRebate"),
   zh: "体育返水比例(%)",
   en: "Sportsbook Commission Rebate",
   vi: "tỉ lệ hoàn trả thể thao (%)"
@@ -168,7 +148,6 @@ export const SportsbookCommissionRebateTrans = () => (
 )
 
 const VirtualSportsCommissionRebate = {
-  ...getTrans("Vip.VirtualSportsCommissionRebate"),
   zh: "虚拟体育返水比例(%)",
   en: "VirtualSports Commission Rebate",
   vi: "tỉ lệ hoàn trả thể thao ảo (%)"
@@ -178,7 +157,6 @@ export const VirtualSportsCommissionRebateTrans = () => (
 )
 
 const LotteryCommissionRebate = {
-  ...getTrans("Vip.LotteryCommissionRebate"),
   zh: "彩票返水比例(%)",
   en: "Lottery Commission Rebate",
   vi: "tỉ lệ hoàn trả sổ xố (%)"
@@ -188,7 +166,6 @@ export const LotteryCommissionRebateTrans = () => (
 )
 
 const VipUpgrade = {
-  ...getTrans("Vip.VipUpgrade"),
   zh: "VIP升级方式",
   en: "VIP Upgrade Method",
   vi: "Cách thức nâng cấp VIP"
@@ -196,7 +173,6 @@ const VipUpgrade = {
 export const VipUpgradeTrans = (props) => <Trans {...VipUpgrade} {...props} />
 
 const VipAccumulationStatus = {
-  ...getTrans("Vip.VipAccumulationStatus"),
   zh: "VIP累积状况",
   en: "VIP Status",
   vi: "Trạng thái Tích lũy VIP"
@@ -206,7 +182,6 @@ export const VipAccumulationStatusTrans = () => (
 )
 
 const CurrentVipLevel = {
-  ...getTrans("Vip.CurrentVipLevel"),
   zh: "当前VIP等级",
   en: "Current VIP Level",
   vi: "Cấp bậc VIP hiện tại"
@@ -214,7 +189,6 @@ const CurrentVipLevel = {
 export const CurrentVipLevelTrans = () => <Trans {...CurrentVipLevel} />
 
 const VipTotalValidBet = {
-  ...getTrans("Vip.VipTotalValidBet"),
   zh: "总投注金额",
   en: "Total Valid Bet",
   vi: "Tổng cược"
@@ -222,7 +196,6 @@ const VipTotalValidBet = {
 export const VipTotalValidBetTrans = () => <Trans {...VipTotalValidBet} />
 
 const VipTotalDeposit = {
-  ...getTrans("Vip.VipTotalDeposit"),
   zh: "总存款金额",
   en: "Total Deposit",
   vi: "Tổng tiền nạp"
@@ -230,7 +203,6 @@ const VipTotalDeposit = {
 export const VipTotalDepositTrans = () => <Trans {...VipTotalDeposit} />
 
 export const AgentDividendDistribution = {
-  ...getTrans("Vip.AgentDividendDistribution"),
   zh: "代理分红派发",
   en: "Agent dividend distribution",
   vi: "phân phát hoa hồng đại lý"

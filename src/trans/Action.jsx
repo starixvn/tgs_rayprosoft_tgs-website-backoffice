@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState } from "react"
 import { Trans, useTrans } from "../i18n"
-import getTrans from "./getTrans"
 
 const Action = {
-  ...getTrans("Action.Action"),
   zh: "操作",
   en: "Actions",
   vi: "Thao tác"
@@ -12,7 +10,6 @@ export const useActionTrans = () => useTrans(Action)
 export const ActionTrans = () => <Trans {...Action} />
 
 const EditingRecords = {
-  ...getTrans("Action.EditingRecords"),
   zh: "操作记录",
   en: "Editing Records",
   vi: "Lịch sử thao tác"
@@ -20,7 +17,6 @@ const EditingRecords = {
 export const EditingRecordsTrans = () => <Trans {...EditingRecords} />
 
 const ActionType = {
-  ...getTrans("Action.ActionType"),
   zh: "操作项",
   en: "Type",
   vi: "Mục thao tác"
@@ -28,7 +24,6 @@ const ActionType = {
 export const ActionTypeTrans = () => <Trans {...ActionType} />
 
 const Search = {
-  ...getTrans("Action.Search"),
   zh: "搜索",
   en: "Search",
   vi: "Tìm kiếm"
@@ -36,7 +31,6 @@ const Search = {
 export const SearchTrans = () => <Trans {...Search} />
 
 const Remark = {
-  ...getTrans("Action.Remark"),
   zh: "备注",
   en: "Remark",
   vi: "Ghi chú"
@@ -45,7 +39,6 @@ export const useRemarkTrans = () => useTrans(Remark)
 export const RemarkTrans = () => <Trans {...Remark} />
 
 export const View = {
-  ...getTrans("Action.View"),
   zh: "查看",
   en: "View",
   vi: "Kiểm tra"
@@ -54,7 +47,6 @@ export const ViewTrans = () => <Trans {...View} />
 export const useViewTrans = () => useTrans(View)
 
 const Edit = {
-  ...getTrans("Action.Edit"),
   zh: "修改",
   en: "Edit",
   vi: "Biên tập"
@@ -63,7 +55,6 @@ export const EditTrans = () => <Trans {...Edit} />
 export const useEditTrans = () => useTrans(Edit)
 
 const TransactionType = {
-  ...getTrans("Action.TransactionType"),
   zh: "交易类型",
   en: "Transaction Type",
   vi: "Loại giao dịch"
@@ -72,7 +63,6 @@ export const useTransactionTypeTrans = () => useTrans(TransactionType)
 export const TransactionTypeTrans = () => <Trans {...TransactionType} />
 
 const AddBalance = {
-  ...getTrans("Action.AddBalance"),
   zh: "加钱",
   en: "Add Balance",
   vi: "Thêm tiền"
@@ -80,7 +70,6 @@ const AddBalance = {
 export const AddBalanceTrans = () => <Trans {...AddBalance} />
 
 const DeductBalance = {
-  ...getTrans("Action.DeductBalance"),
   zh: "扣钱",
   en: "Deduct Balance",
   vi: "Trừ tiền"
@@ -88,7 +77,6 @@ const DeductBalance = {
 export const DeductBalanceTrans = () => <Trans {...DeductBalance} />
 
 const AgentAdjust = {
-  ...getTrans("Action.AgentAdjust"),
   zh: "代理调账",
   en: "Agent Adjust",
   vi: "Đại lý điều chỉnh"
@@ -97,7 +85,6 @@ export const useAgentAdjustTrans = () => useTrans(AgentAdjust)
 export const AgentAdjustTrans = () => <Trans {...AgentAdjust} />
 
 export const SystemAdjust = {
-  ...getTrans("Action.SystemAdjust"),
   zh: "系統调账",
   en: "System Adjust",
   vi: "Hệ thống điều chỉnh"
@@ -106,7 +93,6 @@ export const useSystemAdjustTrans = () => useTrans(SystemAdjust)
 export const SystemAdjustTrans = () => <Trans {...SystemAdjust} />
 
 const Operator = {
-  ...getTrans("Action.Operator"),
   zh: "操作者",
   en: "Operator",
   vi: "Người thao thác"
@@ -114,7 +100,6 @@ const Operator = {
 export const OperatorTrans = () => <Trans {...Operator} />
 
 const Detail = {
-  ...getTrans("Action.Detail"),
   zh: "详情",
   en: "Detail",
   vi: "Chi tiết"
@@ -123,7 +108,6 @@ export const DetailTrans = () => <Trans {...Detail} />
 export const useDetailTrans = () => useTrans(Detail)
 
 const Import = {
-  ...getTrans("Action.Import"),
   zh: "汇入",
   en: "Import",
   vi: "Chuyển vào"
@@ -131,7 +115,6 @@ const Import = {
 export const ImportTrans = () => <Trans {...Import} />
 
 const DownloadFormatFile = {
-  ...getTrans("Action.DownloadFormatFile"),
   zh: "下载文件格式",
   en: "Download Format File",
   vi: "Định dạng tệp tin tải về"
@@ -139,7 +122,6 @@ const DownloadFormatFile = {
 export const DownloadFormatFileTrans = () => <Trans {...DownloadFormatFile} />
 
 const UploadFile = {
-  ...getTrans("Action.UploadFile"),
   zh: "上传文件",
   en: "Upload file",
   vi: "Tải lên tệp"
@@ -147,7 +129,6 @@ const UploadFile = {
 export const UploadFileTrans = () => <Trans {...UploadFile} />
 
 const Cancel = {
-  ...getTrans("Action.Cancel"),
   zh: "取消",
   en: "Cancel",
   vi: "Hủy bỏ"
@@ -156,7 +137,6 @@ export const CancelTrans = () => <Trans {...Cancel} />
 export const useCancelTrans = () => useTrans(Cancel)
 
 const Submit = {
-  ...getTrans("Action.Submit"),
   zh: "提交",
   en: "Submit",
   vi: "Gửi/Đệ trình"
@@ -164,7 +144,6 @@ const Submit = {
 export const SubmitTrans = () => <Trans {...Submit} />
 
 const Confirm = {
-  ...getTrans("Action.Confirm"),
   zh: "确定",
   en: "Submit",
   vi: "xác định"
@@ -173,7 +152,6 @@ export const ConfirmTrans = () => <Trans {...Confirm} />
 export const useConfirmTrans = () => useTrans(Confirm)
 
 const PreviousPage = {
-  ...getTrans("Action.PreviousPage"),
   zh: "前一页",
   en: "Previous page",
   vi: "Trang trước"
@@ -182,7 +160,6 @@ export const PreviousPageTrans = () => <Trans {...PreviousPage} />
 export const usePreviousPageTrans = () => useTrans(PreviousPage)
 
 const NextPage = {
-  ...getTrans("Action.NextPage"),
   zh: "下一页",
   en: "Next page",
   vi: "Trang sau"
@@ -191,7 +168,6 @@ export const NextPageTrans = () => <Trans {...NextPage} />
 export const useNextPageTrans = () => useTrans(NextPage)
 
 const ConfirmOrder = {
-  ...getTrans("Action.ConfirmOrder"),
   zh: "确认排序",
   en: "Confirm Order",
   vi: "Xác nhận sắp xếp/Xác nhận thứ tự"
@@ -199,7 +175,6 @@ const ConfirmOrder = {
 export const ConfirmOrderTrans = () => <Trans {...ConfirmOrder} />
 
 const SpecialProcessing = {
-  ...getTrans("Action.SpecialProcessing"),
   zh: "特殊处理",
   en: "Special Processing",
   vi: "Xử lí đặc biệt"
@@ -207,7 +182,6 @@ const SpecialProcessing = {
 export const SpecialProcessingTrans = () => <Trans {...SpecialProcessing} />
 
 export const Export = {
-  ...getTrans("Action.Export"),
   zh: "汇出",
   en: "Export",
   vi: "Chuyển ra"
@@ -215,7 +189,6 @@ export const Export = {
 export const ExportTrans = () => <Trans {...Export} />
 
 const Verify = {
-  ...getTrans("Action.Verify"),
   zh: "审核",
   en: "Verify",
   vi: "Xét duyệt"
@@ -224,7 +197,6 @@ export const VerifyTrans = () => <Trans {...Verify} />
 export const useVerifyTrans = () => useTrans(Verify)
 
 const Review = {
-  ...getTrans("Action.Review"),
   zh: "审核",
   en: "Review",
   vi: "xem duyệt"
@@ -232,7 +204,6 @@ const Review = {
 export const ReviewTrans = () => <Trans {...Review} />
 
 const Add = {
-  ...getTrans("Action.Add"),
   zh: "新增",
   en: "Add",
   vi: "Thêm vào"
@@ -241,7 +212,6 @@ export const AddTrans = (props) => <Trans {...Add} {...props} />
 export const useAddTrans = () => useTrans(Add)
 
 const Delete = {
-  ...getTrans("Action.Delete"),
   zh: "删除",
   en: "Delete",
   vi: "Xóa bỏ"
@@ -250,7 +220,6 @@ export const DeleteTrans = () => <Trans {...Delete} />
 export const useDeleteTrans = () => useTrans(Delete)
 
 const Approve = {
-  ...getTrans("Action.Approve"),
   zh: "通过",
   en: "Approve",
   vi: "thông qua"
@@ -259,7 +228,6 @@ export const ApproveTrans = () => <Trans {...Approve} />
 export const useApproveTrans = () => useTrans(Approve)
 
 export const Reject = {
-  ...getTrans("Action.Reject"),
   zh: "拒绝",
   en: "Reject",
   vi: "từ chối"
@@ -268,7 +236,6 @@ export const RejectTrans = () => <Trans {...Reject} />
 export const useRejectTrans = () => useTrans(Reject)
 
 const SelectAll = {
-  ...getTrans("Action.SelectAll"),
   zh: "全选",
   en: "All",
   vi: "Tất cả"

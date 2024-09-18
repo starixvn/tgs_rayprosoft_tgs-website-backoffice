@@ -1,4 +1,3 @@
-import { id } from "date-fns/locale"
 import translations from "./trans-json"
 
 const Locale = {
@@ -22,7 +21,7 @@ const getTransByLocale = (locale, item) => {
   return result
 }
 
-const getTrans = (item) => {
+const getTranslations = (item) => {
   return {
     th: getTransByLocale(Locale.th, item),
     en: getTransByLocale(Locale.en, item),
@@ -31,4 +30,4 @@ const getTrans = (item) => {
   }
 }
 
-export default getTrans
+export default getTranslations
