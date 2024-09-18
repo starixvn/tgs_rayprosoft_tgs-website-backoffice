@@ -49,12 +49,12 @@ const VipLevelsTrans = {
 const ConditionDetailList = ({ details }) => {
   return details.map((detail, index) => (
     <>
-      {detail}
-      {index !== details.length - 1 && (
-        <>
-          ,<br />
-        </>
-      )}
+      - {detail}
+      {index !== details.length - 1 && <br />}
+    </>
+  ))
+}
+
     </>
   ))
 }
@@ -75,11 +75,10 @@ export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
       ? useTrans(MatchOneTrans)
       : useTrans(MatchAllTrans)
 
-  const allPlayerDetail = allPlayers ? `${useTrans(AllPlayerTrans)}` : ""
+  const allPlayerDetail = allPlayers ? `- ${useTrans(AllPlayerTrans)}` : ""
 
   let details = [
-    ,
-    `${useTrans(AccumulatedDepositTrans)} ${depositedAmountMin} - ${
+    `${useTrans(AccumulatedDepositTrans)}: ${depositedAmountMin} - ${
       depositedAmountUnlimited ? useTrans(UnlimitedTrans) : depositedAmountMax
     }`,
     identityAuthentication ? useTrans(IdentityAuthenticationTrans) : ""
@@ -88,7 +87,7 @@ export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
   return (
     <>
       <Text.Block textAlign="left" whiteSpace={whiteSpace} {...props}>
-        {`${condition}: ${allPlayerDetail},`}
+        {`${condition} ${allPlayerDetail} :`}
         <br />
         <ConditionDetailList details={details} />
       </Text.Block>
