@@ -12,7 +12,8 @@ import {
   Modal,
   Text,
   Heading,
-  Image
+  Image,
+  Icon
 } from "bumbag"
 import Input from "../input/Input"
 import { PasswordInputField } from "../input/PasswordInput"
@@ -29,6 +30,8 @@ import {
   getLoginSubTitleFontSize,
   getLoginImageUrl
 } from "../env"
+
+import { faUserAlt, faLock } from "@fortawesome/free-solid-svg-icons"
 
 export const Path = "/login"
 
@@ -111,13 +114,16 @@ export const Form = () => {
       )} */}
       <Card
         title={loginLabel}
+        textTransform="uppercase"
+        boxShadow="none"
         headerAddon={
           <Set>
             <LangDropdownMenu />
           </Set>
         }
         css={css`
-          width: 370px;
+          width: 400px;
+          border: 1px solid #d9d9e1;
           @media screen and (max-width: 576px) {
             width: 95%;
           }
@@ -126,22 +132,102 @@ export const Form = () => {
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
             <Set orientation="vertical" isFilled>
-              <Input
-                name="username"
-                placeholder={usernameLabel}
-                autoComplete="username"
-              />
-              <PasswordInputField
-                name="password"
-                type="password"
-                placeholder={passwordLabel}
-                autoComplete="current-password"
-              />
+              <Box
+                css={css`
+                  border: 1px solid #d9d9e1;
+                  border-radius: 5px;
+                  overflow: hidden;
+                  margin-bottom: 16px !important;
+                  display: flex;
+                `}
+              >
+                <Box
+                  css={css`
+                    padding: 0.375rem 0.75rem;
+                    background-color: #f3f4f7;
+                    border-right: 1px solid #dbdfe6;
+                    display: flex;
+                    align-items: center;
+                  `}
+                >
+                  <Icon
+                    icon={faUserAlt}
+                    type="font-awesome"
+                    color="rgba(37, 43, 54, 0.38)"
+                    fontSize="12px"
+                  />
+                </Box>
+                <Input
+                  name="username"
+                  placeholder={usernameLabel}
+                  autoComplete="username"
+                  css={css`
+                    > input {
+                      border: none !important;
+                      :focus {
+                        box-shadow: none !important;
+                      }
+                      border-radius: 0 !important;
+                    }
+                  `}
+                />
+              </Box>
+              <Box
+                css={css`
+                  border: 1px solid #d9d9e1;
+                  border-radius: 5px;
+                  overflow: hidden;
+                  margin-bottom: 16px !important;
+                  display: flex;
+                `}
+              >
+                <Box
+                  css={css`
+                    padding: 0.375rem 0.75rem;
+                    background-color: #f3f4f7;
+                    border-right: 1px solid #dbdfe6;
+                    display: flex;
+                    align-items: center;s
+                  `}
+                >
+                  <Icon
+                    icon={faLock}
+                    type="font-awesome"
+                    color="rgba(37, 43, 54, 0.38)"
+                    fontSize="12px"
+                  />
+                </Box>
+                <PasswordInputField
+                  name="password"
+                  type="password"
+                  placeholder={passwordLabel}
+                  autoComplete="current-password"
+                  css={css`
+                    > div {
+                      input {
+                        border: none !important;
+                        :focus {
+                          box-shadow: none !important;
+                        }
+                        border-radius: 0 !important;
+                      }
+                    }
+                  `}
+                />
+              </Box>
               <Button
                 type="submit"
                 color={getLoginButtonColor()}
                 background={getLoginButtonBackground()}
                 isLoading={isAuthLoading}
+                textTransform="uppercase"
+                border="none"
+                fontWeight="500"
+                css={css`
+                  :focus {
+                    box-shadow: none !important;
+                  }
+                `}
               >
                 {loginLabel}
               </Button>

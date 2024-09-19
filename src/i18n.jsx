@@ -347,7 +347,12 @@ export const LangDropdownMenu = ({ ...props }) => {
         </>
       }
     >
-      <Button variant="ghost" iconAfter="chevron-down">
+      <Button
+        variant="link"
+        textDecoration="none"
+        iconAfter="chevron-down"
+        fontSize="16px"
+      >
         {locale === Locales.zh && chinese}
         {locale === Locales.en && english}
         {locale === Locales.vi && vietnamese}
