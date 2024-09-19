@@ -5,7 +5,27 @@ import { useTrans, Trans } from "../i18n"
 import { SubmitTrans } from "../trans/Action"
 
 export const SubmitButton = ({ type = "submit", children, ...props }) => (
-  <Button type={type} {...props}>
+  <Button
+    type={type}
+    {...props}
+    boxShadow="none"
+    css={css`
+      background: #4b49b6;
+      color: #fff;
+      border-radius: 6px !important;
+      border: 1px solid !important;
+      &:focus,
+      &:hover,
+      &:active {
+        background: #4b49b6;
+      }
+      &:hover {
+        &:active {
+          background: #4b49b6;
+        }
+      }
+    `}
+  >
     {children ?? <SubmitTrans />}
   </Button>
 )

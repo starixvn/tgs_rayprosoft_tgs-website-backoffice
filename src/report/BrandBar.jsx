@@ -11,6 +11,7 @@ import { MerchantIdSelect } from "../merchant/MerchantSelect"
 import { nextRoleType } from "../system/roles/type"
 import equals from "fast-deep-equal"
 import SubmitButton from "../button/SubmitButton"
+import { css } from "@emotion/react"
 
 const localStorageKey = "selectedMerchant"
 const getSelectedMerchantLocalStorage = () => {
@@ -119,6 +120,29 @@ export const BrandBar = ({
           }
         }}
         {...props}
+        css={css`
+          gap: 8px;
+          > div {
+            border-radius: 6px !important;
+            > select {
+              cursor: pointer;
+              border-radius: 6px !important;
+              &:focus {
+                box-shadow: none !important;
+              }
+            }
+            &:not(:nth-child(1)) {
+              > select {
+                width: 210px;
+                min-width: 210px;
+                @media (max-width: 767px) {
+                  min-width: unset;
+                  width: auto;
+                }
+              }
+            }
+          }
+        `}
       >
         <SubmitButton onClick={onSubmit} />
       </MerchantIdSelect>

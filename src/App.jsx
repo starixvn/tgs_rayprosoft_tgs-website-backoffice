@@ -231,6 +231,22 @@ const Header = () => {
                   </DropdownMenu.Item>
                 </>
               }
+              css={css`
+                > div {
+                  box-shadow: none !important;
+                  border: 1px solid #ddd;
+                  &:hover {
+                    span {
+                      color: rgba(37, 43, 54, 0.95);
+                    }
+                  }
+                  span {
+                    color: rgba(37, 43, 54, 0.95);
+                    font-weight: 400;
+                    font-size: 16px;
+                  }
+                }
+              `}
             >
               <Button
                 variant="link"
@@ -293,6 +309,22 @@ const LangItem = ({ ...props }) => {
             <DropdownMenu.Item onClick={useTh}>{thai}</DropdownMenu.Item>
           </>
         }
+        css={css`
+          > div {
+            box-shadow: none !important;
+            border: 1px solid #ddd;
+            &:hover {
+              div {
+                color: rgba(37, 43, 54, 0.95);
+              }
+            }
+            div {
+              color: rgba(37, 43, 54, 0.95);
+              font-weight: 400;
+              font-size: 16px;
+            }
+          }
+        `}
       >
         <Button
           variant="link"
@@ -340,6 +372,7 @@ const Sidebar = () => {
       selectedId={selectedId}
       css={css`
         padding: 8px;
+        background: #ffffff;
       `}
     >
       <AllMenus />
