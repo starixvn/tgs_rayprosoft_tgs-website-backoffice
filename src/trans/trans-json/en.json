@@ -636,7 +636,7 @@
   "payment_type": "Payment Type",
   "review_identity_status": "Review Identity Status",
   "approved": "Approved",
-  "must_be_less_than_or_equal_to_5": "Must be less than or equal to 50 items",
+  "must_be_less_than_or_equal_to": "Must be less than or equal to",
   "items": "items",
   "add_agent": "Add Agent",
   "alphabet_and_number_only": "Alphabet and Number Only",
