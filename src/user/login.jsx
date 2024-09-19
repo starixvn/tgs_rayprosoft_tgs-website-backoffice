@@ -162,6 +162,7 @@ export const Form = () => {
                   placeholder={usernameLabel}
                   autoComplete="username"
                   css={css`
+                    width: 100%;
                     > input {
                       border: none !important;
                       :focus {
@@ -203,9 +204,12 @@ export const Form = () => {
                   placeholder={passwordLabel}
                   autoComplete="current-password"
                   css={css`
+                    width: 100%;
                     > div {
+                      width: 100%;
                       input {
                         border: none !important;
+                        width: 100%;
                         :focus {
                           box-shadow: none !important;
                         }
