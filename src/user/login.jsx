@@ -124,6 +124,7 @@ export const Form = () => {
         css={css`
           width: 400px;
           border: 1px solid #d9d9e1;
+          padding: 2.5rem;
           @media screen and (max-width: 576px) {
             width: 95%;
           }
@@ -165,9 +166,7 @@ export const Form = () => {
                     width: 100%;
                     > input {
                       border: none !important;
-                      :focus {
-                        box-shadow: none !important;
-                      }
+                      height: 38px;
                       border-radius: 0 !important;
                     }
                   `}
@@ -209,10 +208,8 @@ export const Form = () => {
                       width: 100%;
                       input {
                         border: none !important;
+                        height: 38px;
                         width: 100%;
-                        :focus {
-                          box-shadow: none !important;
-                        }
                         border-radius: 0 !important;
                       }
                     }
@@ -227,6 +224,7 @@ export const Form = () => {
                 textTransform="uppercase"
                 border="none"
                 fontWeight="500"
+                minHeight="38px"
                 css={css`
                   :focus {
                     box-shadow: none !important;
