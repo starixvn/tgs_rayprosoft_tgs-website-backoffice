@@ -39,3 +39,6 @@ body.tox-fullscreen .tox-fullscreen {
 .bb-DialogClose {
   z-index: 2;
 }
+.bb-PageContent {
+  padding: 1.5rem !important;
+}

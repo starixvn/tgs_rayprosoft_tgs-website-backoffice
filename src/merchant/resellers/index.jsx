@@ -120,8 +120,25 @@ const SearchForm = ({ search, isLoading, ...props }) => {
             name="keyword"
             showEmptyFieldValueAddonAfter
             placeholder={searchPlaceHolder}
+            css={css`
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            `}
           />
-
           <SearchButton isLoading={isLoading} />
         </Set>
       </form>
@@ -210,7 +227,7 @@ const useColumns = ({ items = [], mutate }) => {
           disableSortBy: true,
           Cell: ({ value }) => {
             return (
-              <Set orientation="horizontal" alignX="center">
+              <Set orientation="horizontal" alignX="center" padding="0">
                 <ViewButton record={value} />
                 <EditButton record={value} onSubmitted={mutate} />
               </Set>
