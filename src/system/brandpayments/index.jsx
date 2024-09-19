@@ -14,40 +14,7 @@ import {
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useIsVisible } from "react-is-visible"
-import {
-  PlatformPageContent,
-  usePlatformId,
-  usePlatformPageContentWidth
-} from "../../page/PlatformPageContent"
-import AutoSizer from "react-virtualized-auto-sizer"
-import {
-  useIsDisplayMenuByRoute,
-  useHasSubMenuByRoute,
-  useUserBrandId
-} from "../../user/context"
-import { Code } from "./menu"
-import { useTable, Table, pageCount, toApiParams } from "../../table"
-import { FormattedNumberDecimal, Trans, useTrans } from "../../i18n"
 import SearchButton from "../../button/SearchButton"
-import equals from "fast-deep-equal"
-import {
-  BrandPaymentStatusSelect,
-  BrandPaymentStatusToggleButton,
-  isBrandPaymentDisabled
-} from "./BrandPaymentStatus"
-import TransferType, {
-  isWithdrawalPlatformPayment
-} from "./BrandPaymentTransferType"
-import {
-  useChangeBrandPaymentOrders,
-  useBrandPaymentList,
-  useBrandPaymentBalanceList
-} from "./client"
-import { View as ViewMenu, Update as UpdateMenu } from "./menu"
-import { Detail as ConditionDetail } from "./condition"
-import { AddBrandPaymentButton, EditButton } from "./edit"
-import { ViewButton as LogsButton } from "./logs"
-import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import { AlertDialog } from "../../dialog/Alert"
 import { FormattedNumberDecimal, Trans, useTrans } from "../../i18n"
 import { InputField } from "../../input/Input"
@@ -61,7 +28,6 @@ import {
   PaymentProviderLabel,
   isManualPaymentProvider
 } from "../../payment/PaymentProvider"
-import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
 import { PaymentChannelLabel } from "../../payment/channel/PaymentChannel"
 import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
 import { Table, pageCount, toApiParams, useTable } from "../../table"
@@ -81,7 +47,6 @@ import {
   WithdrawTrans
 } from "../../trans/Payment"
 import { EnabledTrans, StatusTrans } from "../../trans/Status"
-import { OrderTrans } from "../../trans/Field"
 import { DesignatedUsersTrans } from "../../trans/User"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import { BrandAutoWithdrawDialogDisclosure } from "./BrandAutoWithdraw"
@@ -319,10 +284,7 @@ const DataTable = ({
 const SearchBar = ({ search, isLoading, ...props }) => {
   let formMethods = useForm()
   let keywordPlaceholder = useSearchInputPlaceHolder()
-  const onSubmit = (data) => {
-    console.log(data)
-    return search(data)
-  }
+  const onSubmit = (data) => search(data)
 
   return (
     <FormProvider {...formMethods}>
