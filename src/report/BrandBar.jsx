@@ -127,6 +127,7 @@ export const BrandBar = ({
             > select {
               cursor: pointer;
               border-radius: 6px !important;
+              border: 1px solid #dbdfe6 !important;
               &:focus {
                 box-shadow: none !important;
               }

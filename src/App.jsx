@@ -182,11 +182,7 @@ const Header = () => {
               variant="link"
               boxShadow="none"
             >
-              <Icon
-                icon="solid-bars"
-                fontSize="300"
-                color="rgba(8, 10, 12, 0.65)"
-              />
+              <Icon icon="solid-bars" fontSize="300" color="#080a0ca6" />
             </Button>
           </TopNav.Item>
           <TopNav.Item marginLeft="-0.15rem">
@@ -237,11 +233,11 @@ const Header = () => {
                   border: 1px solid #ddd;
                   &:hover {
                     span {
-                      color: rgba(37, 43, 54, 0.95);
+                      color: #252b36f2;
                     }
                   }
                   span {
-                    color: rgba(37, 43, 54, 0.95);
+                    color: #252b36f2;
                     font-weight: 400;
                     font-size: 16px;
                   }
@@ -252,7 +248,7 @@ const Header = () => {
                 variant="link"
                 textDecoration="none"
                 // iconAfter="chevron-down"
-                color="rgba(8, 10, 12, 0.65)"
+                color="#252b36f2"
                 background={getHeaderButtonBackground()}
                 padding="0 10px"
                 fontWeight="400"
@@ -315,11 +311,11 @@ const LangItem = ({ ...props }) => {
             border: 1px solid #ddd;
             &:hover {
               div {
-                color: rgba(37, 43, 54, 0.95);
+                color: #252b36f2;
               }
             }
             div {
-              color: rgba(37, 43, 54, 0.95);
+              color: #252b36f2;
               font-weight: 400;
               font-size: 16px;
             }
@@ -330,7 +326,7 @@ const LangItem = ({ ...props }) => {
           variant="link"
           textDecoration="none"
           // iconAfter="chevron-down"
-          color="rgba(8, 10, 12, 0.65)"
+          color="#252b36f2"
           background={getHeaderButtonBackground()}
           padding="0 10px"
           fontWeight="400"

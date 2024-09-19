@@ -152,8 +152,12 @@ export const Menu = ({ title, url, codes, codePaths, itemLabel }) => {
             font-size: 14px;
             line-height: normal;
             text-transform: uppercase;
-            border-radius: 5px;
-            padding: 5px 0px 5px 10px;
+            border-radius: 0.375rem;
+            padding: 8px 0px 8px 10px;
+            font-weight: 500;
+            span {
+              color: #252b36f2 !important;
+            }
           `}
         >
           {title}
@@ -167,7 +171,7 @@ export const Menu = ({ title, url, codes, codePaths, itemLabel }) => {
             <Icon
               icon={show ? faAngleUp : faAngleDown}
               type="font-awesome"
-              color="rgba(37, 43, 54, 0.38)"
+              color="#252b3661"
               fontSize="12px"
             />
           </Button>
@@ -218,6 +222,7 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
       css={css`
         font-size: 1rem;
         line-height: normal;
+        margin-top: 1px;
       `}
       {...props}
     >
@@ -227,12 +232,13 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
         css={css`
           padding-left: 12px;
           position: relative;
-          color: #080a0c !important;
-          border-radius: 5px;
+          color: #252b36f2 !important;
+          border-radius: 0.375rem;
           box-shadow: none !important;
           font-weight: 400;
+          min-height: 42px;
           :hover {
-            color: #080a0c !important;
+            color: #252b36f2 !important;
             background: #f3f4f7;
           }
           &.css-16em5 {
@@ -249,7 +255,7 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
             display: inline-block;
             width: 5px;
             height: 5px;
-            border: 1px solid rgba(37, 43, 54, 0.38);
+            border: 1px solid #252b3661;
             border-radius: 100%;
             margin-right: 8px;
           `}

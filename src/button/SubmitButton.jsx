@@ -14,6 +14,7 @@ export const SubmitButton = ({ type = "submit", children, ...props }) => (
       color: #fff;
       border-radius: 6px !important;
       border: 1px solid !important;
+      font-weight: 400;
       &:focus,
       &:hover,
       &:active {
