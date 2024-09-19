@@ -77,7 +77,7 @@ export const getLoginButtonColor = () =>
   window?.env?.loginButtonColor || "#ffffff"
 
 export const getLoginButtonBackground = () =>
-  window?.env?.loginButtonBackground || "#1e417b"
+  window?.env?.loginButtonBackground || "#5856d6"
 
 export const getHeaderBackground = () => window?.env?.headerBackground || "#fff"
 
