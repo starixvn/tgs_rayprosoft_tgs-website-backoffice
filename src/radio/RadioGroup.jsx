@@ -16,7 +16,20 @@ export const RadioGroup = ({ name, defaultValue, ...props }) => {
         field: { ref, ...formProps },
         fieldState: { isTouched, isDirty, error }
       }) => {
-        return <_RadioGroup {...formProps} {...props} />
+        return (
+          <_RadioGroup
+            {...formProps}
+            {...props}
+            css={css`
+              label {
+                margin-right: 16px;
+              }
+              span {
+                cursor: pointer;
+              }
+            `}
+          />
+        )
       }}
     />
   )

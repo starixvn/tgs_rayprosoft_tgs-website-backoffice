@@ -55,6 +55,18 @@ export const AlertDialog = ({
             </Flex>
           }
           hideOnClickOutside={false}
+          css={css`
+            & .bb-DialogFooter {
+              border-top: 1px solid #dbdfe6;
+              padding: 0.8rem;
+              background: #fff;
+              > div > button {
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+            }
+          `}
         >
           <FieldStack>
             {errors &&

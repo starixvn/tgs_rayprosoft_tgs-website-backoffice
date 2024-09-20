@@ -178,7 +178,7 @@ const AddDialog = ({ onSubmitted, dialog }) => {
       dialog={dialog}
       onClickClose={reset}
       placement="top"
-      minWidth="60vw"
+      minWidth="50vw"
       css={css`
         & .bb-DialogContent {
           position: relative;
@@ -453,7 +453,7 @@ const ViewDialog = ({ id, dialog, ...props }) => {
       placement="top"
       minWidth="60vw"
       css={css`
-        & .bb-DialogContent {
+        &.bb-DialogContent {
           position: relative;
         }
       `}
@@ -468,11 +468,24 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
 
   let editable = !readonly
   return (
-    <Stack orientation="vertical" marginLeft="1rem" paddingBottom="1.5rem">
-      <Heading use="h5" marginBottom="major-1">
+    <Stack orientation="vertical" padding="1rem">
+      <Heading use="h5" marginBottom="major-3">
         <BasicInformationTrans />
       </Heading>
-      <FieldValues>
+      <FieldValues
+        css={css`
+          gap: 18px 10px;
+          input,
+          textarea {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+          textarea {
+            border-radius: 6px !important;
+          }
+        `}
+      >
         <NormalLabel>
           <Trans zh="商户类型" en="Type" />
         </NormalLabel>
@@ -480,7 +493,6 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
           {editable && <BusinessTypeRadioGroup disabled={readonly || !isAdd} />}
           {readonly && <Text.Block>{record?.businessType}</Text.Block>}
         </Box>
-
         <NormalLabel>
           <Trans zh="总公司代码" en="Code" />
         </NormalLabel>
@@ -508,7 +520,6 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
           />
           {!isAdd && <Text.Block>{getValues("code")}</Text.Block>}
         </Box>
-
         <NormalLabel>
           <Trans zh="总公司名称" en="Name" />
         </NormalLabel>
@@ -516,7 +527,6 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
           {editable && <Input name="name" required />}
           {readonly && <Text.Block>{record?.name}</Text.Block>}
         </Box>
-
         <NormalLabel>
           <Trans zh="总公司简介" en="Description" />
         </NormalLabel>
@@ -524,7 +534,6 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
           {editable && <Textarea name="description" />}
           {readonly && <Text.Block>{record.description}</Text.Block>}
         </Box>
-
         <NormalLabel>
           <Trans zh="总公司邮箱" en="Email" />
         </NormalLabel>
@@ -532,11 +541,8 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
           {editable && <Input type="email" name="operationalEmail" required />}
           {readonly && <Text.Block>{record.operationalEmail}</Text.Block>}
         </Box>
-
         <LanguageFieldsBox readonly={readonly} />
-
         <CurrencyBetLimitFieldsBox readonly={readonly} />
-
         <GameProviderFieldsBox readonly={readonly} />
       </FieldValues>
     </Stack>

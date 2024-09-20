@@ -40,6 +40,16 @@ export const Checkbox = ({
       checkboxRef={checkboxRef}
       {...formProps}
       {...props}
+      css={css`
+        > div {
+          cursor: pointer;
+        }
+        > input {
+          &: focus + .bb-CheckboxIcon {
+            box-shadow: none !important;
+          }
+        }
+      `}
     />
   )
 }

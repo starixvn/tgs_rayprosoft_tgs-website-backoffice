@@ -27,7 +27,7 @@ export const LanguageCheckboxGroupTable = ({
   return useMemo(() => {
     return (
       <Set orientation="vertical" width={width}>
-        <Table width={width}>
+        <Table width={width} isStriped>
           <Table.Head>
             <LanguageCheckboxGroupTableHeadRow
               name={name}
@@ -37,7 +37,19 @@ export const LanguageCheckboxGroupTable = ({
               disabled={disabled}
             />
           </Table.Head>
-          <Table.Body>
+          <Table.Body
+            css={css`
+              tr {
+                &:not(:last-child) {
+                  border-bottom: 1px solid #dbdfe6 !important;
+                }
+                &:nth-child(odd) {
+                  background: none;
+                  box-shadow: inset 0 0 0 9999px #0000000d;
+                }
+              }
+            `}
+          >
             {fields.map((field, index) => (
               <LanguageCheckboxGroupTableRow
                 key={field._id}

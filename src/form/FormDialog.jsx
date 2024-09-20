@@ -96,15 +96,30 @@ export const FormDialog = ({
         {...dialog}
         css={css`
           min-width: 320px;
-          width: max-content;
-          max-width: 85vw;
-
+          max-width: 70vw;
           & .bb-DialogContent {
             max-height: 85vh;
+            padding: 0;
           }
 
-          & .bb-DialogTitle {
-            padding-right: 2rem;
+          & .bb-DialogHeader {
+            padding: 1rem;
+            border-bottom: 1px solid #dbdfe6;
+            margin-bottom: 10px;
+            > button {
+              box-shadow: none !important;
+              background: none !important;
+            }
+          }
+          & .bb-DialogFooter {
+            border-top: 1px solid #dbdfe6;
+            padding: 0.8rem;
+            background: #fff;
+            > div > button {
+              &:focus {
+                box-shadow: none !important;
+              }
+            }
           }
         `}
         {...props}
