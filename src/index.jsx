@@ -4,7 +4,12 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import "./reset.css"
 import "./index.css"
-import { Provider as BumbagProvider, Button, ToastManager } from "bumbag"
+import {
+  Provider as BumbagProvider,
+  Button,
+  fontWeight,
+  ToastManager
+} from "bumbag"
 import { Provider as UserProvider } from "./user/context"
 import { BrowserRouter } from "react-router-dom"
 import { Provider as I18nProvider } from "./i18n"
@@ -53,19 +58,28 @@ const theme = {
     warning: "#f9b115"
   },
   Table: {
+    styles: {
+      base: {
+        background: "#f3f4f7",
+        color: "#080a0c"
+      }
+    },
     HeadCell: {
       styles: {
         base: {
+          backgroundColor: "#f3f4f7 !important",
           fontSize: "1rem",
           padding: "0.5rem",
-          textTransform: "none"
+          textTransform: "none",
+          color: "#080a0c",
+          fontWeight: "700"
         }
       }
     },
     Cell: {
       styles: {
         base: {
-          padding: "0.25rem 0.5rem"
+          padding: "0.5rem 0.5rem"
         }
       }
     }

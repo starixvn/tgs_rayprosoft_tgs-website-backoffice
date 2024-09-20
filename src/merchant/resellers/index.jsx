@@ -92,6 +92,19 @@ const Body = () => {
         setPageIndex={setPageIndex}
         setSortOrder={setSortOrder}
         isLoading={isLoading}
+        isResponsive
+        isStriped
+        css={css`
+          > tbody {
+            tr {
+              border-bottom: 1px solid #dbdfe6 !important;
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
@@ -236,6 +249,7 @@ const useColumns = ({ items = [], mutate }) => {
                 padding="0"
                 palette="success"
                 css={css`
+                  flex-wrap: nowrap;
                   > button {
                     padding: 10px 12px;
                     height: 38px;
