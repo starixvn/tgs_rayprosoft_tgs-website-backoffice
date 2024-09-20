@@ -293,11 +293,17 @@ export const DateTimeRangeInput = ({
   )
 }
 
-const useRangeErrorTitle = (maxRangeDays) =>
-  useTrans({
-    zh: `间隔需小于 ${maxRangeDays} 天`,
-    en: `Interval should be less than ${maxRangeDays} days`
+const useRangeErrorTitle = (maxRangeDays) => {
+  const intervalTrans = useTrans({
+    zh: `间隔需小于`,
+    en: `Interval should be less than`
   })
+  const dayTrans = useTrans({
+    zh: `天`,
+    en: `days`
+  })
+  return `${intervalTrans} ${maxRangeDays} ${dayTrans}`
+}
 
 const validateRange = (maxRangeDays, start, end) => {
   if (Number.isInteger(maxRangeDays) && isValid(start) && isValid(end)) {

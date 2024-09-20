@@ -148,7 +148,21 @@ export const useTrans = (messages = {}) => {
 }
 
 export const convertEnToKey = (en) => {
-  return en.toLowerCase().replace(/[^A-Z0-9]+/gi, "_")
+  let key = en
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/gi, "_")
+    .slice(0, 32)
+
+  key = key.replace(/^_+|_+$/g, "")
+
+  if (!/^[a-z]/i.test(key)) {
+    key = key.slice(1)
+  }
+  if (!/[a-z]$/i.test(key)) {
+    key = key.slice(0, -1)
+  }
+
+  return key
 }
 
 // Begin debug and collect translations
@@ -298,9 +312,9 @@ export const FormattedNumberDecimalPercentage = ({
 
 export const getTrans = (messages = {}, locale = Locales.zh) => {
   if (isObject(messages)) {
-    let en = Reflect.get(messages, Locales.en) ?? ""
-    let key = convertEnToKey(en)
-    let translations = getTranslations(key)
+    const en = Reflect.get(messages, Locales.en) ?? ""
+    const key = convertEnToKey(en)
+    const translations = getTranslations(key)
     if (translations) {
       return Reflect.get(messages, locale) ?? translations[locale] ?? en
     }

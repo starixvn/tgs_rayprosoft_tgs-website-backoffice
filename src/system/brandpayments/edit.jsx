@@ -45,6 +45,7 @@ import Textarea from "../../textarea"
 import { useAddTrans, useEditTrans } from "../../trans/Action"
 import {
   ChannelNameTrans,
+  DisplayConditionTrans,
   PaymentChannelTrans,
   PaymentLimitTrans,
   PaymentMethodTrans,
@@ -641,7 +642,7 @@ const EditBody = ({
         </Columns.Column>
         <Columns.Column>
           <Heading use="h5">
-            <Trans zh="开放条件" en="Conditions" />
+            <DisplayConditionTrans />
           </Heading>
           <FieldValues>
             <Label name="playerListCondition">

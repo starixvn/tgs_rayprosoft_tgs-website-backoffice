@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { css, Global } from "@emotion/react"
-import { Stack, Box, Button, Text, useModalState, Dialog } from "bumbag"
-import { useIsDisplayMenuByRoute } from "../../user/context"
-import { View as ViewMenu } from "./menu"
-import { Trans, useTrans } from "../../i18n"
-import Disclosure from "../../dialog/Disclosure"
-import { useBrandPaymentLogs } from "./client"
-import LoadingBackdrop from "../../dialog/LoadingBackdrop"
+import { css } from "@emotion/react"
+import { Dialog, Stack, Text, useModalState } from "bumbag"
+import React, { useMemo } from "react"
 import Alert from "../../dialog/Alert"
-import { Table, useTable } from "../../table"
+import Disclosure from "../../dialog/Disclosure"
+import LoadingBackdrop from "../../dialog/LoadingBackdrop"
+import { Trans, useTrans } from "../../i18n"
+import { Table } from "../../table"
 import dateTimeColumn from "../../table/column/dateTime"
-import { Detail } from "./condition"
 import { OperatorTrans } from "../../trans/Action"
 import { TimeTrans } from "../../trans/Date"
-import { PaymentLimitTrans } from "../../trans/Payment"
+import { DisplayConditionTrans, PaymentLimitTrans } from "../../trans/Payment"
+import { StatusTrans } from "../../trans/Status"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import { toPalette } from "./BrandPaymentStatus"
+import { useBrandPaymentLogs } from "./client"
+import { Detail } from "./condition"
+import { View as ViewMenu } from "./menu"
 
 export const ViewButton = ({ record, ...props }) => {
   let dialog = useModalState()
@@ -140,9 +142,36 @@ const useColumns = ({ items = [] }) => {
       }
     },
     {
+      id: "status",
+      accessor: (record) => record,
+      Header: <StatusTrans />,
+      disableSortBy: true,
+      headCell: {
+        textAlign: "center"
+      },
+      cell: {
+        textAlign: "center"
+      },
+      Cell: ({ value }) => {
+        return (
+          <Stack spacing="minor-4" alignX="center">
+            <Text.Block color="textTint" whiteSpace="nowrap">
+              {value.beforePaymentStatus}
+            </Text.Block>
+            <Text.Block
+              color={toPalette(value.afterPaymentStatus)}
+              whiteSpace="nowrap"
+            >
+              {value.afterPaymentStatus}
+            </Text.Block>
+          </Stack>
+        )
+      }
+    },
+    {
       id: "conditions",
       accessor: (record) => record,
-      Header: <Trans zh="开放条件" en="Conditions" />,
+      Header: <DisplayConditionTrans />,
       disableSortBy: true,
       headCell: {
         textAlign: "center"

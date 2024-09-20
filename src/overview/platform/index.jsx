@@ -113,10 +113,8 @@ const WelcomeBox = ({ brand }) => {
 
   return (
     <Box marginBottom="0.5rem">
-      <Trans
-        zh={`欢迎回来，${brand.code}`}
-        en={`Welcome back, ${brand.code}`}
-      />
+      <Trans zh={`欢迎回来`} en={`Welcome back`} />
+      <span>{`, ${brand.code}`}</span>
     </Box>
   )
 }

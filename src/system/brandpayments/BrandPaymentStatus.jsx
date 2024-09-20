@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { css, Global } from "@emotion/react"
 import { Button } from "bumbag"
-import { Trans, useTrans } from "../../i18n"
+import React, { useEffect, useState } from "react"
+import { Controller, useFormContext, useWatch } from "react-hook-form"
 import AlertDialog from "../../dialog/Alert"
-import { useChangeBrandPaymentStatus } from "./client"
 import { Select } from "../../select/Select"
-import { useFormContext, Controller, useWatch } from "react-hook-form"
+import { useSelectAllTrans } from "../../trans/Action"
 import {
   DisabledTrans,
   EnabledTrans,
@@ -13,6 +11,7 @@ import {
   useEnabledTrans,
   useStatusTrans
 } from "../../trans/Status"
+import { useChangeBrandPaymentStatus } from "./client"
 
 const Enabled = "Enabled"
 
@@ -50,6 +49,10 @@ export const BrandPaymentStatusSelect = ({ placeholder, ...props }) => {
     {
       label: useDisabledTrans(),
       value: Disabled
+    },
+    {
+      label: useSelectAllTrans(),
+      value: ""
     }
   ]
 
@@ -99,7 +102,7 @@ const toggleStatus = (status) => {
   }
 }
 
-const toPalette = (status) => {
+export const toPalette = (status) => {
   switch (status) {
     case Disabled:
       return "danger"

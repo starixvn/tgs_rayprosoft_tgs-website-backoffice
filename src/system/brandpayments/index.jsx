@@ -1,65 +1,40 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { css, Global } from "@emotion/react"
-import { useForm, FormProvider, useFormContext } from "react-hook-form"
+import { css } from "@emotion/react"
+import { faRotateLeft } from "@fortawesome/free-solid-svg-icons"
 import {
-  Stack,
-  Button,
-  Set,
-  Text,
   Box,
+  Button,
   Dialog,
   Icon,
   Level,
-  Tabs
+  Set,
+  Stack,
+  Tabs,
+  Text
 } from "bumbag"
+import React, { useEffect, useMemo, useRef, useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { useIsVisible } from "react-is-visible"
+import SearchButton from "../../button/SearchButton"
+import { AlertDialog } from "../../dialog/Alert"
+import { FormattedNumberDecimal, Trans, useTrans } from "../../i18n"
+import { InputField } from "../../input/Input"
+import { NumberInput } from "../../input/NumberInput"
+import { formatNumber } from "../../number/format"
 import {
   PlatformPageContent,
-  usePlatformId,
-  usePlatformPageContentWidth
+  usePlatformId
 } from "../../page/PlatformPageContent"
-import AutoSizer from "react-virtualized-auto-sizer"
-import {
-  useIsDisplayMenuByRoute,
-  useHasSubMenuByRoute,
-  useUserBrandId
-} from "../../user/context"
-import { Code } from "./menu"
-import { useTable, Table, pageCount, toApiParams } from "../../table"
-import { FormattedNumberDecimal, Trans, useTrans } from "../../i18n"
-import SearchButton from "../../button/SearchButton"
-import equals from "fast-deep-equal"
-import {
-  BrandPaymentStatusSelect,
-  BrandPaymentStatusToggleButton,
-  isBrandPaymentDisabled
-} from "./BrandPaymentStatus"
-import TransferType, {
-  isWithdrawalPlatformPayment
-} from "./BrandPaymentTransferType"
-import {
-  useChangeBrandPaymentOrders,
-  useBrandPaymentList,
-  getBalance
-} from "./client"
-import { View as ViewMenu, Update as UpdateMenu } from "./menu"
-import { Detail as ConditionDetail } from "./condition"
-import { AddBrandPaymentButton, EditButton } from "./edit"
-import { ViewButton as LogsButton } from "./logs"
-import LoadingBackdrop from "../../dialog/LoadingBackdrop"
-import { AlertDialog } from "../../dialog/Alert"
-import { DesignatedPlayersLink } from "./DesignatedPlayersLink"
-import { InputField } from "../../input/Input"
-import { formatNumber } from "../../number/format"
-import textColumn from "../../table/column/textColumn"
 import {
   PaymentProviderLabel,
   isManualPaymentProvider
 } from "../../payment/PaymentProvider"
-import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
 import { PaymentChannelLabel } from "../../payment/channel/PaymentChannel"
-import { NumberInput } from "../../input/NumberInput"
-import { BrandAutoWithdrawDialogDisclosure } from "./BrandAutoWithdraw"
+import { PaymentMethodLabel } from "../../payment/method/PaymentMethod"
+import { Table, pageCount, toApiParams, useTable } from "../../table"
+import { numberDecimalColumn } from "../../table/column/numberColumn"
+import textColumn from "../../table/column/textColumn"
 import { ActionTrans, ConfirmOrderTrans } from "../../trans/Action"
+import { OrderTrans } from "../../trans/Field"
 import {
   ChannelNameTrans,
   DepositTrans,
@@ -71,14 +46,28 @@ import {
   PaymentProviderTrans,
   WithdrawTrans
 } from "../../trans/Payment"
-import { StatusTrans } from "../../trans/Status"
-import { OrderTrans } from "../../trans/Field"
+import { EnabledTrans, StatusTrans } from "../../trans/Status"
 import { DesignatedUsersTrans } from "../../trans/User"
-import { numberDecimalColumn } from "../../table/column/numberColumn"
-import { faRotateLeft } from "@fortawesome/free-solid-svg-icons"
-import { useIsVisible } from "react-is-visible"
-import { isDev } from "../../env"
-import { post } from "../../client"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import { BrandAutoWithdrawDialogDisclosure } from "./BrandAutoWithdraw"
+import {
+  BrandPaymentStatusSelect,
+  BrandPaymentStatusToggleButton,
+  isBrandPaymentDisabled
+} from "./BrandPaymentStatus"
+import TransferType, {
+  isWithdrawalPlatformPayment
+} from "./BrandPaymentTransferType"
+import { DesignatedPlayersLink } from "./DesignatedPlayersLink"
+import {
+  useBrandPaymentBalanceList,
+  useBrandPaymentList,
+  useChangeBrandPaymentOrders
+} from "./client"
+import { Detail as ConditionDetail } from "./condition"
+import { AddBrandPaymentButton, EditButton } from "./edit"
+import { ViewButton as LogsButton } from "./logs"
+import { Code, Update as UpdateMenu, View as ViewMenu } from "./menu"
 
 export { Code }
 
@@ -102,7 +91,7 @@ const Body = ({}) => {
   const [transferType, setTransferType] = React.useState(DefaultTransferType)
   let { state, setState, setPageIndex, setSortOrder } = useTable({
     brandId,
-    paymentStatus: null,
+    paymentStatus: "Enabled",
     keyword: ""
   })
 
@@ -301,7 +290,10 @@ const SearchBar = ({ search, isLoading, ...props }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
-          <BrandPaymentStatusSelect name="paymentStatus" />
+          <BrandPaymentStatusSelect
+            name="paymentStatus"
+            placeholder={EnabledTrans}
+          />
           <InputField
             name="keyword"
             defaultValue=""
@@ -319,8 +311,6 @@ const SearchBar = ({ search, isLoading, ...props }) => {
 const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
   let ref = useRef()
   let isVisible = useIsVisible(ref, { once: true })
-  const [record, setRecord] = useState()
-  const [isLoading, setIsLoading] = useState(false)
   let [params, setParams] = useState()
 
   useEffect(() => {
@@ -329,19 +319,13 @@ const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
     }
   }, [isVisible, brandPaymentId])
 
-  const handleOnClickReload = async () => {
-    setIsLoading(true)
-    let items = await getBalance(brandId, params)
-    setIsLoading(false)
-    if (!items?.isSuccess) {
-      console.warn(items?.data)
-      return
-    }
-    let record = items?.data?.find(
-      (item) => item.brandPaymentId === brandPaymentId
-    )
-    setRecord(record)
-  }
+  let {
+    isLoading,
+    data: items,
+    mutate,
+    deleteCache
+  } = useBrandPaymentBalanceList(brandId, params)
+  let record = items?.find((item) => item.brandPaymentId === brandPaymentId)
 
   return (
     <Set
@@ -363,7 +347,12 @@ const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
         size="small"
         isLoading={isLoading}
         disabled={isLoading}
-        onClick={handleOnClickReload}
+        onClick={() => {
+          if (!isLoading) {
+            deleteCache()
+            mutate(undefined)
+          }
+        }}
       >
         <Icon icon={faRotateLeft} type="font-awesome" />
       </Button>

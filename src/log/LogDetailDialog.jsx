@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { css, Global } from "@emotion/react"
 import {
-  Dialog,
-  useModalState,
-  Stack,
-  Heading,
-  Text,
-  Code,
+  Box,
   Card,
+  Code,
+  Dialog,
   FieldStack,
   FieldWrapper,
-  Box
+  Text,
+  useModalState
 } from "bumbag"
-import { useTrans } from "../i18n"
+import React from "react"
 import { DetailDisclosure } from "../dialog/Disclosure"
 import { JsonEditor } from "../text/editor/JsonEditor"
 import { tryStringifyJSON } from "../text/json"
@@ -29,7 +25,7 @@ export const LogDetailDialogDisclosure = ({ record, ...props }) => {
   )
 }
 
-const DetailDialog = ({ record = {}, dialog, ...props }) => {
+const DetailDialog = ({ record = {}, dialog, isAdminLog, ...props }) => {
   const title = useDetailTrans()
 
   let [isRequestJson, requestContent = ""] = tryStringifyJSON(
@@ -50,6 +46,11 @@ const DetailDialog = ({ record = {}, dialog, ...props }) => {
       {...dialog}
     >
       <FieldStack orientation="vertical">
+        {record.description ? (
+          <Card variant="bordered" title="Description">
+            <Text.Block>{record.description}</Text.Block>
+          </Card>
+        ) : null}
         <Card variant="bordered" title="Request">
           <FieldStack>
             <FieldWrapper label="Headers">

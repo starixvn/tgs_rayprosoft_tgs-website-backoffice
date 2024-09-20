@@ -410,11 +410,17 @@ const ImportBatchAddDataButton = ({ name = "items", palette, variant }) => {
     mutateItems(null, false)
   }
 
-  //TODO: msg where?
-  let maxErrorMsg = useTrans({
-    zh: `必须小于或等于 ${MaxBatchAdd} 项`,
-    en: `Must be less than or equal to ${MaxBatchAdd} items`
+  let maxErrorPrefix = useTrans({
+    zh: `必须小于或等于`,
+    en: `Must be less than or equal to`
   })
+
+  let maxErrorSuffix = useTrans({
+    zh: `项`,
+    en: `items`
+  })
+
+  let maxErrorMsg = `${maxErrorPrefix} ${MaxBatchAdd} ${maxErrorSuffix}`
 
   let { getRootProps, getInputProps } = useDropzone({
     accept: ".xlsx",

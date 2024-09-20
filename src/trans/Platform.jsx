@@ -1,5 +1,6 @@
 import React from "react"
 import { Trans, useTrans, convertEnToKey } from "../i18n"
+import getTranslations from "./getTranslations"
 
 const Platform = {
   zh: "平台",

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react"
+import React from "react"
 import { Trans, useTrans } from "../i18n"
 
 const Action = {
@@ -240,4 +240,5 @@ const SelectAll = {
   en: "All",
   vi: "Tất cả"
 }
+export const useSelectAllTrans = () => useTrans(SelectAll)
 export const SelectAllTrans = () => <Trans {...SelectAll} />

@@ -1,11 +1,5 @@
 import translations from "./trans-json"
-
-const Locale = {
-  en: "en",
-  zh: "zh",
-  th: "th",
-  vi: "vi"
-}
+import { Locales } from "../i18n"
 
 const getTransByLocale = (locale, item) => {
   const pathParts = item.split(".")
@@ -23,10 +17,10 @@ const getTransByLocale = (locale, item) => {
 
 const getTranslations = (item) => {
   return {
-    th: getTransByLocale(Locale.th, item),
-    en: getTransByLocale(Locale.en, item),
-    vi: getTransByLocale(Locale.vi, item),
-    zh: getTransByLocale(Locale.zh, item)
+    th: getTransByLocale(Locales.th, item),
+    en: getTransByLocale(Locales.en, item),
+    vi: getTransByLocale(Locales.vi, item),
+    zh: getTransByLocale(Locales.zh, item)
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react"
+import React from "react"
 import { Trans, useTrans } from "../i18n"
 import getTranslations from "./getTranslations"
 
@@ -147,6 +147,13 @@ const BankAccount = {
 }
 export const useBankAccountTrans = () => useTrans(BankAccount)
 export const BankAccountTrans = () => <Trans {...BankAccount} />
+export const DisplayConditionsTranslation = {
+  ...getTranslations("display_conditions")
+}
+
+export const DisplayConditionTrans = () => (
+  <Trans {...DisplayConditionsTranslation} />
+)
 
 const WithdrawAndCanceled = {
   zh: "提款(包含已取消提款)",

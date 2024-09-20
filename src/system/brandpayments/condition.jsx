@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { css, Global } from "@emotion/react"
-import { Trans, useTrans } from "../../i18n"
 import { Text } from "bumbag"
-import { useVipLevelList } from "../../vip-levels/client"
+import React from "react"
+import { Trans, useTrans } from "../../i18n"
 import { RadioGroup } from "../../radio/RadioGroup"
-import { Switch } from "../../switch/Switch"
+import { useVipLevelList } from "../../vip-levels/client"
 
 const MatchAll = "MatchAll"
 const MatchAllTrans = {
@@ -48,6 +46,19 @@ const VipLevelsTrans = {
   en: "VIP Levels"
 }
 
+const ConditionDetailList = ({ details }) => {
+  return details.map((detail, index) => (
+    <>
+      {detail}
+      {index !== details.length - 1 && (
+        <>
+          ,<br />
+        </>
+      )}
+    </>
+  ))
+}
+
 export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
   let {
     brandId,
@@ -56,9 +67,7 @@ export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
     depositedAmountMin,
     depositedAmountMax,
     depositedAmountUnlimited,
-    identityAuthentication,
-    phoneAuthentication,
-    vipLevelIds = []
+    identityAuthentication
   } = record
 
   let condition =
@@ -66,21 +75,24 @@ export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
       ? useTrans(MatchOneTrans)
       : useTrans(MatchAllTrans)
 
+  const allPlayerDetail = allPlayers ? `${useTrans(AllPlayerTrans)}` : ""
+
   let details = [
-    allPlayers ? useTrans(AllPlayerTrans) : "",
+    ,
     `${useTrans(AccumulatedDepositTrans)} ${depositedAmountMin} - ${
       depositedAmountUnlimited ? useTrans(UnlimitedTrans) : depositedAmountMax
     }`,
-    identityAuthentication ? useTrans(IdentityAuthenticationTrans) : "",
-    phoneAuthentication ? useTrans(PhoneAuthenticationTrans) : "",
-    useVipLevelDetail(brandId, vipLevelIds)
+    identityAuthentication ? useTrans(IdentityAuthenticationTrans) : ""
   ].filter((string) => !!string)
 
   return (
-    <Text.Block
-      whiteSpace={whiteSpace}
-      {...props}
-    >{`${condition}: ${details.join(", ")}`}</Text.Block>
+    <>
+      <Text.Block textAlign="left" whiteSpace={whiteSpace} {...props}>
+        {`${condition}: ${allPlayerDetail},`}
+        <br />
+        <ConditionDetailList details={details} />
+      </Text.Block>
+    </>
   )
 }
 
