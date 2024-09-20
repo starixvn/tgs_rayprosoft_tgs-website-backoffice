@@ -4,7 +4,7 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import "./reset.css"
 import "./index.css"
-import { Provider as BumbagProvider, ToastManager } from "bumbag"
+import { Provider as BumbagProvider, Button, ToastManager } from "bumbag"
 import { Provider as UserProvider } from "./user/context"
 import { BrowserRouter } from "react-router-dom"
 import { Provider as I18nProvider } from "./i18n"
@@ -24,6 +24,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import clone from "clone-deep"
 import { cloneNotEmpty } from "./record/cloneNotEmpty"
+import { css } from "@emotion/react"
 
 let themeOptions = cloneNotEmpty(window?.env?.theme)
 console.log("themeOptions", themeOptions)
@@ -44,6 +45,12 @@ const theme = {
     defaultProps: {
       spacing: "minor-2"
     }
+  },
+  palette: {
+    primary: "#3399ff",
+    success: "#1b9e3e",
+    danger: "#e55353",
+    warning: "#f9b115"
   },
   Table: {
     HeadCell: {

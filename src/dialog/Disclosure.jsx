@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef, forwardRef } from "react"
 import { Button, Modal, css, Icon } from "bumbag"
 import { Trans } from "../i18n"
-import { faCog, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons"
+import {
+  faCog,
+  faMinus,
+  faPlus,
+  faMagnifyingGlass
+} from "@fortawesome/free-solid-svg-icons"
 import {
   AddTrans,
   DeleteTrans,
@@ -30,7 +35,14 @@ export const Disclosure = forwardRef(
 
 export const ViewDisclosure = forwardRef((props, ref) => (
   <Disclosure ref={ref} {...props}>
-    <ViewTrans />
+    {/* <ViewTrans /> */}
+    <Icon
+      icon={faMagnifyingGlass}
+      type="font-awesome"
+      color="#080a0c"
+      fontSize="16px"
+      fontWeight="400"
+    />
   </Disclosure>
 ))
 

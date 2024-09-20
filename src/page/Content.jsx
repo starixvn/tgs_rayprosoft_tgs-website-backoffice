@@ -26,7 +26,7 @@ const Store = createContext()
 export const PageContent = ({
   title,
   actionBar,
-  height = "100%",
+  height = "max-content",
   children,
   ...props
 }) => {
@@ -35,21 +35,46 @@ export const PageContent = ({
       <_PageContent
         maxWidth="unset"
         height={height}
+        padding="1.5rem"
         wrapperProps={{
           height
         }}
         {...props}
       >
-        <Set orientation="vertical" spacing="major-1" height="100%" isFilled>
-          <Box>
-            {title && (
-              <Box marginBottom="major-3">
-                <Heading use="h3">{title}</Heading>
-              </Box>
-            )}
-            {actionBar && <Stack orientation="horizontal">{actionBar}</Stack>}
+        <Set
+          orientation="vertical"
+          height="100%"
+          isFilled
+          css={css`
+            background: #fff;
+            padding: 1rem;
+            border: 1px solid #080a0c2d;
+            border-radius: 0.375rem;
+          `}
+        >
+          {title && (
+            <Box marginBottom="major-3" marginTop="major-2">
+              <Heading
+                use="h3"
+                css={css`
+                  font-size: 2rem !important;
+                `}
+              >
+                {title}
+              </Heading>
+            </Box>
+          )}
+          <Box
+            css={css`
+              padding: 1rem;
+              background: #f3f4f7;
+            `}
+          >
+            <Box marginBottom="major-2">
+              {actionBar && <Stack orientation="horizontal">{actionBar}</Stack>}
+            </Box>
+            <Box flex="1">{children}</Box>
           </Box>
-          <Box flex="1">{children}</Box>
         </Set>
       </_PageContent>
     </Store.Provider>

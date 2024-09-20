@@ -134,6 +134,16 @@ export const MerchantStatusMenu = ({
         disabled
         whiteSpace="nowrap"
         isStatic
+        css={css`
+          font-size: 0.75em;
+          font-weight: 700;
+          padding: 1px 4px;
+          min-height: auto;
+          color: #fff;
+          background-color: #212631;
+          background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
+          opacity: 1 !important;
+        `}
       >
         <MerchantStatusLabel value={status} />
       </Button>
@@ -173,6 +183,18 @@ export const MerchantStatusMenu = ({
           isLoading={isLoading}
           disabled={isLoading || !enableMenuItem(status)}
           whiteSpace="nowrap"
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 1px 4px;
+            min-height: auto;
+            color: #fff;
+            &:focus,
+            &:hover,
+            &:active {
+              box-shadow: none !important;
+            }
+          `}
         >
           <MerchantStatusLabel value={status} />
         </Button>

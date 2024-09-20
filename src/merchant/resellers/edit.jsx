@@ -7,7 +7,8 @@ import {
   Text,
   Box,
   Set,
-  FieldStack
+  FieldStack,
+  Icon
 } from "bumbag"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import Disclosure, { ViewDisclosure } from "../../dialog/Disclosure"
@@ -46,6 +47,7 @@ import { isDev } from "../../env"
 import { AddTrans, EditTrans } from "../../trans/Action"
 import { BasicInformationTrans } from "../../trans/Field"
 import { SWRConfig } from "swr"
+import { faPen } from "@fortawesome/free-solid-svg-icons"
 
 export const AddButton = ({ onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -57,7 +59,27 @@ export const AddButton = ({ onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog}>
+      <Disclosure
+        {...dialog}
+        css={css`
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        `}
+      >
         <AddTrans />
       </Disclosure>
       {dialog.visible && (
@@ -178,8 +200,15 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog}>
-        <EditTrans />
+      <Disclosure {...dialog} palette="primary">
+        {/* <EditTrans /> */}
+        <Icon
+          icon={faPen}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
@@ -282,7 +311,7 @@ export const ViewButton = ({ record, ...props }) => {
 
   return (
     <>
-      <ViewDisclosure {...dialog} {...props} />
+      <ViewDisclosure {...dialog} {...props} color palette="success" />
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <ViewDialog id={record.id} dialog={dialog} />
