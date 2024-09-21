@@ -84,7 +84,8 @@ export const useIsAuthLoading = () => {
 
 export const useDeauth = () => {
   let { set } = useContext(Store)
-  return () => {
+  return async () => {
+    await client.post("/api/logout")
     set(InitialState)
 
     try {

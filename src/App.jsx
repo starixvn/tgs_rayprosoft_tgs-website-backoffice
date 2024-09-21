@@ -61,6 +61,7 @@ import FundWithdrawTopNavItem from "./fund/withdraw/FundWithdrawTopNavItem"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import { init as initConnection } from "./connection"
 import { ChangePasswordTrans } from "./trans/User"
+import client from "./client"
 
 //TODO: wait for PH's fix
 if (isDev()) {
@@ -160,8 +161,8 @@ const Header = () => {
 
   let changePasswordDialog = useModalState()
 
-  const logout = () => {
-    deauth()
+  const logout = async () => {
+    await deauth()
     localStorage.removeItem("selectedMerchant")
     location.replace(LoginPath)
   }

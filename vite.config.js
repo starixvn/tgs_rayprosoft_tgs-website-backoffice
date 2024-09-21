@@ -18,8 +18,8 @@ export default defineConfig({
     server: {
         proxy: {
             "/api": {
-                target: "https://localhost:5007", // dev
-                // target: "https://bo-api.nexentgame.com", // Local
+                // target: "https://localhost:5007", // dev
+                target: "https://bo-api.nexentgame.com", // Local
 
                 changeOrigin: true,
                 configure: (proxy, options) => {
