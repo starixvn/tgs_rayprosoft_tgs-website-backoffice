@@ -372,10 +372,10 @@ const FormBody = ({ readOnly, isAdd = false }) => {
         </NormalLabel>
         <Checkbox name="autoCloseRound" disabled={disabled} />
 
-        <NormalLabel>
+        {/* <NormalLabel>
           <Trans zh="Transfer Wallet" en="Transfer Wallet" />
         </NormalLabel>
-        <Checkbox name="isTransferWallet" disabled={disabled} />
+        <Checkbox name="isTransferWallet" disabled={disabled} /> */}
 
         <NormalLabel>
           <Trans zh="Support Test Player" en="Support Test Player" />
