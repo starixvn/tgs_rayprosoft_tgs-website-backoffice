@@ -50,7 +50,7 @@ export const GameTypeTrans = () => <Trans {...GameType} />
 
 export const LiveDealer = {
   zh: "真人",
-  en: "Live Dealer",
+  en: "Live Casino",
   vi: "CASINO"
 }
 export const LiveDealerTrans = () => <Trans {...LiveDealer} />
