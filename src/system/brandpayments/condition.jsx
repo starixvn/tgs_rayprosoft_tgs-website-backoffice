@@ -59,10 +59,6 @@ const ConditionDetailList = ({ details }) => {
   ))
 }
 
-    </>
-  ))
-}
-
 export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
   let {
     brandId,
