@@ -117,6 +117,43 @@ export const Lottery = {
   en: "Lottery",
   vi: "Sổ xố"
 }
+
+export const CockFighting = {
+  zh: "",
+  en: "CockFighting",
+  vi: ""
+}
+
+export const InstantPlay = {
+  zh: "",
+  en: "InstantPlay",
+  vi: ""
+}
+
+export const Casino = {
+  zh: "",
+  en: "Casino",
+  vi: ""
+}
+
+export const Keno = {
+  zh: "",
+  en: "Keno",
+  vi: ""
+}
+
+export const Bingo = {
+  zh: "",
+  en: "Bingo",
+  vi: ""
+}
+
+export const Racing = {
+  zh: "",
+  en: "Racing",
+  vi: ""
+}
+
 export const LotteryTrans = () => <Trans {...Lottery} />
 export const useLotteryTrans = () => useTrans(Lottery)
 

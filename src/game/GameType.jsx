@@ -16,7 +16,13 @@ import {
   Lottery as LotteryTrans,
   Fishing as FishingTrans,
   Arcade as ArcadeTrans,
-  TableGame as TableGameTrans
+  TableGame as TableGameTrans,
+  CockFighting as CockFightingTrans,
+  InstantPlay as InstantPlayTrans,
+  Casino as CasinoTrans,
+  Keno as KenoTrans,
+  Bingo as BingoTrans,
+  Racing as RacingTrans,
 } from "../trans/Game"
 
 const Sportsbook = "Sportsbook"
@@ -91,6 +97,24 @@ const LotteryLobbyTrans = {
 const TableGame = "TableGame"
 const TableGameValue = 16
 
+const CockFighting = "CockFighting"
+const CockFightingValue = 17
+
+const InstantPlay = "InstantPlay"
+const InstantPlayValue = 18
+
+const Casino = "Casino"
+const CasinoValue = 19
+
+const Keno = "Keno"
+const KenoValue = 20
+
+const Bingo = "Bingo"
+const BingoValue = 21
+
+const Racing = "Racing"
+const RacingValue = 22
+
 export const toGameTypeString = (value) => {
   switch (value) {
     case SportsbookValue:
@@ -125,6 +149,18 @@ export const toGameTypeString = (value) => {
       return Slot
     case TableGameValue:
       return TableGame
+    case CockFightingValue:
+      return CockFighting
+    case InstantPlayValue:
+      return InstantPlay
+    case CasinoValue:
+      return Casino
+    case KenoValue:
+      return Keno
+    case BingoValue:
+      return Bingo
+    case RacingValue:
+      return Racing
     default:
       return value
   }
@@ -164,6 +200,18 @@ export const toGameTypeValue = (value) => {
       return SlotValue
     case TableGame:
       return TableGameValue
+    case CockFighting:
+      return CockFightingValue
+    case InstantPlay:
+      return InstantPlayValue
+    case Casino:
+      return CasinoValue
+    case Keno:
+      return KenoValue
+    case Bingo:
+      return BingoValue
+    case Racing:
+      return RacingValue
     default:
       return value
   }
@@ -185,7 +233,13 @@ export const GameType = {
   Lottery,
   LotteryLobby,
   Slot,
-  TableGame
+  TableGame,
+  CockFighting,
+  InstantPlay,
+  Casino,
+  Keno,
+  Bingo,
+  Racing
 }
 
 export const SportGameTypes = [
@@ -319,6 +373,66 @@ const AllTrans = [
       {
         name: LotteryLobby,
         trans: LotteryLobbyTrans
+      }
+    ]
+  },
+  {
+    name: "CockFighting",
+    trans: CockFightingTrans,
+    items: [
+      {
+        name: CockFighting,
+        trans: CockFightingTrans
+      }
+    ]
+  },
+  {
+    name: "InstantPlay",
+    trans: InstantPlayTrans,
+    items: [
+      {
+        name: InstantPlay,
+        trans: InstantPlayTrans
+      }
+    ]
+  },
+  {
+    name: "Casino",
+    trans: CasinoTrans,
+    items: [
+      {
+        name: Casino,
+        trans: CasinoTrans
+      }
+    ]
+  },
+  {
+    name: "Keno",
+    trans: KenoTrans,
+    items: [
+      {
+        name: Keno,
+        trans: KenoTrans
+      }
+    ]
+  },
+  {
+    name: "Bingo",
+    trans: BingoTrans,
+    items: [
+      {
+        name: Bingo,
+        trans: BingoTrans
+      }
+    ]
+  },
+  {
+    name: "Racing",
+    trans: RacingTrans,
+    items: [
+      {
+        name: Racing,
+        trans: RacingTrans
       }
     ]
   }

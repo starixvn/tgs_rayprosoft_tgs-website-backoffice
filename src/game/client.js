@@ -33,6 +33,30 @@ export const useGameTypeGroupList = () => {
         {
             name: "Lottery",
             items: [GameType.Lottery, GameType.LotteryLobby]
+        },
+        {
+            name: "CockFighting",
+            items: [GameType.CockFighting]
+        },
+        {
+            name: "InstantPlay",
+            items: [GameType.InstantPlay]
+        },
+        {
+            name: "Casino",
+            items: [GameType.Casino]
+        },
+        {
+            name: "Keno",
+            items: [GameType.Keno]
+        },
+        {
+            name: "Bingo",
+            items: [GameType.Bingo]
+        },
+        {
+            name: "Racing",
+            items: [GameType.Racing]
         }
     ]
 
