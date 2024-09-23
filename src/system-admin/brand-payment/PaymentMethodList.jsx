@@ -1,23 +1,14 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { css, Global } from "@emotion/react"
-import {
-  Box,
-  Button,
-  Set,
-  Flex,
-  FieldStack,
-  useModalState,
-  Dialog
-} from "bumbag"
-import { useIsDisplayMenuByRoute } from "../../user/context"
-import { usePaymentMethodList } from "../../payment/client"
+import { Box, Dialog, FieldStack } from "bumbag"
+import React, { useMemo } from "react"
 import LoadingBackdrop from "../../dialog/LoadingBackdrop"
+import { CloseButtonFooter } from "../../form/ConfirmButtonFooter"
+import { Trans, useTrans } from "../../i18n"
+import { usePaymentMethodList } from "../../payment/client"
 import { Table } from "../../table"
 import textColumn from "../../table/column/textColumn"
-import { View, Update } from "./menu"
-import { CloseButtonFooter } from "../../form/ConfirmButtonFooter"
-import dateTimeColumn from "../../table/column/dateTime"
-import { Trans, useTrans } from "../../i18n"
+import { PaymentMethodCodeTrans } from "../../trans/Payment"
+import { useIsDisplayMenuByRoute } from "../../user/context"
+import { Update } from "./menu"
 import { AddPaymentMethodDisclosure } from "./PaymentMethod"
 
 export const PaymentMethodListDialog = ({ dialog, onSubmitted }) => {
@@ -75,7 +66,7 @@ const useColumns = ({ items = [], mutate }) => {
       }),
       textColumn({
         accessor: "code",
-        Header: <Trans zh="支付方式代码" en="Payment Channel Code" />,
+        Header: <PaymentMethodCodeTrans />,
         disableSortBy: true
       }),
       textColumn({

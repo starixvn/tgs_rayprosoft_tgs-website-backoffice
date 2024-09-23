@@ -371,3 +371,9 @@ const MerchantBalance = {
   vi: "Số dư Tài khoản Công ty"
 }
 export const MerchantBalanceTrans = () => <Trans {...MerchantBalance} />
+
+const PaymentMethodCode = {
+  ...getTranslations("payment_method_code")
+}
+
+export const PaymentMethodCodeTrans = () => <Trans {...PaymentMethodCode} />

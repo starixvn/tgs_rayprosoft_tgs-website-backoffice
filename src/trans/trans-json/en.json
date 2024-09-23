@@ -465,6 +465,7 @@
   "payment_provider_code": "Payment Provider Code",
   "payment_provider_name": "Payment Provider Name",
   "payment_channel_code": "Payment Channel Code",
+  "payment_method_code": "Payment Method Code",
   "bank_type": "Bank Type",
   "sms_provider_management": "SMS Provider Management",
   "add_sms_provider": "Add SMS Provider",
