@@ -80,7 +80,13 @@ const Body = ({
           <Trans zh="币种限红" en="Currency Bet Limit" />
         </NormalLabel>
         <Set orientation="vertical" width={width}>
-          <Table width={width} hasDividers>
+          <Table
+            width={width}
+            hasDividers
+            css={css`
+              background: #fff !important;
+            `}
+          >
             <Table.Head>
               <Table.Row>
                 <Table.HeadCell>
@@ -91,7 +97,19 @@ const Body = ({
                 </Table.HeadCell>
               </Table.Row>
             </Table.Head>
-            <Table.Body>
+            <Table.Body
+              css={css`
+                tr {
+                  background: #fff !important;
+                  &:not(:last-child) {
+                    border-bottom: 1px solid #dbdfe6 !important;
+                  }
+                  th {
+                    background: #fff !important;
+                  }
+                }
+              `}
+            >
               {currencyBetLimitsPairs.map(
                 ([currencyField, betLimitFields], index) => {
                   return (
