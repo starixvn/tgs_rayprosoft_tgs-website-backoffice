@@ -93,7 +93,7 @@ export const Menu = ({
         color="black200"
       /> */}
       <img
-        src="/images/analytics.png"
+        src="/images/platform-report.png"
         alt="Platform report"
         style={{ marginRight: "0.75rem", width: "20px", height: " 20px" }}
       />

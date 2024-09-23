@@ -54,7 +54,7 @@ export const Menu = ({
         color="black200"
       /> */}
       <img
-        src="/images/seller.png"
+        src="/images/merchant.png"
         alt="Merchant"
         style={{ marginRight: "0.75rem", width: "20px", height: " 20px" }}
       />
