@@ -8,7 +8,7 @@ import { StaticButton } from "../../button/StaticButton"
 import { useFormContext, useWatch } from "react-hook-form"
 import FileUploadButton from "./FileUploadButton"
 
-const DefaultAccept = "image/jpeg, image/png"
+const DefaultAccept = "image/jpeg, image/png, image/webp, image/gif"
 
 export const ImageUploadButton = ({
   id,
