@@ -145,18 +145,24 @@ export const Menu = ({ title, url, codes, codePaths, itemLabel }) => {
             setShow(!show)
           }}
           css={css`
-            :hover {
-              cursor: pointer;
-              background: #f3f4f7;
-            }
             font-size: 14px;
             line-height: normal;
             text-transform: uppercase;
             border-radius: 0.375rem;
             padding: 8px 0px 8px 10px;
             font-weight: 500;
+            img {
+              opacity: 0.5;
+            }
             span {
               color: #252b36f2 !important;
+            }
+            :hover {
+              cursor: pointer;
+              background: #f3f4f7;
+              img {
+                opacity: 1;
+              }
             }
           `}
         >
@@ -240,6 +246,9 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
           :hover {
             color: #252b36f2 !important;
             background: #f3f4f7;
+            span {
+              border: 1px solid #252b36f2;
+            }
           }
           &.css-16em5 {
             background: #f3f4f7;
