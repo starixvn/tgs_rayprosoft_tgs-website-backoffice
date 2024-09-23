@@ -5,7 +5,6 @@ import { RadioGroup as _RadioGroup } from "bumbag"
 
 export const RadioGroup = ({ name, defaultValue, ...props }) => {
   let { control } = useFormContext() ?? {}
-
   return (
     <Controller
       control={control}
@@ -22,10 +21,13 @@ export const RadioGroup = ({ name, defaultValue, ...props }) => {
             {...props}
             css={css`
               label {
+                cursor: ${props.disabled ? "no-drop" : "pointer"};
                 margin-right: 16px;
-              }
-              span {
-                cursor: pointer;
+                > input {
+                  &: focus + .bb-RadioIcon {
+                    box-shadow: none !important;
+                  }
+                }
               }
             `}
           />

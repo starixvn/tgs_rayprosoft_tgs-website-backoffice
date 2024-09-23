@@ -32,7 +32,7 @@ export const Checkbox = ({
 
   let error = get(formContext?.formState?.errors ?? {}, name)
   state = state ?? (error && "danger")
-
+  console.log(props)
   return (
     <_Checkbox
       name={name}
@@ -41,9 +41,7 @@ export const Checkbox = ({
       {...formProps}
       {...props}
       css={css`
-        > div {
-          cursor: pointer;
-        }
+        cursor: ${props.disabled ? "no-drop" : "pointer"};
         > input {
           &: focus + .bb-CheckboxIcon {
             box-shadow: none !important;

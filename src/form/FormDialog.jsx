@@ -100,6 +100,7 @@ export const FormDialog = ({
           & .bb-DialogContent {
             max-height: 85vh;
             padding: 0;
+            overflow-y: unset;
           }
 
           & .bb-DialogHeader {
@@ -111,6 +112,14 @@ export const FormDialog = ({
               background: none !important;
             }
           }
+          & .bb-Stack {
+            max-height: 70vh;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+              display: none;
+            }
+          }
+
           & .bb-DialogFooter {
             border-top: 1px solid #dbdfe6;
             padding: 0.8rem;
