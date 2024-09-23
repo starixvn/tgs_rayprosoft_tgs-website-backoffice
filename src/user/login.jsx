@@ -86,7 +86,7 @@ export const Form = () => {
           width: 400px;
           border: 1px solid #d9d9e1;
           border-radius: 5px;
-          padding: 2.5rem;
+          padding: 20px 2.5rem 2.5rem;
           background: #ffffff;
           @media screen and (max-width: 576px) {
             width: 95%;
