@@ -30,6 +30,11 @@ export const Menu = ({
         fontSize="1.1rem"
         color="black200"
       /> */}
+      <img
+        src="/images/setting.png"
+        alt="Game"
+        style={{ marginRight: "0.75rem", width: "20px", height: " 20px" }}
+      />
       <GameManagementTrans />
     </Flex>
   ),

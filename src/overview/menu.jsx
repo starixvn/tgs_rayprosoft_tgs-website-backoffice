@@ -26,6 +26,13 @@ export const Menu = ({
         fontSize="1.1rem"
         color="black200"
       /> */}
+      <img
+        src="/images/overview.png"
+        alt="Overview"
+        width={20}
+        height={20}
+        style={{ marginRight: "0.75rem", width: "20px", height: " 20px" }}
+      />
       <OverviewTrans />
     </Flex>
   ),

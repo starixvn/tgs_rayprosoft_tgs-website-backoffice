@@ -81,6 +81,21 @@ const Body = () => {
         setPageIndex={setPageIndex}
         setSortOrder={setSortOrder}
         isLoading={isLoading}
+        isResponsive
+        isStriped
+        css={css`
+          > tbody {
+            tr {
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
@@ -124,7 +139,9 @@ const useColumns = ({ items = [], mutate }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "code",
         Header: <Trans zh="公司代码" en="Code" />,
@@ -199,7 +216,22 @@ const useColumns = ({ items = [], mutate }) => {
           disableSortBy: true,
           Cell: ({ value }) => {
             return (
-              <Set orientation="horizontal" alignX="center">
+              <Set
+                orientation="horizontal"
+                alignX="center"
+                css={css`
+                  flex-wrap: nowrap;
+                  > button {
+                    padding: 10px 12px;
+                    height: 38px;
+                    min-height: 38px;
+                    border: none;
+                    &:focus {
+                      box-shadow: none !important;
+                    }
+                  }
+                `}
+              >
                 <ViewButton record={value} />
                 <EditButton record={value} onSubmitted={mutate} />
               </Set>

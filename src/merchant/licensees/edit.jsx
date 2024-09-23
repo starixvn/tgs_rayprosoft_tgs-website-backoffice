@@ -9,7 +9,8 @@ import {
   Set,
   FieldStack,
   Columns,
-  Code
+  Code,
+  Icon
 } from "bumbag"
 import { useIsDisplayMenuByRoute, useUserResellerId } from "../../user/context"
 import Disclosure, { ViewDisclosure } from "../../dialog/Disclosure"
@@ -47,6 +48,7 @@ import { isDev } from "../../env"
 import { AddTrans, EditTrans } from "../../trans/Action"
 import { BasicInformationTrans } from "../../trans/Field"
 import { SWRConfig } from "swr"
+import { faPen } from "@fortawesome/free-solid-svg-icons"
 
 export const AddButton = ({ onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -58,7 +60,27 @@ export const AddButton = ({ onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog}>
+      <Disclosure
+        {...dialog}
+        css={css`
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        `}
+      >
         <AddTrans />
       </Disclosure>
       {dialog.visible && (
@@ -167,7 +189,7 @@ export const ViewButton = ({ record, ...props }) => {
 
   return (
     <>
-      <ViewDisclosure {...dialog} {...props} />
+      <ViewDisclosure {...dialog} {...props} palette="success" />
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <ViewDialog
@@ -253,8 +275,15 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog}>
-        <EditTrans />
+      <Disclosure {...dialog} palette="primary">
+        {/* <EditTrans /> */}
+        <Icon
+          icon={faPen}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
@@ -394,11 +423,25 @@ const EditBody = ({
 
   let editable = !readonly
   return (
-    <Stack orientation="vertical" marginLeft="1rem" paddingBottom="1.5rem">
-      <Heading use="h5" marginBottom="major-1">
+    <Stack orientation="vertical" padding="1rem">
+      <Heading use="h5" marginBottom="major-3" marginTop="major-1">
         <BasicInformationTrans />
       </Heading>
-      <FieldValues>
+      <FieldValues
+        css={css`
+          gap: 18px 10px;
+          input,
+          textarea,
+          select {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+          textarea {
+            border-radius: 6px !important;
+          }
+        `}
+      >
         {!userResellerId && (
           <>
             <NormalLabel>

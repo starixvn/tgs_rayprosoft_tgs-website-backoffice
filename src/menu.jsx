@@ -230,7 +230,7 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
         ref={ref}
         to={path}
         css={css`
-          padding-left: 12px;
+          padding-left: 42px;
           position: relative;
           color: #252b36f2 !important;
           border-radius: 0.375rem;
@@ -258,6 +258,8 @@ const MenuItem = ({ code, path, label, sidebar, isActive, ...props }) => {
             border: 1px solid #252b3661;
             border-radius: 100%;
             margin-right: 8px;
+            position: absolute;
+            left: 18px;
           `}
         />
         {label}

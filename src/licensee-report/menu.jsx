@@ -31,6 +31,11 @@ export const Menu = ({
         fontSize="1.1rem"
         color="black200"
       /> */}
+      <img
+        src="/images/analytics.png"
+        alt="Licensee report"
+        style={{ marginRight: "0.75rem", width: "20px", height: " 20px" }}
+      />
       <Trans {...nameMessages} />
     </Flex>
   ),

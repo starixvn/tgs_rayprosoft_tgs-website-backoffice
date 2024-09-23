@@ -61,7 +61,7 @@ export const PlatformPageContent = ({
         }}
         {...props}
       >
-        <Set orientation="vertical" isFilled height="100%">
+        <Set orientation="vertical" isFilled>
           <Set orientation="horizontal" alignY="center">
             <BrandBar
               onBrandChange={(value) => {

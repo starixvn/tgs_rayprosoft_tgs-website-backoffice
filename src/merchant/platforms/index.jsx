@@ -96,7 +96,26 @@ const LicenseeBodyBox = () => {
 
   let pageWidth = useLicenseePageContentWidth()
   return (
-    <Set orientation="vertical" isFilled height="100%" spacing="major-2">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      spacing="major-2"
+      css={css`
+        background: #fff;
+        padding: 1rem;
+        border: 1px solid #080a0c2d;
+        border-radius: 0.375rem;
+      `}
+    >
+      <Box
+        css={css`
+          padding: 1rem;
+          background: #f3f4f7;
+        `}
+      >
+        sss
+      </Box>
       <Level alignY="bottom" alignX="left" verticalBelow="mobile">
         <SearchBar
           search={(data = {}) => {
@@ -133,6 +152,21 @@ const LicenseeBodyBox = () => {
                 maxSize={{ height, width }}
                 stickyHead
                 getRowId={(row, index) => row.id ?? index}
+                isResponsive
+                isStriped
+                css={css`
+                  > tbody {
+                    tr {
+                      &:not(:last-child) {
+                        border-bottom: 1px solid #dbdfe6 !important;
+                      }
+                      &:nth-child(odd) {
+                        background: none;
+                        box-shadow: inset 0 0 0 9999px #0000000d;
+                      }
+                    }
+                  }
+                `}
               />
             )
           }}
@@ -182,7 +216,9 @@ const useColumns = ({ items = [], mutate }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "licenseeName",
         Header: <Trans zh="所属公司" en="Licensee Name" />,

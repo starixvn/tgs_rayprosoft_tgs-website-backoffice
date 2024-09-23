@@ -70,15 +70,17 @@ export const LicenseePageContent = ({
                 setLicenseeId(value)
               }}
             />
-            <Box>
-              <Heading use="h3" marginTop="0" marginBottom="0">
-                {title}
-              </Heading>
-            </Box>
-            {addonAfterTitle}
           </Set>
-          {licenseeId && children}
         </Set>
+        <Box>
+          <Box>
+            <Heading use="h3" marginTop="0" marginBottom="0">
+              {title}
+            </Heading>
+          </Box>
+          {addonAfterTitle}
+          {licenseeId && children}
+        </Box>
       </PageContent>
     </Store.Provider>
   )

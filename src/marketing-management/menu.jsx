@@ -32,6 +32,11 @@ export const Menu = ({
         fontSize="1.1rem"
         color="black200"
       /> */}
+      <img
+        src="/images/marketing.png"
+        alt="Fund managenment"
+        style={{ marginRight: "0.75rem", width: "20px", height: " 20px" }}
+      />
       <MarketingManagementTrans />
     </Flex>
   ),
