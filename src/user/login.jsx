@@ -96,7 +96,7 @@ export const Form = () => {
         <img
           src="/images/bo-logo.png"
           alt="bo-logo"
-          style={{ width: "150px", margin: "0 auto" }}
+          style={{ margin: "0 auto" }}
         />
         {imgUrl && (
           <Box
