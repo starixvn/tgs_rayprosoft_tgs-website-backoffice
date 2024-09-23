@@ -383,7 +383,7 @@ const BetLimitRow = ({
           name: "maxBet"
         })}
         defaultValue={betLimitField.maxBet}
-        min="0"
+        min={betLimitField.minBet}
         required
         disabled={disabled}
       />
@@ -396,7 +396,7 @@ const BetLimitRow = ({
           name: "maxBetPerMatch"
         })}
         defaultValue={betLimitField.maxBetPerMatch}
-        min="0"
+        min={betLimitField.maxBet}
         disabled={disabled}
       />
     </Table.Cell>
