@@ -65,7 +65,19 @@ export const BrandGameProviderCheckboxGroupTable = ({
             </Table.HeadCell>
           </Table.Row>
         </Table.Head>
-        <Table.Body>
+        <Table.Body
+          css={css`
+            tr {
+              background: #fff !important;
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              th {
+                background: #fff !important;
+              }
+            }
+          `}
+        >
           {fields.map((field, index) => (
             <Row
               key={field._id}

@@ -62,8 +62,8 @@ export const LicenseePageContent = ({
         }}
         {...props}
       >
-        <Set orientation="vertical" isFilled height="100%">
-          <Set orientation="horizontal" alignY="center">
+        <Set orientation="vertical" isFilled>
+          <Set orientation="horizontal" alignY="center" marginBottom="major-1">
             <BrandBar
               end={Licensee}
               onLicenseeChange={(value) => {
@@ -72,15 +72,28 @@ export const LicenseePageContent = ({
             />
           </Set>
         </Set>
-        <Box>
-          <Box>
-            <Heading use="h3" marginTop="0" marginBottom="0">
-              {title}
-            </Heading>
+        {licenseeId && (
+          <Box
+            css={css`
+              background: #fff;
+              padding: 1rem;
+              border: 1px solid #080a0c2d;
+              border-radius: 0.375rem;
+              .custom-width-table {
+                width: 100% !important;
+              }
+            `}
+          >
+            <Box>
+              <Heading use="h3" marginTop="major-2" marginBottom="major-3">
+                {title}
+              </Heading>
+              {addonAfterTitle}
+            </Box>
+
+            {licenseeId && children}
           </Box>
-          {addonAfterTitle}
-          {licenseeId && children}
-        </Box>
+        )}
       </PageContent>
     </Store.Provider>
   )

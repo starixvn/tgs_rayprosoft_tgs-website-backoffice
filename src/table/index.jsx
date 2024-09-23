@@ -289,6 +289,7 @@ export const Table = ({
         >
           <ActionBar table={table} />
           <div
+            className="custom-width-table"
             css={css`
               width: ${cssSizeValueOf(maxSize?.width) ?? "100%"};
               height: ${tableMeasure?.height > height &&

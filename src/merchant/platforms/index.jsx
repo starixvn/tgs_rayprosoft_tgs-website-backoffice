@@ -96,47 +96,56 @@ const LicenseeBodyBox = () => {
 
   let pageWidth = useLicenseePageContentWidth()
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      spacing="major-2"
-      css={css`
-        background: #fff;
-        padding: 1rem;
-        border: 1px solid #080a0c2d;
-        border-radius: 0.375rem;
-      `}
-    >
+    <Set orientation="vertical" isFilled height="100%">
       <Box
         css={css`
           padding: 1rem;
           background: #f3f4f7;
         `}
       >
-        sss
-      </Box>
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          search={(data = {}) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          isLoading={isLoading}
-        />
-        <Set orientation="horizontal" alignX="right">
-          <AddButton
-            id="add-platform-dialog-disclosure"
-            licenseeId={licenseeId}
-            onSubmitted={mutate}
+        <Level
+          alignY="bottom"
+          alignX="left"
+          verticalBelow="mobile"
+          marginBottom="major-2"
+        >
+          <SearchBar
+            search={(data = {}) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            isLoading={isLoading}
           />
-        </Set>
-      </Level>
-      <Box flex="1 0 50%">
-        <AutoSizer disableWidth={true}>
+          <Set orientation="horizontal" alignX="right">
+            <AddButton
+              id="add-platform-dialog-disclosure"
+              licenseeId={licenseeId}
+              onSubmitted={mutate}
+              css={css`
+                background: #4b49b6;
+                color: #fff;
+                border-radius: 6px !important;
+                border: 1px solid !important;
+                font-weight: 400;
+                &:focus,
+                &:hover,
+                &:active {
+                  background: #4b49b6;
+                  box-shadow: none !important;
+                }
+                &:hover {
+                  &:active {
+                    background: #4b49b6;
+                  }
+                }
+              `}
+            />
+          </Set>
+        </Level>
+        <Box>
           {({ height }) => {
             let width = pageWidth
             return (
@@ -170,7 +179,7 @@ const LicenseeBodyBox = () => {
               />
             )
           }}
-        </AutoSizer>
+        </Box>
       </Box>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>
@@ -298,7 +307,22 @@ const useColumns = ({ items = [], mutate }) => {
           accessor: (row) => row,
           Cell: ({ value }) => {
             return (
-              <Set orientation="horizontal" alignX="center">
+              <Set
+                orientation="horizontal"
+                alignX="center"
+                css={css`
+                  flex-wrap: nowrap;
+                  > button {
+                    padding: 10px 12px;
+                    height: 38px;
+                    min-height: 38px;
+                    border: none;
+                    &:focus {
+                      box-shadow: none !important;
+                    }
+                  }
+                `}
+              >
                 <ViewButton
                   id="view-platform-dialog-disclosure"
                   record={value}

@@ -47,7 +47,19 @@ export const BrandLanguageCheckboxGroupTable = ({
               }
             />
           </Table.Head>
-          <Table.Body>
+          <Table.Body
+            css={css`
+              tr {
+                background: #fff !important;
+                &:not(:last-child) {
+                  border-bottom: 1px solid #dbdfe6 !important;
+                }
+                th {
+                  background: #fff !important;
+                }
+              }
+            `}
+          >
             {fields.map((field, index) => {
               return (
                 <LanguageCheckboxGroupTableRow

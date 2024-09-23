@@ -9,7 +9,8 @@ import {
   FieldStack,
   Button,
   Set,
-  Group
+  Group,
+  Icon
 } from "bumbag"
 import { useIsDisplayMenuByRoute, useUserLicenseeId } from "../../user/context"
 import Disclosure, {
@@ -82,6 +83,7 @@ import {
 import Switch from "../../switch/Switch"
 import { AutoOrManualSwitch } from "../../switch/AutoOrManualSwitch"
 import { SWRConfig } from "swr"
+import { faPen } from "@fortawesome/free-solid-svg-icons"
 
 export const AddButton = ({ licenseeId, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -190,7 +192,7 @@ export const ViewButton = ({ record, ...props }) => {
 
   return (
     <>
-      <ViewDisclosure {...dialog} {...props} />
+      <ViewDisclosure {...dialog} {...props} palette="success" />
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <ViewDialog
@@ -276,8 +278,20 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure data-platform-id={record?.id} {...dialog} {...props}>
-        <EditTrans />
+      <Disclosure
+        data-platform-id={record?.id}
+        {...dialog}
+        {...props}
+        palette="primary"
+      >
+        {/* <EditTrans /> */}
+        <Icon
+          icon={faPen}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
@@ -479,12 +493,26 @@ const EditBody = ({ record, readonly, isAdd = false, businessType }) => {
   let AutoSendAgentBonusFieldName = "autoSendAgentBonus"
 
   return (
-    <Stack orientation="vertical" marginLeft="1rem" paddingBottom="1.5rem">
-      <Heading use="h5" marginBottom="major-1">
+    <Stack orientation="vertical" padding="1rem">
+      <Heading use="h5" marginBottom="major-3">
         <BasicInformationTrans />
       </Heading>
 
-      <FieldValues>
+      <FieldValues
+        css={css`
+          gap: 18px 30px;
+          input,
+          textarea,
+          select {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+          textarea {
+            border-radius: 6px !important;
+          }
+        `}
+      >
         {!userLicenseeId && (
           <>
             <NormalLabel>
@@ -670,7 +698,12 @@ const EditBody = ({ record, readonly, isAdd = false, businessType }) => {
           />
         </Box>
 
-        <NormalLabel>
+        <NormalLabel
+          css={css`
+            display: flex;
+            align-items: center;
+          `}
+        >
           <Trans zh="自动清除流水" en="Auto Clear Wagering Requirement" />
         </NormalLabel>
         <Set alignY="center">
