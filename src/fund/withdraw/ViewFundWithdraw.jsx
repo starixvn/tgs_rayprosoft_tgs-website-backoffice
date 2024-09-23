@@ -1,8 +1,8 @@
 import Big from "big.js"
 import { Box, Columns, FieldStack, Heading, useModalState } from "bumbag"
 import clone from "clone-deep"
-import React, { useEffect } from "react"
-import { useFormContext } from "react-hook-form"
+import React, { useEffect, useMemo, useState } from "react"
+import { useFormContext, useWatch } from "react-hook-form"
 import { SWRConfig } from "swr"
 import AlertDialog from "../../dialog/Alert"
 import { ViewDisclosure } from "../../dialog/Disclosure"
@@ -20,9 +20,13 @@ import { FieldValues } from "../../layout/Grid"
 import Separator from "../../layout/Separator"
 import { PaymentChannelLabel } from "../../payment/channel/PaymentChannel"
 import { BrandPaymentSelect } from "../../system/brandpayments/BrandPayment"
+import { BrandPaymentBalance } from "../../system/brandpayments"
 import BrandPaymentStatus from "../../system/brandpayments/BrandPaymentStatus"
 import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
-import { useBrandPayment } from "../../system/brandpayments/client"
+import {
+  useBrandPayment,
+  useBrandPaymentBalanceList
+} from "../../system/brandpayments/client"
 import { parseJSON } from "../../text/json"
 import { TextareaField } from "../../textarea"
 import { ApplicationTimeTrans } from "../../trans/Date"
@@ -115,7 +119,12 @@ const ViewFundWithdrawDialog = ({ brandId, formId, dialog, ...props }) => {
   )
 }
 
-export const FormBody = ({ brandId, record, readonly }) => {
+export const FormBody = ({
+  brandId,
+  record,
+  readonly,
+  showBalance = false
+}) => {
   let disabled = readonly
   return (
     <>
@@ -196,6 +205,7 @@ export const FormBody = ({ brandId, record, readonly }) => {
               record={record}
               disabled={disabled}
               readonly={readonly}
+              showBalance={showBalance}
             />
           </Columns.Column>
           <Columns.Column>
@@ -237,18 +247,14 @@ const RealNameBox = ({ record = {} }) => {
   )
 }
 
-const PayerInfo = ({ brandId, record, disabled }) => {
+const PayerInfo = ({ brandId, record, disabled, showBalance }) => {
   let { watch, control } = useFormContext()
-
   let BrandPaymentIdField = "brandPaymentId"
   let brandPaymentId = watch(BrandPaymentIdField)
-
   let underReview = isFundUnderReview(record?.status)
   let isApproved = isFundApproved(record?.status)
   let underReviewOrApproved = underReview || isApproved
-
   let { isLoading, data: brandPayment, error } = useBrandPayment(brandPaymentId)
-
   let detail = parseJSON(brandPayment?.extendedData)
   let rate = detail?.rate
   let hasRate = Number.isFinite(rate)
@@ -275,10 +281,52 @@ const PayerInfo = ({ brandId, record, disabled }) => {
             paymentStatus={BrandPaymentStatus.Enabled}
             bankType={record?.bankInfo?.bankType}
             paymentChannelId={record?.bankInfo?.paymentChannelId}
+            placeholder={"Select Payment"}
             required
             disabled={disabled}
           />
         </Box>
+        {brandPaymentId && (
+          <>
+            <>
+              <NormalLabel>
+                <Trans en="Transfer Limit From" />
+              </NormalLabel>
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={brandPayment?.transferLimitFrom}
+                  digits={4}
+                  format="0,0.00[00]"
+                />
+              </Box>
+            </>
+            <>
+              <NormalLabel>
+                <Trans en="Transfer Limit To" />
+              </NormalLabel>
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={brandPayment?.transferLimitTo}
+                  digits={4}
+                  format="0,0.00[00]"
+                />
+              </Box>
+            </>
+            {underReview && showBalance && (
+              <>
+                <NormalLabel>
+                  <Trans en="Merchant Balance" />
+                </NormalLabel>
+                <Box alignY="center">
+                  <BrandPaymentBalance
+                    brandId={brandId}
+                    brandPaymentId={brandPaymentId}
+                  />
+                </Box>
+              </>
+            )}
+          </>
+        )}
         {underReviewOrApproved && hasRate && (
           <>
             <NormalLabel>

@@ -189,7 +189,11 @@ const VerifyFundWithdrawDialog = ({
       dialog={dialog}
       maxWidth="80vw"
     >
-      <FormBody brandId={brandId} record={fundWithdrawForm} />
+      <FormBody
+        brandId={brandId}
+        record={fundWithdrawForm}
+        showBalance={true}
+      />
     </FormDialog>
   )
 }

@@ -308,7 +308,7 @@ const SearchBar = ({ search, isLoading, ...props }) => {
   )
 }
 
-const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
+export const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
   let ref = useRef()
   let isVisible = useIsVisible(ref, { once: true })
   let [params, setParams] = useState()
