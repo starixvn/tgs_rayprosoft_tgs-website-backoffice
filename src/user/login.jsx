@@ -81,18 +81,35 @@ export const Form = () => {
         height: 80vh;
       `}
     >
-      {imgUrl && (
-        <Box
-          marginBottom="3rem"
-          width="200px"
-          css={css`
-            aspect-ratio: 500 / 175;
-          `}
-        >
-          <Image src={imgUrl} width="100%" filter="none" />
-        </Box>
-      )}
-      {/* {title && (
+      <Box
+        css={css`
+          width: 400px;
+          border: 1px solid #d9d9e1;
+          border-radius: 5px;
+          padding: 2.5rem;
+          background: #ffffff;
+          @media screen and (max-width: 576px) {
+            width: 95%;
+          }
+        `}
+      >
+        <img
+          src="/images/bo-logo.png"
+          alt="bo-logo"
+          style={{ width: "150px", margin: "0 auto" }}
+        />
+        {imgUrl && (
+          <Box
+            marginBottom="3rem"
+            width="200px"
+            css={css`
+              aspect-ratio: 500 / 175;
+            `}
+          >
+            <Image src={imgUrl} width="100%" filter="none" />
+          </Box>
+        )}
+        {/* {title && (
         <Box marginBottom="1rem" alignX="center">
           <Text.Block
             color={getLoginTitleColor()}
@@ -112,131 +129,128 @@ export const Form = () => {
           )}
         </Box>
       )} */}
-      <Card
-        title={loginLabel}
-        textTransform="uppercase"
-        boxShadow="none"
-        headerAddon={
-          <Set>
-            <LangDropdownMenu />
-          </Set>
-        }
-        css={css`
-          width: 400px;
-          border: 1px solid #d9d9e1;
-          padding: 2.5rem;
-          @media screen and (max-width: 576px) {
-            width: 95%;
+        <Card
+          title={loginLabel}
+          textTransform="uppercase"
+          boxShadow="none"
+          headerAddon={
+            <Set>
+              <LangDropdownMenu />
+            </Set>
           }
-        `}
-      >
-        <FormProvider {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <Set orientation="vertical" isFilled>
-              <Box
-                css={css`
-                  border: 1px solid #d9d9e1;
-                  border-radius: 5px;
-                  overflow: hidden;
-                  margin-bottom: 16px !important;
-                  display: flex;
-                `}
-              >
+          css={css`
+            padding: 0;
+            background: none;
+          `}
+        >
+          <FormProvider {...formMethods}>
+            <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+              <Set orientation="vertical" isFilled>
                 <Box
                   css={css`
-                    padding: 0.375rem 0.75rem;
-                    background-color: #f3f4f7;
-                    border-right: 1px solid #dbdfe6;
+                    border: 1px solid #d9d9e1;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    margin-bottom: 16px !important;
                     display: flex;
-                    align-items: center;
                   `}
                 >
-                  <Icon
-                    icon={faUserAlt}
-                    type="font-awesome"
-                    color="rgba(37, 43, 54, 0.38)"
-                    fontSize="12px"
+                  <Box
+                    css={css`
+                      padding: 0.375rem 0.75rem;
+                      background-color: #f3f4f7;
+                      border-right: 1px solid #dbdfe6;
+                      display: flex;
+                      align-items: center;
+                    `}
+                  >
+                    <Icon
+                      icon={faUserAlt}
+                      type="font-awesome"
+                      color="rgba(37, 43, 54, 0.38)"
+                      fontSize="12px"
+                    />
+                  </Box>
+                  <Input
+                    name="username"
+                    placeholder={usernameLabel}
+                    autoComplete="username"
+                    css={css`
+                      width: 100%;
+                      > input {
+                        border: none !important;
+                        height: 38px;
+                        border-radius: 0 !important;
+                      }
+                    `}
                   />
                 </Box>
-                <Input
-                  name="username"
-                  placeholder={usernameLabel}
-                  autoComplete="username"
-                  css={css`
-                    width: 100%;
-                    > input {
-                      border: none !important;
-                      height: 38px;
-                      border-radius: 0 !important;
-                    }
-                  `}
-                />
-              </Box>
-              <Box
-                css={css`
-                  border: 1px solid #d9d9e1;
-                  border-radius: 5px;
-                  overflow: hidden;
-                  margin-bottom: 16px !important;
-                  display: flex;
-                `}
-              >
                 <Box
                   css={css`
+                    border: 1px solid #d9d9e1;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    margin-bottom: 16px !important;
+                    display: flex;
+                  `}
+                >
+                  <Box
+                    css={css`
                     padding: 0.375rem 0.75rem;
                     background-color: #f3f4f7;
                     border-right: 1px solid #dbdfe6;
                     display: flex;
                     align-items: center;s
                   `}
-                >
-                  <Icon
-                    icon={faLock}
-                    type="font-awesome"
-                    color="rgba(37, 43, 54, 0.38)"
-                    fontSize="12px"
+                  >
+                    <Icon
+                      icon={faLock}
+                      type="font-awesome"
+                      color="rgba(37, 43, 54, 0.38)"
+                      fontSize="12px"
+                    />
+                  </Box>
+                  <PasswordInputField
+                    name="password"
+                    type="password"
+                    placeholder={passwordLabel}
+                    autoComplete="current-password"
+                    css={css`
+                      width: 100%;
+                      > div {
+                        width: 100%;
+                        input {
+                          border: none !important;
+                          height: 38px;
+                          width: 100%;
+                          border-radius: 0 !important;
+                        }
+                      }
+                    `}
                   />
                 </Box>
-                <PasswordInputField
-                  name="password"
-                  type="password"
-                  placeholder={passwordLabel}
-                  autoComplete="current-password"
+                <Button
+                  type="submit"
+                  color={getLoginButtonColor()}
+                  background={getLoginButtonBackground()}
+                  isLoading={isAuthLoading}
+                  textTransform="uppercase"
+                  border="none"
+                  fontWeight="500"
+                  minHeight="38px"
                   css={css`
-                    width: 100%;
-                    > div {
-                      width: 100%;
-                      input {
-                        border: none !important;
-                        height: 38px;
-                        width: 100%;
-                        border-radius: 0 !important;
-                      }
+                    :focus {
+                      box-shadow: none !important;
                     }
                   `}
-                />
-              </Box>
-              <Button
-                type="submit"
-                color={getLoginButtonColor()}
-                background={getLoginButtonBackground()}
-                isLoading={isAuthLoading}
-                textTransform="uppercase"
-                border="none"
-                fontWeight="500"
-                minHeight="38px"
-                css={css`
-                  :focus {
-                    box-shadow: none !important;
-                  }
-                `}
-              >
-                {loginLabel}
-              </Button>
-            </Set>
-          </form>
-        </FormProvider>
-      </Card>
+                >
+                  {loginLabel}
+                </Button>
+              </Set>
+            </form>
+          </FormProvider>
+        </Card>
+      </Box>
       <ErrorDialog error={error} dialog={dialog} />
     </Box>
   )

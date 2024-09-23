@@ -173,10 +173,21 @@ const Header = () => {
     <>
       <TopNav id="app-header" background={getHeaderBackground()}>
         <TopNav.Section>
-          <TopNav.Item marginRight="0">
+          <TopNav.Item
+            marginRight="0"
+            css={css`
+              width: 290px;
+              justify-content: space-between;
+            `}
+          >
+            <img
+              src="/images/bo-logo.png"
+              alt="bo-logo"
+              style={{ width: "110px", marginLeft: "18px" }}
+            />
             <Button
               paddingLeft="1rem"
-              paddingRight="1rem"
+              paddingRight="1.3rem"
               color={getHeaderButtonColor()}
               onClick={page.sidebar.toggle}
               variant="link"
