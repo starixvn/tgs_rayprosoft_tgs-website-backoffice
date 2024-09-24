@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { css } from "@emotion/react"
 import { useAuth, useIsAuthLoading } from "./context"
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
@@ -29,10 +29,12 @@ import {
   getLoginSubTitleFontSize,
   getLoginImageUrl
 } from "../env"
+import { useSearchParams } from "react-router-dom"
 
 export const Path = "/login"
 
 export const Form = () => {
+  const [searchParams] = useSearchParams()
   let formMethods = useForm({
     defaultValues: { username: "", password: "" }
   })
@@ -42,6 +44,19 @@ export const Form = () => {
 
   const dialog = Modal.useState()
   let [error, setError] = useState()
+
+  useEffect(() => {
+    const token = searchParams.get("token")
+    const referenceId = searchParams.get("referenceId")
+    const timestamp = searchParams.get("timestamp")
+    if (token) {
+      onSubmit({
+        token,
+        referenceId,
+        timestamp
+      })
+    }
+  }, [])
 
   const onSubmit = (data) => {
     setError(null)
