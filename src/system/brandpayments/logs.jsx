@@ -185,7 +185,7 @@ const useColumns = ({ items = [] }) => {
             <Detail
               record={{
                 playerListCondition: value?.beforePlayerListCondition,
-                allPlayer: value?.beforeAllPlayers,
+                allPlayers: value?.beforeAllPlayers,
                 depositedAmountMin: value?.beforeDepositedAmountMin,
                 depositedAmountMax: value?.beforeDepositedAmountMax,
                 depositedAmountUnlimited: value?.beforeDepositedAmountUnlimited,
@@ -198,7 +198,7 @@ const useColumns = ({ items = [] }) => {
             <Detail
               record={{
                 playerListCondition: value?.afterPlayerListCondition,
-                allPlayer: value?.afterAllPlayers,
+                allPlayers: value?.afterAllPlayers,
                 depositedAmountMin: value?.afterDepositedAmountMin,
                 depositedAmountMax: value?.afterDepositedAmountMax,
                 depositedAmountUnlimited: value?.afterDepositedAmountUnlimited,

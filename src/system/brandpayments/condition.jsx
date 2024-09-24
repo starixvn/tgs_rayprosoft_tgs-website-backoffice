@@ -75,7 +75,7 @@ export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
       ? useTrans(MatchOneTrans)
       : useTrans(MatchAllTrans)
 
-  const allPlayerDetail = allPlayers ? `${useTrans(AllPlayerTrans)}` : ""
+  const allPlayerDetail = allPlayers ? `${useTrans(AllPlayerTrans)},` : ""
 
   let details = [
     ,
@@ -88,7 +88,7 @@ export const Detail = ({ record, whiteSpace = "nowrap", ...props }) => {
   return (
     <>
       <Text.Block textAlign="left" whiteSpace={whiteSpace} {...props}>
-        {`${condition}: ${allPlayerDetail},`}
+        {`${condition}: ${allPlayerDetail}`}
         <br />
         <ConditionDetailList details={details} />
       </Text.Block>
