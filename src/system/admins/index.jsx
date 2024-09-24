@@ -131,16 +131,70 @@ const SearchBar = ({
             name="username"
             showEmptyFieldValueAddonAfter
             placeholder={useUserNameTrans()}
+            css={css`
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            `}
           />
           <InputField
             name="departmentName"
             showEmptyFieldValueAddonAfter
             placeholder={useDepartmentTrans()}
+            css={css`
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            `}
           />
           <InputField
             name="role"
             showEmptyFieldValueAddonAfter
             placeholder={useRolePlaceholder()}
+            css={css`
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            `}
           />
           <AdminStatusSelect name="status" />
           <SearchButton isLoading={isLoading} />

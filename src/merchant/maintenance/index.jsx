@@ -249,18 +249,33 @@ const useColumns = ({ items = [], mutate }) => {
                   }
                 `}
               >
-                {record?.brandMaintenanceId && (
+                {record?.brandMaintenanceId ? (
                   <ViewMaintenanceMessageDisclosure
                     brandMaintenanceId={record?.brandMaintenanceId}
                     dialogId="view-maintenance-message-dialog"
                   />
+                ) : (
+                  <div
+                    css={css`
+                      width: 42px;
+                      height: 38px;
+                    `}
+                  />
                 )}
-                {record?.brandMaintenanceId && (
+                {record?.brandMaintenanceId ? (
                   <EditMaintenanceMessageDisclosure
                     brandMaintenanceId={record?.brandMaintenanceId}
                     dialogId="edit-maintenance-message-dialog"
                   />
+                ) : (
+                  <div
+                    css={css`
+                      width: 42px;
+                      height: 38px;
+                    `}
+                  />
                 )}
+
                 <MaintenanceTimeRangeDialogDisclosure
                   useFetch={useUpdateMaintenance}
                   brandId={record?.brandId}
