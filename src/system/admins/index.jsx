@@ -104,6 +104,19 @@ const Body = () => {
         setPageIndex={setPageIndex}
         setSortOrder={setSortOrder}
         isLoading={isLoading}
+        css={css`
+          > tbody {
+            tr {
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
@@ -216,7 +229,9 @@ const useColumns = ({ mutate, items = [] }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         Header: <UserNameTrans />,
         accessor: "username",
@@ -296,7 +311,14 @@ const useColumns = ({ mutate, items = [] }) => {
         },
         Cell: ({ value }) => {
           return (
-            <Set orientation="vertical" alignX="center">
+            <Set
+              orientation="horizontal"
+              spacing="minor-2"
+              alignY="center"
+              css={css`
+                flex-wrap: nowrap;
+              `}
+            >
               <EditButton
                 id="edit-user-dialog-disclosure"
                 user={value}

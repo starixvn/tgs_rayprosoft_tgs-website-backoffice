@@ -56,7 +56,28 @@ export const AddButton = ({ onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure
+        {...dialog}
+        {...props}
+        css={css`
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        `}
+      >
         <AddTrans />
       </Disclosure>
       {dialog.visible && (
@@ -76,7 +97,20 @@ export const EditButton = ({ user, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure
+        {...dialog}
+        {...props}
+        palette="primary"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      >
         <EditTrans />
       </Disclosure>
       {dialog.visible && (
@@ -96,7 +130,20 @@ export const EditPasswordButton = ({ user, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure
+        {...dialog}
+        {...props}
+        palette="primary"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      >
         <ChangePasswordTrans />
       </Disclosure>
       {dialog.visible && (
@@ -157,8 +204,8 @@ const PasswordBody = ({ dialog }) => {
   let { watch } = useFormContext()
   let password = watch("password")
   return (
-    <Stack spacing="major-3" margin="major-1">
-      <FieldValues>
+    <Stack padding="5rem 1rem 1rem 1rem">
+      <FieldValues marginBottom="0">
         <Label name="password" required>
           <Trans zh="密码" en="Password" />
         </Label>
@@ -262,7 +309,7 @@ const AddBody = ({}) => {
   }
 
   return (
-    <Stack spacing="major-3" margin="major-1">
+    <Stack padding="5rem 1rem 1rem 1rem">
       <FieldValues>
         <UsernameLabel required />
         <Box>
@@ -532,8 +579,8 @@ const EditBody = ({ user }) => {
   let departmentId = watch("departmentId")
 
   return (
-    <Stack spacing="major-3" margin="major-1">
-      <FieldValues>
+    <Stack padding="5rem 1rem 1rem 1rem">
+      <FieldValues marginBottom="0">
         <UsernameLabel />
         <Box>
           <InputField type="hidden" name="username" />
