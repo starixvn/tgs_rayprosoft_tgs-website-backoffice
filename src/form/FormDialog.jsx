@@ -106,7 +106,7 @@ export const FormDialog = ({
           & .bb-DialogHeader {
             padding: 1rem;
             border-bottom: 1px solid #dbdfe6;
-            margin-bottom: 10px;
+            margin-bottom: 0;
             > button {
               box-shadow: none !important;
               background: none !important;

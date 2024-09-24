@@ -38,6 +38,7 @@ export const Switch = ({
       state={state}
       css={css`
         width: max-content;
+        cursor: pointer;
       `}
       {...formProps}
       {...props}

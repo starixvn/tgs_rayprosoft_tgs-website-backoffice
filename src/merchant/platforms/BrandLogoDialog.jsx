@@ -123,11 +123,6 @@ const ViewOrEditDialog = ({
       }
       minWidth="40vw"
       maxWidth="70vw"
-      css={css`
-        & .bb-DialogHeader {
-          margin-bottom: 0;
-        }
-      `}
     >
       <FormBody readOnly={readOnly} />
     </FormDialog>

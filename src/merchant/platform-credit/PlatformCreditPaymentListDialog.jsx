@@ -94,18 +94,43 @@ const ListDialog = ({ record, onSubmitted, dialog, ...props }) => {
       showCloseButton
       showActionButtons={false}
       hideOnClickOutside={false}
+      css={css`
+        & .bb-DialogContent {
+          max-height: 85vh;
+          overflow-y: unset;
+        }
+        & .bb-Stack {
+          max-height: 70vh;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+        & .bb-DialogHeader {
+          > button {
+            &:focus,
+            &:hover,
+            &:active {
+              background: none !important;
+              box-shadow: none !important;
+            }
+          }
+        }
+      `}
     >
-      <Table
-        id="platform-credit-payments"
-        columns={columns}
-        data={items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state?.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <Stack>
+        <Table
+          id="platform-credit-payments"
+          columns={columns}
+          data={items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state?.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </Stack>
     </Dialog.Modal>
   )
 }

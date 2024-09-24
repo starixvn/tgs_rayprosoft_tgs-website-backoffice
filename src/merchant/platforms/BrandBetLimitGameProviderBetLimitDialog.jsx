@@ -245,26 +245,28 @@ const EditDialog = ({
         }
       `}
     >
-      <FieldStack>
-        <ActionBar
-          brandId={brandId}
-          record={brand}
-          onBrandGameListSynced={() => {
-            reset()
+      <Box padding="1rem">
+        <FieldStack>
+          <ActionBar
+            brandId={brandId}
+            record={brand}
+            onBrandGameListSynced={() => {
+              reset()
 
-            //close and re-open dialog for sync form data
-            dialog.hide()
-            setTimeout(() => {
-              dialog.show()
-            })
-          }}
-        />
-        <EditBody
-          brand={brand}
-          betLimits={betLimits}
-          gameProviders={gameProviders}
-        />
-      </FieldStack>
+              //close and re-open dialog for sync form data
+              dialog.hide()
+              setTimeout(() => {
+                dialog.show()
+              })
+            }}
+          />
+          <EditBody
+            brand={brand}
+            betLimits={betLimits}
+            gameProviders={gameProviders}
+          />
+        </FieldStack>
+      </Box>
     </FormDialog>
   )
 }
@@ -294,6 +296,11 @@ const ActionBar = ({ brandId, onBrandGameListSynced }) => {
         onClick={() => setSubmit(brandId)}
         isLoading={isLoading}
         disabled={isLoading}
+        css={css`
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
       >
         <Trans zh="同步游戏列表" en="Sync Games" />
       </Button>

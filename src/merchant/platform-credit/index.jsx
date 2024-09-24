@@ -80,6 +80,19 @@ const Body = () => {
         setSortOrder={setSortOrder}
         isLoading={isLoading}
         getRowId={(row) => row.id}
+        css={css`
+          > tbody {
+            tr {
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
@@ -133,7 +146,9 @@ const useColumns = ({ items = [], mutate }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "licenseeName",
         Header: <Trans zh="所属公司" en="Licensee Name" />,
@@ -172,7 +187,23 @@ const useColumns = ({ items = [], mutate }) => {
           accessor: (row) => row,
           Cell: ({ value }) => {
             return (
-              <Set orientation="horizontal" alignX="center">
+              <Set
+                orientation="horizontal"
+                alignX="center"
+                css={css`
+                  flex-wrap: nowrap;
+                  > button {
+                    padding: 10px 12px;
+                    height: 38px;
+                    min-height: 38px;
+                    border: 1px solid #d9d9e1;
+                    &:focus {
+                      box-shadow: none !important;
+                      border: 1px solid #d9d9e1;
+                    }
+                  }
+                `}
+              >
                 <EditPlatformCreditDialogDisclosure
                   id={`platform-credit-dialog-disclosure`}
                   record={value}

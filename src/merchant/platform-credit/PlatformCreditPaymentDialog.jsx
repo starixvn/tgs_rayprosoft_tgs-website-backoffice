@@ -101,37 +101,44 @@ const FormBody = () => {
     "balance"
   ])
   return (
-    <FieldValues marginLeft="1rem">
-      <NormalLabel>
-        <Trans zh="所属公司" en="Licensee Name" />
-      </NormalLabel>
-      <Box alignY="center">{licenseeName}</Box>
+    <Box padding="1rem">
+      <FieldValues
+        css={css`
+          align-items: center;
+          gap: 10px 25px;
+        `}
+      >
+        <NormalLabel>
+          <Trans zh="所属公司" en="Licensee Name" />
+        </NormalLabel>
+        <Box alignY="center">{licenseeName}</Box>
 
-      <Trans zh="平台名称" en="Name" />
-      <Box alignY="center">{brandName}</Box>
+        <Trans zh="平台名称" en="Name" />
+        <Box alignY="center">{brandName}</Box>
 
-      <Trans zh="平台代码" en="Code" />
-      <Box alignY="center">{brandCode}</Box>
+        <Trans zh="平台代码" en="Code" />
+        <Box alignY="center">{brandCode}</Box>
 
-      <NormalLabel>
-        <Trans zh="平台额度" en="Credit" />
-      </NormalLabel>
-      <Box alignY="center">
-        <FormattedNumber value={credit} />
-      </Box>
+        <NormalLabel>
+          <Trans zh="平台额度" en="Credit" />
+        </NormalLabel>
+        <Box alignY="center">
+          <FormattedNumber value={credit} />
+        </Box>
 
-      <NormalLabel>
-        <BalanceTrans />
-      </NormalLabel>
-      <Box alignY="center">
-        <FormattedNumber value={balance} />
-      </Box>
-      <NormalLabel>
-        <Trans zh="付款金额" en="Payment amount" />
-      </NormalLabel>
-      <Box alignY="center">
-        <NumberInput name="amount" required />
-      </Box>
-    </FieldValues>
+        <NormalLabel>
+          <BalanceTrans />
+        </NormalLabel>
+        <Box alignY="center">
+          <FormattedNumber value={balance} />
+        </Box>
+        <NormalLabel>
+          <Trans zh="付款金额" en="Payment amount" />
+        </NormalLabel>
+        <Box alignY="center">
+          <NumberInput name="amount" required />
+        </Box>
+      </FieldValues>
+    </Box>
   )
 }

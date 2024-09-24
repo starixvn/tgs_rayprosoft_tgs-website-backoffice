@@ -96,8 +96,13 @@ const FormBody = () => {
     "brandCode"
   ])
   return (
-    <>
-      <FieldValues marginLeft="1rem">
+    <Box padding="1rem">
+      <FieldValues
+        css={css`
+          align-items: center;
+          gap: 10px 25px;
+        `}
+      >
         <NormalLabel>
           <Trans zh="所属公司" en="Licensee Name" />
         </NormalLabel>
@@ -117,6 +122,6 @@ const FormBody = () => {
         </Box>
       </FieldValues>
       <Input type="hidden" name="id" />
-    </>
+    </Box>
   )
 }

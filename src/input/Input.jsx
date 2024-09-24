@@ -38,7 +38,21 @@ export const Input = ({
   let error = formContext?.formState?.errors[name]
   let state = error && "danger"
 
-  return <_Input state={state} inputRef={inputRef} {...formProps} {...props} />
+  return (
+    <_Input
+      state={state}
+      inputRef={inputRef}
+      {...formProps}
+      {...props}
+      css={css`
+        > input {
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+      `}
+    />
+  )
 }
 
 export const InputField = ({

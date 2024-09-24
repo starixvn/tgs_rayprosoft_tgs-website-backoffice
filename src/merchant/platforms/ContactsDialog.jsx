@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { useModalState, Table, Button, Icon } from "bumbag"
+import { useModalState, Table, Button, Icon, Box } from "bumbag"
 import { Disclosure, ConfigIconDisclosure } from "../../dialog/Disclosure"
 import FormDialog from "../../form/FormDialog"
 import { useIsDisplayMenuByRoute } from "../../user/context"
@@ -143,43 +143,57 @@ const FormBody = ({ name = ContactsField, readOnly }) => {
     keyName: "_id"
   })
   return (
-    <Table>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeadCell>
-            <Trans zh="聯絡人" en="Name" />
-          </Table.HeadCell>
-          <Table.HeadCell>
-            <EmailTrans />
-          </Table.HeadCell>
-          <Table.HeadCell>
-            <RemarkTrans />
-          </Table.HeadCell>
-          <Table.HeadCell
-            css={css`
-              min-width: 4.25rem;
-            `}
-          ></Table.HeadCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        {fieldArray.fields.map((field, index) => {
-          return (
-            <ContactRow
-              readOnly={readOnly}
-              key={field._id}
-              name={name}
-              index={index}
-              field={field}
-              fieldArray={fieldArray}
-            />
-          )
-        })}
-        {!readOnly && fieldArray.fields.length < ContactsMax && (
-          <AddRow fieldArray={fieldArray} />
-        )}
-      </Table.Body>
-    </Table>
+    <Box padding="1rem">
+      <Table
+        css={css`
+          background: #fff;
+          > tbody {
+            tr {
+              background: #fff;
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+            }
+          }
+        `}
+      >
+        <Table.Head>
+          <Table.Row>
+            <Table.HeadCell>
+              <Trans zh="聯絡人" en="Name" />
+            </Table.HeadCell>
+            <Table.HeadCell>
+              <EmailTrans />
+            </Table.HeadCell>
+            <Table.HeadCell>
+              <RemarkTrans />
+            </Table.HeadCell>
+            <Table.HeadCell
+              css={css`
+                min-width: 4.25rem;
+              `}
+            ></Table.HeadCell>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {fieldArray.fields.map((field, index) => {
+            return (
+              <ContactRow
+                readOnly={readOnly}
+                key={field._id}
+                name={name}
+                index={index}
+                field={field}
+                fieldArray={fieldArray}
+              />
+            )
+          })}
+          {!readOnly && fieldArray.fields.length < ContactsMax && (
+            <AddRow fieldArray={fieldArray} />
+          )}
+        </Table.Body>
+      </Table>
+    </Box>
   )
 }
 
@@ -231,7 +245,7 @@ const RemoveButton = ({ index, fieldArray }) =>
       <Button
         size="small"
         palette="danger"
-        variant="ghost"
+        color="#fff"
         onClick={() => {
           fieldArray.remove(index)
         }}
@@ -248,8 +262,9 @@ const AddRow = ({ fieldArray }) =>
       <Table.Row>
         <Table.Cell>
           <Button
+            palette="primary"
+            color="#fff"
             size="small"
-            variant="ghost"
             onClick={() => {
               fieldArray.append({ name: "", email: "", remark: "" })
             }}

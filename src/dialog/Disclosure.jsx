@@ -5,7 +5,8 @@ import {
   faCog,
   faMinus,
   faPlus,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faPen
 } from "@fortawesome/free-solid-svg-icons"
 import {
   AddTrans,
@@ -47,8 +48,15 @@ export const ViewDisclosure = forwardRef((props, ref) => (
 ))
 
 export const EditDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props}>
-    <EditTrans />
+  <Disclosure ref={ref} {...props} palette="primary">
+    <Icon
+      icon={faPen}
+      type="font-awesome"
+      color="#080a0c"
+      fontSize="16px"
+      fontWeight="400"
+    />
+    {/* <EditTrans /> */}
   </Disclosure>
 ))
 
