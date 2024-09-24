@@ -156,6 +156,11 @@ const AddDeductFundDialog = ({ brandId, onSubmitted, dialog, dialogId }) => {
         }
       }}
       title={title}
+      css={css`
+        min-width: 500px;
+        max-width: 70vw;
+        overflow: hidden;
+      `}
     >
       <FormBody />
       {doubleConfirmDialog.visible && (
@@ -252,8 +257,12 @@ const FormBody = ({}) => {
   let operator = useUsername()
   let estimatedCredit = useEstimatedCredit()
   return (
-    <FieldStack marginLeft="1rem">
-      <FieldValues>
+    <FieldStack padding="5rem 1rem 1rem 1rem">
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
         <Box>
           <PlatformTrans />
         </Box>
@@ -279,7 +288,7 @@ const FormBody = ({}) => {
         <Box>
           <Trans zh="平台額度(操作後)" en="Platform Credits (Updated)" />
         </Box>
-        <Box alignX="right">
+        <Box alignX="left">
           <FormattedNumberDecimal value={estimatedCredit} placeholder="-" />
         </Box>
 
@@ -291,7 +300,17 @@ const FormBody = ({}) => {
         <Box>
           <RemarkTrans />
         </Box>
-        <Textarea name="remark" />
+        <Textarea
+          name="remark"
+          css={css`
+            > textarea {
+              border-radius: 6px;
+              &:focus {
+                box-shadow: none !important;
+              }
+            }
+          `}
+        />
 
         <Box alignY="center">
           <Trans zh="金額 (USD)" en="Amount (USD)" />

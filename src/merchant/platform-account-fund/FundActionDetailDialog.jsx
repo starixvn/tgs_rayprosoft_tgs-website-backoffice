@@ -93,7 +93,23 @@ const DetailDialog = ({ brandId, month, dialog, dialogId }) => {
   }
 
   return (
-    <Modal id={dialogId} title={title} {...dialog}>
+    <Modal
+      id={dialogId}
+      title={title}
+      {...dialog}
+      css={css`
+        min-width: 50vw;
+        & .bb-DialogHeader {
+          > button {
+            &:focus,
+            &:hover {
+              background: none !important;
+              box-shadow: none !important;
+            }
+          }
+        }
+      `}
+    >
       <Table
         id="fund-detail"
         columns={columns}

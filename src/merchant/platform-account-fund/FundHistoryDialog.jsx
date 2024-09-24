@@ -86,6 +86,15 @@ const HistoryDialog = ({ brandId, dialog, dialogId, title }) => {
       {...dialog}
       css={css`
         min-width: 75vw;
+        & .bb-DialogHeader {
+          > button {
+            &:focus,
+            &:hover {
+              background: none !important;
+              box-shadow: none !important;
+            }
+          }
+        }
       `}
     >
       <Table
@@ -97,6 +106,16 @@ const HistoryDialog = ({ brandId, dialog, dialogId, title }) => {
         setSortOrder={setSortOrder}
         isLoading={isLoading}
         hasCellDividers
+        css={css`
+          > tbody {
+            tr {
+              background: #fff;
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+            }
+          }
+        `}
       />
     </Modal>
   )

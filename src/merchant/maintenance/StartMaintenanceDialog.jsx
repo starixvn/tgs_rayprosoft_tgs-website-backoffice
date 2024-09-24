@@ -26,7 +26,19 @@ export const StartMaintenanceDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure {...dialog} palette={palette} variant={variant} {...props}>
+      <Disclosure
+        {...dialog}
+        palette={palette}
+        variant={variant}
+        {...props}
+        css={css`
+          border: 1px solid #e55353;
+          &:focus {
+            box-shadow: none !important;
+            border: 1px solid #e55353;
+          }
+        `}
+      >
         <Trans zh="開始維護" en="Start Maintenance" />
       </Disclosure>
       {dialog.visible && (
@@ -72,6 +84,11 @@ const StartMaintenanceDialog = ({ dialog, onSubmitted, ...props }) => {
         dialog={dialog}
         title={title}
         submitText={<ConfirmText />}
+        css={css`
+          & .bb-DialogHeader {
+            position: unset;
+          }
+        `}
       ></WarningConfirmFormDialog>
       {error && <AlertDialog {...error} onClickClose={reset} />}
     </>

@@ -54,7 +54,18 @@ export const MaintenanceTimeRangeDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure id={`${dialogId}-disclosure`} {...dialog} {...props}>
+      <Disclosure
+        id={`${dialogId}-disclosure`}
+        {...dialog}
+        {...props}
+        css={css`
+          border: 1px solid #d9d9e1;
+          &:focus {
+            box-shadow: none !important;
+            border: 1px solid #d9d9e1;
+          }
+        `}
+      >
         <Trans zh="维护时间" en="Maintenance Time" />
       </Disclosure>
       {dialog.visible && (

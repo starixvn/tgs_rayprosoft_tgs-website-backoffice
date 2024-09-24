@@ -71,16 +71,42 @@ const Body = () => {
   let pageWidth = usePlatformPageContentWidth()
   return (
     <Set orientation="vertical" isFilled height="100%">
-      <Set>
-        <FundActionDialogDisclosure brandId={brandId} onSubmitted={mutate} />
-        <AlertSettingDialogDisclosure brandId={brandId} />
-        <FundHistoryDialogDisclosure brandId={brandId} />
-      </Set>
-      <Text.Block fontSize="400" paddingTop="1rem">
-        <Trans zh="當月資金" en="Fund of the month" />
-      </Text.Block>
-      <Box flex="1 0 50%">
-        <AutoSizer disableWidth={true}>
+      <Box
+        css={css`
+          padding: 1rem;
+          background: #f3f4f7;
+        `}
+      >
+        <Set
+          css={css`
+            > button {
+              background: #4b49b6;
+              color: #fff;
+              border-radius: 6px !important;
+              border: 1px solid !important;
+              font-weight: 400;
+              &:focus,
+              &:hover,
+              &:active {
+                background: #4b49b6;
+                box-shadow: none !important;
+              }
+              &:hover {
+                &:active {
+                  background: #4b49b6;
+                }
+              }
+            }
+          `}
+        >
+          <FundActionDialogDisclosure brandId={brandId} onSubmitted={mutate} />
+          <AlertSettingDialogDisclosure brandId={brandId} />
+          <FundHistoryDialogDisclosure brandId={brandId} />
+        </Set>
+        <Text.Block fontSize="200" padding="1rem 0">
+          <Trans zh="當月資金" en="Fund of the month" />
+        </Text.Block>
+        <Box>
           {({ height }) => {
             let width = pageWidth
 
@@ -92,19 +118,34 @@ const Body = () => {
                 maxSize={{ height, width }}
                 isLoading={isLoading}
                 hasCellDividers
+                isResponsive
+                isStriped
+                css={css`
+                  > tbody {
+                    tr {
+                      &:not(:last-child) {
+                        border-bottom: 1px solid #dbdfe6 !important;
+                      }
+                      &:nth-child(odd) {
+                        background: none;
+                        box-shadow: inset 0 0 0 9999px #0000000d;
+                      }
+                    }
+                  }
+                `}
               />
             )
           }}
-        </AutoSizer>
+        </Box>
+        {error && (
+          <AlertDialog
+            {...error}
+            onClickClose={() => {
+              mutate()
+            }}
+          />
+        )}
       </Box>
-      {error && (
-        <AlertDialog
-          {...error}
-          onClickClose={() => {
-            mutate()
-          }}
-        />
-      )}
     </Set>
   )
 }
