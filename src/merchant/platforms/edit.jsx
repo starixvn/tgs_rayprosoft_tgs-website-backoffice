@@ -502,6 +502,7 @@ const EditBody = ({ record, readonly, isAdd = false, businessType }) => {
         css={css`
           gap: 18px 30px;
           input,
+          button,
           textarea,
           select {
             &:focus {

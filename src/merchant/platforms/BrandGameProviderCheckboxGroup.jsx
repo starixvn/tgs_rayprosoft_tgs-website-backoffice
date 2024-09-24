@@ -10,7 +10,8 @@ import {
   FieldStack,
   Box,
   Group,
-  Button
+  Button,
+  Stack
 } from "bumbag"
 import { useFormContext, useFieldArray, Controller } from "react-hook-form"
 import { isAllPropChecked } from "../../checkbox/isAllChecked"
@@ -180,6 +181,15 @@ const Row = ({ name, disabled, field, index }) => {
                     variant={variant}
                     palette={palette}
                     {...configDialog}
+                    css={css`
+                      padding: 10px 12px;
+                      height: 38px;
+                      min-height: 38px;
+                      &:focus {
+                        box-shadow: none !important;
+                        border: 1px solid #d9d9e1;
+                      }
+                    `}
                   />
                   {configDialog.visible && (
                     <ConfigDialog
@@ -253,7 +263,17 @@ const Row = ({ name, disabled, field, index }) => {
             }) => {
               return (
                 <>
-                  <Disclosure {...desktopQueryStringDialog}>
+                  <Disclosure
+                    {...desktopQueryStringDialog}
+                    css={css`
+                      padding: 10px 12px;
+                      height: 38px;
+                      min-height: 38px;
+                      &:focus {
+                        box-shadow: none !important;
+                      }
+                    `}
+                  >
                     <Icon icon={faDesktop} type="font-awesome" />
                   </Disclosure>
                   {desktopQueryStringDialog.visible && (
@@ -287,7 +307,17 @@ const Row = ({ name, disabled, field, index }) => {
             }) => {
               return (
                 <>
-                  <Disclosure {...mobileQueryStringDialog}>
+                  <Disclosure
+                    {...mobileQueryStringDialog}
+                    css={css`
+                      padding: 10px 12px;
+                      height: 38px;
+                      min-height: 38px;
+                      &:focus {
+                        box-shadow: none !important;
+                      }
+                    `}
+                  >
                     <Icon icon={faMobile} type="font-awesome" />
                   </Disclosure>
                   {mobileQueryStringDialog.visible && (
@@ -422,14 +452,22 @@ const ConfigDialog = ({
         title={title}
         hideBackdrop={true}
         minWidth="max-content"
+        css={css`
+          min-width: 380px;
+          & .bb-DialogHeader {
+            margin-bottom: 0;
+          }
+        `}
       >
-        <GameProviderConfigSelect
-          name="id"
-          gameProviderId={gameProvider?.gameProviderId}
-          defaultValue={configurationId}
-          required={!disabled}
-          disabled={disabled}
-        />
+        <Stack orientation="vertical" padding="1rem">
+          <GameProviderConfigSelect
+            name="id"
+            gameProviderId={gameProvider?.gameProviderId}
+            defaultValue={configurationId}
+            required={!disabled}
+            disabled={disabled}
+          />
+        </Stack>
       </FormDialog>
     </Backdrop>
   )

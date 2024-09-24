@@ -483,7 +483,7 @@ const GroupCard = ({
   let isSportsFieldName = `${name}.${groupIndex}.isSports`
   let editable = !readonly
   return (
-    <Card variant="bordered">
+    <Card variant="bordered" padding="1rem" marginBottom="1rem">
       {hasGroupId && (
         <Input
           name={`${name}.${groupIndex}.id`}
@@ -507,7 +507,12 @@ const GroupCard = ({
             fieldState: { isTouched, isDirty, error }
           }) => (
             <>
-              <Disclosure {...dialog}>
+              <Disclosure
+                {...dialog}
+                css={css`
+                  box-shadow: none !important;
+                `}
+              >
                 <GameListTrans />
               </Disclosure>
               {dialog.visible && (
@@ -542,7 +547,11 @@ const GroupCard = ({
               </DropdownMenu.Item>
             }
           >
-            <Button>
+            <Button
+              css={css`
+                box-shadow: none !important;
+              `}
+            >
               <Icon icon={faEllipsisV} type="font-awesome" />
             </Button>
           </DropdownMenu>
@@ -604,7 +613,19 @@ const BetLimitTable = ({
           </Table.HeadCell>
         </Table.Row>
       </Table.Head>
-      <Table.Body>
+      <Table.Body
+        css={css`
+          tr {
+            background: #fff !important;
+            &:not(:last-child) {
+              border-bottom: 1px solid #dbdfe6 !important;
+            }
+            th {
+              background: #fff !important;
+            }
+          }
+        `}
+      >
         {betLimits.map((betLimit) => (
           <BetLimitRow
             name={`${name}.${betLimit.id}`}
@@ -651,7 +672,18 @@ const BetLimitRow = ({
           }) => {
             return (
               <>
-                <ConfigIconDisclosure {...dialog} />
+                <ConfigIconDisclosure
+                  {...dialog}
+                  css={css`
+                    padding: 10px 12px;
+                    height: 38px;
+                    min-height: 38px;
+                    &:focus {
+                      box-shadow: none !important;
+                      border: 1px solid #d9d9e1;
+                    }
+                  `}
+                />
                 {dialog.visible && (
                   <SWRConfig value={{ provider: () => new Map() }}>
                     <BetLimitDialog
@@ -740,27 +772,39 @@ const GroupGameListDialog = ({
           & .bb-DialogContent {
             position: relative;
           }
+          & .bb-DialogHeader {
+            margin-bottom: 0;
+          }
+          & .bb-Stack {
+            max-height: 76vh;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+              display: none;
+            }
+          }
         `}
       >
-        <Table>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeadCell textAlign="center">
-                <GameProviderNameTrans />
-              </Table.HeadCell>
-              <Table.HeadCell textAlign="center"></Table.HeadCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            {gameProviders.map((gameProvider, index) => (
-              <GameProviderRow
-                key={gameProvider.id}
-                gameProvider={gameProvider}
-                readonly={readonly}
-              />
-            ))}
-          </Table.Body>
-        </Table>
+        <Stack padding="1rem">
+          <Table>
+            <Table.Head>
+              <Table.Row>
+                <Table.HeadCell textAlign="center">
+                  <GameProviderNameTrans />
+                </Table.HeadCell>
+                <Table.HeadCell textAlign="center"></Table.HeadCell>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body>
+              {gameProviders.map((gameProvider, index) => (
+                <GameProviderRow
+                  key={gameProvider.id}
+                  gameProvider={gameProvider}
+                  readonly={readonly}
+                />
+              ))}
+            </Table.Body>
+          </Table>
+        </Stack>
       </FormDialog>
     </Backdrop>
   )
@@ -944,9 +988,14 @@ const GameProviderGameListDialog = ({
           & .bb-DialogContent {
             position: relative;
           }
+          & .bb-DialogHeader {
+            margin-bottom: 0;
+          }
         `}
       >
-        <GameProviderGameListDialogBody readonly={readonly} />
+        <Box padding="1rem">
+          <GameProviderGameListDialogBody readonly={readonly} />
+        </Box>
       </FormDialog>
     </Backdrop>
   )
@@ -1073,35 +1122,49 @@ const BetLimitDialog = ({
         hideBackdrop={true}
         dialog={dialog}
         title={title}
+        css={css`
+          & .bb-DialogHeader {
+            margin-bottom: 0;
+          }
+          & .bb-Stack {
+            max-height: 70vh;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+              display: none;
+            }
+          }
+        `}
       >
-        <Table>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeadCell textAlign="center">
-                <GameProviderTrans />
-              </Table.HeadCell>
-              <Table.HeadCell textAlign="center">
-                <Trans zh="限红" en="Bet Limit" />
-              </Table.HeadCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            {gameProviders.map((gameProvider) => {
-              let gameProviderBetLimits =
-                gameProviderBetLimitListPairs[gameProvider.gameProviderId]
-              return (
-                <GameProviderBetLimitsRow
-                  key={gameProvider.gameProviderId}
-                  group={group}
-                  betLimit={betLimit}
-                  gameProvider={gameProvider}
-                  gameProviderBetLimits={gameProviderBetLimits}
-                  readonly={readonly}
-                />
-              )
-            })}
-          </Table.Body>
-        </Table>
+        <Stack padding="1rem">
+          <Table>
+            <Table.Head>
+              <Table.Row>
+                <Table.HeadCell textAlign="center">
+                  <GameProviderTrans />
+                </Table.HeadCell>
+                <Table.HeadCell textAlign="center">
+                  <Trans zh="限红" en="Bet Limit" />
+                </Table.HeadCell>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body>
+              {gameProviders.map((gameProvider) => {
+                let gameProviderBetLimits =
+                  gameProviderBetLimitListPairs[gameProvider.gameProviderId]
+                return (
+                  <GameProviderBetLimitsRow
+                    key={gameProvider.gameProviderId}
+                    group={group}
+                    betLimit={betLimit}
+                    gameProvider={gameProvider}
+                    gameProviderBetLimits={gameProviderBetLimits}
+                    readonly={readonly}
+                  />
+                )
+              })}
+            </Table.Body>
+          </Table>
+        </Stack>
       </FormDialog>
     </Backdrop>
   )

@@ -123,6 +123,11 @@ const ViewOrEditDialog = ({
       }
       minWidth="40vw"
       maxWidth="70vw"
+      css={css`
+        & .bb-DialogHeader {
+          margin-bottom: 0;
+        }
+      `}
     >
       <FormBody readOnly={readOnly} />
     </FormDialog>
@@ -150,25 +155,43 @@ const FormBody = ({ readOnly }) => {
     name: LoadingField
   })
   return (
-    <FieldStack>
-      <InputField
-        name="mobile"
-        readOnly={readOnly}
-        label={<Trans zh="手机版 Logo" en="Mobile Logo" />}
-        showEmptyFieldValueAddonAfter
-      />
-      <InputField
-        name={DesktopField}
-        readOnly={readOnly}
-        label={<Trans zh="桌面版 Logo" en="Desktop Logo" />}
-        showEmptyFieldValueAddonAfter
-      />
-      <InputField
-        name={LoadingField}
-        readOnly={readOnly}
-        label={<Trans zh="Loading Logo" en="Loading Logo" />}
-        showEmptyFieldValueAddonAfter
-      />
-    </FieldStack>
+    <Box
+      padding="1rem"
+      css={css`
+        input {
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+        button {
+          &:focus {
+            border: 1px solid #d9d9e1;
+            border-left: none;
+            box-shadow: none !important;
+          }
+        }
+      `}
+    >
+      <FieldStack>
+        <InputField
+          name="mobile"
+          readOnly={readOnly}
+          label={<Trans zh="手机版 Logo" en="Mobile Logo" />}
+          showEmptyFieldValueAddonAfter
+        />
+        <InputField
+          name={DesktopField}
+          readOnly={readOnly}
+          label={<Trans zh="桌面版 Logo" en="Desktop Logo" />}
+          showEmptyFieldValueAddonAfter
+        />
+        <InputField
+          name={LoadingField}
+          readOnly={readOnly}
+          label={<Trans zh="Loading Logo" en="Loading Logo" />}
+          showEmptyFieldValueAddonAfter
+        />
+      </FieldStack>
+    </Box>
   )
 }

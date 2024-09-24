@@ -118,7 +118,10 @@ export const TextareaField = ({
         css={css`
           & textarea {
             resize: ${resize};
-            border-radius: 0;
+            border-radius: 6px;
+            &:focus {
+              box-shadow: none !important;
+            }
           }
         `}
         {...formProps}

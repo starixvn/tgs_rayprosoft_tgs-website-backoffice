@@ -1,7 +1,16 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
 import { useFormContext, useFieldArray, Controller } from "react-hook-form"
-import { Table, Set, Heading, Text, useModalState, Icon, Box } from "bumbag"
+import {
+  Table,
+  Set,
+  Heading,
+  Text,
+  useModalState,
+  Icon,
+  Box,
+  Stack
+} from "bumbag"
 import { isAllPropChecked } from "../../checkbox/isAllChecked"
 import {
   LanguageCheckboxGroupTableHeadRow,
@@ -91,7 +100,18 @@ export const BrandLanguageCheckboxGroupTable = ({
                           let dialog = useModalState()
                           return (
                             <Box>
-                              <Disclosure {...dialog}>
+                              <Disclosure
+                                {...dialog}
+                                css={css`
+                                  padding: 10px 12px;
+                                  height: 38px;
+                                  min-height: 38px;
+                                  &:focus {
+                                    box-shadow: none !important;
+                                    border: 1px solid #d9d9e1;
+                                  }
+                                `}
+                              >
                                 <Icon icon={faLanguage} type="font-awesome" />
                               </Disclosure>
                               {dialog.visible && (
@@ -146,13 +166,20 @@ const CodeDialog = ({ value, disabled, readOnly, dialog, onChange }) => {
         title={title}
         hideBackdrop={true}
         minWidth="max-content"
+        css={css`
+          & .bb-DialogHeader {
+            margin-bottom: 0;
+          }
+        `}
       >
-        <Input
-          name="code"
-          defaultValue={value}
-          disabled={disabled}
-          readOnly={readOnly}
-        />
+        <Stack orientation="vertical" padding="1rem">
+          <Input
+            name="code"
+            defaultValue={value}
+            disabled={disabled}
+            readOnly={readOnly}
+          />
+        </Stack>
       </FormDialog>
     </Backdrop>
   )
