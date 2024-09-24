@@ -101,7 +101,7 @@ const FormBody = () => {
     "balance"
   ])
   return (
-    <Box padding="1rem">
+    <Box padding="5rem 1rem 1rem 1rem">
       <FieldValues
         css={css`
           align-items: center;

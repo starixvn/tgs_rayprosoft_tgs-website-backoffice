@@ -423,8 +423,8 @@ const EditBody = ({
 
   let editable = !readonly
   return (
-    <Stack orientation="vertical" padding="1rem">
-      <Heading use="h5" marginBottom="major-3" marginTop="major-1">
+    <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
+      <Heading use="h5" marginBottom="major-3">
         <BasicInformationTrans />
       </Heading>
       <FieldValues

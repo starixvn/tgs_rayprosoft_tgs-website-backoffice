@@ -97,26 +97,28 @@ export const FormDialog = ({
         css={css`
           min-width: 320px;
           max-width: 70vw;
+          overflow: hidden;
           & .bb-DialogContent {
-            max-height: 85vh;
+            max-height: 70vh;
             padding: 0;
-            overflow-y: unset;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+              display: none;
+            }
           }
 
           & .bb-DialogHeader {
             padding: 1rem;
             border-bottom: 1px solid #dbdfe6;
             margin-bottom: 0;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+            background: #fff;
+            border-radius: 6px 6px 0 0;
             > button {
               box-shadow: none !important;
               background: none !important;
-            }
-          }
-          & .bb-Stack {
-            max-height: 70vh;
-            overflow-y: scroll;
-            &::-webkit-scrollbar {
-              display: none;
             }
           }
 

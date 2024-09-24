@@ -410,12 +410,14 @@ const QueryStringDialog = ({ type, value, disabled, dialog, onChange }) => {
         hideBackdrop={true}
         minWidth="500px"
       >
-        <InputField
-          label="Query String"
-          name="url"
-          defaultValue={value}
-          disabled={disabled}
-        />
+        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
+          <InputField
+            label="Query String"
+            name="url"
+            defaultValue={value}
+            disabled={disabled}
+          />
+        </Stack>
       </FormDialog>
     </Backdrop>
   )
@@ -459,7 +461,7 @@ const ConfigDialog = ({
           }
         `}
       >
-        <Stack orientation="vertical" padding="1rem">
+        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
           <GameProviderConfigSelect
             name="id"
             gameProviderId={gameProvider?.gameProviderId}

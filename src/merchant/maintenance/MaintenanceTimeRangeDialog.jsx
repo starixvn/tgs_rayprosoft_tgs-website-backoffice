@@ -155,7 +155,7 @@ const FormBody = ({ brandName }) => {
   })
 
   return (
-    <FieldStack orientation="vertical" margin="0.5rem">
+    <FieldStack orientation="vertical" padding="5rem 1rem 1rem 1rem">
       {brandName && (
         <Box borderColor="primary" fontWeight="bold">
           <Trans zh="平台：" en="Platform：" /> {brandName}

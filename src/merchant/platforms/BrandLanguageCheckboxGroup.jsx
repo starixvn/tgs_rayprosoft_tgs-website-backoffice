@@ -172,7 +172,7 @@ const CodeDialog = ({ value, disabled, readOnly, dialog, onChange }) => {
           }
         `}
       >
-        <Stack orientation="vertical" padding="1rem">
+        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
           <Input
             name="code"
             defaultValue={value}

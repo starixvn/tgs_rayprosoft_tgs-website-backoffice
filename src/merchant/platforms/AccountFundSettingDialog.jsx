@@ -111,7 +111,7 @@ const SettingDialog = ({ brandId, readOnly, dialog, dialogId, ...props }) => {
 
 const FormBody = ({ readOnly }) => {
   return (
-    <Set orientation="horizontal" padding="1rem">
+    <Set orientation="horizontal" padding="5rem 1rem 1rem 1rem">
       <AccountFundsTrans />
       <Switch name="setting" disabled={readOnly} />
     </Set>

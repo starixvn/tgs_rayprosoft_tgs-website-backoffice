@@ -175,7 +175,7 @@ const MaintenanceMessageFormDialog = ({
   )
 }
 
-const MinHeight = "35vh"
+const MinHeight = "15vh"
 const MinWidth = "35vw"
 
 const FormBody = ({ readOnly = false, message = "" }) => {
@@ -184,34 +184,40 @@ const FormBody = ({ readOnly = false, message = "" }) => {
 
   let editable = !readOnly
   return (
-    <FieldStack height="100%">
-      {readOnly && (
-        <Blockquote
-          id={ContentField}
-          minWidth={MinWidth}
-          minHeight={MinHeight}
-          whiteSpace="pre-wrap"
-        >
-          {message}
-        </Blockquote>
-      )}
-      {editable && (
-        <TextareaField
-          name={ContentField}
-          readOnly={readOnly}
-          minWidth={MinWidth}
-          minHeight={MinHeight}
-          css={css`
-            min-height: ${MinHeight};
-
-            & .bb-FieldWrapper,
-            & .bb-TextareaWrapper,
-            & .bb-Textarea {
+    <Box padding="5rem 1rem 1rem 1rem">
+      <FieldStack height="100%">
+        {readOnly && (
+          <Blockquote
+            id={ContentField}
+            minWidth={MinWidth}
+            minHeight={MinHeight}
+            whiteSpace="pre-wrap"
+            padding="0"
+            css={css`
+              border-left: none !important;
+            `}
+          >
+            {message}
+          </Blockquote>
+        )}
+        {editable && (
+          <TextareaField
+            name={ContentField}
+            readOnly={readOnly}
+            minWidth={MinWidth}
+            minHeight={MinHeight}
+            css={css`
               min-height: ${MinHeight};
-            }
-          `}
-        />
-      )}
-    </FieldStack>
+
+              & .bb-FieldWrapper,
+              & .bb-TextareaWrapper,
+              & .bb-Textarea {
+                min-height: ${MinHeight};
+              }
+            `}
+          />
+        )}
+      </FieldStack>
+    </Box>
   )
 }

@@ -493,7 +493,7 @@ const EditBody = ({ record, readonly, isAdd = false, businessType }) => {
   let AutoSendAgentBonusFieldName = "autoSendAgentBonus"
 
   return (
-    <Stack orientation="vertical" padding="1rem">
+    <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
       <Heading use="h5" marginBottom="major-3">
         <BasicInformationTrans />
       </Heading>

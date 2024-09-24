@@ -143,7 +143,7 @@ const FormBody = ({ name = ContactsField, readOnly }) => {
     keyName: "_id"
   })
   return (
-    <Box padding="1rem">
+    <Box padding="5rem 1rem 1rem 1rem">
       <Table
         css={css`
           background: #fff;

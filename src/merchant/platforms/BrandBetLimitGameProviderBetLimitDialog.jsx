@@ -245,7 +245,7 @@ const EditDialog = ({
         }
       `}
     >
-      <Box padding="1rem">
+      <Box padding="5rem 1rem 1rem 1rem">
         <FieldStack>
           <ActionBar
             brandId={brandId}
@@ -791,7 +791,7 @@ const GroupGameListDialog = ({
           }
         `}
       >
-        <Stack padding="1rem">
+        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
           <Table>
             <Table.Head>
               <Table.Row>
@@ -1142,7 +1142,7 @@ const BetLimitDialog = ({
           }
         `}
       >
-        <Stack padding="1rem">
+        <Stack padding="5rem 1rem 1rem 1rem">
           <Table>
             <Table.Head>
               <Table.Row>

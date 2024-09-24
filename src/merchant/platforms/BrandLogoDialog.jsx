@@ -151,7 +151,7 @@ const FormBody = ({ readOnly }) => {
   })
   return (
     <Box
-      padding="1rem"
+      padding="5rem 1rem 1rem 1rem"
       css={css`
         input {
           &:focus {

@@ -63,7 +63,7 @@ export const LicenseePageContent = ({
         {...props}
       >
         <Set orientation="vertical" isFilled>
-          <Set orientation="horizontal" alignY="center" marginBottom="major-1">
+          <Set orientation="horizontal" alignY="center" marginBottom="8px">
             <BrandBar
               end={Licensee}
               onLicenseeChange={(value) => {
