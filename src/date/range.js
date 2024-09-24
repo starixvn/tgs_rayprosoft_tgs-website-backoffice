@@ -7,7 +7,8 @@ import {
   startOfToday,
   startOfYesterday,
   subMonths,
-  subWeeks
+  subWeeks,
+  format
 } from "date-fns"
 import { isValidDate } from "./isValidDate"
 import { toDate } from "./toDate"
@@ -34,6 +35,10 @@ export const pastWeek = () => {
     start,
     end
   }
+}
+
+export const toGMT4 = (dateTime) => {
+  return format(dateTime, "MM/dd/yyyy HH:mm:ss -04:00")
 }
 
 export const lastMonth = () => {

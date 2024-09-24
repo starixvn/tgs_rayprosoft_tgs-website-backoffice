@@ -8,7 +8,9 @@
   },
   "type": "module",
   "scripts": {
+    "start-dev": "cross-env-shell SNOWPACK_PUBLIC_IS_DEV=true SNOWPACK_PUBLIC_IS_LOCAL=true snowpack dev --reload",
     "start": "cross-env-shell SNOWPACK_PUBLIC_BUILD_DATE=$(date +%F_%T) SNOWPACK_PUBLIC_IS_DEV=true SNOWPACK_PUBLIC_IS_LOCAL=true snowpack dev --reload",
+    "vite-dev": "cross-env-shell VITE_VERSION=$npm_package_version VITE_IS_DEV=true VITE_IS_LOCAL=true vite dev --port 3000",
     "vite": "cross-env-shell VITE_VERSION=$npm_package_version VITE_BUILD_DATE=$(date +%F_%T) VITE_IS_DEV=true VITE_IS_LOCAL=true vite dev --port 3000",
     "build": "cross-env-shell SNOWPACK_PUBLIC_BUILD_DATE=$(date +%F_%T) snowpack build",
     "build:snowpack": "cross-env-shell SNOWPACK_PUBLIC_BUILD_DATE=$(date +%F_%T) snowpack build",

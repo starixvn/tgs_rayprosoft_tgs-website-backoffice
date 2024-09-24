@@ -28,7 +28,7 @@ import SearchButton from "../../button/SearchButton"
 import equals from "fast-deep-equal"
 import { InputField } from "../../input/Input"
 import { DateInputRange } from "../../date/DateTimeRangeInput"
-import { today, yesterday } from "../../date/range"
+import { today, toGMT4, yesterday } from "../../date/range"
 import { startOfNextDay } from "../../date/startOfNextDay"
 import numberColumn, {
   numberDecimalColumn,
@@ -173,8 +173,8 @@ export const WinlossReport = ({ brandId }) => {
   const toReportSearchParams = () => {
     let result = {
       ...toApiParams(state),
-      from,
-      to,
+      from: toGMT4(from),
+      to: toGMT4(to),
       username,
       memberType,
       culture
