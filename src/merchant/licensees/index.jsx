@@ -124,6 +124,24 @@ const SearchForm = ({ search, isLoading, ...props }) => {
             name="keyword"
             showEmptyFieldValueAddonAfter
             placeholder={searchPlaceHolder}
+            css={css`
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            `}
           />
 
           <SearchButton isLoading={isLoading} />
