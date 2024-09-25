@@ -42,7 +42,8 @@ const theme = {
     },
     styles: {
       base: {
-        padding: "0.5rem"
+        padding: "0.5rem",
+        color: "#252b36f2"
       }
     }
   },
@@ -52,7 +53,7 @@ const theme = {
     }
   },
   palette: {
-    primary: "#3399ff",
+    secondary: "#3399ff",
     success: "#1b9e3e",
     danger: "#e55353",
     warning: "#f9b115"
@@ -66,6 +67,14 @@ const theme = {
         },
         hover: {
           color: "#4b49b6"
+        }
+      }
+    },
+    Panel: {
+      styles: {
+        base: {
+          background: "#f3f4f7",
+          borderRadius: "0 0 5px 5px"
         }
       }
     }

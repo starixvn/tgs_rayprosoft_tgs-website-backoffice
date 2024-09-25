@@ -212,7 +212,10 @@ const PlayerIdNumberInputGroup = ({ player, showIdentityAuth }) => {
 const AccountTypeBox = ({ player }) => {
   return (
     <>
-      <AccountTypeTrans />
+      <Text fontWeight="bold">
+        <AccountTypeTrans />
+      </Text>
+
       {!!player?.upgradePlayerAgentId ? <AgentTrans /> : <PlayerTrans />}
     </>
   )
@@ -378,31 +381,41 @@ export const PlayerInfoPanel = ({
   return (
     <TabPanel tabId={PlayerInfoKey} {...props}>
       <Columns>
-        <Columns.Column>
-          <FieldValues spacing="major-2">
+        <Columns.Column spread={5}>
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+            `}
+          >
             {isAdmin && (
               <>
-                <PlayerCodeTrans />
+                <Text fontWeight="bold">
+                  <PlayerCodeTrans />
+                </Text>
                 <Text>{player.playerCode}</Text>
               </>
             )}
-
-            <UserNameTrans />
+            <Text fontWeight="bold">
+              <UserNameTrans />
+            </Text>
             <Text data-field="username">{username}</Text>
-
-            <RealNameTrans />
+            <Text fontWeight="bold">
+              <RealNameTrans />
+            </Text>
             <Box>
               <Text data-field="realName">{realName}</Text>
             </Box>
-
-            <BirthdayTrans />
+            <Text fontWeight="bold">
+              <BirthdayTrans />
+            </Text>
             <Box>
               <FormattedDate
                 value={parse(player?.birthdate, "yyyy/MM/dd", new Date())}
               />
             </Box>
-
-            <ICNumberTrans />
+            <Text fontWeight="bold">
+              <ICNumberTrans />
+            </Text>
             <Set orientation="horizontal" alignY="center">
               <Text.Block>{player.idNumber}</Text.Block>
               {brand?.enablePlayerIdentity && player.idNumber && (
@@ -413,8 +426,10 @@ export const PlayerInfoPanel = ({
             </Set>
 
             <AccountTypeBox player={player} />
+            <Text fontWeight="bold">
+              <UpperLevelAgentTrans />
+            </Text>
 
-            <UpperLevelAgentTrans />
             <Box>
               <Text>{player?.agentUsername}</Text>
             </Box>
@@ -427,14 +442,18 @@ export const PlayerInfoPanel = ({
                 </Box>
               </>
             )}
+            <Text fontWeight="bold">
+              <BalanceTrans />
+            </Text>
 
-            <BalanceTrans />
             <Box>
               <FormattedNumberDecimal value={balance} />
             </Box>
 
             <Box alignY="center">
-              <WageringRequirementTrans />
+              <Text fontWeight="bold">
+                <WageringRequirementTrans />
+              </Text>
             </Box>
             <Set>
               <FormattedNumberDecimal value={player?.wageringRequirement} />
@@ -443,57 +462,75 @@ export const PlayerInfoPanel = ({
                 playerCode={player.playerCode}
               />
             </Set>
-
-            <StatusTrans />
+            <Text fontWeight="bold">
+              <StatusTrans />
+            </Text>
             <Box>
               <PlayerStatusLabel value={status} />
             </Box>
-
-            <RemarkTrans />
+            <Text fontWeight="bold">
+              <RemarkTrans />
+            </Text>
             <Box>
               <Text>{player?.remark}</Text>
             </Box>
-
-            <RegisterIPTrans />
+            <Text fontWeight="bold">
+              <RegisterIPTrans />
+            </Text>
             <Box>{player?.registerIp}</Box>
-
-            <RegistrationTimeTrans />
+            <Text fontWeight="bold">
+              <RegistrationTimeTrans />
+            </Text>
             <Box>
               <FormattedDateTime value={registeredOn} />
             </Box>
-
-            <LastLoginTimeTrans />
+            <Text fontWeight="bold">
+              <LastLoginTimeTrans />
+            </Text>
             <Box>
               <FormattedDateTime value={player?.lastLoginOn} />
             </Box>
-
-            <LastLoginIPTrans />
+            <Text fontWeight="bold">
+              <LastLoginIPTrans />
+            </Text>
             <Box>{player?.lastLoginIp}</Box>
-
-            <RegistrationDomainTrans />
+            <Text fontWeight="bold">
+              <RegistrationDomainTrans />
+            </Text>
             <Box>{player?.registerHost}</Box>
+            <Text fontWeight="bold">
+              <TotalDepositAmountTrans />
+            </Text>
 
-            <TotalDepositAmountTrans />
             <FormattedNumberDecimal value={playerPayment?.totalDepositAmount} />
-
-            <TotalWithdrawAmountTrans />
+            <Text fontWeight="bold">
+              <TotalWithdrawAmountTrans />
+            </Text>
             <FormattedNumberDecimal
               value={playerPayment?.totalWithdrawAmount}
             />
           </FieldValues>
         </Columns.Column>
-        <Columns.Column>
-          <Heading use="h5">
+        <Columns.Column spread={5}>
+          <Heading use="h5" marginBottom="major-2">
             <VipAccumulationStatusTrans />
           </Heading>
-          <FieldValues>
-            <VipUpgradeTrans />
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+            `}
+          >
+            <Text fontWeight="bold">
+              <VipUpgradeTrans />
+            </Text>
             <AutoOrManualSwitchLabel value={vipLevelAutoState} />
-
-            <CurrentVipLevelTrans />
+            <Text fontWeight="bold">
+              <CurrentVipLevelTrans />
+            </Text>
             <VipLevelLabel value={vipLevel} />
-
-            <VipTotalValidBetTrans />
+            <Text fontWeight="bold">
+              <VipTotalValidBetTrans />
+            </Text>
             <Set orientation="horizontal" alignY="center">
               <FormattedNumberDecimal value={player.accumTurnover} />
               <Box>/</Box>
@@ -501,8 +538,9 @@ export const PlayerInfoPanel = ({
                 value={player.levelUpAccumulateBetAmount}
               />
             </Set>
-
-            <VipTotalDepositTrans />
+            <Text fontWeight="bold">
+              <VipTotalDepositTrans />
+            </Text>
             <Set orientation="horizontal" alignY="center">
               <FormattedNumberDecimal value={player.accumDeposit} />
               <Box>/</Box>
@@ -516,5 +554,7 @@ export const PlayerInfoPanel = ({
 }
 
 const AllAgentUpperLevelLabel = () => (
-  <Trans zh="全民代理上級" en="All Agent Upper Level" />
+  <Text fontWeight="bold">
+    <Trans zh="全民代理上級" en="All Agent Upper Level" />
+  </Text>
 )

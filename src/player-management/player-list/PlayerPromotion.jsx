@@ -74,6 +74,9 @@ export const PlayerPromotionPanel = ({ brandId, playerCode, ...props }) => {
           initialState={state}
           controlledState={state}
           isLoading={isLoading}
+          css={css`
+            background: #fff;
+          `}
         />
       </Stack>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}

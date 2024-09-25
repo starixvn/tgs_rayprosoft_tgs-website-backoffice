@@ -114,6 +114,9 @@ export const PlayerHistoryListPanel = ({ playerCode, brandId, ...props }) => {
           initialState={state}
           controlledState={state}
           isLoading={isLoading}
+          css={css`
+            background: #fff;
+          `}
         />
       </Stack>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
@@ -210,7 +213,19 @@ const PlayerHistoryDialogDisclosure = ({ action, eventId, brandId }) => {
 
   return (
     <>
-      <DetailDisclosure {...dialog} />
+      <DetailDisclosure
+        {...dialog}
+        palette="info"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      />
       {dialog.visible && (
         <PlayerHistoryDialog
           action={action}

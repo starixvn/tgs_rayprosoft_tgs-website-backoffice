@@ -48,7 +48,7 @@ export const ViewDisclosure = forwardRef((props, ref) => (
 ))
 
 export const EditDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props} palette="primary">
+  <Disclosure ref={ref} {...props} palette="secondary">
     <Icon
       icon={faPen}
       type="font-awesome"

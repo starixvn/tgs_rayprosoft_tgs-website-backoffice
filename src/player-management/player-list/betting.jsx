@@ -91,7 +91,19 @@ export const Panel = ({ playerCode, brandId, player, ...props }) => {
 
   return (
     <TabPanel tabId={Key} {...props}>
-      <Stack spacing="major-2">
+      <Stack
+        spacing="major-2"
+        css={css`
+          .react-datepicker-wrapper {
+            input {
+              border: 1px solid #dbdfe6;
+              &:focus {
+                box-shadow: none !important;
+              }
+            }
+          }
+        `}
+      >
         <SearchBar
           gameType={gameType}
           gameProviderId={gameProviderId}
@@ -122,6 +134,9 @@ export const Panel = ({ playerCode, brandId, player, ...props }) => {
           controlledState={state}
           isLoading={isLoading}
           foot={data?.items?.length > 0}
+          css={css`
+            background: #fff;
+          `}
         />
         {error && <AlertDialog {...error} onClickClose={emptyData} />}
       </Stack>

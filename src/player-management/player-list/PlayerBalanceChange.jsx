@@ -137,6 +137,9 @@ export const PlayerBalanceChangePanel = ({ brandId, playerCode, ...props }) => {
           initialState={state}
           controlledState={state}
           isLoading={isLoading || isLoadingTotalAmount}
+          css={css`
+            background: #fff;
+          `}
         />
       </Stack>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}

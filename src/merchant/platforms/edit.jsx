@@ -282,7 +282,7 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
         data-platform-id={record?.id}
         {...dialog}
         {...props}
-        palette="primary"
+        palette="secondary"
       >
         {/* <EditTrans /> */}
         <Icon

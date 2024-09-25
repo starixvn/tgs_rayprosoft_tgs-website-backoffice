@@ -100,6 +100,7 @@ export const PlayerStatusLabel = ({ value = "" }) => {
     case InBlacklist:
       return (
         <Badge
+          palette="danger"
           css={css`
             font-size: 12px;
             font-weight: 700;
@@ -107,9 +108,7 @@ export const PlayerStatusLabel = ({ value = "" }) => {
             min-height: 18px;
             white-space: nowrap;
             color: #fff;
-            background-color: #212631;
             border-radius: 0.375rem;
-            background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
           `}
         >
           <InBlacklistTrans />
@@ -118,6 +117,7 @@ export const PlayerStatusLabel = ({ value = "" }) => {
     case RegisterUndone:
       return (
         <Badge
+          palette="warning"
           css={css`
             font-size: 12px;
             font-weight: 700;
@@ -125,9 +125,7 @@ export const PlayerStatusLabel = ({ value = "" }) => {
             min-height: 18px;
             white-space: nowrap;
             color: #fff;
-            background-color: #212631;
             border-radius: 0.375rem;
-            background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
           `}
         >
           <PlayerStatusRegisterUndoneTrans />

@@ -275,7 +275,7 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} palette="primary">
+      <Disclosure {...dialog} palette="secondary">
         {/* <EditTrans /> */}
         <Icon
           icon={faPen}

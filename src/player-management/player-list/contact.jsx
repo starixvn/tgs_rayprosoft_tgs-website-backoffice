@@ -12,7 +12,8 @@ import {
   Button,
   Text,
   Label,
-  useClassName
+  useClassName,
+  Columns
 } from "bumbag"
 import { FieldValues } from "../../layout/Grid"
 import { Trans, useTrans } from "../../i18n"
@@ -49,40 +50,69 @@ export const ZaloTrans = () => <Trans zh="Zalo" en="Zalo" />
 export const Panel = ({ player = {}, ...props }) => {
   return (
     <TabPanel tabId={Key} {...props}>
-      <FieldValues spacing="major-2">
-        <PhoneTrans />
-        <Text>
-          {player?.properties?.AreaCode}
-          <Text data-field="phone">{player?.properties?.Phone}</Text>
-        </Text>
+      <Columns>
+        <Columns.Column spread={6}>
+          <FieldValues
+            spacing="major-1"
+            css={css`
+              gap: 16px 24px;
+            `}
+          >
+            <Text fontWeight="bold">
+              <PhoneTrans />
+            </Text>
+            <Text>
+              {player?.properties?.AreaCode}
+              <Text data-field="phone">{player?.properties?.Phone}</Text>
+            </Text>
+            <Text fontWeight="bold">
+              <EmailTrans />
+            </Text>
 
-        <EmailTrans />
-        <Text data-field="email">{player?.properties?.Email}</Text>
+            <Text data-field="email">{player?.properties?.Email}</Text>
+            <Text fontWeight="bold">
+              <QQLabel />
+            </Text>
 
-        <QQLabel />
-        <Text>{player?.properties?.Qq}</Text>
+            <Text>{player?.properties?.Qq}</Text>
+            <Text fontWeight="bold">
+              <WeChatLabel />
+            </Text>
 
-        <WeChatLabel />
-        <Text>{player?.properties?.Wechat}</Text>
+            <Text>{player?.properties?.Wechat}</Text>
+            <Text fontWeight="bold">
+              <TelegramTrans />
+            </Text>
 
-        <TelegramTrans />
-        <Text>{player?.properties?.Telegram}</Text>
+            <Text>{player?.properties?.Telegram}</Text>
+            <Text fontWeight="bold">
+              <ViberLabel />
+            </Text>
 
-        <ViberLabel />
-        <Text>{player?.properties?.Viber}</Text>
+            <Text>{player?.properties?.Viber}</Text>
+            <Text fontWeight="bold">
+              <MessengerLabel />
+            </Text>
 
-        <MessengerLabel />
-        <Text>{player?.properties?.FacebookMessenger}</Text>
+            <Text>{player?.properties?.FacebookMessenger}</Text>
+            <Text fontWeight="bold">
+              <LineLabel />
+            </Text>
 
-        <LineLabel />
-        <Text>{player?.properties?.Line}</Text>
+            <Text>{player?.properties?.Line}</Text>
+            <Text fontWeight="bold">
+              <WhatsappLabel />
+            </Text>
 
-        <WhatsappLabel />
-        <Text>{player?.properties?.WhatsApp}</Text>
+            <Text>{player?.properties?.WhatsApp}</Text>
+            <Text fontWeight="bold">
+              <ZaloTrans />
+            </Text>
 
-        <ZaloTrans />
-        <Text>{player?.properties?.Zalo}</Text>
-      </FieldValues>
+            <Text>{player?.properties?.Zalo}</Text>
+          </FieldValues>
+        </Columns.Column>
+      </Columns>
     </TabPanel>
   )
 }

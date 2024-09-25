@@ -73,6 +73,11 @@ export const ViewButton = ({
           brand={brand}
           dialog={dialog}
           showParentUsername={showParentUsername}
+          // css={css`
+          //   & .bb-TabsPanel {
+          //     min-height: 75vh;
+          //   }
+          // `}
         />
       )}
     </>
@@ -175,40 +180,61 @@ const TabsDialog = ({
           {...dialog}
           {...props}
           css={css`
-            min-width: 90vw;
-            min-height: 85vh;
-
+            min-width: 85vw;
+            min-height: 75vh;
             & .bb-DialogContent {
-              min-height: 85vh;
+              max-height: 75vh;
+              padding: 0;
+              overflow-y: scroll;
+              &::-webkit-scrollbar {
+                display: none;
+              }
+            }
+
+            & .bb-DialogHeader {
+              padding: 1rem;
+              border-bottom: 1px solid #dbdfe6;
+              margin-bottom: 0;
+              position: fixed;
+              width: 100%;
+              z-index: 9999;
+              background: #fff;
+              border-radius: 6px 6px 0 0;
+              > button {
+                box-shadow: none !important;
+                background: none !important;
+              }
             }
           `}
         >
-          {readonly && (
-            <ViewTabs
-              playerCode={playerCode}
-              brandId={brandId}
-              brand={brand}
-              player={player}
-              showParentUsername={showParentUsername}
-              tab={tab}
-            />
-          )}
-          {edit && (
-            <EditTabs
-              playerCode={playerCode}
-              brandId={brandId}
-              brand={brand}
-              player={player}
-              showParentUsername={showParentUsername}
-              tab={tab}
-              onSubmitted={() => {
-                onSubmitted?.()
-                dialog.hide()
-                mutate()
-              }}
-              onClickClose={onClickClose}
-            />
-          )}
+          <Box padding="5rem 1rem 1rem 1rem">
+            {readonly && (
+              <ViewTabs
+                playerCode={playerCode}
+                brandId={brandId}
+                brand={brand}
+                player={player}
+                showParentUsername={showParentUsername}
+                tab={tab}
+              />
+            )}
+            {edit && (
+              <EditTabs
+                playerCode={playerCode}
+                brandId={brandId}
+                brand={brand}
+                player={player}
+                showParentUsername={showParentUsername}
+                tab={tab}
+                onSubmitted={() => {
+                  onSubmitted?.()
+                  dialog.hide()
+                  mutate()
+                }}
+                onClickClose={onClickClose}
+              />
+            )}
+          </Box>
         </Dialog.Modal>
       )}
     </>
@@ -226,8 +252,18 @@ const ViewTabs = ({
   let contactAuth = useIsDisplayMenuByRoute([Contact])
 
   return (
-    <Tabs isFitted>
-      <TabList use={TabList} {...tab}>
+    <Tabs>
+      <TabList
+        use={TabList}
+        {...tab}
+        css={css`
+          > button {
+            &:hover {
+              box-shadow: inset 0 -2px 0 0 #574feb;
+            }
+          }
+        `}
+      >
         <PlayerInfoTab {...tab} />
         {contactAuth && <ContractTab {...tab} />}
         <BankTab {...tab} />
