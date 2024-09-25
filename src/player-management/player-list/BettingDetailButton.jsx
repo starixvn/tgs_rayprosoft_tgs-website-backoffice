@@ -12,7 +12,20 @@ export const Button = ({ record, dialogId, ...props }) => {
 
   return (
     <>
-      <DetailDisclosure {...dialog} {...props} />
+      <DetailDisclosure
+        {...dialog}
+        {...props}
+        palette="info"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      />
       {dialog.visible && (
         <GameRoundDialog id={dialogId} record={record} dialog={dialog} />
       )}

@@ -261,8 +261,37 @@ const PlayerHistoryDialog = ({
   }
 
   return (
-    <Modal title={<Box padding="1ch"></Box>} {...dialog}>
-      <DataTable columns={columns} data={items} />
+    <Modal
+      title={<Box padding="1ch"></Box>}
+      {...dialog}
+      css={css`
+        & .bb-DialogContent {
+          padding: 0;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+        & .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
+          > button {
+            box-shadow: none !important;
+            background: none !important;
+            top: 8px;
+          }
+        }
+      `}
+    >
+      <Box padding="4rem 1rem 1rem 1rem ">
+        <DataTable columns={columns} data={items} />
+      </Box>
     </Modal>
   )
 }

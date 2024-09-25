@@ -218,21 +218,25 @@ const useColumns = ({ items = [], totals = [] }) => {
       numberDecimalColumn({
         accessor: "betAmount",
         sumColumn: "betAmount",
-        Header: <BetAmountTrans />
+        Header: <BetAmountTrans />,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
         sumColumn: "validBetAmount",
-        Header: <ValidBetAmountTrans />
+        Header: <ValidBetAmountTrans />,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "settleAmount",
         sumColumn: "settleAmount",
-        Header: <SettleAmountTrans />
+        Header: <SettleAmountTrans />,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "winLoss",
         Header: <WinLossTrans />,
+        textAlign: "center",
         sumColumn: "winLoss",
         TotalCell: ({ value }) => <FormattedNumberDecimal value={value} />,
         Cell: ({ value }) => {

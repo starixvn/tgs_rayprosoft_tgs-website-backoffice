@@ -195,6 +195,7 @@ const useColumns = ({ items = [] }) =>
         id: "transactionType",
         accessor: (row) => row,
         Header: <TransactionTypeTrans />,
+        textAlign: "center",
         disableSortBy: true,
         TotalCell: () => null,
         Cell: ({ value: record }) => {
@@ -213,22 +214,37 @@ const useColumns = ({ items = [] }) =>
       textColumn({
         accessor: "externalTransactionId",
         Header: <TransactionIdTrans />,
+        textAlign: "center",
         disableSortBy: true
       }),
       numberDecimalColumn({
         accessor: "balance",
         Header: <BalanceTrans />,
+        textAlign: "center",
         TotalCell: () => null,
         disableSortBy: true
       }),
       textColumn({
         accessor: "includeInNetProfit",
         Header: <NetProfitTrans />,
+        textAlign: "center",
         TotalCell: () => null,
         Cell: ({ value }) => {
           return (
             <Box alignX="center">
-              <Checkbox checked={value} inputProps={{ readOnly: true }} />
+              <Checkbox
+                checked={value}
+                inputProps={{ readOnly: true }}
+                css={css`
+                  cursor: not-allowed;
+                  > input {
+                    &:focus + .bb-CheckboxIcon {
+                      box-shadow: none !important;
+                      border: 1px solid #d9d9e1 !important;
+                    }
+                  }
+                `}
+              />
             </Box>
           )
         }
