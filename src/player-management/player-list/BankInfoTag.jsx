@@ -34,7 +34,7 @@ export const BankInfoTagTypeSelect = ({
       {...props}
       css={css`
         min-width: 260px;
-        border-right: none;
+        border-right: none !important;
       `}
     />
   )

@@ -35,7 +35,7 @@ export const Disclosure = forwardRef(
 )
 
 export const ViewDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props}>
+  <Disclosure ref={ref} {...props} palette="success">
     {/* <ViewTrans /> */}
     <Icon
       icon={faMagnifyingGlass}

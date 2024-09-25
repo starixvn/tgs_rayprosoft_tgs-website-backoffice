@@ -75,7 +75,7 @@ export const Content = () => {
   }
 
   return (
-    <PlatformPageContent>
+    <PlatformPageContent title={<PlayersTrans />}>
       <Body />
     </PlatformPageContent>
   )
@@ -211,6 +211,24 @@ const BodyContent = ({ brandId = "", brand, allAgentSetting }) => {
         setSortOrder={setSortOrder}
         isLoading={isLoading}
         getRowId={(row) => row.playerCode}
+        css={css`
+          > thead {
+            th {
+              white-space: nowrap !important;
+            }
+          }
+          > tbody {
+            tr {
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>

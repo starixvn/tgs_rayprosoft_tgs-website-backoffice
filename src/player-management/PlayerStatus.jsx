@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Text } from "bumbag"
+import { Badge } from "bumbag"
 import { useTrans, Trans } from "../i18n"
 import Select from "../select/Select"
 import {
@@ -64,27 +64,74 @@ export const PlayerStatusLabel = ({ value = "" }) => {
   switch (value) {
     case Enabled:
       return (
-        <Text>
+        <Badge
+          palette="success"
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            border-radius: 0.375rem;
+          `}
+        >
           <UserStatusEnabledTrans />
-        </Text>
+        </Badge>
       )
     case Disabled:
       return (
-        <Text>
+        <Badge
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            background-color: #212631;
+            border-radius: 0.375rem;
+            background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
+          `}
+        >
           <UserStatusDisabledTrans />
-        </Text>
+        </Badge>
       )
     case InBlacklist:
       return (
-        <Text>
+        <Badge
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            background-color: #212631;
+            border-radius: 0.375rem;
+            background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
+          `}
+        >
           <InBlacklistTrans />
-        </Text>
+        </Badge>
       )
     case RegisterUndone:
       return (
-        <Text>
+        <Badge
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            background-color: #212631;
+            border-radius: 0.375rem;
+            background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
+          `}
+        >
           <PlayerStatusRegisterUndoneTrans />
-        </Text>
+        </Badge>
       )
   }
   return value
