@@ -264,7 +264,7 @@ const AddDialog = ({ onSubmitted, dialog, finalFocusRef, ...props }) => {
       dialog={dialog}
       finalFocusRef={finalFocusRef}
       maxWidth="80vw"
-      minWidth="55vw"
+      minWidth="45vw"
     >
       <AddBody dialog={dialog} />
     </FormDialog>
@@ -310,7 +310,17 @@ const AddBody = ({}) => {
 
   return (
     <Stack padding="5rem 1rem 1rem 1rem">
-      <FieldValues>
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+          input {
+            border: 1px solid #dbdfe6;
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        `}
+      >
         <UsernameLabel required />
         <Box>
           <InputField name="username" required />
@@ -330,13 +340,15 @@ const AddBody = ({}) => {
         />
 
         <DepartmentLabel required />
-        <Box>
+        <Box width="100%">
           <DepartmentSelect
             name="departmentId"
             required
             resellerId={resellerId}
             licenseeId={licenseeId}
             brandId={brandId}
+            width="100%"
+            minWidth="100%"
           />
         </Box>
 
@@ -388,9 +400,18 @@ const RoleSelectGroup = ({
     emptyDepartment?.()
   }
   return (
-    <Set orientation="vertical">
+    <Set
+      orientation="horizontal"
+      css={css`
+        flex-wrap: nowrap;
+        gap: 6px;
+        > .bb-Box {
+          width: 100%;
+        }
+      `}
+    >
       {roleTypeOptions.length > 1 && (
-        <Set orientation="horizontal">
+        <>
           <RoleTypeSelect
             name="roleType"
             defaultValue={roleType}
@@ -447,7 +468,7 @@ const RoleSelectGroup = ({
               }}
             />
           )}
-        </Set>
+        </>
       )}
       <RoleSelect
         name="roleId"
@@ -532,7 +553,7 @@ const EditDialog = ({ user = {}, onSubmitted, dialog, ...props }) => {
       title={title}
       dialog={dialog}
       maxWidth="80vw"
-      minWidth="55vw"
+      minWidth="50vw"
     >
       <EditBody user={user} dialog={dialog} />
     </FormDialog>

@@ -57,6 +57,19 @@ const theme = {
     danger: "#e55353",
     warning: "#f9b115"
   },
+  Tabs: {
+    Tab: {
+      styles: {
+        base: {
+          color: "#252b36ae",
+          fontWeight: "400"
+        },
+        hover: {
+          color: "#4b49b6"
+        }
+      }
+    }
+  },
   Table: {
     styles: {
       base: {

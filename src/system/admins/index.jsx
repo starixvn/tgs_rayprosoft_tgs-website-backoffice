@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react"
 import { css, Global } from "@emotion/react"
-import { Heading, Stack, Button, Set, Text } from "bumbag"
+import { Heading, Stack, Button, Set, Text, Box } from "bumbag"
 import PageContent from "../../page/Content"
 import { AddButton, EditButton, EditPasswordButton } from "./edit"
 import sequenceColumn from "../../table/column/sequence"
@@ -76,7 +76,13 @@ const Body = () => {
     <PageContent
       title={<AdminsTrans />}
       actionBar={
-        <>
+        <Box
+          css={css`
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+          `}
+        >
           <SearchBar
             username={username}
             departmentName={state.departmentName}
@@ -92,7 +98,7 @@ const Body = () => {
             isLoading={isLoading}
           />
           <AddButton id="add-user-dialog-disclosure" onSubmitted={mutate} />
-        </>
+        </Box>
       }
     >
       <Table

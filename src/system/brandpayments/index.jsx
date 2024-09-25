@@ -300,6 +300,24 @@ const SearchBar = ({ search, isLoading, ...props }) => {
             showEmptyFieldValueAddonAfter
             placeholder={keywordPlaceholder}
             autocomplete="off"
+            css={css`
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            `}
           />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
