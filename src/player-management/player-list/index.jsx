@@ -100,7 +100,15 @@ const Body = () => {
 
   let isLoading = isLoadingBrand || isLoadingAllAgent
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       {isLoading && (
         <Box alignY="center" alignX="center">
           <Spinner />
@@ -246,45 +254,110 @@ const SearchBar = ({
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-        <Set alignY="bottom">
-          <PlayerStatusSelect name="status" />
-          <VipLevelSelect name="vipId" brandId={brandId} />
+        <Set
+          alignY="bottom"
+          css={css`
+            .bb-InputFieldGroup,
+            .react-datepicker-wrapper {
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            }
+            #date-range-dropdown-menu {
+              button {
+                border-right: none;
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-right: none;
+                }
+              }
+            }
+            margin-bottom: 8px;
+          `}
+        >
+          <PlayerStatusSelect
+            name="status"
+            css={css`
+              min-width: 251px;
+            `}
+          />
+          <VipLevelSelect
+            name="vipId"
+            brandId={brandId}
+            css={css`
+              min-width: 251px;
+            `}
+          />
           <InputField
             name="username"
             showEmptyFieldValueAddonAfter
             placeholder={usernameInputPlaceholder}
             minLength={2}
             maxLength={256}
+            css={css`
+              min-width: 251px;
+            `}
           />
           {isAdminUser && (
             <InputField
               name="playerCode"
               showEmptyFieldValueAddonAfter
               placeholder={playerCodePlaceholder}
+              css={css`
+                min-width: 251px;
+              `}
             />
           )}
           <InputField
             name="agentName"
             showEmptyFieldValueAddonAfter
             placeholder={agentNamePlaceholder}
+            css={css`
+              min-width: 251px;
+            `}
           />
           {showAllAgent && (
             <InputField
               name="parentUsername"
               showEmptyFieldValueAddonAfter
               placeholder={allAgentUpperLevelPlaceholder}
+              css={css`
+                min-width: 251px;
+              `}
             />
           )}
           <InputField
             name="registerHost"
             showEmptyFieldValueAddonAfter
             placeholder={domainInputPlaceholder}
+            css={css`
+              min-width: 251px;
+            `}
           />
           {hasPhoneFilterAuth && (
             <InputField
               name="phone"
               showEmptyFieldValueAddonAfter
               placeholder={phonePlaceholder}
+              css={css`
+                min-width: 251px;
+              `}
             />
           )}
           <InputField
@@ -293,6 +366,9 @@ const SearchBar = ({
             placeholder={realNamePlaceholder}
             minLength={2}
             maxLength={256}
+            css={css`
+              min-width: 251px;
+            `}
           />
           <BankInfoFieldGroup />
           <DateInputRangeField
@@ -329,7 +405,11 @@ const useColumns = ({
   let showAllAgent = allAgentSetting?.switch
 
   return useMemo(() => {
-    let columns = [sequenceColumn()]
+    let columns = [
+      sequenceColumn({
+        Header: "#"
+      })
+    ]
 
     if (isAdminUser) {
       columns.push(
@@ -407,7 +487,21 @@ const useColumns = ({
         Cell: ({ value: player }) => {
           let { playerCode } = player
           return (
-            <Set alignX="center">
+            <Set
+              alignX="center"
+              orientation="horizontal"
+              css={css`
+                flex-wrap: nowrap;
+                > button {
+                  padding: 10px 12px;
+                  height: 38px;
+                  min-height: 38px;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
+            >
               <ViewButton
                 id="view-player-dialog-disclosure"
                 player={player}

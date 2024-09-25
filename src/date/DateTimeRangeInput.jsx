@@ -12,7 +12,9 @@ import {
   FieldWrapper,
   FieldStack,
   Checkbox,
-  useBreakpoint
+  useBreakpoint,
+  Set,
+  Label
 } from "bumbag"
 import { useForm, useFormContext, Controller } from "react-hook-form"
 import "react-datepicker/dist/react-datepicker.css"
@@ -65,10 +67,29 @@ export const DateInputRangeField = ({
   let endFieldName = endProps?.name ?? "end"
   let formMethods = useFormContext()
   return (
-    <FieldWrapper
-      label={
-        <FieldStack orientation="horizontal" alignY="center">
-          {label}
+    <>
+      <FieldWrapper
+        label={<Label margin="15px 0">{label}</Label>}
+        css={css`
+         .bb-FieldWrapperLabelWrapper {
+           margin-bottom: 0.25rem;
+         `}
+      >
+        <Set alignY="center" orientation="horizontal">
+          <DateInputRange
+            startProps={startProps}
+            endProps={endProps}
+            {...props}
+            css={css`
+              > button {
+                border-top-right-radius: 0 !important;
+                border-bottom-right-radius: 0 !important;
+              }
+              .react-datepicker-wrapper {
+                min-width: 217px;
+              }
+            `}
+          />
           {formMethods && (startFieldName || endFieldName) && (
             <Button.Close
               size="small"
@@ -76,18 +97,50 @@ export const DateInputRangeField = ({
                 formMethods.setValue(startFieldName, "")
                 formMethods.setValue(endFieldName, "")
               }}
+              css={css`
+                background: #f7f7fa;
+                margin: 0;
+                border-top-left-radius: 0px !important;
+                border-bottom-left-radius: 0px !important;
+                border: 1px solid #d9d9e1;
+                border-left: none;
+                width: 42px;
+                height: 44px;
+                margin-left: 0 !important;
+                &:focus {
+                  box-shadow: none !important;
+                  border: 1px solid #d9d9e1;
+                  border-left: none;
+                }
+              `}
             />
           )}
-        </FieldStack>
-      }
-      css={css`
-        .bb-FieldWrapperLabelWrapper {
-          margin-bottom: 0.25rem;
-        }
-      `}
-    >
-      <DateInputRange startProps={startProps} endProps={endProps} {...props} />
-    </FieldWrapper>
+        </Set>
+      </FieldWrapper>
+    </>
+    // <FieldWrapper
+    //   label={
+    //     <FieldStack orientation="horizontal" alignY="center">
+    //       {label}
+    //       {formMethods && (startFieldName || endFieldName) && (
+    //         <Button.Close
+    //           size="small"
+    //           onClick={() => {
+    //             formMethods.setValue(startFieldName, "")
+    //             formMethods.setValue(endFieldName, "")
+    //           }}
+    //         />
+    //       )}
+    //     </FieldStack>
+    //   }
+    //   css={css`
+    //     .bb-FieldWrapperLabelWrapper {
+    //       margin-bottom: 0.25rem;
+    //     }
+    //   `}
+    // >
+    //   <DateInputRange startProps={startProps} endProps={endProps} {...props} />
+    // </FieldWrapper>
   )
 }
 
@@ -250,7 +303,7 @@ export const DateTimeRangeInput = ({
           }
         />
         {startProps?.addonAfter}
-        <Button isStatic tabIndex="-1">
+        <Button isStatic tabIndex="-1" borderRight="none">
           -
         </Button>
         <DateTimeInput
