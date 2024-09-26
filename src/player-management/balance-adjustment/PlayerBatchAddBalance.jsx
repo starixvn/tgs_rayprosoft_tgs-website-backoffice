@@ -578,6 +578,11 @@ const BatchAddTable = ({ name = "items" }) => {
             maxHeight: "50vh",
             overflow: "auto"
           }}
+          css={css`
+            tr {
+              background: #fff;
+            }
+          `}
         />
       )}
     </>
@@ -588,6 +593,7 @@ const useColumns = ({ items, showResult }) => {
   return useMemo(() => {
     let columns = [
       SequenceColumn({
+        Header: "#",
         Footer: () => <TotalTrans />
       }),
       textColumn({

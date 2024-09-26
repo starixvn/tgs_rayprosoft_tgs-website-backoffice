@@ -174,7 +174,9 @@ const useColumns = ({ brandId, items = [], mutate }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "username",
         Header: <UserNameTrans />,

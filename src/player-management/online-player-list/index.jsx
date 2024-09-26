@@ -130,7 +130,7 @@ const Summary = ({ onlineUsers }) => {
   }
 
   return (
-    <Blockquote borderColor="primary" margin="10px 0 20px 0">
+    <Blockquote borderColor="primary" margin="10px 0 20px 0" background="#fff">
       <Heading use="h5">
         <TotalOnlinePlayersTrans />
         <FormattedNumber value={onlineUsers} />
