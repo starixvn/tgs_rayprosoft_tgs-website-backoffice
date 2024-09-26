@@ -37,7 +37,7 @@ import { InputField } from "../../input/Input"
 import { Code } from "./menu"
 import BrandBar from "../../report/BrandBar"
 import { DateInputRange } from "../../date/DateTimeRangeInput"
-import { today, yesterday } from "../../date/range"
+import { today, yesterday, toGMT4 } from "../../date/range"
 import dateTimeColumn from "../../table/column/dateTime"
 import { startOfNextDay } from "../../date/startOfNextDay"
 import numberColumn, {
@@ -143,8 +143,8 @@ export const PlayerContributionReport = ({ brandId, useFetch }) => {
   const toSearchParams = () => ({
     ...toApiParams(state),
     sortby: "username",
-    from,
-    to: startOfNextDay(to)
+    from: toGMT4(from),
+    to: toGMT4(startOfNextDay(to))
   })
   let {
     isLoading,
