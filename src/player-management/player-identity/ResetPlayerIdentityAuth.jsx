@@ -34,7 +34,9 @@ export const ResetPlayerIdentityAuthDisclosure = ({ record }) => {
 
   return (
     <>
-      <Disclosure {...dialog}>{label}</Disclosure>
+      <Disclosure {...dialog} palette="danger">
+        {label}
+      </Disclosure>
       {dialog.visible && <ResetDialog record={record} dialog={dialog} />}
     </>
   )
@@ -108,7 +110,7 @@ const ResetDialog = ({ record, dialog }) => {
       onCloseErrorAlert={reset}
       dialog={dialog}
     >
-      <Alert title={`${label}?`} type="warning" variant="" />
+      <Alert title={`${label}?`} type="warning" variant="" padding="1rem" />
     </FormDialog>
   )
 }

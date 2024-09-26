@@ -352,7 +352,20 @@ const useColumns = ({ mutate, items = [], brandId, brand } = {}) => {
           Cell: ({ value: record }) => {
             let { playerCode, formId, status } = record
             return (
-              <Set alignX="center">
+              <Set
+                alignX="center"
+                css={css`
+                  button {
+                    padding: 10px 12px;
+                    height: 38px;
+                    min-height: 38px;
+                    border: none;
+                    &:focus {
+                      box-shadow: none !important;
+                    }
+                  }
+                `}
+              >
                 {enablePlayerIdentity && (
                   <ReviewPlayerIdDialogDisclosure
                     id="review-player-id-dialog-disclosure"
@@ -361,15 +374,6 @@ const useColumns = ({ mutate, items = [], brandId, brand } = {}) => {
                     formId={formId}
                     status={status}
                     onSubmitted={mutate}
-                    css={css`
-                      padding: 10px 12px;
-                      height: 38px;
-                      min-height: 38px;
-                      border: none;
-                      &:focus {
-                        box-shadow: none !important;
-                      }
-                    `}
                   />
                 )}
                 {enablePlayerIdentity && (

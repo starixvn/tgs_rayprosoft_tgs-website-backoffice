@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Text, Set, Icon } from "bumbag"
+import { Text, Set, Icon, Badge } from "bumbag"
 import {
   faCertificate,
   faCheck,
@@ -58,11 +58,53 @@ export const PlayerIdentitySelect = ({ ...props }) => {
 export const PlayerIdentityStateLabel = ({ value = "" }) => {
   switch (value) {
     case WaitingVerify:
-      return <ReviewTrans />
+      return (
+        <Badge
+          palette="info"
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #fff;
+            display: inline;
+          `}
+        >
+          <ReviewTrans />
+        </Badge>
+      )
     case Approve:
-      return <ApprovedTrans />
+      return (
+        <Badge
+          palette="success"
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #fff;
+            display: inline;
+          `}
+        >
+          <ApprovedTrans />
+        </Badge>
+      )
     case Reject:
-      return <RejectedTrans />
+      return (
+        <Badge
+          palette="danger"
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #fff;
+            display: inline;
+          `}
+        >
+          <RejectedTrans />
+        </Badge>
+      )
     default:
       return value
   }
