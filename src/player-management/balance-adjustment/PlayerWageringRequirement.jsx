@@ -31,7 +31,22 @@ export const PlayerWageringRequirementDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure
+        {...dialog}
+        {...props}
+        palette="info"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          color: #fff;
+          font-weight: 400;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      >
         <BalanceTrans />
       </Disclosure>
       {dialog.visible && (
@@ -86,8 +101,51 @@ const WageringRequirementDialog = ({
       title={title}
       footer={<CloseButtonFooter dialog={dialog} alignX="right" />}
       maxWidth="80vw"
+      css={css`
+        min-width: 320px;
+        overflow: hidden;
+        & .bb-DialogContent {
+          max-height: 70vh;
+          padding: 0;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        & .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
+          > button {
+            box-shadow: none !important;
+            background: none !important;
+          }
+        }
+
+        & .bb-DialogFooter {
+          border-top: 1px solid #dbdfe6;
+          padding: 0.8rem;
+          background: #fff;
+          > div > button {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        }
+      `}
     >
-      <FieldValues marginLeft="1rem">
+      <FieldValues
+        padding="5rem 1rem 1rem 1rem"
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
         <UserNameTrans />
         <Box>{username}</Box>
 

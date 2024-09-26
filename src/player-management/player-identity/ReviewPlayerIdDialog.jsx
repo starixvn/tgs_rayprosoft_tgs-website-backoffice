@@ -222,7 +222,7 @@ const ReviewDialog = ({
           <AttachmentTrans />
           <Box>
             {hasAttchment && (
-              <Link href={attachmentUrl} target="_blank">
+              <Link href={attachmentUrl} target="_blank" color="#06c">
                 <Trans zh="连结" en="Link" />
               </Link>
             )}

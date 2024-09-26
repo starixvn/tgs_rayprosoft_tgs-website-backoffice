@@ -64,7 +64,22 @@ export const PlayerAdjustLockedAmountDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure id={id} {...dialog} {...props}>
+      <Disclosure
+        id={id}
+        {...dialog}
+        {...props}
+        palette="warning"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          font-weight: 400;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      >
         <Trans zh="解鎖" en="Unlock" />
       </Disclosure>
       {dialog.visible && (
@@ -124,7 +139,12 @@ const AdjustLockedAmountDialog = ({
 
 const FormBody = ({ username }) => {
   return (
-    <FieldValues margin="1rem">
+    <FieldValues
+      padding="5rem 1rem 1rem 1rem"
+      css={css`
+        gap: 16px 24px;
+      `}
+    >
       <Box alignY="center">
         <UserNameTrans />
       </Box>

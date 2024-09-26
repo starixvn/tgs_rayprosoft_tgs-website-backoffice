@@ -101,7 +101,29 @@ export const PlayerBatchAddBalanceDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <Disclosure id={id} {...dialog} {...props}>
+      <Disclosure
+        id={id}
+        {...dialog}
+        {...props}
+        css={css`
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        `}
+      >
         <BatchAddBalanceTrans />
       </Disclosure>
       {dialog.visible && (
@@ -322,7 +344,7 @@ const FormBody = ({}) => {
 
   return (
     <>
-      <FieldStack margin="1rem">
+      <FieldStack padding="5rem 1rem 1rem 1rem">
         <FieldStack orientation="horizontal">
           <FieldWrapper label={<TransactionTypeTrans />}>
             <Set>
@@ -483,6 +505,7 @@ const ImportBatchAddDataButton = ({ name = "items", palette, variant }) => {
                 href={`${apiUrl}/api/batch-adj-balance`}
                 download="batch.xlsx"
                 marginLeft="1rem"
+                color="#06c"
               >
                 <DownloadFormatFileTrans />
               </Link>
@@ -500,6 +523,11 @@ const ImportBatchAddDataButton = ({ name = "items", palette, variant }) => {
             variant={variant}
             isLoading={isLoading}
             disabled={isLoading}
+            css={css`
+              &:focus {
+                box-shadow: none !important;
+              }
+            `}
           >
             <UploadFileTrans />
             <input {...getInputProps()} />

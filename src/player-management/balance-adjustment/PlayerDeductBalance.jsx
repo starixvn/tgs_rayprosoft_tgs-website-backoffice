@@ -52,7 +52,22 @@ export const PlayerDeductBalanceDisclosure = ({
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure
+        {...dialog}
+        {...props}
+        palette="danger"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          color: #fff;
+          font-weight: 400;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      >
         <DeductBalanceTrans />
       </Disclosure>
       {dialog.visible && (
@@ -134,7 +149,15 @@ const FormBody = ({ brandId, username, playerCode }) => {
       <Input type="hidden" name="brandId" value={brandId} />
       <Input type="hidden" name="username" value={username} />
       <Input type="hidden" name="playerCode" value={playerCode} />
-      <FieldValues margin="1rem">
+      <FieldValues
+        padding="5rem 1rem 1rem 1rem"
+        css={css`
+          gap: 16px 24px;
+          .bb-SelectWrapper {
+            width: 100%;
+          }
+        `}
+      >
         <Box alignY="center">
           <UserNameTrans />
         </Box>

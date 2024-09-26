@@ -58,7 +58,22 @@ export const PlayerAddBalanceDisclosure = ({
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure
+        {...dialog}
+        {...props}
+        palette="success"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          color: #fff;
+          font-weight: 400;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      >
         <AddBalanceTrans />
       </Disclosure>
       {dialog.visible && hasTransactionAmountAuth ? (
@@ -121,6 +136,9 @@ const AddDialog = ({ brandId, username, playerCode, onSubmitted, dialog }) => {
       }}
       title={title}
       dialog={dialog}
+      css={css`
+        width: 30vw;
+      `}
     >
       <FormBody />
     </FormDialog>
@@ -147,7 +165,15 @@ const FormBody = ({}) => {
   let TransactionAmountField = "amount"
   return (
     <>
-      <FieldValues margin="1rem">
+      <FieldValues
+        padding="5rem 1rem 1rem 1rem"
+        css={css`
+          gap: 16px 24px;
+          .bb-SelectWrapper {
+            width: 100%;
+          }
+        `}
+      >
         <Box>
           <UserNameTrans />
         </Box>
