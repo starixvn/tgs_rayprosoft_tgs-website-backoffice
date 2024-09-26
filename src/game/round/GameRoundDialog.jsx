@@ -89,10 +89,14 @@ export const GameRoundDialog = ({
 }) => {
   let { id } = record
   let language = useLangCode()
+  
   let { isLoading, data, error } = useGameRound(id, {
+    roundId: record.id,
+    gameId: record.gameId,
     gameProviderCode: record.gameProviderCode,
     playerCode: record.playerCode,
-    externalId: record.externalRoundId,
+    externalRoundId: record.externalRoundId,
+    settledDate: record.externalCreatedOn,
     language
   })
 
