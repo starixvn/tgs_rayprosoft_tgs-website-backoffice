@@ -193,7 +193,7 @@ const ReviewDialog = ({
       dialog={dialog}
       {...props}
     >
-      <FieldStack>
+      <FieldStack padding="5rem 1rem 1rem 1rem">
         <FieldValues>
           <RealNameTrans />
           <Box>

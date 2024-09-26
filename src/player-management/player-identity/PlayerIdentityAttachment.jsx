@@ -33,7 +33,12 @@ export const PlayerIdentityAttachment = ({
   return (
     <Set {...props}>
       {attachmentUrl && (
-        <Link href={attachmentUrl} target="_blank">
+        <Link
+          href={attachmentUrl}
+          target="_blank"
+          color="#06c"
+          marginRight="10px"
+        >
           <Trans zh="连结" en="Link" />
         </Link>
       )}
@@ -98,6 +103,16 @@ const UploadButton = ({
         refKey: "elementRef"
       })}
       {...props}
+      palette="info"
+      css={css`
+        padding: 10px 12px;
+        height: 38px;
+        min-height: 38px;
+        border: none;
+        &:focus {
+          box-shadow: none !important;
+        }
+      `}
     >
       <Trans zh="重新上传" en="Re-upload" />
       <input {...getInputProps()} />

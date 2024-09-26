@@ -134,6 +134,14 @@ export const InputField = ({
       }}
       {...formProps}
       {...props}
+      css={css`
+        input,
+        button {
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+      `}
     />
   )
 }

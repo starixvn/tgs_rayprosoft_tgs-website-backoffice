@@ -124,7 +124,15 @@ const BodyContent = ({ brandId = "", brand }) => {
   })
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       <Level alignY="bottom" alignX="left" verticalBelow="mobile">
         <SearchBar
           brandId={brandId}
@@ -140,7 +148,7 @@ const BodyContent = ({ brandId = "", brand }) => {
         />
       </Level>
       <Stack>
-        <Alert variant="bordered" type="info" accent marginBottom="1rem">
+        <Alert variant="bordered" type="info" accent marginBottom="8px">
           <List listStyleType="disc" listStylePosition="inside">
             <List.Item>
               <PlayerIdVerificationInfoTrans />
@@ -158,6 +166,24 @@ const BodyContent = ({ brandId = "", brand }) => {
         setSortOrder={setSortOrder}
         isLoading={isLoading}
         getRowId={(row) => row.playerCode}
+        css={css`
+          > thead {
+            th {
+              white-space: nowrap !important;
+            }
+          }
+          > tbody {
+            tr {
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>
@@ -175,13 +201,56 @@ const SearchBar = ({ brandId, status, search, isLoading, ...props }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-        <Set alignY="bottom">
-          <PlayerIdentitySelect name="status" />
+        <Set
+          alignY="bottom"
+          css={css`
+            .bb-InputFieldGroup,
+            .react-datepicker-wrapper {
+              input {
+                border: 1px solid #dbdfe6;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+              button {
+                &:focus,
+                &:hover,
+                &:active {
+                  box-shadow: none !important;
+                  border: 1px solid #dbdfe6;
+                  border-left: none;
+                  background: #fff;
+                }
+              }
+            }
+            .react-datepicker-wrapper {
+              min-width: unset !important;
+              width: 205px !important;
+              input {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+              }
+            }
+            .bb-Label {
+              margin: 5px 0 !important;
+            }
+            margin-bottom: 8px;
+          `}
+        >
+          <PlayerIdentitySelect
+            name="status"
+            css={css`
+              width: 200px;
+            `}
+          />
           <InputField
             name="username"
             showEmptyFieldValueAddonAfter
             placeholder={usernameInputPlaceholder}
             autocomplete="off"
+            css={css`
+              width: 200px;
+            `}
           />
           <DateInputRangeField
             label={<ApplicationTimeTrans />}
@@ -218,7 +287,9 @@ const useColumns = ({ mutate, items = [], brandId, brand } = {}) => {
   let enablePlayerIdentity = brand?.enablePlayerIdentity
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "username",
         Header: <UserNameTrans />,
@@ -290,6 +361,15 @@ const useColumns = ({ mutate, items = [], brandId, brand } = {}) => {
                     formId={formId}
                     status={status}
                     onSubmitted={mutate}
+                    css={css`
+                      padding: 10px 12px;
+                      height: 38px;
+                      min-height: 38px;
+                      border: none;
+                      &:focus {
+                        box-shadow: none !important;
+                      }
+                    `}
                   />
                 )}
                 {enablePlayerIdentity && (

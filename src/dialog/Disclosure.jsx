@@ -88,8 +88,15 @@ export const VerifyDisclosure = forwardRef((props, ref) => (
 ))
 
 export const ReviewDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props}>
-    <ReviewTrans />
+  <Disclosure ref={ref} {...props} palette="success">
+    {/* <ReviewTrans /> */}
+    <Icon
+      icon={faMagnifyingGlass}
+      type="font-awesome"
+      color="#080a0c"
+      fontSize="16px"
+      fontWeight="400"
+    />
   </Disclosure>
 ))
 
