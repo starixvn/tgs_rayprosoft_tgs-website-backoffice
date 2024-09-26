@@ -48,7 +48,15 @@ export const AreaPhoneInputGruop = ({
         placeholder={areaCodePlaceholder}
         {...areaProps}
       />
-      <PhoneInput {...props} />
+      <PhoneInput
+        {...props}
+        css={css`
+          width: 100%;
+          > input {
+            width: 100%;
+          }
+        `}
+      />
     </Group>
   )
 }

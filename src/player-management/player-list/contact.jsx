@@ -173,57 +173,73 @@ const UpdateContactPanel = ({
 
 const Body = ({ onClickClose }) => {
   return (
-    <Stack spacing="major-1" margin="major-1">
-      <FieldValues>
-        <PhoneTrans />
+    <Stack>
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+          margin-bottom: 12px !important;
+        `}
+      >
+        <Text fontWeight="bold">
+          <PhoneTrans />
+        </Text>
         <Box>
           <AreaPhoneInputGruop
             name="properties.Phone"
             area={{ name: "properties.AreaCode" }}
           />
         </Box>
-
-        <EmailTrans />
+        <Text fontWeight="bold">
+          <EmailTrans />
+        </Text>
         <Box>
           <EmailInput name="properties.Email" />
         </Box>
-
-        <QQLabel />
+        <Text fontWeight="bold">
+          <QQLabel />
+        </Text>
         <Box>
           <Input name="properties.Qq" />
         </Box>
-
-        <WeChatLabel />
+        <Text fontWeight="bold">
+          <WeChatLabel />
+        </Text>
         <Box>
           <Input name="properties.Wechat" />
         </Box>
-
-        <TelegramTrans />
+        <Text fontWeight="bold">
+          <TelegramTrans />
+        </Text>
         <Box>
           <Input name="properties.Telegram" />
         </Box>
-
-        <ViberLabel />
+        <Text fontWeight="bold">
+          <ViberLabel />
+        </Text>
         <Box>
           <Input name="properties.Viber" />
         </Box>
-
-        <MessengerLabel />
+        <Text fontWeight="bold">
+          <MessengerLabel />
+        </Text>
         <Box>
           <Input name="properties.FacebookMessenger" />
         </Box>
-
-        <LineLabel />
+        <Text fontWeight="bold">
+          <LineLabel />
+        </Text>
         <Box>
           <Input name="properties.Line" />
         </Box>
-
-        <WhatsappLabel />
+        <Text fontWeight="bold">
+          <WhatsappLabel />
+        </Text>
         <Box>
           <Input name="properties.WhatsApp" />
         </Box>
-
-        <ZaloTrans />
+        <Text fontWeight="bold">
+          <ZaloTrans />
+        </Text>
         <Box>
           <Input name="properties.Zalo" />
         </Box>

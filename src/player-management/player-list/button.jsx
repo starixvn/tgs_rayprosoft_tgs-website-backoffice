@@ -207,7 +207,7 @@ const TabsDialog = ({
             }
           `}
         >
-          <Box padding="5rem 1rem 1rem 1rem">
+          <Box padding="4rem 1rem 1rem 1rem">
             {readonly && (
               <ViewTabs
                 playerCode={playerCode}

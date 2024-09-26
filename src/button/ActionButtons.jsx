@@ -39,6 +39,13 @@ export const SubmitCancel = ({ cancelText, submitText, ...props }) => {
       cancelText={cancelText ?? <CancelTrans />}
       submitText={submitText ?? <SubmitTrans />}
       {...props}
+      css={css`
+        > button {
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+      `}
     />
   )
 }
@@ -49,6 +56,13 @@ export const ConfirmCancel = ({ cancelText, submitText, ...props }) => {
       cancelText={cancelText ?? <CancelTrans />}
       submitText={submitText ?? <ConfirmTrans />}
       {...props}
+      css={css`
+        > button {
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+      `}
     />
   )
 }

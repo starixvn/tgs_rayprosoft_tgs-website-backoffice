@@ -88,14 +88,27 @@ const Body = ({ isLoading, onClickClose, ...props }) => {
   let { watch } = useFormContext()
   let password = watch("password")
   return (
-    <Stack spacing="major-1" margin="major-1">
-      <FieldValues>
-        <NewPasswordLabel />
+    <Stack>
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+          margin-bottom: 12px !important;
+          input {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        `}
+      >
+        <Text fontWeight="bold">
+          <NewPasswordLabel />
+        </Text>
         <Box>
           <PasswordInputField name="password" />
         </Box>
-
-        <ConfirmPasswordLabel />
+        <Text fontWeight="bold">
+          <ConfirmPasswordLabel />
+        </Text>
         <Box>
           <PasswordInputField name="confirmPassword" matchPassword={password} />
         </Box>

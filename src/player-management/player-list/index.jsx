@@ -313,6 +313,7 @@ const SearchBar = ({
             name="status"
             css={css`
               min-width: 251px;
+              width: 251px;
             `}
           />
           <VipLevelSelect
@@ -320,6 +321,7 @@ const SearchBar = ({
             brandId={brandId}
             css={css`
               min-width: 251px;
+              width: 251px;
             `}
           />
           <InputField

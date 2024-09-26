@@ -251,35 +251,69 @@ const EditForm = ({
   let { username = "", registeredOn, balance } = player
 
   return (
-    <Stack spacing="major-1" margin="major-1">
-      <FieldValues>
+    <Stack>
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+          margin-bottom: 10px !important;
+          .react-datepicker-wrapper,
+          .bb-InputWrapper,
+          .bb-Select,
+          .bb-SelectWrapper,
+          select,
+          input,
+          textarea {
+            width: 100%;
+          }
+        `}
+      >
         {isAdmin && (
           <>
-            <PlayerCodeTrans />
+            <Text fontWeight="bold">
+              <PlayerCodeTrans />
+            </Text>
             <Text>{player.playerCode}</Text>
           </>
         )}
-
-        <UserNameTrans />
+        <Text fontWeight="bold">
+          <UserNameTrans />
+        </Text>
         <Text>{username}</Text>
-
-        <RealNameTrans />
+        <Text fontWeight="bold">
+          <RealNameTrans />
+        </Text>
         <Box>
           <Input name="realName" />
         </Box>
-
-        <BirthdayTrans />
+        <Text fontWeight="bold">
+          <BirthdayTrans />
+        </Text>
         <Box>
-          <DateInput name="birthdate" />
+          <DateInput
+            name="birthdate"
+            css={css`
+              &. bb-Box {
+                width: 100%;
+              }
+              > input {
+                width: 100%;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+            `}
+          />
         </Box>
-
-        <ICNumberTrans />
+        <Text fontWeight="bold">
+          <ICNumberTrans />
+        </Text>
         <PlayerIdNumberInputGroup
           player={player}
           showIdentityAuth={brand?.enablePlayerIdentity}
         />
-
-        <VipLevelTrans />
+        <Text fontWeight="bold">
+          <VipLevelTrans />
+        </Text>
         <Box>
           <VipLevelSelect
             name="vipId"
@@ -289,11 +323,13 @@ const EditForm = ({
             disabled
           />
         </Box>
-
-        <VipUpgradeTrans />
+        <Text fontWeight="bold">
+          <VipUpgradeTrans />
+        </Text>
         <AutoOrManualSwitch disabled name={VipUpgradeField} {...props} />
-
-        <UpperLevelAgentTrans />
+        <Text fontWeight="bold">
+          <UpperLevelAgentTrans />
+        </Text>
         <Box>
           <Input
             name="agentUsername"
@@ -301,10 +337,12 @@ const EditForm = ({
             disabled
           />
         </Box>
-
         {showParentUsername && (
           <>
-            <AllAgentUpperLevelLabel />
+            <Text fontWeight="bold">
+              <AllAgentUpperLevelLabel />
+            </Text>
+
             <Box>
               <Input
                 name="parentUsername"
@@ -313,21 +351,30 @@ const EditForm = ({
             </Box>
           </>
         )}
-
-        <RegistrationTimeTrans />
+        <Text fontWeight="bold">
+          <RegistrationTimeTrans />
+        </Text>
         <Box>
           <FormattedDateTime value={registeredOn} />
         </Box>
-
-        <BalanceTrans />
+        <Text fontWeight="bold">
+          <BalanceTrans />
+        </Text>
         <Box>
           <FormattedNumberDecimal value={balance} />
         </Box>
-
         <Box alignY="center">
-          <WageringRequirementTrans />
+          <Text fontWeight="bold">
+            <WageringRequirementTrans />
+          </Text>
         </Box>
-        <Set>
+        <Set
+          css={css`
+            .bb-Box {
+              width: auto !important;
+            }
+          `}
+        >
           <FormattedNumberDecimal value={wageringRequirement} />
           <Input type="hidden" name={WageringRequirementFieldName} />
           <PlayerClearWageringRequirementDisclosure
@@ -339,15 +386,27 @@ const EditForm = ({
             }}
           />
         </Set>
-
-        <StatusTrans />
+        <Text fontWeight="bold">
+          <StatusTrans />
+        </Text>
         <Box>
           <PlayerStatusSelect name="status" required placeholder={false} />
         </Box>
-
-        <RemarkTrans />
+        <Text fontWeight="bold">
+          <RemarkTrans />
+        </Text>
         <Box>
-          <Textarea name="remark" />
+          <Textarea
+            name="remark"
+            css={css`
+              > textarea {
+                border-radius: 6px;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              }
+            `}
+          />
         </Box>
       </FieldValues>
       <Box alignX="right">
