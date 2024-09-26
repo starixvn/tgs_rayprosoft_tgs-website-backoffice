@@ -78,6 +78,7 @@ export const PlatformPageContent = ({
               padding: 1rem;
               border: 1px solid #080a0c2d;
               border-radius: 0.375rem;
+              position: relative;
               .custom-width-table {
                 width: 100% !important;
               }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Button, useModalState } from "bumbag"
+import { Badge, Button, useModalState } from "bumbag"
 import { Locales, Trans, useTrans } from "../../i18n"
 import AlertDialog from "../../dialog/Alert"
 import { useChangePlatformBannerStatus } from "./client"
@@ -26,16 +26,58 @@ export const PlatformBannerStatusLabel = ({ value = "" }) => {
   switch (value) {
     case "WaitApprving": //TODO: rm after 1.8
     case InVerify:
-      return <ReviewTrans />
+      return (
+        <Badge
+          palette="info"
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #fff;
+            display: inline;
+          `}
+        >
+          <ReviewTrans />
+        </Badge>
+      )
 
     case Effective:
-      return <EffectiveTrans />
+      return (
+        <Badge
+          palette="success"
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #fff;
+            display: inline;
+          `}
+        >
+          <EffectiveTrans />
+        </Badge>
+      )
 
     case Expired:
       return <ExpiredTrans />
 
     case Rejected:
-      return <RejectedTrans />
+      return (
+        <Badge
+          palette="danger"
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #fff;
+            display: inline;
+          `}
+        >
+          <RejectedTrans />
+        </Badge>
+      )
 
     default:
       return value

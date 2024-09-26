@@ -118,16 +118,45 @@ const Body = () => {
   }
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
-      <Box alignX="right">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
+      <Box alignX="right" position="absolute" top="16px" right="16px">
         <AddPlatformBannerDisclosure
           id="add-banner-dialog-disclosure"
           brandId={brandId}
           onSubmitted={mutate}
         />
       </Box>
-      <Tabs>
-        <TabList {...tab}>
+      <Tabs
+        css={css`
+          .bb-TabsPanel {
+            background: #fff;
+          }
+        `}
+      >
+        <TabList
+          {...tab}
+          css={css`
+            > button {
+              box-shadow: none !important;
+              border-bottom: 2px solid transparent;
+              &:hover {
+                box-shadow: none !important;
+                border-bottom: 2px solid #574feb;
+              }
+            }
+            > button[aria-selected="true"] {
+              border-bottom: 2px solid #574feb !important;
+            }
+          `}
+        >
           {hasVerifyAuth && (
             <Tab tabId={InVerify} onClick={activeTab(InVerify)} {...tab}>
               <ReviewTrans />
@@ -207,6 +236,7 @@ const Body = () => {
           )}
         </TabPanel>
       </Tabs>
+
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>
   )
@@ -243,6 +273,19 @@ const AsyncTable = ({
       setPageIndex={setPageIndex}
       setSortOrder={setSortOrder}
       isLoading={isLoading}
+      css={css`
+        > tbody {
+          tr {
+            &:not(:last-child) {
+              border-bottom: 1px solid #dbdfe6 !important;
+            }
+            &:nth-child(odd) {
+              background: none;
+              box-shadow: inset 0 0 0 9999px #0000000d;
+            }
+          }
+        }
+      `}
     />
   )
 }
@@ -295,7 +338,9 @@ const useColumns = ({ mutate, brandId, status: tabStatusName, items = [] }) => {
   return useMemo(() => {
     let columns = [
       tabStatusName != Effective
-        ? sequenceColumn()
+        ? sequenceColumn({
+            Header: "#"
+          })
         : {
             id: "displayOrder",
             accessor: (record) => record,
@@ -446,7 +491,20 @@ const useColumns = ({ mutate, brandId, status: tabStatusName, items = [] }) => {
         },
         Cell: ({ value }) => {
           return (
-            <Set alignX="center">
+            <Set
+              alignX="center"
+              css={css`
+                button {
+                  padding: 10px 12px;
+                  height: 38px;
+                  min-height: 38px;
+                  border: none;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
+            >
               {(tabStatusName === Effective ||
                 tabStatusName === Expired ||
                 tabStatusName === Rejected) && (
