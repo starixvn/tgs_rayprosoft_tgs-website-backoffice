@@ -97,6 +97,7 @@ export const GameRoundDialog = ({
     playerCode: record.playerCode,
     externalRoundId: record.externalRoundId,
     externalClosedOn: record.externalClosedOn,
+    baseCurrency: record.currencyCode,
     language
   })
 
