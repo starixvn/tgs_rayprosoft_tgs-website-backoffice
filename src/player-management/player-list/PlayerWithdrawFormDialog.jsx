@@ -180,14 +180,16 @@ const FormBody = ({ bankInfoList = [] }) => {
   let { control, getValues } = useFormContext()
   let player = getValues("player")
   return (
-    <FieldStack marginLeft="1rem" marginRight="1rem">
-      <FieldWrapper label={<RealNameTrans />}>
-        <Box>{player.realName}</Box>
-      </FieldWrapper>
-      <BankInfoSelect bankInfoList={bankInfoList} required />
-      <AmountInputField required />
-      <NoteInputField />
-    </FieldStack>
+    <Box padding="5rem 1rem 1rem 1rem">
+      <FieldStack>
+        <FieldWrapper label={<RealNameTrans />}>
+          <Box>{player.realName}</Box>
+        </FieldWrapper>
+        <BankInfoSelect bankInfoList={bankInfoList} required />
+        <AmountInputField required />
+        <NoteInputField />
+      </FieldStack>
+    </Box>
   )
 }
 
@@ -227,6 +229,11 @@ const BankInfoSelect = ({
       options={options}
       label={label}
       {...props}
+      css={css`
+        .bb-SelectWrapper {
+          width: 100%;
+        }
+      `}
     />
   )
 }

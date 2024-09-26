@@ -120,7 +120,7 @@ const UpgradeDialog = ({
 const FormBody = ({ player }) => {
   // let hasMasterAgent = !!player?.agentUsername
   return (
-    <Stack paddingLeft="1rem">
+    <Stack padding="5rem 1rem 1rem 1rem">
       <ConfirmUpgradeToAgentTrans />
     </Stack>
   )

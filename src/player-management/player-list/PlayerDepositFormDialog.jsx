@@ -14,7 +14,8 @@ import {
   Heading,
   FieldWrapper,
   DropdownMenu,
-  Icon
+  Icon,
+  Columns
 } from "bumbag"
 import { useTable, Table, pageCount, toApiParams } from "../../table"
 import { useIsDisplayMenuByRoute } from "../../user/context"
@@ -245,32 +246,65 @@ const FormBody = ({ paymentList = [], brandId, playerCode }) => {
     setValue(BankTypeField, bankType)
   }, [paymentMethod, paymentChannel])
   return (
-    <FieldStack marginLeft="1rem" marginRight="1rem">
-      <FieldWrapper label={<RealNameTrans />}>
-        <Box>{player.realName}</Box>
-      </FieldWrapper>
-      <Set orientation="horizontal" verticalBelow="tablet">
-        <PlayerPaymentMethodSelect
-          name={PaymentMethodField}
-          paymentList={paymentList}
-          required
-        />
-        <PlayerPaymentChannelSelect
-          name={PaymentChannelField}
-          paymentMethod={paymentMethod}
-          paymentList={paymentList}
-          required
-        />
-      </Set>
-      <ApplyInfo bankType={bankType} />
-      {payment && (
-        <>
-          <AmountInputField required />
-          <PlayerPromotionSelect brandId={brandId} playerCode={playerCode} />
-          <NoteInputField bankType={bankType} />
-        </>
-      )}
-    </FieldStack>
+    <Box
+      padding="5rem 1rem 1rem 1rem"
+      css={css`
+        input,
+        button {
+          border-right: none;
+          &:focus {
+            box-shadow: none !important;
+          }
+          &:focus,
+          &:hover,
+          &:active {
+            border: 1px solid #d9d9e1;
+            border-right: none;
+          }
+        }
+      `}
+    >
+      <FieldStack>
+        <FieldWrapper label={<RealNameTrans />}>
+          <Box>{player.realName}</Box>
+        </FieldWrapper>
+        <Columns>
+          <Columns.Column>
+            <PlayerPaymentMethodSelect
+              name={PaymentMethodField}
+              paymentList={paymentList}
+              required
+              css={css`
+                .bb-SelectWrapper {
+                  width: 100%;
+                }
+              `}
+            />
+          </Columns.Column>
+          <Columns.Column>
+            <PlayerPaymentChannelSelect
+              name={PaymentChannelField}
+              paymentMethod={paymentMethod}
+              paymentList={paymentList}
+              required
+              css={css`
+                .bb-SelectWrapper {
+                  width: 100%;
+                }
+              `}
+            />
+          </Columns.Column>
+        </Columns>
+        <ApplyInfo bankType={bankType} />
+        {payment && (
+          <>
+            <AmountInputField required />
+            <PlayerPromotionSelect brandId={brandId} playerCode={playerCode} />
+            <NoteInputField bankType={bankType} />
+          </>
+        )}
+      </FieldStack>
+    </Box>
   )
 }
 
