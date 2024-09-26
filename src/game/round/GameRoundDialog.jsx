@@ -356,6 +356,10 @@ const UrlContent = ({ url = "" }) => {
 }
 
 const IframeContent = ({ value = "" }) => {
+  if (!value?.length) {
+    return null;
+  }
+
   return <iframe src={value} width="100%" height="550px"></iframe>
 }
 
