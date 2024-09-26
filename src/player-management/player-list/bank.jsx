@@ -129,11 +129,15 @@ const UpdateInfoBox = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <OperatorTrans />
+        <Text fontWeight="bold">
+          <OperatorTrans />
+        </Text>
       </Box>
       <Box alignY="center">{record?.modifier}</Box>
       <Box alignY="center">
-        <UpdatedTimeTrans />
+        <Text fontWeight="bold">
+          <UpdatedTimeTrans />
+        </Text>
       </Box>
       <Box alignY="center">
         <FormattedDateTime value={record?.updatedOn} />
@@ -156,14 +160,23 @@ const Bank = ({
 
   return (
     <Card data-field="bank-id" data-value={record.id}>
-      <Set alignX="right">
+      <Set alignX="left">
         {edit && (
           <>
             <Disclosure
               id="delete-bank-dialog-disclosure"
               palette="danger"
-              variant="outlined"
               {...deleteDialog}
+              css={css`
+                padding: 10px 12px;
+                height: 38px;
+                min-height: 38px;
+                border: none;
+                color: #fff;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              `}
             >
               <Icon icon={faMinus} fontSize="300" type="font-awesome" />
             </Disclosure>
@@ -175,7 +188,20 @@ const Bank = ({
                 dialog={deleteDialog}
               />
             )}
-            <Disclosure id="edit-bank-dialog-disclosure" {...editDialog}>
+            <Disclosure
+              id="edit-bank-dialog-disclosure"
+              {...editDialog}
+              palette="info"
+              css={css`
+                padding: 10px 12px;
+                height: 38px;
+                min-height: 38px;
+                border: none;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              `}
+            >
               <Icon icon={faCog} fontSize="300" type="font-awesome" />
             </Disclosure>
             {editDialog.visible && (
@@ -192,6 +218,16 @@ const Bank = ({
               id="set-default-dialog-disclosure"
               disabled={isDefault}
               {...setDefaultDialog}
+              css={css`
+                padding: 10px 12px;
+                height: 38px;
+                min-height: 38px;
+                border: 1px solid #d9d9e1;
+                &:focus {
+                  box-shadow: none !important;
+                  border: 1px solid #d9d9e1;
+                }
+              `}
             >
               <IsDefaultSwitch checked={isDefault} />
             </Disclosure>
@@ -209,9 +245,16 @@ const Bank = ({
         )}
         {!edit && <IsDefaultSwitch checked={isDefault} />}
       </Set>
-      <FieldValues>
-        <Box alignY="center">
-          <PaymentChannelTrans />
+      <FieldValues
+        marginTop="major-3"
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
+        <Box alignY="top">
+          <Text fontWeight="bold">
+            <PaymentChannelTrans />
+          </Text>
         </Box>
         <PaymentChannelLabel value={record?.paymentChannelId} />
 
@@ -257,34 +300,44 @@ const ViewBank = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <BankNameLabel />
+        <Text fontWeight="bold">
+          <BankNameLabel />
+        </Text>
       </Box>
       <Box alignY="center" data-field="bankName">
         {record?.detail?.bankName ?? ""}
       </Box>
 
       <Box alignY="center">
-        <BankBranchLabel />
+        <Text fontWeight="bold">
+          <BankBranchLabel />
+        </Text>
       </Box>
       <Box alignY="center" data-field="bankBranch">
         {record?.detail?.bankBranch ?? ""}
       </Box>
 
       <Box alignY="center">
-        <AccountName />
+        <Text fontWeight="bold">
+          <AccountName />
+        </Text>
       </Box>
       <Box alignY="center" data-field="name">
         {record?.detail?.name ?? ""}
       </Box>
 
       <Box alignY="center">
-        <BankAccount />
+        <Text fontWeight="bold">
+          <BankAccount />
+        </Text>
       </Box>
       <Box alignY="center" data-field="bankAccount">
         {record?.detail?.bankAccount ?? ""}
       </Box>
 
-      <Box alignY="center">IFSC Code</Box>
+      <Box alignY="center">
+        <Text fontWeight="bold"> IFSC Code</Text>
+      </Box>
       <Box alignY="center" data-field="IFSCcode">
         {record?.detail?.IFSCcode ?? ""}
       </Box>
@@ -307,14 +360,18 @@ const ViewThirdParty = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <RealNameLabel />
+        <Text fontWeight="bold">
+          <RealNameLabel />
+        </Text>
       </Box>
       <Box alignY="center" data-field="username">
         {record?.detail?.username ?? ""}
       </Box>
 
       <Box alignY="center">
-        <PhoneLabel />
+        <Text fontWeight="bold">
+          <PhoneLabel />
+        </Text>
       </Box>
       <Box alignY="center" data-field="phone">
         {record?.detail?.phone ?? ""}
@@ -327,14 +384,18 @@ const ViewEWallet = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <EWalletLabel />
+        <Text fontWeight="bold">
+          <EWalletLabel />
+        </Text>
       </Box>
       <Box alignY="center" data-field="eMoneyName">
         {record?.detail?.eMoneyName ?? ""}
       </Box>
 
       <Box alignY="center">
-        <PhoneLabel />
+        <Text fontWeight="bold">
+          <PhoneLabel />
+        </Text>
       </Box>
       <Box alignY="center" data-field="phone">
         {record?.detail?.phone ?? ""}
@@ -347,7 +408,9 @@ const ViewPulsa = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <PhoneLabel />
+        <Text fontWeight="bold">
+          <PhoneLabel />
+        </Text>
       </Box>
       <Box alignY="center" data-field="phone">
         {record?.detail?.phone ?? ""}
@@ -362,7 +425,31 @@ const AddBank = ({ brandId, playerCode, onSubmitted }) => {
     <>
       <TwoColumns>
         <Card alignX="center">
-          <Disclosure id="add-bank-dialog-disclosure" {...dialog}>
+          <Disclosure
+            id="add-bank-dialog-disclosure"
+            {...dialog}
+            css={css`
+              background: #4b49b6;
+              color: #fff;
+              border-radius: 6px !important;
+              border: 1px solid !important;
+              font-weight: 400;
+              padding: 10px 12px;
+              height: 38px;
+              min-height: 38px;
+              &:focus,
+              &:hover,
+              &:active {
+                background: #4b49b6;
+                box-shadow: none !important;
+              }
+              &:hover {
+                &:active {
+                  background: #4b49b6;
+                }
+              }
+            `}
+          >
             <Icon icon={faPlus} fontSize="300" type="font-awesome" />
           </Disclosure>
         </Card>
@@ -516,24 +603,35 @@ const EditBody = ({ brandId }) => {
     ?.map(({ paymentChannelId }) => paymentChannelId)
 
   return (
-    <FieldValues>
-      <Box alignY="center">
-        <PaymentBankTypeTrans />
-      </Box>
-      <BrandPaymentMethodBankTypeSelect name={BankTypeFieldName} />
+    <Box padding="1rem">
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
+        <Box alignY="center">
+          <PaymentBankTypeTrans />
+        </Box>
+        <BrandPaymentMethodBankTypeSelect name={BankTypeFieldName} />
 
-      <Box alignY="center">
-        <PaymentChannelTrans />
-      </Box>
-      <PaymentChannelSelect
-        name="paymentChannelId"
-        isLoadingRange={isLoadingBrandPaymentList}
-        range={paymentChannelIdRange}
-        required
-      />
+        <Box alignY="center">
+          <PaymentChannelTrans />
+        </Box>
+        <PaymentChannelSelect
+          name="paymentChannelId"
+          isLoadingRange={isLoadingBrandPaymentList}
+          range={paymentChannelIdRange}
+          required
+          css={css`
+            &.bb-Box {
+              width: 100%;
+            }
+          `}
+        />
 
-      <EditBox bankType={bankType} />
-    </FieldValues>
+        <EditBox bankType={bankType} />
+      </FieldValues>
+    </Box>
   )
 }
 
@@ -690,6 +788,18 @@ const DeleteDialog = ({ playerCode, bank, onSubmitted, dialog }) => {
         submitText: <SubmitTrans />
       }}
       {...dialog}
+      css={css`
+        & .bb-DialogFooter {
+          border-top: 1px solid #dbdfe6;
+          padding: 0.8rem;
+          background: #fff;
+          > div > button {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        }
+      `}
     >
       {error && <AlertDialog {...error} onClickClose={reset} />}
       <Box
@@ -735,6 +845,18 @@ const SetDefaultDialog = ({ playerCode, bank, onSubmitted, dialog }) => {
         submitText: <SubmitTrans />
       }}
       {...dialog}
+      css={css`
+        & .bb-DialogFooter {
+          border-top: 1px solid #dbdfe6;
+          padding: 0.8rem;
+          background: #fff;
+          > div > button {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        }
+      `}
     >
       {error && <AlertDialog {...error} onClickClose={reset} />}
       <Box

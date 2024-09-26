@@ -180,7 +180,7 @@ const TabsDialog = ({
           {...dialog}
           {...props}
           css={css`
-            min-width: 85vw;
+            min-width: ${readonly ? "85vw" : "65vw"};
             min-height: 75vh;
             & .bb-DialogContent {
               max-height: 75vh;
@@ -258,9 +258,15 @@ const ViewTabs = ({
         {...tab}
         css={css`
           > button {
+            box-shadow: none !important;
+            border-bottom: 2px solid transparent;
             &:hover {
-              box-shadow: inset 0 -2px 0 0 #574feb;
+              box-shadow: none !important;
+              border-bottom: 2px solid #574feb;
             }
+          }
+          > button[aria-selected="true"] {
+            border-bottom: 2px solid #574feb !important;
           }
         `}
       >
@@ -324,8 +330,24 @@ const EditTabs = ({
   let contactAuth = useIsDisplayMenuByRoute([Contact])
   let bankAuth = useIsDisplayMenuByRoute([Bank])
   return (
-    <Tabs isFitted>
-      <TabList use={TabList} {...tab}>
+    <Tabs>
+      <TabList
+        use={TabList}
+        {...tab}
+        css={css`
+          > button {
+            box-shadow: none !important;
+            border-bottom: 2px solid transparent;
+            &:hover {
+              box-shadow: none !important;
+              border-bottom: 2px solid #574feb;
+            }
+          }
+          > button[aria-selected="true"] {
+            border-bottom: 2px solid #574feb !important;
+          }
+        `}
+      >
         <PlayerInfoTab {...tab} />
         {contactAuth && <ContractTab {...tab} />}
         {bankAuth && <BankTab {...tab} />}
