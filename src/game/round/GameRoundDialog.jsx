@@ -89,13 +89,15 @@ export const GameRoundDialog = ({
 }) => {
   let { id } = record
   let language = useLangCode()
-  let {
-    isLoading,
-    data = {},
-    error
-  } = useGameRound(id, {
+
+  let { isLoading, data, error } = useGameRound(id, {
+    roundId: record.id,
+    gameId: record.gameId,
     gameProviderCode: record.gameProviderCode,
     playerCode: record.playerCode,
+    externalRoundId: record.externalRoundId,
+    externalClosedOn: record.externalClosedOn,
+    baseCurrency: record.currencyCode,
     language
   })
 
@@ -314,7 +316,8 @@ const ContentType = {
   Table: "Table", //2,
   Text: "Text", //3,
   Json: "Json", //4,
-  Xml: "Xml" //5
+  Xml: "Xml", //5
+  Iframe: 'Iframe',
 }
 const GameRoundDataContent = ({
   value: { type = "", ...record } = {},
@@ -334,6 +337,9 @@ const GameRoundDataContent = ({
     case ContentType.Text:
       return <Textarea value={record?.value ?? ""} />
 
+    case ContentType.Iframe:
+      return <IframeContent {...record} />
+
     case ContentType.Xml:
       return <XmlContent {...record} />
     default:
@@ -347,6 +353,14 @@ const UrlContent = ({ url = "" }) => {
       {url}
     </Link.Block>
   )
+}
+
+const IframeContent = ({ value = "" }) => {
+  if (!value?.length) {
+    return null;
+  }
+
+  return <iframe src={value} width="100%" height="550px"></iframe>
 }
 
 const JsonContent = ({ value = "" }) => {

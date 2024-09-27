@@ -78,6 +78,10 @@ export const BrandBar = ({
     onResellerChange?.(state?.resellerId)
   }
 
+  useEffect(() => {
+    onSubmit()
+  }, [])
+
   let formMethods = useForm()
 
   if (userBrandId) {
