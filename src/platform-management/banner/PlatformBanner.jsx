@@ -317,6 +317,7 @@ export const FormBody = ({ readOnly = false, ...props } = {}) => {
   let disabled = readOnly
   return (
     <FieldValues
+      padding="5rem 1rem 1rem 1rem"
       {...props}
       css={css`
         gap: 16px 24px;

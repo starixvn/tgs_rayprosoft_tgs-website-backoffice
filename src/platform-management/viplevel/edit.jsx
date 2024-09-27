@@ -13,7 +13,8 @@ import {
   Heading,
   Level,
   Group,
-  Divider
+  Divider,
+  Blockquote
 } from "bumbag"
 import {
   Create as CreateMenu,
@@ -72,7 +73,28 @@ export const AddButton = ({ brandId, onSubmitted, ...props }) => {
 
   return (
     <>
-      <AddDisclosure {...dialog} {...props} />
+      <AddDisclosure
+        {...dialog}
+        {...props}
+        css={css`
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        `}
+      />
       {dialog.visible && (
         <AddDialog
           brandId={brandId}
@@ -118,8 +140,7 @@ const AddDialog = ({ brandId, onSubmitted, dialog }) => {
       }}
       title={title}
       dialog={dialog}
-      maxWidth="100vw"
-      minWidth="85vw"
+      minWidth="45vw"
       placement="top"
     >
       <EditBody isAdd={true} />
@@ -189,9 +210,8 @@ const EditDialog = ({ brandId, record, onSubmitted, dialog, ...props }) => {
       }}
       title={title}
       dialog={dialog}
-      maxWidth="100vw"
-      minWidth="85vw"
       placement="top"
+      minWidth="45vw"
     >
       <EditBody record={record} />
     </FormDialog>
@@ -280,262 +300,286 @@ const EditBody = ({ record, readonly = false, isAdd = false }) => {
 
   let isLevel1 = record?.level === 1
   return (
-    <FieldStack orientation="vertical" paddingBottom="1.5rem">
-      <Level width="100%" paddingLeft="1rem" paddingRight="1rem">
-        <Set orientation="vertical" isFilled flex="1">
-          <Heading use="h5">
-            <RequirementsTrans />
-          </Heading>
-          <Set
-            orientation="vertical"
-            marginLeft="1rem"
-            marginRight="1rem"
-            isFilled
+    <>
+      <Box padding="5rem 1rem 1rem 1rem">
+        <Box marginBottom="20px">
+          <Blockquote
+            borderColor="primary"
+            background="#f3f4f7"
+            marginBottom="20px"
           >
-            <FieldValues>
-              <NormalLabel>
-                <RequiredBetAmountToLevelUpTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <NumberInput
-                    name="levelUpAccumulateBetAmount"
-                    min="0"
-                    disabled={isLevel1}
-                  />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumber value={record?.levelUpAccumulateBetAmount} />
-                </Box>
-              )}
-
-              <NormalLabel>
-                <RequiredDepositAmountToLevelUpTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <NumberInput
-                    name="levelUpAccumulateDeposit"
-                    min="0"
-                    disabled={isLevel1}
-                  />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumber value={record?.levelUpAccumulateDeposit} />
-                </Box>
-              )}
-            </FieldValues>
-          </Set>
-
-          <Divider marginTop="1rem" marginRight="1rem" />
-
-          <Heading use="h5" marginTop="1rem">
-            <VipBenefitsTrans />
-          </Heading>
-          <Set
-            orientation="vertical"
-            marginLeft="1rem"
-            marginRight="1rem"
-            isFilled
+            <Heading use="h5">
+              <RequirementsTrans />
+            </Heading>
+          </Blockquote>
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+            `}
           >
-            <FieldValues>
-              <NormalLabel>
-                <BirthdayBonusTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <NumberInput name="birthBenefit" min="0" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumber value={record?.birthBenefit} />
-                </Box>
-              )}
+            <NormalLabel>
+              <RequiredBetAmountToLevelUpTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <NumberInput
+                  name="levelUpAccumulateBetAmount"
+                  min="0"
+                  disabled={isLevel1}
+                />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumber value={record?.levelUpAccumulateBetAmount} />
+              </Box>
+            )}
 
-              <NormalLabel>
-                <PromotionBonusTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <NumberInput
-                    name="promotionBenefit"
-                    min="0"
-                    disabled={isLevel1}
-                  />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumber value={record?.promotionBenefit} />
-                </Box>
-              )}
-
-              <NormalLabel>
-                <QuarterlyBonusTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <NumberInput name="quarterlyBenefit" min="0" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumber value={record?.quarterlyBenefit} />
-                </Box>
-              )}
-            </FieldValues>
-          </Set>
-
-          <Divider marginTop="1rem" marginRight="1rem" />
-
-          <Heading use="h5" marginTop="1rem">
-            <WithdrawalPolicyTrans />
-          </Heading>
-          <Set
-            orientation="vertical"
-            marginLeft="1rem"
-            marginRight="1rem"
-            isFilled
+            <NormalLabel>
+              <RequiredDepositAmountToLevelUpTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <NumberInput
+                  name="levelUpAccumulateDeposit"
+                  min="0"
+                  disabled={isLevel1}
+                />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumber value={record?.levelUpAccumulateDeposit} />
+              </Box>
+            )}
+          </FieldValues>
+        </Box>
+        <Box
+          height="1px"
+          borderBottom="1px solid #d9d9e1"
+          marginBottom="20px"
+        ></Box>
+        <Box marginBottom="20px">
+          <Blockquote
+            borderColor="primary"
+            background="#f3f4f7"
+            marginBottom="20px"
           >
-            <FieldValues>
-              <NormalLabel>
-                <TransactionsPerDayTrans />
-              </NormalLabel>
-              <WithdrawTransactionsPerDayInputGroup
-                // value={readonly && record?.withdrawTransactionsPerDay}
-                readOnly={readonly}
-              />
-
-              <NormalLabel>
-                <TotalAmountPerDayTrans />
-              </NormalLabel>
-              <WithdrawTotalAmountPerDayInputGroup readOnly={readonly} />
-            </FieldValues>
-          </Set>
-        </Set>
-        <Set orientation="vertical" isFilled flex="1">
-          <Heading use="h5">
-            <VipCommissionRebateTrans />
-          </Heading>
-          <Set
-            orientation="vertical"
-            marginLeft="1rem"
-            marginRight="1rem"
-            isFilled
+            <Heading use="h5">
+              <VipBenefitsTrans />
+            </Heading>
+          </Blockquote>
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+            `}
           >
-            <FieldValues>
-              <NormalLabel>
-                <LiveDealerCommissionRebateTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <PercentageNumberInputField name="liveDealerRebate" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumberDecimal
-                    value={record?.liveDealerRebate}
-                    postfix="%"
-                  />
-                </Box>
-              )}
+            <NormalLabel>
+              <BirthdayBonusTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <NumberInput name="birthBenefit" min="0" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumber value={record?.birthBenefit} />
+              </Box>
+            )}
 
-              <NormalLabel>
-                <EGameCommissionRebateTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <PercentageNumberInputField name="slotRebate" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumberDecimal
-                    value={record?.slotRebate}
-                    postfix="%"
-                  />
-                </Box>
-              )}
+            <NormalLabel>
+              <PromotionBonusTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <NumberInput
+                  name="promotionBenefit"
+                  min="0"
+                  disabled={isLevel1}
+                />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumber value={record?.promotionBenefit} />
+              </Box>
+            )}
 
-              <NormalLabel>
-                <CardGameCommissionRebateTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <PercentageNumberInputField name="cardGameRebate" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumberDecimal
-                    value={record?.cardGameRebate}
-                    postfix="%"
-                  />
-                </Box>
-              )}
+            <NormalLabel>
+              <QuarterlyBonusTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <NumberInput name="quarterlyBenefit" min="0" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumber value={record?.quarterlyBenefit} />
+              </Box>
+            )}
+          </FieldValues>
+        </Box>
+        <Box
+          height="1px"
+          borderBottom="1px solid #d9d9e1"
+          marginBottom="20px"
+        ></Box>
+        <Box marginBottom="20px">
+          <Blockquote
+            borderColor="primary"
+            background="#f3f4f7"
+            marginBottom="20px"
+          >
+            <Heading use="h5">
+              <WithdrawalPolicyTrans />
+            </Heading>
+          </Blockquote>
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+            `}
+          >
+            <NormalLabel>
+              <TransactionsPerDayTrans />
+            </NormalLabel>
+            <WithdrawTransactionsPerDayInputGroup
+              // value={readonly && record?.withdrawTransactionsPerDay}
+              readOnly={readonly}
+            />
 
-              <NormalLabel>
-                <SportsbookCommissionRebateTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <PercentageNumberInputField name="sportsRebate" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumberDecimal
-                    value={record?.sportsRebate}
-                    postfix="%"
-                  />
-                </Box>
-              )}
+            <NormalLabel>
+              <TotalAmountPerDayTrans />
+            </NormalLabel>
+            <WithdrawTotalAmountPerDayInputGroup readOnly={readonly} />
+          </FieldValues>
+        </Box>
+        <Box
+          height="1px"
+          borderBottom="1px solid #d9d9e1"
+          marginBottom="20px"
+        ></Box>
+        <Box marginBottom="20px">
+          <Blockquote
+            borderColor="primary"
+            background="#f3f4f7"
+            marginBottom="20px"
+          >
+            <Heading use="h5">
+              <VipCommissionRebateTrans />
+            </Heading>
+          </Blockquote>
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+            `}
+          >
+            <NormalLabel>
+              <LiveDealerCommissionRebateTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <PercentageNumberInputField name="liveDealerRebate" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={record?.liveDealerRebate}
+                  postfix="%"
+                />
+              </Box>
+            )}
 
-              <NormalLabel>
-                <VirtualSportsCommissionRebateTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <PercentageNumberInputField name="virtualSportsRebate" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumberDecimal
-                    value={record?.virtualSportsRebate}
-                    postfix="%"
-                  />
-                </Box>
-              )}
+            <NormalLabel>
+              <EGameCommissionRebateTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <PercentageNumberInputField name="slotRebate" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={record?.slotRebate}
+                  postfix="%"
+                />
+              </Box>
+            )}
 
-              <NormalLabel>
-                <LotteryCommissionRebateTrans />
-              </NormalLabel>
-              {editable && (
-                <Box>
-                  <PercentageNumberInputField name="lotteryRebate" />
-                </Box>
-              )}
-              {readonly && (
-                <Box alignY="center">
-                  <FormattedNumberDecimal
-                    value={record?.lotteryRebate}
-                    postfix="%"
-                  />
-                </Box>
-              )}
-            </FieldValues>
-          </Set>
-        </Set>
-      </Level>
-      <Input type="hidden" name="id" value={id} />
-    </FieldStack>
+            <NormalLabel>
+              <CardGameCommissionRebateTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <PercentageNumberInputField name="cardGameRebate" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={record?.cardGameRebate}
+                  postfix="%"
+                />
+              </Box>
+            )}
+
+            <NormalLabel>
+              <SportsbookCommissionRebateTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <PercentageNumberInputField name="sportsRebate" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={record?.sportsRebate}
+                  postfix="%"
+                />
+              </Box>
+            )}
+
+            <NormalLabel>
+              <VirtualSportsCommissionRebateTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <PercentageNumberInputField name="virtualSportsRebate" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={record?.virtualSportsRebate}
+                  postfix="%"
+                />
+              </Box>
+            )}
+
+            <NormalLabel>
+              <LotteryCommissionRebateTrans />
+            </NormalLabel>
+            {editable && (
+              <Box>
+                <PercentageNumberInputField name="lotteryRebate" />
+              </Box>
+            )}
+            {readonly && (
+              <Box alignY="center">
+                <FormattedNumberDecimal
+                  value={record?.lotteryRebate}
+                  postfix="%"
+                />
+              </Box>
+            )}
+          </FieldValues>
+        </Box>
+      </Box>
+    </>
   )
 }
 

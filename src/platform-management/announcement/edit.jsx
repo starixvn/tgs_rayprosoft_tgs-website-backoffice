@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Stack, Box, Button, Text, Modal, Alert, FieldStack } from "bumbag"
+import {
+  Stack,
+  Box,
+  Button,
+  Text,
+  Modal,
+  Alert,
+  FieldStack,
+  Icon
+} from "bumbag"
 import {
   Create as CreateMenu,
   Update as UpdateMenu,
@@ -44,6 +53,7 @@ import {
   useViewTrans
 } from "../../trans/Action"
 import { EndTimeTrans, StartTimeTrans } from "../../trans/Date"
+import { faPen } from "@fortawesome/free-solid-svg-icons"
 
 export const AddButton = ({ brandId, onSubmitted, ...props }) => {
   let dialog = Modal.useState()
@@ -55,7 +65,28 @@ export const AddButton = ({ brandId, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure
+        {...dialog}
+        {...props}
+        css={css`
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        `}
+      >
         <AddTrans />
       </Disclosure>
       {dialog.visible && (
@@ -130,8 +161,15 @@ export const EditButton = ({ brandId, record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
-        <EditTrans />
+      <Disclosure {...dialog} {...props} palette="info">
+        {/* <EditTrans /> */}
+        <Icon
+          icon={faPen}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <EditDialog
@@ -258,7 +296,7 @@ const EditBody = ({ readOnly = false } = {}) => {
   let required = !readOnly
   let textareaHeight = readOnly ? "15vh" : "30vh"
   return (
-    <FieldStack>
+    <FieldStack padding="5rem 1rem 1rem 1rem" marginBottom="0">
       {required && (
         <Alert
           type="info"
@@ -271,7 +309,19 @@ const EditBody = ({ readOnly = false } = {}) => {
           }
         ></Alert>
       )}
-      <FieldValues marginLeft="1rem" paddingBottom="1rem">
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+          .react-datepicker-wrapper {
+            width: 100%;
+            > input {
+              &:focus {
+                box-shadow: none !important;
+              }
+            }
+          }
+        `}
+      >
         <Label name="type">
           <Trans zh="类型" en="Type" />
         </Label>
@@ -347,7 +397,7 @@ export const VerifyButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure {...dialog} {...props} palette="warning">
         <VerifyTrans />
       </Disclosure>
       {dialog.visible && (
@@ -362,7 +412,7 @@ export const VerifyButton = ({ record, onSubmitted, ...props }) => {
 }
 
 const DialogCss = css`
-  min-width: 65vw;
+  min-width: 50vw;
 `
 
 const VerifyDialog = ({ record, onSubmitted, dialog, ...props }) => {
@@ -443,11 +493,22 @@ const VerifyDialog = ({ record, onSubmitted, dialog, ...props }) => {
 
 const VerifyBody = ({ readOnly = false } = {}) => {
   return (
-    <Stack spacing="major-2">
+    <Stack>
       <EditBody readOnly={true} />
-      <Box border="default" height="1px" width="100%" borderBottom="none"></Box>
+      <Box
+        border="default"
+        height="1px"
+        width="100%"
+        borderBottom="none"
+        marginBottom="0"
+      ></Box>
 
-      <FieldValues>
+      <FieldValues
+        padding="1rem"
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
         <Label name="remarks">
           <RemarkTrans />
         </Label>

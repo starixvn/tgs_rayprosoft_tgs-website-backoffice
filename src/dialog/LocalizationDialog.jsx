@@ -182,6 +182,15 @@ export const LocalizationDialogDisclosure = ({
               dialog={dialog}
               mode={mode}
               {...dialogProps}
+              css={css`
+                .bb-Group {
+                  > button {
+                    &:first-child {
+                      min-width: 100px;
+                    }
+                  }
+                }
+              `}
             />
           )}
         </>

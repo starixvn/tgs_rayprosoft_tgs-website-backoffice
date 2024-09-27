@@ -49,7 +49,15 @@ export const AnnouncementTypeSelect = ({ ...props }) => {
     }
   ]
 
-  return <Select options={options} {...props} />
+  return (
+    <Select
+      options={options}
+      {...props}
+      css={css`
+        width: 100%;
+      `}
+    />
+  )
 }
 
 export default {

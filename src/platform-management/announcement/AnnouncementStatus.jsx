@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Button } from "bumbag"
+import { Badge, Button } from "bumbag"
 import { Locales, Trans, useTrans } from "../../i18n"
 import AlertDialog from "../../dialog/Alert"
 import { useChangeAnnouncementStatus } from "./client"
@@ -27,19 +27,95 @@ export const Rejected = "Rejected"
 export const AnnouncementStatusLabel = ({ value = "" }) => {
   switch (value) {
     case InVerify:
-      return <ReviewTrans />
+      return (
+        <Badge
+          palette="info"
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            border-radius: 0.375rem;
+          `}
+        >
+          <ReviewTrans />
+        </Badge>
+      )
 
     case Effective:
-      return <EffectiveTrans />
+      return (
+        <Badge
+          palette="success"
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            border-radius: 0.375rem;
+          `}
+        >
+          <EffectiveTrans />
+        </Badge>
+      )
 
     case Invalid:
-      return <InvalidTrans />
+      return (
+        <Badge
+          palette="danger"
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            border-radius: 0.375rem;
+          `}
+        >
+          <InvalidTrans />
+        </Badge>
+      )
 
     case Expired:
-      return <ExpiredTrans />
+      return (
+        <Badge
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            background-color: #212631;
+            border-radius: 0.375rem;
+            background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
+          `}
+        >
+          <ExpiredTrans />
+        </Badge>
+      )
 
     case Rejected:
-      return <RejectedTrans />
+      return (
+        <Badge
+          palette="danger"
+          css={css`
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 4px;
+            min-height: 18px;
+            white-space: nowrap;
+            color: #fff;
+            border-radius: 0.375rem;
+          `}
+        >
+          <RejectedTrans />
+        </Badge>
+      )
 
     default:
       return value
@@ -90,7 +166,7 @@ export const AnnouncementStatusToggleButton = ({
   }
   return (
     <>
-      <Button
+      <div
         data-status={record.status}
         isLoading={isLoading}
         disabled={isLoading || disabled}
@@ -103,10 +179,11 @@ export const AnnouncementStatusToggleButton = ({
         }}
         css={css`
           white-space: nowrap;
+          cursor: pointer;
         `}
       >
         <AnnouncementStatusLabel value={record.status} />
-      </Button>
+      </div>
       {error && <AlertDialog {...error} onClickClose={reset} />}
     </>
   )

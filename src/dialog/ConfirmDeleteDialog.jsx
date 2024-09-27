@@ -30,6 +30,13 @@ export const ConfirmDeleteDialogDisclosure = ({
             addonAfter={addonAfter}
             onSubmit={onSubmit}
             onSubmitted={onSubmitted}
+            css={css`
+              & .bb-DialogContent {
+                > .bb-Box {
+                  padding: 10px;
+                }
+              }
+            `}
           />
         </SWRConfig>
       )}

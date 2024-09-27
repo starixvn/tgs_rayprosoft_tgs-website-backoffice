@@ -136,6 +136,15 @@ export const PlatformBannerStatusToggleButton = ({
         }}
         css={css`
           white-space: nowrap;
+          font-size: 0.75em;
+          font-weight: 700;
+          padding: 1px 4px;
+          min-height: auto;
+          color: #fff;
+          opacity: 1 !important;
+          &:focus {
+            box-shadow: none !important;
+          }
         `}
       >
         <BannerLabel value={isEnabled} />

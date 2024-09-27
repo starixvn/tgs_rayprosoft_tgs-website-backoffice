@@ -206,11 +206,17 @@ export const ViewVerifyPlatformBannerDisclosure = ({
 
 const VerifyBody = ({ readOnly = false } = {}) => {
   return (
-    <Stack spacing="major-2" marginLeft="1rem">
-      <FormBody readOnly={true} />
-      <Box border="default" height="1px" width="100%" borderBottom="none"></Box>
+    <Stack>
+      <FormBody readOnly={true} marginBottom="0" />
+      <Box
+        border="default"
+        height="1px"
+        width="100%"
+        borderBottom="none"
+        marginBottom="0"
+      ></Box>
 
-      <FieldValues paddingBottom="1rem">
+      <FieldValues padding="1rem 1rem 1rem 1rem">
         <Label name="remarks">
           <RemarkTrans />
         </Label>

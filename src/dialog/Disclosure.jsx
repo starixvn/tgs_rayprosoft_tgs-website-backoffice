@@ -6,7 +6,8 @@ import {
   faMinus,
   faPlus,
   faMagnifyingGlass,
-  faPen
+  faPen,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons"
 import {
   AddTrans,
@@ -67,9 +68,16 @@ export const AddDisclosure = forwardRef((props, ref) => (
 ))
 
 export const DeleteDisclosure = forwardRef(
-  ({ palette = "danger", variant = "outlined", ...props }, ref) => (
+  ({ palette = "danger", variant = "primary", ...props }, ref) => (
     <Disclosure ref={ref} palette={palette} variant={variant} {...props}>
-      <DeleteTrans />
+      {/* <DeleteTrans /> */}
+      <Icon
+        icon={faTrash}
+        type="font-awesome"
+        color="#080a0c"
+        fontSize="16px"
+        fontWeight="400"
+      />
     </Disclosure>
   )
 )
@@ -88,15 +96,15 @@ export const VerifyDisclosure = forwardRef((props, ref) => (
 ))
 
 export const ReviewDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props} palette="success">
-    {/* <ReviewTrans /> */}
-    <Icon
+  <Disclosure ref={ref} {...props} palette="info">
+    <ReviewTrans />
+    {/* <Icon
       icon={faMagnifyingGlass}
       type="font-awesome"
       color="#080a0c"
       fontSize="16px"
       fontWeight="400"
-    />
+    /> */}
   </Disclosure>
 ))
 

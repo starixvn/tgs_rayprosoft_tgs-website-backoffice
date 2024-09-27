@@ -312,20 +312,31 @@ const EffectiveTable = ({
 
   return (
     <FormProvider {...formMethods}>
-      <Stack spacing="minor-1">
-        <Table
-          id={id}
-          columns={columns}
-          data={data?.items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-          getRowId={(row) => row.id}
-        />
-      </Stack>
+      <Table
+        id={id}
+        columns={columns}
+        data={data?.items}
+        initialState={state}
+        controlledState={state}
+        pageCount={pageCount(pageSize, data?.totalCount)}
+        setPageIndex={setPageIndex}
+        setSortOrder={setSortOrder}
+        isLoading={isLoading}
+        getRowId={(row) => row.id}
+        css={css`
+          > tbody {
+            tr {
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
+      />
     </FormProvider>
   )
 }

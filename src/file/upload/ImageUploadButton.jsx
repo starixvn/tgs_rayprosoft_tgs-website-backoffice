@@ -7,6 +7,7 @@ import { LocalizationDialogDisclosure } from "../../dialog/LocalizationDialog"
 import { StaticButton } from "../../button/StaticButton"
 import { useFormContext, useWatch } from "react-hook-form"
 import FileUploadButton from "./FileUploadButton"
+import { faEye } from "@fortawesome/free-solid-svg-icons"
 
 const DefaultAccept = "image/jpeg, image/png, image/webp, image/gif"
 
@@ -82,8 +83,25 @@ export const ImageLocalizationDialogDisclosure = ({
 const LocalizationUploadImageField = ({ code, prefix, disabled }) => {
   let name = code
   return (
-    <Set alignX="center">
-      <Group>
+    <Set
+      css={css`
+        display: flex;
+        flex-wrap: nowrap;
+      `}
+    >
+      <Group
+        css={css`
+          width: 100%;
+          .bb-Button {
+            &:first-child {
+              min-width: 90px;
+            }
+            &:last-child {
+              width: 100%;
+            }
+          }
+        `}
+      >
         <StaticButton>{code}</StaticButton>
         <UploadButton name={name} prefix={prefix} disabled={disabled} />
       </Group>
@@ -105,7 +123,14 @@ const OpenLinkButton = ({ name, disabled }) => {
   return (
     <StaticButton>
       <Link href={url} target="_blank" color="#06c">
-        <Trans zh="查看图片" en="View Image" />
+        {/* <Trans zh="查看图片" en="View Image" /> */}
+        <Icon
+          icon={faEye}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Link>
       {!disabled && (
         <Button.Close
@@ -113,6 +138,12 @@ const OpenLinkButton = ({ name, disabled }) => {
             setValue(name, "")
           }}
           disabled={disabled}
+          css={css`
+            background: none !important;
+            &:focus {
+              box-shadow: none !important;
+            }
+          `}
         />
       )}
     </StaticButton>

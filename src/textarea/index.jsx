@@ -48,7 +48,10 @@ export const Textarea = ({
       css={css`
         & textarea {
           resize: ${resize};
-          border-radius: 0;
+          border-radius: 5px;
+          &:focus {
+            box-shadow: none !important;
+          }
         }
       `}
       {...formProps}

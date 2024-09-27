@@ -34,7 +34,13 @@ export const ResetPlayerIdentityAuthDisclosure = ({ record }) => {
 
   return (
     <>
-      <Disclosure {...dialog} palette="danger">
+      <Disclosure
+        {...dialog}
+        palette="danger"
+        css={css`
+          min-width: 150px;
+        `}
+      >
         {label}
       </Disclosure>
       {dialog.visible && <ResetDialog record={record} dialog={dialog} />}

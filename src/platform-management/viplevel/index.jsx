@@ -60,7 +60,15 @@ const BodyContent = ({}) => {
 
   let pageWidth = usePlatformPageContentWidth()
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       <Level alignY="bottom" alignX="left" verticalBelow="mobile">
         <Box></Box>
         <Box alignX="right">
@@ -89,6 +97,19 @@ const BodyContent = ({}) => {
                 isLoading={isLoading}
                 maxSize={{ height, width }}
                 stickyHead
+                css={css`
+                  > tbody {
+                    tr {
+                      &:not(:last-child) {
+                        border-bottom: 1px solid #dbdfe6 !important;
+                      }
+                      &:nth-child(odd) {
+                        background: none;
+                        box-shadow: inset 0 0 0 9999px #0000000d;
+                      }
+                    }
+                  }
+                `}
               />
             )
           }}
@@ -125,7 +146,21 @@ const useColumns = ({ brandId, items = [], mutate }) => {
         },
         Cell: ({ value }) => {
           return (
-            <Set alignX="center">
+            <Set
+              alignX="center"
+              css={css`
+                flex-wrap: nowrap;
+                > button {
+                  padding: 10px 12px;
+                  height: 38px;
+                  min-height: 38px;
+                  border: none;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
+            >
               <ViewButton
                 id="view-vip-level-dialog-disclosure"
                 record={value}

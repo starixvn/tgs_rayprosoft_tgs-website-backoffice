@@ -125,7 +125,15 @@ const Body = () => {
   }
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       <Level alignY="bottom" alignX="left" verticalBelow="mobile">
         <Box>
           <AnnouncementTypeSelect
@@ -144,8 +152,38 @@ const Body = () => {
           />
         </Box>
       </Level>
-      <Tabs>
-        <TabList {...tab}>
+      <Tabs
+        css={css`
+          .bb-TabsPanel {
+            background: #fff;
+          }
+        `}
+      >
+        <TabList
+          {...tab}
+          css={css`
+            > button {
+              box-shadow: none !important;
+              border-bottom: 2px solid transparent;
+              &:hover {
+                box-shadow: none !important;
+                border-bottom: 2px solid #574feb;
+              }
+              .bb-Badge {
+                background: none !important;
+                color: #252b36ae;
+                font-size: 16px;
+                font-weight: 400;
+              }
+            }
+            > button[aria-selected="true"] {
+              border-bottom: 2px solid #574feb !important;
+              .bb-Badge {
+                color: #574feb;
+              }
+            }
+          `}
+        >
           {hasVerifyAuth && (
             <Tab tabId={InVerify} onClick={activeTab(InVerify)} {...tab}>
               <AnnouncementStatusLabel value={InVerify} />
@@ -262,6 +300,19 @@ const AsyncTable = ({
       setSortOrder={setSortOrder}
       isLoading={isLoading}
       getRowId={(row) => row.id}
+      css={css`
+        > tbody {
+          tr {
+            &:not(:last-child) {
+              border-bottom: 1px solid #dbdfe6 !important;
+            }
+            &:nth-child(odd) {
+              background: none;
+              box-shadow: inset 0 0 0 9999px #0000000d;
+            }
+          }
+        }
+      `}
     />
   )
 }
@@ -354,6 +405,24 @@ const EffectiveTable = ({
                 isLoading={isChangingDisplayOrder}
                 type="submit"
                 id="change-announcement-display-order-button"
+                css={css`
+                  background: #4b49b6;
+                  color: #fff;
+                  border-radius: 6px !important;
+                  border: 1px solid !important;
+                  font-weight: 400;
+                  &:focus,
+                  &:hover,
+                  &:active {
+                    background: #4b49b6;
+                    box-shadow: none !important;
+                  }
+                  &:hover {
+                    &:active {
+                      background: #4b49b6;
+                    }
+                  }
+                `}
               >
                 <ConfirmOrderTrans />
               </Button>
@@ -381,7 +450,9 @@ const useColumns = ({
   return useMemo(() => {
     let columns = [
       tabStatus != Effective
-        ? sequenceColumn()
+        ? sequenceColumn({
+            Header: "#"
+          })
         : {
             id: "displayOrder",
             accessor: (record) => record,
@@ -515,7 +586,20 @@ const useColumns = ({
         },
         Cell: ({ value }) => {
           return (
-            <Set alignX="center">
+            <Set
+              alignX="center"
+              css={css`
+                > button {
+                  padding: 10px 12px;
+                  height: 38px;
+                  min-height: 38px;
+                  border: none;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
+            >
               {tabStatus === InVerify && (
                 <VerifyButton
                   id="verify-announcement-dialog-disclosure"
