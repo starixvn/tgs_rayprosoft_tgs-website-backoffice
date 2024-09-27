@@ -140,9 +140,11 @@ export const MerchantStatusMenu = ({
           padding: 1px 4px;
           min-height: auto;
           color: #fff;
-          background-color: #212631;
-          background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
           opacity: 1 !important;
+          ${status === "Archived" ? "background-color: #212631;" : ""}
+          ${status === "Archived"
+            ? "background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);"
+            : ""}
         `}
       >
         <MerchantStatusLabel value={status} />
