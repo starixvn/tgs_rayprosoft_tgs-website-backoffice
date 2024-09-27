@@ -9,7 +9,8 @@ import {
   useModalState,
   Alert,
   DropdownMenu,
-  Group
+  Group,
+  Columns
 } from "bumbag"
 import { View, Update } from "./menu"
 import { useIsDisplayMenuByRoute } from "../../user/context"
@@ -90,21 +91,53 @@ const InstantMessagingDialog = ({ brandId, dialog }) => {
       title={title}
       css={css`
         min-width: 50vw;
+        max-width: 70vw;
+        overflow: hidden;
+        & .bb-DialogContent {
+          max-height: 70vh;
+          min-height: 70vh;
+          padding: 0;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        & .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
+          > button {
+            box-shadow: none !important;
+            background: none !important;
+          }
+        }
       `}
     >
-      <Stack>
-        <TwoColumns>
-          {items.map((item) => (
-            <MessengerCard
-              brandId={brandId}
-              record={item}
-              onSubmitted={mutate}
-            />
-          ))}
-        </TwoColumns>
-        <TwoColumns>
-          <AddMessengerCard brandId={brandId} onSubmitted={mutate} />
-        </TwoColumns>
+      <Stack padding="5rem 1rem 1rem 1rem">
+        <Box>
+          <Columns spacing="major-3">
+            {items.map((item) => (
+              <Columns.Column spread={6}>
+                <MessengerCard
+                  brandId={brandId}
+                  record={item}
+                  onSubmitted={mutate}
+                />
+              </Columns.Column>
+            ))}
+          </Columns>
+          <Columns marginTop="8px">
+            <Columns.Column spread={6}>
+              <AddMessengerCard brandId={brandId} onSubmitted={mutate} />
+            </Columns.Column>
+          </Columns>
+        </Box>
       </Stack>
     </Modal>
   )
@@ -179,9 +212,29 @@ const AddDialog = ({ brandId, dialog, onSubmitted, ...props }) => {
 
 const MessengerCard = ({ brandId, record, onSubmitted }) => {
   return (
-    <Set orientation="horizontal">
-      <Card flex="1">
-        <FieldValues>
+    <Set orientation="vertical">
+      <Set
+        css={css`
+          > button {
+            padding: 10px 12px;
+            height: 38px;
+            min-height: 38px;
+            border: none;
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        `}
+      >
+        <DeleteDialogDisclosure id={record?.id} onSubmitted={onSubmitted} />
+        <EditDialogDisclosure record={record} onSubmitted={onSubmitted} />
+      </Set>
+      <Card width="100%">
+        <FieldValues
+          css={css`
+            gap: 12px 20px;
+          `}
+        >
           <AppLabel />
           <Box alignY="center">
             <GeneralMessengerTypeLabel value={record?.type} />
@@ -199,10 +252,6 @@ const MessengerCard = ({ brandId, record, onSubmitted }) => {
           </Box>
         </FieldValues>
       </Card>
-      <Set orientation="horizontal" flex="0">
-        <DeleteDialogDisclosure id={record?.id} onSubmitted={onSubmitted} />
-        <EditDialogDisclosure record={record} onSubmitted={onSubmitted} />
-      </Set>
     </Set>
   )
 }
@@ -259,6 +308,11 @@ const DeleteDialog = ({ id, onSubmitted, dialog }) => {
         }}
         dialog={dialog}
         hideBackdrop={true}
+        css={css`
+          .bb-AlertWrapper {
+            padding: 20px;
+          }
+        `}
       >
         <DeleteFormBody />
       </FormDialog>
@@ -366,7 +420,7 @@ const EditFormBody = ({ brandId }) => {
     <>
       <Input type="hidden" name="brandId" />
       <Input type="hidden" name="id" />
-      <FieldValues>
+      <FieldValues padding="1rem">
         <AppLabel />
         <CommunicationTypeField />
 

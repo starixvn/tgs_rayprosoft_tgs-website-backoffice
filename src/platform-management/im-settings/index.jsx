@@ -54,7 +54,15 @@ const Body = () => {
   let { isLoading, data: brand, error, mutate, emptyData } = useBrand(brandId)
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       {isLoading && (
         <Box alignY="center" alignX="center">
           <Spinner />
@@ -73,7 +81,28 @@ const BodyContent = ({ brandId, brand }) => {
   let multipleLayer = isAgentProfitSharingMultipleLayer(agentProfitSharingType)
 
   return (
-    <Set>
+    <Set
+      css={css`
+        > button {
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        }
+      `}
+    >
       <MessengerDialogDisclosure
         id="instant-messaging-dialog-disclosure"
         brandId={brandId}

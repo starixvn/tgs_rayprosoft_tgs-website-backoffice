@@ -81,39 +81,37 @@ const BodyContent = ({}) => {
           )}
         </Box>
       </Level>
-      <Box flex="1 0 50%">
-        <AutoSizer disableWidth={true}>
-          {({ height }) => {
-            let width = pageWidth
-            return (
-              <Table
-                columns={columns}
-                data={data?.items}
-                initialState={state}
-                controlledState={state}
-                pageCount={pageCount(state?.pageSize, data?.totalCount)}
-                setPageIndex={setPageIndex}
-                setSortOrder={setSortOrder}
-                isLoading={isLoading}
-                maxSize={{ height, width }}
-                stickyHead
-                css={css`
-                  > tbody {
-                    tr {
-                      &:not(:last-child) {
-                        border-bottom: 1px solid #dbdfe6 !important;
-                      }
-                      &:nth-child(odd) {
-                        background: none;
-                        box-shadow: inset 0 0 0 9999px #0000000d;
-                      }
+      <Box>
+        {({ height }) => {
+          let width = pageWidth
+          return (
+            <Table
+              columns={columns}
+              data={data?.items}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(state?.pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+              maxSize={{ height, width }}
+              stickyHead
+              css={css`
+                > tbody {
+                  tr {
+                    &:not(:last-child) {
+                      border-bottom: 1px solid #dbdfe6 !important;
+                    }
+                    &:nth-child(odd) {
+                      background: none;
+                      box-shadow: inset 0 0 0 9999px #0000000d;
                     }
                   }
-                `}
-              />
-            )
-          }}
-        </AutoSizer>
+                }
+              `}
+            />
+          )
+        }}
       </Box>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>

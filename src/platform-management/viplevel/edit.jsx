@@ -610,8 +610,7 @@ const ViewDialog = ({ record, dialog }) => {
       dialog={dialog}
       showActionButtons={false}
       footer={<CloseButtonFooter dialog={dialog} alignX="right" />}
-      maxWidth="100vw"
-      minWidth="70vw"
+      minWidth="45vw"
       placement="top"
     >
       <EditBody record={record} readonly={true} />

@@ -70,7 +70,7 @@ export const CreateOrEditLiveChatDialogDisclosure = ({ brandId, ...props }) => {
     <>
       {isLoading && <Spinner />}
       {!isLoading && (
-        <>
+        <Box>
           {!hasLiveChat && (
             <Disclosure {...addDialog} {...props}>
               <ThirdPartyLiveChatProviderTrans />
@@ -95,7 +95,7 @@ export const CreateOrEditLiveChatDialogDisclosure = ({ brandId, ...props }) => {
               </Disclosure>
             </Group>
           )}
-        </>
+        </Box>
       )}
       {addDialog.visible && (
         <AddLiveChatDialog

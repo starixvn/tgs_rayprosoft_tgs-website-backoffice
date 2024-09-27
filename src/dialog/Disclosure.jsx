@@ -109,20 +109,39 @@ export const ReviewDisclosure = forwardRef((props, ref) => (
 ))
 
 export const ConfigIconDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props}>
+  <Disclosure ref={ref} {...props} palette="info">
     <Icon icon={faCog} type="font-awesome" />
   </Disclosure>
 ))
 
 export const AddIconDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props}>
+  <Disclosure
+    palette="primary"
+    ref={ref}
+    {...props}
+    css={css`
+      padding: 10px 12px;
+      height: 38px;
+      min-height: 38px;
+      border: none;
+      &:focus {
+        box-shadow: none !important;
+      }
+    `}
+  >
     <Icon icon={faPlus} type="font-awesome" />
   </Disclosure>
 ))
 
 export const DeleteIconDisclosure = forwardRef(
-  ({ palette = "danger", variant = "outlined", ...props }, ref) => (
-    <Disclosure ref={ref} palette={palette} variant={variant} {...props}>
+  ({ palette = "danger", variant = "primary", ...props }, ref) => (
+    <Disclosure
+      ref={ref}
+      palette={palette}
+      variant={variant}
+      {...props}
+      color="#fff"
+    >
       <Icon icon={faMinus} type="font-awesome" />
     </Disclosure>
   )
