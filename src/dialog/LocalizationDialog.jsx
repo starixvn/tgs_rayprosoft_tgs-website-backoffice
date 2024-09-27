@@ -12,7 +12,8 @@ import {
   Disclosure,
   FieldStack,
   Button,
-  Icon
+  Icon,
+  Box
 } from "bumbag"
 import { faLanguage } from "@fortawesome/free-solid-svg-icons"
 import FormDialog from "../form/FormDialog"
@@ -148,6 +149,12 @@ export const LocalizationDialogDisclosure = ({
             width={width}
             flex="0"
             {...dialog}
+            css={css`
+              &:focus {
+                box-shadow: none !important;
+                border: 1px solid #d9d9e1;
+              }
+            `}
           >
             <Icon icon={faLanguage} type="font-awesome" />
           </Disclosure>
@@ -297,26 +304,44 @@ const TabsBody = ({
   })
 
   return (
-    <Tabs isFitted>
-      <TabList use={TabList} {...tab}>
-        {codes.map((code) => (
-          <Tab key={code} tabId={code} {...tab}>
-            {code}
-          </Tab>
-        ))}
-      </TabList>
-      {codes.map((code, index) => (
-        <TabPanel
-          key={code}
-          name={code}
-          localizationField={localizationField}
-          localizationFieldProps={localizationFieldProps}
-          readOnly={readOnly}
-          disabled={disabled}
+    <Box padding="5rem 1rem 1rem 1rem">
+      <Tabs>
+        <TabList
+          use={TabList}
           {...tab}
-        />
-      ))}
-    </Tabs>
+          css={css`
+            > button {
+              box-shadow: none !important;
+              border-bottom: 2px solid transparent;
+              &:hover {
+                box-shadow: none !important;
+                border-bottom: 2px solid #574feb;
+              }
+            }
+            > button[aria-selected="true"] {
+              border-bottom: 2px solid #574feb !important;
+            }
+          `}
+        >
+          {codes.map((code) => (
+            <Tab key={code} tabId={code} {...tab}>
+              {code}
+            </Tab>
+          ))}
+        </TabList>
+        {codes.map((code, index) => (
+          <TabPanel
+            key={code}
+            name={code}
+            localizationField={localizationField}
+            localizationFieldProps={localizationFieldProps}
+            readOnly={readOnly}
+            disabled={disabled}
+            {...tab}
+          />
+        ))}
+      </Tabs>
+    </Box>
   )
 }
 
@@ -352,7 +377,7 @@ const ListBody = ({
   disabled
 }) => {
   return (
-    <FieldStack>
+    <FieldStack padding="5rem 1rem 1rem 1rem">
       {codes.map((code) => (
         <LocalizationField
           key={code}

@@ -517,7 +517,10 @@ const GroupCard = ({
               <Disclosure
                 {...dialog}
                 css={css`
-                  box-shadow: none !important;
+                  &:focus {
+                    box-shadow: none !important;
+                    border: 1px solid #d9d9e1;
+                  }
                 `}
               >
                 <GameListTrans />
@@ -886,7 +889,15 @@ const GameProviderRow = ({ gameProvider, readonly = false }) => {
           }) => {
             return (
               <>
-                <Disclosure {...dialog}>
+                <Disclosure
+                  {...dialog}
+                  css={css`
+                    &:focus {
+                      box-shadow: none !important;
+                      border: 1px solid #d9d9e1;
+                    }
+                  `}
+                >
                   <GameListTrans />
                 </Disclosure>
                 {dialog.visible && (
@@ -1000,7 +1011,7 @@ const GameProviderGameListDialog = ({
           }
         `}
       >
-        <Box padding="1rem">
+        <Box padding="5rem 1rem 1rem 1rem">
           <GameProviderGameListDialogBody readonly={readonly} />
         </Box>
       </FormDialog>

@@ -95,6 +95,13 @@ export const FileUploadButton = ({
                 palette={palette}
                 variant={variant}
                 isLoading={isLoading}
+                css={css`
+                  &:focus {
+                    box-shadow: none !important;
+                    border: 1px solid #d9d9e1;
+                    border-left: none;
+                  }
+                `}
               >
                 {children}
                 <input {...getInputProps()} />

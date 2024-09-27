@@ -217,7 +217,7 @@ const EditDialog = ({ brandId, record, onSubmitted, dialog, ...props }) => {
       dialog={dialog}
       placement="top"
     >
-      <FormBody marginLeft="1rem" paddingBottom="1rem" />
+      <FormBody />
     </FormDialog>
   )
 }
@@ -279,7 +279,7 @@ const ViewDialog = ({ brandId, record, dialog, ...props }) => {
         </Box>
       }
     >
-      <FormBody marginLeft="1rem" paddingBottom="1rem" readOnly />
+      <FormBody readOnly />
     </FormDialog>
   )
 }
@@ -316,109 +316,117 @@ export const FormBody = ({ readOnly = false, ...props } = {}) => {
   let required = !readOnly
   let disabled = readOnly
   return (
-    <Box padding="5rem 1rem 1rem 1rem">
-      <FieldValues
-        {...props}
-        css={css`
-          gap: 16px 24px;
-        `}
-      >
-        <Label name="subject" required={required}>
-          <SubjectTrans />
-        </Label>
-        <InputField
-          name="title"
-          brandId={brandId}
+    <FieldValues
+      {...props}
+      css={css`
+        gap: 16px 24px;
+        .react-datepicker-wrapper {
+          input {
+            box-shadow: none !important;
+          }
+        }
+        .react-datepicker__tab-loop {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      `}
+    >
+      <Label name="subject" required={required}>
+        <SubjectTrans />
+      </Label>
+      <InputField
+        name="title"
+        brandId={brandId}
+        required={required}
+        disabled={readOnly}
+        showLocalizationAddonAfter
+      />
+
+      <Label name="from" required={required}>
+        <StartTimeTrans />
+      </Label>
+      <Box id="from-date-box">
+        <DateTimeInput
+          name={BeginTimeFieldName}
+          minDate={isValidDate(maxDate) ? undefined : now}
+          maxDate={maxDate}
           required={required}
           disabled={readOnly}
-          showLocalizationAddonAfter
         />
+      </Box>
 
-        <Label name="from" required={required}>
-          <StartTimeTrans />
-        </Label>
-        <Box id="from-date-box">
+      <Label name="to" required={required}>
+        <EndTimeTrans />
+      </Label>
+      <Box id="to-date-box">
+        <Set orientation="horizontal">
           <DateTimeInput
-            name={BeginTimeFieldName}
-            minDate={isValidDate(maxDate) ? undefined : now}
-            maxDate={maxDate}
-            required={required}
+            name={EndTimeFieldName}
+            minDate={minDate ?? now}
+            required={!isPermanent}
+            disabled={isPermanent || readOnly}
+          />
+          <Checkbox
+            name="permanent"
+            label={<Trans zh="永久" en="Permanent" />}
+            readOnly={readOnly}
             disabled={readOnly}
           />
-        </Box>
-
-        <Label name="to" required={required}>
-          <EndTimeTrans />
-        </Label>
-        <Box id="to-date-box">
-          <Set orientation="horizontal">
-            <DateTimeInput
-              name={EndTimeFieldName}
-              minDate={minDate ?? now}
-              required={!isPermanent}
-              disabled={isPermanent || readOnly}
-            />
-            <Checkbox
-              name="permanent"
-              label={<Trans zh="永久" en="Permanent" />}
-              readOnly={readOnly}
-              disabled={readOnly}
-            />
-          </Set>
-        </Box>
-
-        <Label name="desktopBanner" required={required}>
-          <Trans zh="Desktop Banner" en="Desktop Banner" />
-        </Label>
-        <Set orientation="vertical" alignY="center">
-          <ImageLocalizationDialogDisclosure
-            brandId={brandId}
-            name="desktopBannerUrl"
-            prefix="banner"
-            disabled={disabled}
-            readOnly={readOnly}
-          />
-          <Text.Block color="warning" fontWeight="bold" fontSize="150">
-            <RecommendedSize1920X600Trans />
-          </Text.Block>
         </Set>
+      </Box>
 
-        <Label name="mobileBanner" required={required}>
-          <Trans zh="Mobile Banner" en="Mobile Banner" />
-        </Label>
-        <Set orientation="vertical" alignY="center">
-          <ImageLocalizationDialogDisclosure
-            brandId={brandId}
-            name="mobileBannerUrl"
-            prefix="banner"
-            disabled={disabled}
-            readOnly={readOnly}
-          />
-          <Text.Block color="warning" fontWeight="bold" fontSize="150">
-            <RecommendedSize750X310Trans />
-          </Text.Block>
-        </Set>
-
-        <Label name="bannerUrl">
-          <Trans zh="Banner URL" en="Banner URL" />
-        </Label>
-        <LocalizationDialogDisclosure
-          name="navigateUrl"
+      <Label name="desktopBanner" required={required}>
+        <Trans zh="Desktop Banner" en="Desktop Banner" />
+      </Label>
+      <Set orientation="vertical" alignY="center">
+        <ImageLocalizationDialogDisclosure
           brandId={brandId}
-          readOnly={readOnly}
+          name="desktopBannerUrl"
+          prefix="banner"
           disabled={disabled}
+          readOnly={readOnly}
         />
+        <Text.Block color="warning" fontWeight="bold" fontSize="150">
+          <RecommendedSize1920X600Trans />
+        </Text.Block>
+      </Set>
 
-        <Label name="bannerAlt">
-          <Trans zh="Banner ALT" en="Banner ALT" />
-        </Label>
-        <LocalizationDialogDisclosure
-          name="pictureAlt"
+      <Label name="mobileBanner" required={required}>
+        <Trans zh="Mobile Banner" en="Mobile Banner" />
+      </Label>
+      <Set orientation="vertical" alignY="center">
+        <ImageLocalizationDialogDisclosure
           brandId={brandId}
-          readOnly={readOnly}
+          name="mobileBannerUrl"
+          prefix="banner"
           disabled={disabled}
+          readOnly={readOnly}
         />
-      </FieldValues>
-    </Box>
+        <Text.Block color="warning" fontWeight="bold" fontSize="150">
+          <RecommendedSize750X310Trans />
+        </Text.Block>
+      </Set>
+
+      <Label name="bannerUrl">
+        <Trans zh="Banner URL" en="Banner URL" />
+      </Label>
+      <LocalizationDialogDisclosure
+        name="navigateUrl"
+        brandId={brandId}
+        readOnly={readOnly}
+        disabled={disabled}
+      />
+
+      <Label name="bannerAlt">
+        <Trans zh="Banner ALT" en="Banner ALT" />
+      </Label>
+      <LocalizationDialogDisclosure
+        name="pictureAlt"
+        brandId={brandId}
+        readOnly={readOnly}
+        disabled={disabled}
+      />
+    </FieldValues>
   )
 }

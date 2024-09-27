@@ -82,7 +82,7 @@ export const ImageLocalizationDialogDisclosure = ({
 const LocalizationUploadImageField = ({ code, prefix, disabled }) => {
   let name = code
   return (
-    <Set>
+    <Set alignX="center">
       <Group>
         <StaticButton>{code}</StaticButton>
         <UploadButton name={name} prefix={prefix} disabled={disabled} />
@@ -104,7 +104,7 @@ const OpenLinkButton = ({ name, disabled }) => {
 
   return (
     <StaticButton>
-      <Link href={url} target="_blank">
+      <Link href={url} target="_blank" color="#06c">
         <Trans zh="查看图片" en="View Image" />
       </Link>
       {!disabled && (
