@@ -806,5 +806,6 @@
   "edit_agent_link": "Edit Agent Link",
   "view_details": "View Details",
   "edit_details": "Edit Details",
-  "view_game_action": "View Game Action"
+  "view_game_action": "View Game Action",
+  "off": "Off"
 }
