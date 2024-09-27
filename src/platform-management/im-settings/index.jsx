@@ -117,6 +117,7 @@ const BodyContent = ({ brandId, brand }) => {
           brandId={brandId}
         />
       )}
+
       <AllAgentDialogDisclosure
         id="all-agent-setting-dialog-disclosure"
         brandId={brandId}
@@ -229,8 +230,11 @@ const ProfitSharingSettingFormDialog = ({
       dialog={dialog}
       title={title}
       {...props}
+      minWidth="45vw"
     >
-      <AgentMultipleLayerProfitSharingSettingFormBody name="brandAgentDividendConditions" />
+      <Box padding="5rem 1rem 1rem 1rem">
+        <AgentMultipleLayerProfitSharingSettingFormBody name="brandAgentDividendConditions" />
+      </Box>
     </FormDialog>
   )
 }

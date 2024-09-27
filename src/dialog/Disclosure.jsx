@@ -27,6 +27,10 @@ export const Disclosure = forwardRef(
       flex="unset"
       css={css`
         white-space: nowrap;
+        &:focus {
+          border: 1px solid #d9d9e1;
+          box-shadow: none !important;
+        }
       `}
       {...props}
     >

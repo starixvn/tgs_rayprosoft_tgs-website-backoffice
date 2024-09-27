@@ -105,7 +105,34 @@ const AllAgentSettingDialog = ({ brandId, readOnly, dialog }) => {
       showCloseButton
       hideOnClickOutside={false}
       {...dialog}
-      minWidth="60vw"
+      minWidth="45vw"
+      css={css`
+        max-width: 70vw;
+        overflow: hidden;
+        & .bb-DialogContent {
+          max-height: 70vh;
+          padding: 0;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        & .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
+          > button {
+            box-shadow: none !important;
+            background: none !important;
+          }
+        }
+      `}
     >
       <DialogBody brandId={brandId} dialog={dialog} readOnly={readOnly} />
     </Dialog.Modal>
@@ -114,8 +141,13 @@ const AllAgentSettingDialog = ({ brandId, readOnly, dialog }) => {
 
 const DialogBody = ({ brandId, readOnly, dialog }) => {
   return (
-    <FieldStack>
-      <Set orientation="horizontal">
+    <FieldStack padding="5rem 1rem 1rem 1rem">
+      <Set
+        orientation="horizontal"
+        css={css`
+          justify-content: space-between;
+        `}
+      >
         <AllAgentMainSwitchBox
           brandId={brandId}
           readOnly={readOnly}
@@ -218,7 +250,7 @@ const SettlementCycleDialog = ({ brandId, readOnly, dialog, ...props }) => {
         showActionButtons={readOnly ? false : true}
         {...props}
       >
-        <FieldValues marginLeft="1rem">
+        <FieldValues padding="5rem 1rem 1rem 1rem">
           <Box alignY="center">
             <Trans zh="周期" en="Cycle" />
           </Box>
@@ -354,8 +386,24 @@ const AllAgentGameTypeTabs = ({ brandId, readOnly, dialog }) => {
   })
 
   return (
-    <Tabs isFitted>
-      <TabList use={TabList} {...tab}>
+    <Tabs>
+      <TabList
+        use={TabList}
+        {...tab}
+        css={css`
+          > button {
+            box-shadow: none !important;
+            border-bottom: 2px solid transparent;
+            &:hover {
+              box-shadow: none !important;
+              border-bottom: 2px solid #574feb;
+            }
+          }
+          > button[aria-selected="true"] {
+            border-bottom: 2px solid #574feb !important;
+          }
+        `}
+      >
         <GameTypeTab gameType={GameType.LiveDealer} {...tab} />
         <GameTypeTab gameType={GameType.Slot} {...tab} />
         <GameTypeTab gameType={GameType.Sportsbook} {...tab} />
@@ -625,14 +673,16 @@ const MultileLayerSettingFormDialog = ({
         minWidth="50vw"
         {...props}
       >
-        <AllAgentProfitSharingSetting
-          name="conditions"
-          profitSharingPercentageFieldName="rebatePercentage"
-          netProfitLabel={netProfitLabel}
-          maxProfitSharingPercentage={maxProfitSharingPercentage}
-          profitSharingPercentageLabel={profitSharingPercentageLabel}
-          readOnly={readOnly}
-        />
+        <Box padding="5rem 1rem 1rem 1rem">
+          <AllAgentProfitSharingSetting
+            name="conditions"
+            profitSharingPercentageFieldName="rebatePercentage"
+            netProfitLabel={netProfitLabel}
+            maxProfitSharingPercentage={maxProfitSharingPercentage}
+            profitSharingPercentageLabel={profitSharingPercentageLabel}
+            readOnly={readOnly}
+          />
+        </Box>
       </FormDialog>
     </Backdrop>
   )

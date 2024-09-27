@@ -15,8 +15,8 @@ export const LinkButton = ({
   }
 
   return (
-    <Button {...props}>
-      <Link href={url} target={target}>
+    <Button {...props} variant="ghost" padding="0" height="0" minHeight="0">
+      <Link href={url} target={target} color="#06c">
         {children}
       </Link>
     </Button>

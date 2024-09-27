@@ -124,10 +124,35 @@ const ListDialog = ({ brandId, dialog, dialogId, ...props }) => {
       id={dialogId}
       css={css`
         min-width: 50vw;
+        max-width: 70vw;
+        overflow: hidden;
+        & .bb-DialogContent {
+          max-height: 70vh;
+          padding: 0;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        & .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
+          > button {
+            box-shadow: none !important;
+            background: none !important;
+          }
+        }
       `}
       {...props}
     >
-      <FieldStack>
+      <FieldStack padding="5rem 1rem 1rem 1rem">
         <Box alignX="right">
           <AddDialogDisclosure brandId={brandId} onSubmitted={mutate} />
         </Box>
@@ -152,6 +177,7 @@ const useColumns = ({ mutate, brandId, items = [] }) => {
   return useMemo(() => {
     let columns = [
       sequenceColumn({
+        Header: "#",
         Cell: ({ value: record = {} }) => {
           let { id } = record
           let [formData, setSubmit] = useState()
@@ -283,7 +309,28 @@ const AddDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <AddDisclosure id={id} {...dialog} />
+      <AddDisclosure
+        id={id}
+        {...dialog}
+        css={css`
+          background: #4b49b6;
+          color: #fff;
+          border-radius: 6px !important;
+          border: 1px solid !important;
+          font-weight: 400;
+          &:focus,
+          &:hover,
+          &:active {
+            background: #4b49b6;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: #4b49b6;
+            }
+          }
+        `}
+      />
       {dialog.visible && (
         <AddDialog
           brandId={brandId}
@@ -339,7 +386,7 @@ const AddDialog = ({ brandId, dialog, dialogId, onSubmitted }) => {
 
 const FormBody = ({}) => {
   return (
-    <FieldStack>
+    <FieldStack padding="5rem 1rem 1rem 1rem">
       <FieldStack alignY="bottom" orientation="horizontal">
         <InputField name="name" required label={<NameTrans />} />
         <SocialMediaSelectField
@@ -385,7 +432,20 @@ const DeleteDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <DeleteDisclosure id={id} {...dialog} />
+      <DeleteDisclosure
+        id={id}
+        {...dialog}
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          &:focus {
+            box-shadow: none !important;
+            border: none;
+          }
+        `}
+      />
       {dialog.visible && (
         <DeleteDialog
           name={name}

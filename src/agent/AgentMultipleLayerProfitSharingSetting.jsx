@@ -352,7 +352,8 @@ const AddRow = ({ fieldArray, profitSharingPercentageFieldName }) =>
           <Button
             id="add-profit-sharing-setting"
             size="small"
-            variant="ghost"
+            variant="primary"
+            palette="primary"
             onClick={(event) => {
               let field = {
                 netProfit: null,
@@ -361,6 +362,11 @@ const AddRow = ({ fieldArray, profitSharingPercentageFieldName }) =>
               Reflect.set(field, profitSharingPercentageFieldName, null)
               fieldArray.append(field)
             }}
+            css={css`
+              &:focus {
+                box-shadow: none !important;
+              }
+            `}
           >
             <Icon icon={faPlus} type="font-awesome" />
           </Button>
@@ -414,10 +420,11 @@ const SettingRow = ({
               <Button
                 size="small"
                 palette="danger"
-                variant="ghost"
+                variant="primary"
                 onClick={(event) => {
                   fieldArray.remove(index)
                 }}
+                color="#fff"
               >
                 <Icon icon={faMinus} type="font-awesome" />
               </Button>

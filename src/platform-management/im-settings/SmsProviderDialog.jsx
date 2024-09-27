@@ -153,7 +153,7 @@ const FormBody = ({ brandId, smsVendorCode, enableSms, readOnly }) => {
   let currentSmsProvider = useCurrentSMSProviderTrans()
   let changeSmsProvider = useChangeSMSProviderTrans()
   return (
-    <FieldStack>
+    <FieldStack padding="5rem 1rem 1rem 1rem">
       {smsVendorCode && (
         <Box
           data-sms-code={smsVendorCode}

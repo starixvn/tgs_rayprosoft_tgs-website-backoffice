@@ -70,7 +70,18 @@ export const CreateOrEditLiveChatDialogDisclosure = ({ brandId, ...props }) => {
     <>
       {isLoading && <Spinner />}
       {!isLoading && (
-        <Box>
+        <Box
+          css={css`
+            .bb-Group {
+              > button {
+                &:focus {
+                  box-shadow: none !important;
+                  border: 1px solid #d9d9e1;
+                }
+              }
+            }
+          `}
+        >
           {!hasLiveChat && (
             <Disclosure {...addDialog} {...props}>
               <ThirdPartyLiveChatProviderTrans />
@@ -172,6 +183,7 @@ const ConfirmDeleteFormBody = () => {
         title={<Trans zh={`确认删除`} en={`Confirm delete？`} />}
         type="warning"
         variant=""
+        padding="20px"
       ></Alert>
       <Input type="hidden" name={BrandIdField} value={brandId} />
     </>
@@ -282,7 +294,7 @@ const FormBody = ({ readOnly }) => {
   let brandId = getValues("brandId")
   return (
     <>
-      <FieldStack>
+      <FieldStack padding="5rem 1rem 1rem 1rem">
         <InputField
           name="name"
           readOnly={readOnly}
