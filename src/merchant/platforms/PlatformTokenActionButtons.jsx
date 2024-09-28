@@ -16,6 +16,7 @@ import { useBrandToken } from "./client"
 import { Input } from "../../input/Input"
 import copy from "clipboard-copy"
 import AlertDialog from "../../dialog/Alert"
+import { GetBrandTokenTrans } from "../../trans/Platform"
 
 export const PlatformTokenActionButtons = ({ platformId }) => {
   let [id, setId] = useState()
@@ -45,7 +46,7 @@ export const PlatformTokenActionButtons = ({ platformId }) => {
           }
         }}
       >
-        Get Brand Token
+        <GetBrandTokenTrans />
       </Button>
       <Button
         disabled={!data?.token}

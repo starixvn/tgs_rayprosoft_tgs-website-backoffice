@@ -807,5 +807,9 @@
   "view_details": "ดูรายละเอียด",
   "edit_details": "แก้ไขรายละเอียด",
   "view_game_action": "ดูการกระทำในเกม",
-  "off": "ปิด"
+  "off": "ปิด",
+  "get_brand_token": "รับโทเค็นแบรนด์",
+  "query_string": "สตริงการค้นหา",
+  "verify": "ยืนยัน",
+  "confirm_delete": "ยืนยันการลบหรือไม่?"
 }

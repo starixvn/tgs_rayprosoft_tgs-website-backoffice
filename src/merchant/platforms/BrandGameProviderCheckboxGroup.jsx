@@ -35,6 +35,7 @@ import { GameProviderConfigSelect } from "../../game/providers/configs/GameProvi
 import { GameProviderLanguageSelect } from "../../game/providers/GameProviderLanguageSelect"
 import { JsonEditor, JsonEditorFormDialog } from "../../text/editor/JsonEditor"
 import { GameProviderTrans } from "../../trans/Game"
+import { useQueryStringTrans } from "../../trans/Platform"
 
 export const BrandGameProviderCheckboxGroupTable = ({
   name = "gameProviders",
@@ -412,7 +413,7 @@ const QueryStringDialog = ({ type, value, disabled, dialog, onChange }) => {
       >
         <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
           <InputField
-            label="Query String"
+            label={useQueryStringTrans()}
             name="url"
             defaultValue={value}
             disabled={disabled}

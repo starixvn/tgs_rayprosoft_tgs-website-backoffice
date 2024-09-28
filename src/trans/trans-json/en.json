@@ -807,5 +807,9 @@
   "view_details": "View Details",
   "edit_details": "Edit Details",
   "view_game_action": "View Game Action",
-  "off": "Off"
+  "off": "Off",
+  "get_brand_token": "Get Brand Token",
+  "query_string": "Query String",
+  "verify": "Verify",
+  "confirm_delete": "Confirm Delete?"
 }

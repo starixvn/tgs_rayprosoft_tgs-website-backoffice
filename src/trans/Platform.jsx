@@ -394,6 +394,18 @@ const DefaultProductFee = {
 export const DefaultProductFeeTrans = () => <Trans {...DefaultProductFee} />
 export const useDefaultProductFeeTrans = () => useTrans(DefaultProductFee)
 
+const GetBrandToken = {
+  ...getTranslations("get_brand_token")
+}
+
+export const GetBrandTokenTrans = () => <Trans {...GetBrandToken} />
+
+const QueryString = {
+  ...getTranslations("query_string")
+}
+
+export const QueryStringTrans = () => <Trans {...QueryString} />
+export const useQueryStringTrans = () => useTrans(QueryString)
 /*
 TODO: rm
 const PlatformFee = {
