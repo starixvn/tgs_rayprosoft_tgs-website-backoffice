@@ -15,7 +15,10 @@ import { useTable, Table, pageCount, toApiParams } from "../../table"
 import { Trans, useTrans } from "../../i18n"
 import { SearchButton } from "../../button/SearchButton"
 import equals from "fast-deep-equal"
-import { useBrandGameProviderList } from "./client"
+import {
+  useBrandGameProviderList,
+  useChangeBrandProviderOrders
+} from "./client"
 import { useFormattedTimeString } from "../../date/format"
 import { useFormattedDay } from "../../date/week"
 import { StatusMenu } from "./status"
@@ -23,8 +26,9 @@ import { EditButton } from "./edit"
 import { EditPresetButton } from "./PresetMaintenance"
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
 import { InputField } from "../../input/Input"
+import { OrderTrans } from "../../trans/Field.jsx"
 import AlertDialog from "../../dialog/Alert"
-import { ActionTrans } from "../../trans/Action"
+import { ActionTrans, ConfirmOrderTrans } from "../../trans/Action"
 import { StatusTrans } from "../../trans/Status"
 import {
   GameProviderListTrans,
@@ -32,6 +36,9 @@ import {
   useGameProviderNameTrans
 } from "../../trans/Game"
 import { PeriodicMaintenanceTimeTrans } from "../../trans/Date"
+import { NumberInput } from "../../input/NumberInput"
+
+import { Dialog, Button } from "bumbag"
 
 export { Code }
 
@@ -63,10 +70,62 @@ const Body = () => {
 
   let { isLoading, data, error, mutate, emptyData } = useBrandGameProviderList({
     ...toApiParams(state),
-    sortby: "gameProviderName"
+    sortby: "displayOrder"
   })
 
-  let columns = useColumns({ items: data?.items, mutate })
+  let formMethods = useForm()
+
+  let [submitData, setSubmit] = useState()
+  let {
+    result,
+    isLoading: isChangingDisplayOrder,
+    error: changeOrderError,
+    deleteCache
+  } = useChangeBrandProviderOrders(submitData)
+
+  const onSubmit = (formData) => {
+    let orders = []
+    Object.entries(displayOrders).forEach(([id, value]) => {
+      orders.push({
+        id,
+        displayOrder: value
+      })
+    })
+
+    if (orders.length > 0) {
+      setSubmit({
+        orders
+      })
+    }
+  }
+
+  const reset = () => {
+    setDisplayOrders({})
+    setSubmit(undefined)
+  }
+
+  useEffect(() => {
+    if (result && !error) {
+      reset()
+      mutate()
+    }
+  }, [result, error])
+
+  let [displayOrders, setDisplayOrders] = useState({})
+
+  const setDisplayOrder = (id, displayOrder) => {
+    setDisplayOrders((state) => {
+      Reflect.set(state, id, displayOrder)
+      return state
+    })
+  }
+
+  let columns = useColumns({
+    items: data?.items,
+    mutate,
+    displayOrders,
+    setDisplayOrder
+  })
 
   return (
     <Set orientation="vertical" isFilled height="100%">
@@ -82,15 +141,29 @@ const Body = () => {
           }}
         />
       </Level>
-      <Table
-        columns={columns}
-        data={data?.items}
-        pageCount={pageCount(state.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+          <Table
+            columns={columns}
+            data={data?.items}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+          />
+          {
+            <Dialog.Footer position="sticky" bottom="0">
+              <Button isLoading={isChangingDisplayOrder} type="submit">
+                <ConfirmOrderTrans />
+              </Button>
+            </Dialog.Footer>
+          }
+        </form>
+      </FormProvider>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      {changeOrderError && (
+        <AlertDialog {...changeOrderError} onClickClose={emptyData} />
+      )}
     </Set>
   )
 }
@@ -123,11 +196,53 @@ const SearchBar = ({ name: keyword = "", search, isLoading, ...props }) => {
   )
 }
 
-const useColumns = ({ items = [], mutate }) => {
+const useColumns = ({
+  items = [],
+  mutate,
+  displayOrders = {},
+  setDisplayOrder
+}) => {
   let hasUpdateMenu = useIsDisplayMenuByRoute([Update])
 
   return useMemo(() => {
     let columns = [
+      {
+        id: "displayOrder",
+        accessor: (record) => record,
+        Header: <OrderTrans />,
+        disableSortBy: true,
+        headCell: {
+          textAlign: "center",
+          whiteSpace: "nowrap"
+        },
+        cell: {
+          textAlign: "center"
+        },
+        Cell: ({ value }) => {
+          let { id } = value
+          let displayOrder = displayOrders[id] ?? value.displayOrder
+          return (
+            <NumberInput
+              name={id}
+              size="small"
+              width="5em"
+              defaultValue={displayOrder}
+              required
+              min="1"
+              minLength="1"
+              registerOptions={{
+                valueAsNumber: true
+              }}
+              onChange={(event) => {
+                let displayOrder = parseInt(event.target.value)
+                if (Number.isFinite(displayOrder)) {
+                  setDisplayOrder(id, displayOrder)
+                }
+              }}
+            />
+          )
+        }
+      },
       {
         accessor: "id",
         Header: <Trans zh="ID" en="ID" />,

@@ -38,3 +38,8 @@ export const useChangeBrandGameProviderScheduleStatus = (id, status) => {
   let url = id && status ? `${API}/${id}/${status}` : ""
   return usePut(url)
 }
+
+export const useChangeBrandProviderOrders = (data) => {
+  let url = `${API}/changeorders`
+  return usePutData(url, data)
+}
