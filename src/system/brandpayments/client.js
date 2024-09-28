@@ -1,12 +1,12 @@
 import {
+  get,
   urlWith,
   useGet,
-  usePostData,
-  usePut,
-  usePutData,
-  usePostFormData,
   usePatchData,
-  get
+  usePostData,
+  usePostFormData,
+  usePut,
+  usePutData
 } from "../../client"
 
 const API = "/api/brandpayment"
@@ -82,6 +82,11 @@ export const usePlayerDepositPaymentList = (searchParams) => {
   return useGet(url)
 }
 
+export const usePlayerPaymentList = (searchParams) => {
+  let url = searchParams ? urlWith(searchParams, `${API}/player`) : ""
+  return useGet(url)
+}
+
 export const useUpdateBrandPaymentExtendeddata = (id, data) => {
   let url = id && data ? `${API}/extendeddata/${id}` : ""
   return usePatchData(url, data)
@@ -101,15 +106,17 @@ export const getBalance = async (id, searchParams) => {
   const url =
     id && searchParams ? urlWith(searchParams, `${API}/balance/${id}`) : ""
 
-  return await get(url).then(async (data) => {
-    return {
-      isSuccess: true,
-      data,
-    };
-  }).catch((error) => {
-    return {
-      isSuccess: false,
-      data: error,
-    }
-  })
+  return await get(url)
+    .then(async (data) => {
+      return {
+        isSuccess: true,
+        data
+      }
+    })
+    .catch((error) => {
+      return {
+        isSuccess: false,
+        data: error
+      }
+    })
 }

@@ -1,57 +1,48 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { css, Global } from "@emotion/react"
+import { css } from "@emotion/react"
+import { faCog, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons"
 import {
-  Icon,
-  Spinner,
-  Stack,
-  Flex,
-  Box,
   Card as _Card,
+  Box,
+  Icon,
   Set,
-  Button,
-  Text,
-  Label,
-  Dialog,
-  Table,
-  useModalState,
-  FieldStack,
-  Switch
+  Spinner,
+  Switch,
+  useModalState
 } from "bumbag"
-import { FieldValues, TwoColumns } from "../../layout/Grid"
-import { Trans, FormattedDateTime, FormattedNumber } from "../../i18n"
-import { faMinus, faCog, faPlus } from "@fortawesome/free-solid-svg-icons"
-import {
-  useEditPlayerBank,
-  useDeletePlayerBank,
-  useAddPlayerBank,
-  useSetDefaultPlayerBank,
-  usePlayerBankList
-} from "./client"
+import clone from "clone-deep"
+import React, { useEffect, useState } from "react"
+import { useFormContext } from "react-hook-form"
 import AlertDialog from "../../dialog/Alert"
 import Backdrop from "../../dialog/Backdrop"
-import { Tab as _Tab, TabPanel } from "../../tab"
 import Disclosure from "../../dialog/Disclosure"
 import { Modal } from "../../dialog/Modal"
-import Input from "../../input/Input"
 import FormDialog from "../../form/FormDialog"
+import { FormattedDateTime, Trans } from "../../i18n"
+import Input from "../../input/Input"
+import { FieldValues, TwoColumns } from "../../layout/Grid"
 import {
   PaymentChannelLabel,
   PaymentChannelSelect
 } from "../../payment/channel/PaymentChannel"
-import { BrandPaymentMethodBankTypeSelect } from "../../payment/method/BrandPaymentMethodBankType"
-import { useFormContext, useWatch } from "react-hook-form"
-import { useBrandPaymentList } from "../../system/brandpayments/client"
+import { PlayerBrandPaymentMethodBankTypeSelect } from "../../payment/method/BrandPaymentMethodBankType"
 import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
-import clone from "clone-deep"
-import { PhoneTrans, RealNameTrans } from "../../trans/User"
+import { usePlayerPaymentList } from "../../system/brandpayments/client"
+import { Tab as _Tab, TabPanel } from "../../tab"
+import { CancelTrans, OperatorTrans, SubmitTrans } from "../../trans/Action"
+import { UpdatedTimeTrans } from "../../trans/Date"
 import {
-  BankInfoTrans,
   BankAccountTrans,
+  BankInfoTrans,
   PaymentChannelTrans
 } from "../../trans/Payment"
-import { CancelTrans, OperatorTrans, SubmitTrans } from "../../trans/Action"
-import { isDev } from "../../env"
-import { UpdatedTimeTrans } from "../../trans/Date"
+import { PhoneTrans, RealNameTrans } from "../../trans/User"
+import {
+  useAddPlayerBank,
+  useDeletePlayerBank,
+  useEditPlayerBank,
+  usePlayerBankList,
+  useSetDefaultPlayerBank
+} from "./client"
 
 export const Key = "banks"
 
@@ -446,7 +437,7 @@ const AddDialog = ({ brandId, playerCode, onSubmitted, dialog }) => {
         }}
         dialog={dialog}
       >
-        <EditBody brandId={brandId} />
+        <EditBody brandId={brandId} playerCode={playerCode} />
       </FormDialog>
     </Backdrop>
   )
@@ -491,43 +482,48 @@ const EditDialog = ({ brandId, playerCode, record, onSubmitted, dialog }) => {
         }}
         dialog={dialog}
       >
-        <EditBody brandId={brandId} />
+        <EditBody brandId={brandId} playerCode={playerCode} />
       </FormDialog>
     </Backdrop>
   )
 }
 
-const EditBody = ({ brandId }) => {
+const EditBody = ({ brandId, playerCode }) => {
   let {
-    isLoading: isLoadingBrandPaymentList,
-    data,
-    error
-  } = useBrandPaymentList({
+    isLoading: isPlayerPaymentLoading,
+    data: paymentList,
+    error: err
+  } = usePlayerPaymentList({
     brandId,
-    transferType: BrandPaymentTransferType.Withdrawal,
-    showAll: true
+    playerCode,
+    transferType: BrandPaymentTransferType.Withdrawal
   })
+
   let { watch } = useFormContext()
 
   let BankTypeFieldName = "bankType"
   let bankType = watch(BankTypeFieldName)
-  let paymentChannelIdRange = data?.items
+  let paymentChannelIdRange = paymentList
     ?.filter((item) => item.bankType === bankType)
-    ?.map(({ paymentChannelId }) => paymentChannelId)
+    ?.map(({ channelId }) => channelId)
 
   return (
     <FieldValues>
       <Box alignY="center">
         <PaymentBankTypeTrans />
       </Box>
-      <BrandPaymentMethodBankTypeSelect name={BankTypeFieldName} />
+      <PlayerBrandPaymentMethodBankTypeSelect
+        name={BankTypeFieldName}
+        paymentList={paymentList}
+        isPaymentListLoading={isPlayerPaymentLoading}
+      />
 
       <Box alignY="center">
         <PaymentChannelTrans />
       </Box>
       <PaymentChannelSelect
         name="paymentChannelId"
-        isLoadingRange={isLoadingBrandPaymentList}
+        isLoadingRange={isPlayerPaymentLoading}
         range={paymentChannelIdRange}
         required
       />

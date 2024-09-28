@@ -1,11 +1,13 @@
 import React from "react"
-import { getTrans, Trans, useLocale, useTrans } from "../../i18n"
-import { useBrandPaymentList } from "../../system/brandpayments/client"
+import { useTrans } from "../../i18n"
 import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
+import { useBrandPaymentList } from "../../system/brandpayments/client"
 import { PaymentMethodBankTypeSelect } from "./PaymentMethodBankType"
 
-export const BrandPaymentMethodBankTypeSelect = ({
+export const PlayerBrandPaymentMethodBankTypeSelect = ({
   placeholder,
+  paymentList,
+  isPaymentListLoading,
   brandId,
   transferType = BrandPaymentTransferType.Withdrawal,
   ...props
@@ -25,11 +27,13 @@ export const BrandPaymentMethodBankTypeSelect = ({
         }
       : undefined
   )
-  let range = data?.items?.map(({ paymentMethodId }) => paymentMethodId)
+  let range = paymentList
+    ? paymentList?.map(({ methodId }) => methodId)
+    : data?.items?.map(({ paymentMethodId }) => paymentMethodId)
 
   return (
     <PaymentMethodBankTypeSelect
-      isLoading={isLoading}
+      isLoading={isLoading || isPaymentListLoading}
       range={range}
       {...props}
     />
