@@ -91,10 +91,10 @@ export const EditBrandBetLimitGameProviderBetLimit = ({
   )
 }
 
-const useDialogTitle = (brandCode = "") =>
+const useDialogTitle = () =>
   useTrans({
-    zh: `${brandCode} 限红组`,
-    en: `${brandCode} Bet Limit Group`
+    zh: `限红组`,
+    en: `Bet Limit Group`
   })
 
 const ViewDialog = ({
@@ -113,7 +113,8 @@ const ViewDialog = ({
     deleteBrandCache
   } = useLicenseeBrand({ brandId, licenseeId })
 
-  let title = useDialogTitle(brandCode)
+  let title = `${brandCode} ${useDialogTitle()}`
+
   if (isLoadingBrand) {
     return <LoadingBackdrop {...dialog} />
   }
@@ -186,7 +187,7 @@ const EditDialog = ({
   let [formData, setSubmit] = useState()
   let { isLoading, result, error, mutate } = useUpdateBrand(brandId, formData)
 
-  let title = useDialogTitle(brandCode)
+  let title = `${brandCode} ${useDialogTitle()}`
   if (isLoadingBrand) {
     return <LoadingBackdrop {...dialog} />
   }
