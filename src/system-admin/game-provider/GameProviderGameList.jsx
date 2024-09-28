@@ -59,6 +59,8 @@ import {
   GameIdTrans,
   GameListTrans,
   GameNameTrans,
+  GameTypeTrans,
+  ExternalIdTrans,
   useGameListTrans
 } from "../../trans/Game"
 import { UpdatedTimeTrans } from "../../trans/Date"
@@ -229,6 +231,18 @@ const useColumns = ({ gameProviderId, items = [], mutate }) => {
         accessor: "name",
         Header: <GameNameTrans />,
         disableSortBy: true
+      }),
+      textColumn({
+        accessor: "externalId",
+        Header: <ExternalIdTrans />,
+        disableSortBy: true,
+        Cell: ({ value = "" }) => value
+      }),
+      textColumn({
+        accessor: "type",
+        Header: <GameTypeTrans />,
+        disableSortBy: true,
+        Cell: ({ value = "" }) => value
       }),
       textColumn({
         accessor: "status",

@@ -41,12 +41,20 @@ export const GameIdTrans = () => <Trans {...GameId} />
 export const useGameIdTrans = () => useTrans(GameId)
 
 const GameType = {
-  zh: "游戏类型",
+  zh: "",
   en: "Game Type",
   vi: "Loại trò chơi"
 }
-export const useGameTypeTrans = () => useTrans(GameType)
-export const GameTypeTrans = () => <Trans {...GameType} />
+export const GameTypeTrans = () => useTrans(GameType)
+export const useGameTypeTrans = () => <Trans {...GameType} />
+
+const ExternalId = {
+  zh: "",
+  en: "External ID",
+  vi: "ID ngoại"
+}
+export const ExternalIdTrans = () => useTrans(ExternalId)
+export const userExternalIdTrans = () => <Trans {...ExternalId} />
 
 export const LiveDealer = {
   zh: "真人",
