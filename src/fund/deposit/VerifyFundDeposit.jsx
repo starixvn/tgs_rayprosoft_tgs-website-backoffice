@@ -22,6 +22,7 @@ import ReviewFund from "../ReviewFund"
 import { useFundDepositFormData } from "./useFundDepositFormData"
 import { RejectTrans, useApproveTrans } from "../../trans/Action"
 import { SWRConfig } from "swr"
+import { CustomModalHiddenFooter } from "../../styles/modal"
 
 export const FundDepositVerified = "FundDepositVerified"
 
@@ -178,8 +179,7 @@ const VerifyFundDepositDialog = ({
       title={title}
       dialog={dialog}
       css={css`
-        width: max-content;
-        max-width: 85vw;
+        min-width: 400px;
       `}
     >
       <FormBody

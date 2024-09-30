@@ -60,6 +60,7 @@ import {
 } from "./FundDepositStatus"
 import { View } from "./menu"
 import { useFundDepositFormData } from "./useFundDepositFormData"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const ViewFundDepositDisclosure = ({
   brandId,
@@ -124,6 +125,33 @@ const ViewFundDepositDialog = ({
       showCloseButton
       hideOnClickOutside={false}
       {...dialog}
+      css={css`
+        max-width: 70vw;
+        overflow: hidden;
+        .bb-DialogContent {
+          max-height: 70vh;
+          padding: 0;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
+          > button {
+            box-shadow: none !important;
+            background: none !important;
+          }
+        }
+      `}
     >
       <FormBody
         record={depositForm}
@@ -150,9 +178,9 @@ export const FormBody = ({
 
   let disabled = readOnly
   return (
-    <>
+    <WrapperModal>
       <FieldStack>
-        <FieldValues marginLeft="1.5rem">
+        <FieldValues>
           <NormalLabel>
             <UserNameTrans />
           </NormalLabel>
@@ -263,7 +291,7 @@ export const FormBody = ({
         />
       </FieldStack>
       <Input type="hidden" value={brandId} />
-    </>
+    </WrapperModal>
   )
 }
 

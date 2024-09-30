@@ -68,6 +68,9 @@ import FundDepositStatus, {
 import { Code, Code as PageCode, Update } from "./menu"
 import { VerifyFundDepositDisclosure } from "./VerifyFundDeposit"
 import { ViewFundDepositDisclosure } from "./ViewFundDeposit"
+import { ActionTableButton } from "../../styles/button"
+import { CustomTableStyle } from "../../styles/tablle"
+import { WrapperBg } from "../../styles/wrapper"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -225,89 +228,86 @@ const Body = ({}) => {
       isFilled
       height="100%"
       css={css`
-        padding: 1rem;
-        background: #f3f4f7;
+        .bb-PopoverDisclosure {
+          position: absolute;
+          right: 8px;
+          top: 8px;
+          &:focus,
+          &:hover,
+          &:active {
+            box-shadow: none !important;
+            border: 1px solid #d9d9e1;
+          }
+        }
       `}
     >
-      <Level
-        alignY="bottom"
-        alignX="left"
-        verticalBelow="mobile"
-        css={css`
-          .bb-PopoverDisclosure {
-            background: red;
-          }
-        `}
-      >
-        <SearchBar
-          brandId={brandId}
-          username={username}
-          channel={channel}
-          payment={state.payment}
-          method={method}
-          status={status}
-          thirdOrderNo={state.thirdOrderNo}
-          orderNo={state.orderNo}
-          id={state.id}
-          beginCreateOn={beginCreateOn}
-          endCreateOn={endCreateOn}
-          beginUpdateOn={beginUpdateOn}
-          endUpdateOn={endUpdateOn}
-          minDate={minDate}
-          maxRangeDays={QueryMaxRangeDays}
-          search={(data) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          isLoading={isLoading || autoLoading}
-        />
-        {data?.items?.length > 0 && (
-          <Box>
-            <DownloadButton
-              id="export-report"
-              isLoading={isLoading}
-              href={urlWith(
-                toSearchParams(),
-                `${API}/exportDeposit/${brandId}`
-              )}
-              download="Deposit.xlsx"
-            />
-          </Box>
-        )}
-      </Level>
-      <Table
-        id="deposit"
-        columns={columns}
-        data={items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading || autoLoading}
-        getRowId={(row) => row.id}
-        localStorageKey={TableLocalStorageKey}
-        toggleColumnHidden={true}
-        menubar={Level}
-        menuAddonBefore={<Summary key="summary" total={data?.sum} />}
-        css={css`
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      <WrapperBg>
+        <Level
+          alignY="bottom"
+          alignX="left"
+          verticalBelow="mobile"
+          marginBottom="8px"
+        >
+          <SearchBar
+            brandId={brandId}
+            username={username}
+            channel={channel}
+            payment={state.payment}
+            method={method}
+            status={status}
+            thirdOrderNo={state.thirdOrderNo}
+            orderNo={state.orderNo}
+            id={state.id}
+            beginCreateOn={beginCreateOn}
+            endCreateOn={endCreateOn}
+            beginUpdateOn={beginUpdateOn}
+            endUpdateOn={endUpdateOn}
+            minDate={minDate}
+            maxRangeDays={QueryMaxRangeDays}
+            search={(data) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            isLoading={isLoading || autoLoading}
+          />
+          {data?.items?.length > 0 && (
+            <Box>
+              <DownloadButton
+                id="export-report"
+                isLoading={isLoading}
+                href={urlWith(
+                  toSearchParams(),
+                  `${API}/exportDeposit/${brandId}`
+                )}
+                download="Deposit.xlsx"
+              />
+            </Box>
+          )}
+        </Level>
+        <CustomTableStyle>
+          <Table
+            id="deposit"
+            columns={columns}
+            data={items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading || autoLoading}
+            getRowId={(row) => row.id}
+            localStorageKey={TableLocalStorageKey}
+            toggleColumnHidden={true}
+            menubar={Level}
+            menuAddonBefore={<Summary key="summary" total={data?.sum} />}
+          />
+        </CustomTableStyle>
+
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -319,7 +319,7 @@ const Summary = ({ total, totalPromotion }) => {
   }
 
   return (
-    <Blockquote borderColor="primary" background="#fff">
+    <Blockquote borderColor="primary" background="#fff" width="100%">
       <Set>
         <Box>
           <Heading use="h5">
@@ -504,7 +504,7 @@ const SearchBar = ({
               showEmptyFieldValueAddonAfter
             />
           </Set>
-          <Set orientation="horizontal">
+          <Set orientation="horizontal" alignItems="flex-end">
             <DateInputRangeField
               label={<ApplicationTimeTrans />}
               startProps={{
@@ -606,7 +606,8 @@ const useColumns = ({ brandId, items = [], mutate, setDelayUpdate }) => {
       numberDecimalColumn({
         accessor: "amount",
         Header: <DepositAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         id: "actualAmount",
@@ -692,36 +693,32 @@ const useColumns = ({ brandId, items = [], mutate, setDelayUpdate }) => {
               value?.status === FundDepositStatus.Review ||
               value?.status === FundDepositStatus.WaitingPayment
             return (
-              <Set
-                alignX="center"
-                orientation="horizontal"
-                css={css`
-                  width: max-content;
-                `}
-              >
-                {underReview && (
-                  <VerifyFundDepositDisclosure
-                    id="verify-deposit-dialog-disclosure"
+              <Set alignX="center" orientation="horizontal">
+                <ActionTableButton>
+                  {underReview && (
+                    <VerifyFundDepositDisclosure
+                      id="verify-deposit-dialog-disclosure"
+                      brandId={brandId}
+                      formId={value.id}
+                      playerCode={value.playerCode}
+                      onSubmitted={mutate}
+                      onVisibleChange={(visible) => {
+                        let delayUpdate = visible
+                        setDelayUpdate(delayUpdate)
+                      }}
+                    />
+                  )}
+                  <ViewFundDepositDisclosure
+                    id="view-deposit-dialog-disclosure"
                     brandId={brandId}
                     formId={value.id}
                     playerCode={value.playerCode}
-                    onSubmitted={mutate}
                     onVisibleChange={(visible) => {
                       let delayUpdate = visible
                       setDelayUpdate(delayUpdate)
                     }}
                   />
-                )}
-                <ViewFundDepositDisclosure
-                  id="view-deposit-dialog-disclosure"
-                  brandId={brandId}
-                  formId={value.id}
-                  playerCode={value.playerCode}
-                  onVisibleChange={(visible) => {
-                    let delayUpdate = visible
-                    setDelayUpdate(delayUpdate)
-                  }}
-                />
+                </ActionTableButton>
               </Set>
             )
           }

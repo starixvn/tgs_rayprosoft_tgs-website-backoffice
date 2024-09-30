@@ -3,6 +3,7 @@ import { css } from "@emotion/react"
 import { Box } from "bumbag"
 import { matchSorter } from "match-sorter"
 import { head } from "lodash-es"
+import { CustomStatusLabel } from "../styles/status"
 
 const paris = [
   [
@@ -14,7 +15,7 @@ const paris = [
   [
     "Review",
     css`
-      background: #ffd643;
+      background: #1e67d5;
     `
   ],
   [
@@ -32,13 +33,14 @@ const paris = [
   [
     "Rejected",
     css`
-      background: #ce6f6b;
+      background: #e55353;
     `
   ],
   [
     "Invalid",
     css`
-      background: #e8e8ee;
+      background-color: #212631;
+      background-image: linear-gradient(45deg, #3c4b64 0%, #212333 100%);
     `
   ]
 ]
@@ -46,16 +48,13 @@ const paris = [
 export const LabelColorBox = ({ value = "", children, ...props }) => {
   let variantStyle = head(matchSorter(paris, value, { keys: [([key]) => key] }))
   return (
-    <Box
+    <CustomStatusLabel
       css={css`
-        border-radius: 5px;
-        padding: 0.25rem 0.75rem;
-        white-space: nowrap;
-        ${variantStyle}
+        ${variantStyle};
       `}
       {...props}
     >
       {children}
-    </Box>
+    </CustomStatusLabel>
   )
 }
