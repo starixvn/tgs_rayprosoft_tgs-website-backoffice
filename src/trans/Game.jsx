@@ -363,6 +363,7 @@ const HotGame = {
   vi: "Game  phổ biến"
 }
 export const HotGameTrans = () => <Trans {...HotGame} />
+export const useHotGameTrans = () => useTrans(HotGame)
 
 const NewGame = {
   zh: "最新游戏",
@@ -370,6 +371,7 @@ const NewGame = {
   vi: "Game mới"
 }
 export const NewGameTrans = () => <Trans {...NewGame} />
+export const useNewGameTrans = () => useTrans(NewGame)
 
 const RecommendGame = {
   zh: "推荐游戏",
@@ -377,6 +379,7 @@ const RecommendGame = {
   vi: "Game được đề xuất"
 }
 export const RecommendGameTrans = () => <Trans {...RecommendGame} />
+export const useRecommendGameTrans = () => useTrans(RecommendGame)
 
 const GamingCount = {
   zh: "游戏人数",

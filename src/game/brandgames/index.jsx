@@ -6,11 +6,7 @@ import {
   usePlatformId,
   usePlatformPageContentWidth
 } from "../../page/PlatformPageContent"
-import {
-  useIsDisplayMenuByRoute,
-  useHasSubMenuByRoute,
-  useUserBrandId
-} from "../../user/context"
+import { useIsDisplayMenuByRoute } from "../../user/context"
 import { Code, Update, ViewDetail, UpdateDetail } from "./menu"
 import { useTable, Table, pageCount, toApiParams } from "../../table"
 import { Trans, useTrans } from "../../i18n"
@@ -22,14 +18,19 @@ import { GamePlatformLabel } from "../games/GamePlatform.jsx"
 import { GameTag } from "../games/GameTag"
 import { GameTagSwitch } from "./GameTagSwitch"
 import { GameStatusToggleSwitch } from "./GameStatusToggleSwitch"
-import { useForm, FormProvider, useFormContext } from "react-hook-form"
+import { useForm, FormProvider } from "react-hook-form"
 import { InputField } from "../../input/Input"
 import { BrandGameProviderSelect } from "../brandproviders/BrandGameProviderSelect"
 import AlertDialog from "../../dialog/Alert"
 import { GameTypeLabel, AllGameTypeSelect } from "../GameType"
 import { NumberInput } from "../../input/NumberInput"
 import { ActionTrans, ConfirmOrderTrans } from "../../trans/Action.jsx"
-import { StatusTrans } from "../../trans/Status.jsx"
+import {
+  StatusTrans,
+  useDisabledTrans,
+  useEnabledTrans,
+  useStatusTrans
+} from "../../trans/Status.jsx"
 import {
   GameIdTrans,
   GameListTrans,
@@ -38,10 +39,19 @@ import {
   GameTypeTrans,
   HotGameTrans,
   NewGameTrans,
-  RecommendGameTrans
+  RecommendGameTrans,
+  useHotGameTrans,
+  useRecommendGameTrans,
+  useNewGameTrans
 } from "../../trans/Game.jsx"
 import { OrderTrans, SupportingDeviceTrans } from "../../trans/Field.jsx"
 import { SelectField } from "../../select/Select.jsx"
+import {
+  useDesktopAndMobileTrans,
+  useDesktopTrans,
+  useMobileTrans,
+  usePlatformTrans
+} from "../../trans/Platform.jsx"
 
 export { Code } from "./menu"
 
@@ -235,33 +245,33 @@ const SearchBar = ({
   let platformOptions = [
     {
       value: "",
-      label: "Platform"
+      label: usePlatformTrans()
     },
     {
       value: "1",
-      label: "PC"
+      label: useDesktopTrans()
     },
     {
       value: "2",
-      label: "Mobile"
+      label: useMobileTrans()
     },
     {
       value: "3",
-      label: "PC/M"
+      label: useDesktopAndMobileTrans()
     }
   ]
 
   let statusOptions = [
     {
-      label: "Status",
+      label: useStatusTrans(),
       value: ""
     },
     {
-      label: "Enable",
+      label: useEnabledTrans(),
       value: "0"
     },
     {
-      label: "Disable",
+      label: useDisabledTrans(),
       value: "1"
     }
   ]
@@ -272,15 +282,15 @@ const SearchBar = ({
       value: 0
     },
     {
-      label: "New",
+      label: useNewGameTrans(),
       value: 1
     },
     {
-      label: "Hot",
+      label: useHotGameTrans(),
       value: 2
     },
     {
-      label: "Recommend",
+      label: useRecommendGameTrans(),
       value: 4
     }
   ]

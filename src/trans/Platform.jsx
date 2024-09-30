@@ -406,6 +406,30 @@ const QueryString = {
 
 export const QueryStringTrans = () => <Trans {...QueryString} />
 export const useQueryStringTrans = () => useTrans(QueryString)
+
+const Desktop = {
+  zh: "PC",
+  en: "PC"
+}
+
+export const DesktopTrans = () => <Trans {...Desktop} />
+export const useDesktopTrans = () => useTrans(Desktop)
+
+const Mobile = {
+  zh: "M",
+  en: "M"
+}
+
+export const MobileTrans = () => <Trans {...Mobile} />
+export const useMobileTrans = () => useTrans(Mobile)
+
+const DesktopAndMobile = {
+  zh: "PC/M",
+  en: "PC/M"
+}
+export const DesktopAndMobileTrans = () => <Trans {...DesktopAndMobile} />
+export const useDesktopAndMobileTrans = () => useTrans(DesktopAndMobile)
+
 /*
 TODO: rm
 const PlatformFee = {
