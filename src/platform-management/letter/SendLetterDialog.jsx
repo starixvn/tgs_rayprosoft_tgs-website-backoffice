@@ -119,7 +119,7 @@ const SendDialog = ({ brandId, dialog, onSubmitted }) => {
         )
       }}
       placement="top"
-      minWidth="80vw"
+      minWidth="60vw"
     >
       <FormBody />
     </FormDialog>
@@ -170,7 +170,12 @@ const GroupFieldBody = ({ brandId, letterType }) => {
 
 const FormBody = ({}) => {
   return (
-    <FieldValues>
+    <FieldValues
+      padding="5rem 1rem 1rem 1rem"
+      css={css`
+        gap: 16px 24px;
+      `}
+    >
       <GroupFieldBox />
       <Label name="subject" required>
         <SubjectTrans />

@@ -68,7 +68,7 @@ export const ReplyLetterDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <Disclosure id={id} {...dialog}>
+      <Disclosure id={id} {...dialog} palette="info">
         <Trans zh="回覆" en="Reply" />
       </Disclosure>
       {dialog.visible && (
@@ -182,7 +182,7 @@ const ReplyLetterFormDialog = ({
         )
       }}
       placement="top"
-      minWidth="80vw"
+      minWidth="65vw"
     >
       <ReplyLetterFormBody context={letter?.quotation ?? letter?.content} />
     </FormDialog>
@@ -191,7 +191,7 @@ const ReplyLetterFormDialog = ({
 
 const ReplyLetterFormBody = ({ context }) => {
   return (
-    <FieldValues paddingLeft="1rem">
+    <FieldValues padding="5rem 1rem 1rem 1rem">
       <Label>
         <Trans zh="內容" en="Content" />
       </Label>

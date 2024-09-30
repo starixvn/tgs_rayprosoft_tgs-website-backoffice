@@ -115,6 +115,19 @@ const Body = ({ brandId, table = {}, onClickIpAddress }) => {
           setPageIndex={setPageIndex}
           setSortOrder={setSortOrder}
           isLoading={isLoading}
+          css={css`
+            > tbody {
+              tr {
+                &:not(:last-child) {
+                  border-bottom: 1px solid #dbdfe6 !important;
+                }
+                &:nth-child(odd) {
+                  background: none;
+                  box-shadow: inset 0 0 0 9999px #0000000d;
+                }
+              }
+            }
+          `}
         />
       )}
       {error && <AlertDialog {...error} onClickClose={emptyData} />}

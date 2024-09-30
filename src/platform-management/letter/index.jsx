@@ -81,7 +81,15 @@ const Body = () => {
   let pageWidth = usePlatformPageContentWidth()
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       <Level alignY="bottom" alignX="left" verticalBelow="mobile">
         <SearchBar
           brandId={brandId}
@@ -102,6 +110,23 @@ const Body = () => {
                 mutate()
               }
             }}
+            css={css`
+              background: #4b49b6;
+              color: #fff;
+              border-radius: 6px !important;
+              border: 1px solid !important;
+              font-weight: 400;
+              &:focus,
+              &:hover,
+              &:active {
+                background: #4b49b6;
+              }
+              &:hover {
+                &:active {
+                  background: #4b49b6;
+                }
+              }
+            `}
           />
         </Box>
       </Level>
@@ -117,35 +142,47 @@ const Body = () => {
           setBoxType(value)
         }}
       />
-      <Box flex="1 0 50%">
-        <AutoSizer disableWidth={true}>
-          {({ height }) => {
-            let width = pageWidth
-            return (
-              <Table
-                columns={columns}
-                data={items}
-                initialState={state}
-                controlledState={state}
-                pageCount={pageCount(state?.pageSize, data?.totalCount)}
-                setPageIndex={setPageIndex}
-                setSortOrder={setSortOrder}
-                isLoading={isLoading}
-                maxSize={{ height, width }}
-                stickyHead
-                getRowProps={({ original: { replied } } = {}) => {
-                  if (replied) {
-                    return {
-                      //TODO: define white500 = #fefeff
-                      backgroundColor: "#fefeff" //white500
+      <Box>
+        {/* <AutoSizer disableWidth={true}></AutoSizer> */}
+        {({ height }) => {
+          let width = pageWidth
+          return (
+            <Table
+              columns={columns}
+              data={items}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(state?.pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+              maxSize={{ height, width }}
+              stickyHead
+              getRowProps={({ original: { replied } } = {}) => {
+                if (replied) {
+                  return {
+                    //TODO: define white500 = #fefeff
+                    backgroundColor: "#fefeff" //white500
+                  }
+                }
+                return {}
+              }}
+              css={css`
+                > tbody {
+                  tr {
+                    &:not(:last-child) {
+                      border-bottom: 1px solid #dbdfe6 !important;
+                    }
+                    &:nth-child(odd) {
+                      background: none;
+                      box-shadow: inset 0 0 0 9999px #0000000d;
                     }
                   }
-                  return {}
-                }}
-              />
-            )
-          }}
-        </AutoSizer>
+                }
+              `}
+            />
+          )
+        }}
       </Box>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>
@@ -261,7 +298,21 @@ const useColumns = ({ brandId, items = [], boxType }) => {
         disableSortBy: true,
         Cell: ({ value: record }) => {
           return (
-            <Set alignX="center">
+            <Set
+              alignX="center"
+              css={css`
+                flex-wrap: nowrap;
+                > button {
+                  padding: 10px 12px;
+                  height: 38px;
+                  min-height: 38px;
+                  border: none;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
+            >
               <ViewLetterDisclosure
                 brandId={brandId}
                 boxType={boxType}

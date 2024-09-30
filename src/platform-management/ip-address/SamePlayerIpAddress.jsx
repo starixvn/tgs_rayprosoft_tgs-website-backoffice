@@ -112,6 +112,19 @@ const Body = ({ brandId, table = {}, onClickIpAddress }) => {
           setPageIndex={setPageIndex}
           setSortOrder={setSortOrder}
           isLoading={isLoading}
+          css={css`
+            > tbody {
+              tr {
+                &:not(:last-child) {
+                  border-bottom: 1px solid #dbdfe6 !important;
+                }
+                &:nth-child(odd) {
+                  background: none;
+                  box-shadow: inset 0 0 0 9999px #0000000d;
+                }
+              }
+            }
+          `}
         />
       )}
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
@@ -144,7 +157,9 @@ const useColumns = ({ items = [], mutate, onClickIpAddress, ipType }) => {
   let readable = useIsDisplayMenuByRoute([View])
   return useMemo(
     () => [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "ipAddress",
         Header: <IpAddressTypeLabel />,
@@ -152,6 +167,7 @@ const useColumns = ({ items = [], mutate, onClickIpAddress, ipType }) => {
         Cell: ({ value: ipAddress }) => {
           return (
             <Link
+              color="#06c"
               onClick={() => {
                 onClickIpAddress?.(ipAddress)
               }}
