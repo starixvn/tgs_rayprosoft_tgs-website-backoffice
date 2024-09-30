@@ -818,5 +818,7 @@
   "skype": "Skype",
   "tier_based_profit_sharing_settin": "การตั้งค่าแบ่งปันผลกำไรตามระดับชั้น",
   "profit_sharing_setting": "การตั้งค่าแบ่งปันผลกำไร",
-  "check_type": "ตรวจสอบประเภท"
+  "check_type": "ตรวจสอบประเภท",
+  "tag": "แท็ก",
+  "yes": "ใช่"
 }

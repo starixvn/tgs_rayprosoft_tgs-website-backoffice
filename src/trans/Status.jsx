@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react"
-import { Trans, useTrans } from "../i18n"
+import { getTrans, Trans, useTrans } from "../i18n"
+import getTranslations from "./getTranslations"
 
 const Status = {
   zh: "状态",
@@ -148,3 +149,9 @@ const NotLiable = {
 }
 export const NotLiableTrans = () => <Trans {...NotLiable} />
 export const useNotLiableTrans = () => useTrans(NotLiable)
+
+const Tag = {
+  ...getTranslations("tag")
+}
+export const TagTrans = () => <Trans {...Tag} />
+export const useTagTrans = () => useTrans(Tag)

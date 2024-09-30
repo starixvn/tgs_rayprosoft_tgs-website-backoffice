@@ -29,7 +29,8 @@ import {
   StatusTrans,
   useDisabledTrans,
   useEnabledTrans,
-  useStatusTrans
+  useStatusTrans,
+  useTagTrans
 } from "../../trans/Status.jsx"
 import {
   GameIdTrans,
@@ -278,7 +279,7 @@ const SearchBar = ({
 
   let tagOptions = [
     {
-      label: "Tag",
+      label: useTagTrans(),
       value: 0
     },
     {

@@ -818,5 +818,7 @@
   "skype": "Skype",
   "tier_based_profit_sharing_settin": "Tier-based Profit Sharing Setting",
   "profit_sharing_setting": "Profit Sharing Setting",
-  "check_type": "Check Type"
+  "check_type": "Check Type",
+  "tag": "Tag",
+  "yes": "Yes"
 }
