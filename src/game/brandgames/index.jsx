@@ -42,7 +42,6 @@ import {
 } from "../../trans/Game.jsx"
 import { OrderTrans, SupportingDeviceTrans } from "../../trans/Field.jsx"
 import { SelectField } from "../../select/Select.jsx"
-import { pl } from "date-fns/locale"
 
 export { Code } from "./menu"
 

@@ -811,5 +811,12 @@
   "get_brand_token": "Get Brand Token",
   "query_string": "Query String",
   "verify": "Verify",
-  "confirm_delete": "Confirm Delete?"
+  "confirm_delete": "Confirm Delete?",
+  "settlement_cycle_setup": "Settlement Cycle Setup",
+  "valid_bet_rebate_setting": "Valid Bet Rebate Setting",
+  "kakaotalk": "KakaoTalk",
+  "skype": "Skype",
+  "tier_based_profit_sharing_settin": "Tier-based Profit Sharing Setting",
+  "profit_sharing_setting": "Profit Sharing Setting",
+  "check_type": "Check Type"
 }

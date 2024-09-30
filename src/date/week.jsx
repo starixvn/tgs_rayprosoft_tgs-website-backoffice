@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { setDay, format, isValid } from "date-fns"
-import { enUS, zhCN, vi } from "date-fns/locale"
+import React from "react"
+import { setDay, format } from "date-fns"
+import { enUS, zhCN, vi, th } from "date-fns/locale"
 import { useLocale, Locales } from "../i18n"
-import { Select, DropdownMenu, Button } from "bumbag"
-import { useForm, useFormContext } from "react-hook-form"
+import { Select } from "bumbag"
+import { useFormContext } from "react-hook-form"
 
 const Sunday = "Sunday"
 const Monday = "Monday"
@@ -29,6 +29,8 @@ const toLocale = (code) => {
       return zhCN
     case Locales.vi:
       return vi
+    case Locales.th:
+      return th
     default:
       return enUS
   }

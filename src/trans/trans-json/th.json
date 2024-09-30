@@ -811,5 +811,12 @@
   "get_brand_token": "รับโทเค็นแบรนด์",
   "query_string": "สตริงการค้นหา",
   "verify": "ยืนยัน",
-  "confirm_delete": "ยืนยันการลบหรือไม่?"
+  "confirm_delete": "ยืนยันการลบหรือไม่?",
+  "settlement_cycle_setup": "การตั้งค่ารอบการชำระเงิน",
+  "valid_bet_rebate_setting": "การตั้งค่าเงินคืนจากการเดิมพันที่ถูกต้อง",
+  "kakaotalk": "KakaoTalk",
+  "skype": "Skype",
+  "tier_based_profit_sharing_settin": "การตั้งค่าแบ่งปันผลกำไรตามระดับชั้น",
+  "profit_sharing_setting": "การตั้งค่าแบ่งปันผลกำไร",
+  "check_type": "ตรวจสอบประเภท"
 }

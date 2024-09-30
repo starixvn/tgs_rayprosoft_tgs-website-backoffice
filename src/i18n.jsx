@@ -5,8 +5,7 @@ import { registerLocale, setDefaultLocale } from "react-datepicker"
 import { enUS, zhCN, th } from "date-fns/locale"
 import {
   formatDateTime,
-  formatHourMinuteSecondDayMonthYear,
-  HourMinuteSecondDayMonthYear
+  formatHourMinuteSecondDayMonthYear
 } from "./date/format"
 import { isObject } from "lodash-es"
 import getTranslations from "./trans/getTranslations"
