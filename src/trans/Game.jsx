@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react"
 import { Trans, useTrans } from "../i18n"
+import getTranslations from "./getTranslations"
 
 const GameProvider = {
   zh: "游戏厂商",
@@ -57,6 +58,7 @@ export const ExternalIdTrans = () => useTrans(ExternalId)
 export const userExternalIdTrans = () => <Trans {...ExternalId} />
 
 export const LiveDealer = {
+  ...getTranslations("live_dealer"),
   zh: "真人",
   en: "Live Dealer",
   vi: "CASINO"
@@ -65,6 +67,7 @@ export const LiveDealerTrans = () => <Trans {...LiveDealer} />
 export const useLiveDealerTrans = () => useTrans(LiveDealer)
 
 export const Sportsbook = {
+  ...getTranslations("sportsbook"),
   zh: "体育",
   en: "Sportsbook",
   vi: "Thể thao"
@@ -91,6 +94,7 @@ export const EGameTrans = () => <Trans {...EGame} />
 export const useEGameTrans = () => useTrans(EGame)
 
 export const Slot = {
+  ...getTranslations("slot_game"),
   zh: "老虎机",
   en: "Slot Game",
   vi: "Slot / Máy đánh bạc"
@@ -98,6 +102,7 @@ export const Slot = {
 export const SlotTrans = () => <Trans {...Slot} />
 
 export const CardGame = {
+  ...getTranslations("card_game"),
   zh: "棋牌",
   en: "Card Game",
   vi: "Game bài"
@@ -106,6 +111,7 @@ export const CardGameTrans = () => <Trans {...CardGame} />
 export const useCardGameTrans = () => useTrans(CardGame)
 
 export const ESports = {
+  ...getTranslations("e_sports"),
   zh: "电竞",
   en: "E-sports",
   vi: "Sport"
@@ -113,6 +119,7 @@ export const ESports = {
 export const ESportsTrans = () => <Trans {...ESports} />
 
 export const VirtualSports = {
+  ...getTranslations("virtual_sports"),
   zh: "虚拟体育",
   en: "Virtual Sports",
   vi: "Thể thao ảo"
@@ -121,51 +128,41 @@ export const VirtualSportsTrans = () => <Trans {...VirtualSports} />
 export const useVirtualSportsTrans = () => useTrans(VirtualSports)
 
 export const Lottery = {
+  ...getTranslations("lottery"),
   zh: "彩票",
   en: "Lottery",
   vi: "Sổ xố"
 }
 
 export const CockFighting = {
-  zh: "",
-  en: "CockFighting",
-  vi: ""
+  ...getTranslations("cockfighting")
 }
 
 export const InstantPlay = {
-  zh: "",
-  en: "InstantPlay",
-  vi: ""
+  ...getTranslations("instant_win")
 }
 
 export const Casino = {
-  zh: "",
-  en: "Casino",
-  vi: ""
+  ...getTranslations("casino")
 }
 
 export const Keno = {
-  zh: "",
-  en: "Keno",
-  vi: ""
+  ...getTranslations("keno")
 }
 
 export const Bingo = {
-  zh: "",
-  en: "Bingo",
-  vi: ""
+  ...getTranslations("bingo")
 }
 
 export const Racing = {
-  zh: "",
-  en: "Racing",
-  vi: ""
+  ...getTranslations("racing")
 }
 
 export const LotteryTrans = () => <Trans {...Lottery} />
 export const useLotteryTrans = () => useTrans(Lottery)
 
 export const Fishing = {
+  ...getTranslations("fishing"),
   zh: "捕鱼",
   en: "Fishing",
   vi: "Bắn cá"
@@ -173,6 +170,7 @@ export const Fishing = {
 export const FishingTrans = () => <Trans {...Fishing} />
 
 export const Arcade = {
+  ...getTranslations("arcade_game"),
   zh: "街机",
   en: "Arcade Game",
   vi: "Game thùng"
@@ -180,6 +178,7 @@ export const Arcade = {
 export const ArcadeTrans = () => <Trans {...Arcade} />
 
 export const TableGame = {
+  ...getTranslations("table_game"),
   zh: "桌面游戏",
   en: "Table Game",
   vi: "Trò chơi bàn"

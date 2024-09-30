@@ -22,8 +22,9 @@ import {
   Casino as CasinoTrans,
   Keno as KenoTrans,
   Bingo as BingoTrans,
-  Racing as RacingTrans,
+  Racing as RacingTrans
 } from "../trans/Game"
+import getTranslations from "../trans/getTranslations"
 
 const Sportsbook = "Sportsbook"
 const SportsbookValue = 1
@@ -34,6 +35,7 @@ const VirtualSportsValue = 2
 const VirtualSportsLobby = "VirtualSportsLobby"
 const VirtualSportsLobbyValue = 3
 const VirtualSportsLobbyTrans = {
+  ...getTranslations("virtual_sports_lobby"),
   zh: "虚拟体育大厅",
   en: "Virtual Sports Lobby"
 }
@@ -47,6 +49,7 @@ const LiveDealerValue = 5
 const LiveDealerLobby = "LiveDealerLobby"
 const LiveDealerLobbyValue = 6
 const LiveDealerLobbyTrans = {
+  ...getTranslations("live_dealer_lobby"),
   zh: "真人大厅",
   en: "Live Dealer Lobby"
 }
@@ -57,6 +60,7 @@ const CardGameValue = 7
 const CardGameLobby = "CardGameLobby"
 const CardGameLobbyValue = 8
 const CardGameLobbyTrans = {
+  ...getTranslations("card_game_lobby"),
   zh: "棋牌大厅",
   en: "Card Game Lobby"
 }
@@ -67,6 +71,7 @@ const FishingValue = 9
 const FishingLobby = "FishingLobby"
 const FishingLobbyValue = 10
 const FishingLobbyTrans = {
+  ...getTranslations("fishing_lobby"),
   zh: "捕鱼大厅",
   en: "Fishing Lobby"
 }
@@ -77,6 +82,7 @@ const ArcadeValue = 11
 const ArcadeLobby = "ArcadeLobby"
 const ArcadeLobbyValue = 12
 const ArcadeLobbyTrans = {
+  ...getTranslations("arcade_game_lobby"),
   zh: "街机大厅",
   en: "Arcade Game Lobby"
 }
@@ -90,6 +96,7 @@ const LotteryValue = 13
 const LotteryLobby = "LotteryLobby"
 const LotteryLobbyValue = 14
 const LotteryLobbyTrans = {
+  ...getTranslations("lottery_lobby"),
   zh: "彩票大厅",
   en: "Lottery Lobby"
 }

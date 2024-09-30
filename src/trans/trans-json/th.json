@@ -820,5 +820,22 @@
   "profit_sharing_setting": "การตั้งค่าแบ่งปันผลกำไร",
   "check_type": "ตรวจสอบประเภท",
   "tag": "แท็ก",
-  "yes": "ใช่"
+  "yes": "ใช่",
+  "live_dealer_lobby": "ล็อบบี้ดีลเลอร์สด",
+  "e_sports": "อีสปอร์ต",
+  "slot_game": "เกมสล็อต",
+  "fishing": "เกมยิงปลา",
+  "fishing_lobby": "ล็อบบี้เกมยิงปลา",
+  "arcade_game": "เกมอาร์เคด",
+  "arcade_game_lobby": "ล็อบบี้เกมอาร์เคด",
+  "table_game": "เกมโต๊ะ",
+  "card_game_lobby": "ล็อบบี้เกมไพ่",
+  "virtual_sports_lobby": "ล็อบบี้กีฬาเสมือนจริง",
+  "lottery_lobby": "ล็อบบี้ลอตเตอรี่",
+  "cockfighting": "ชนไก่",
+  "instant_win": "ชนะทันที",
+  "casino": "คาสิโน",
+  "keno": "คีโน",
+  "bingo": "บิงโก",
+  "racing": "การแข่ง"
 }

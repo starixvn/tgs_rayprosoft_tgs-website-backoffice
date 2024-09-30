@@ -820,5 +820,22 @@
   "profit_sharing_setting": "Profit Sharing Setting",
   "check_type": "Check Type",
   "tag": "Tag",
-  "yes": "Yes"
+  "yes": "Yes",
+  "live_dealer_lobby": "Live Dealer Lobby",
+  "e_sports": "E-Sports",
+  "slot_game": "Slot Game",
+  "fishing": "Fishing",
+  "fishing_lobby": "Fishing Lobby",
+  "arcade_game": "Arcade Game",
+  "arcade_game_lobby": "Arcade Game Lobby",
+  "table_game": "Table Game",
+  "card_game_lobby": "Card Game Lobby",
+  "virtual_sports_lobby": "Virtual Sports Lobby",
+  "lottery_lobby": "Lottery Lobby",
+  "cockfighting": "Cockfighting",
+  "instant_win": "Instant Win",
+  "casino": "Casino",
+  "keno": "Keno",
+  "bingo": "Bingo",
+  "racing": "Racing"
 }
