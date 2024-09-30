@@ -424,7 +424,7 @@ const EditBody = ({
   let isEmpty = fields.length === 0
   let editable = !readonly
   return (
-    <Stack>
+    <Stack padding="5rem 1rem 1rem 1rem">
       {fields.map((field, index) => (
         <GroupCard
           key={field._id}

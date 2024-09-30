@@ -74,7 +74,22 @@ const Body = () => {
 
   return (
     <Tabs>
-      <TabList {...tab}>
+      <TabList
+        {...tab}
+        css={css`
+          > button {
+            box-shadow: none !important;
+            border-bottom: 2px solid transparent;
+            &:hover {
+              box-shadow: none !important;
+              border-bottom: 2px solid #574feb;
+            }
+          }
+          > button[aria-selected="true"] {
+            border-bottom: 2px solid #574feb !important;
+          }
+        `}
+      >
         <SamePlayerIpAddressTab {...tab} />
         <PlayerIPAddressByUsernameTab {...tab} />
         <PlayerByIpAddressTab {...tab} />

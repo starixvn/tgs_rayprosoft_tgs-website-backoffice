@@ -165,7 +165,7 @@ const CodeDialog = ({ value, disabled, readOnly, dialog, onChange }) => {
         dialog={dialog}
         title={title}
         hideBackdrop={true}
-        minWidth="max-content"
+        minWidth="25vw"
         css={css`
           & .bb-DialogHeader {
             margin-bottom: 0;
