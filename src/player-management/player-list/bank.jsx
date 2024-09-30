@@ -62,7 +62,6 @@ export const Panel = ({ brandId, playerCode, edit = false, ...props }) => {
     isActive && playerCode
   )
   let banks = data?.items
-
   return (
     <TabPanel tabId={Key} {...props}>
       {isLoading && (
@@ -71,16 +70,17 @@ export const Panel = ({ brandId, playerCode, edit = false, ...props }) => {
         </Box>
       )}
       <TwoColumns>
-        {banks?.map((bank, index) => (
-          <Bank
-            key={index}
-            brandId={brandId}
-            playerCode={playerCode}
-            record={bank}
-            onSubmitted={mutate}
-            edit={edit}
-          />
-        ))}
+        {banks &&
+          banks.map((bank, index) => (
+            <Bank
+              key={index}
+              brandId={brandId}
+              playerCode={playerCode}
+              record={bank}
+              onSubmitted={mutate}
+              edit={edit}
+            />
+          ))}
       </TwoColumns>
       {edit && (
         <AddBank
@@ -120,15 +120,11 @@ const UpdateInfoBox = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <OperatorTrans />
-        </Text>
+        <OperatorTrans />
       </Box>
       <Box alignY="center">{record?.modifier}</Box>
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <UpdatedTimeTrans />
-        </Text>
+        <UpdatedTimeTrans />
       </Box>
       <Box alignY="center">
         <FormattedDateTime value={record?.updatedOn} />
@@ -243,9 +239,7 @@ const Bank = ({
         `}
       >
         <Box alignY="top">
-          <Text fontWeight="bold">
-            <PaymentChannelTrans />
-          </Text>
+          <PaymentChannelTrans />
         </Box>
         <PaymentChannelLabel value={record?.paymentChannelId} />
 
@@ -291,44 +285,34 @@ const ViewBank = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <BankNameLabel />
-        </Text>
+        <BankNameLabel />
       </Box>
       <Box alignY="center" data-field="bankName">
         {record?.detail?.bankName ?? ""}
       </Box>
 
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <BankBranchLabel />
-        </Text>
+        <BankBranchLabel />
       </Box>
       <Box alignY="center" data-field="bankBranch">
         {record?.detail?.bankBranch ?? ""}
       </Box>
 
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <AccountName />
-        </Text>
+        <AccountName />
       </Box>
       <Box alignY="center" data-field="name">
         {record?.detail?.name ?? ""}
       </Box>
 
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <BankAccount />
-        </Text>
+        <BankAccount />
       </Box>
       <Box alignY="center" data-field="bankAccount">
         {record?.detail?.bankAccount ?? ""}
       </Box>
 
-      <Box alignY="center">
-        <Text fontWeight="bold"> IFSC Code</Text>
-      </Box>
+      <Box alignY="center">IFSC Code</Box>
       <Box alignY="center" data-field="IFSCcode">
         {record?.detail?.IFSCcode ?? ""}
       </Box>
@@ -351,18 +335,14 @@ const ViewThirdParty = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <RealNameLabel />
-        </Text>
+        <RealNameLabel />
       </Box>
       <Box alignY="center" data-field="username">
         {record?.detail?.username ?? ""}
       </Box>
 
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <PhoneLabel />
-        </Text>
+        <PhoneLabel />
       </Box>
       <Box alignY="center" data-field="phone">
         {record?.detail?.phone ?? ""}
@@ -375,18 +355,14 @@ const ViewEWallet = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <EWalletLabel />
-        </Text>
+        <EWalletLabel />
       </Box>
       <Box alignY="center" data-field="eMoneyName">
         {record?.detail?.eMoneyName ?? ""}
       </Box>
 
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <PhoneLabel />
-        </Text>
+        <PhoneLabel />
       </Box>
       <Box alignY="center" data-field="phone">
         {record?.detail?.phone ?? ""}
@@ -399,9 +375,7 @@ const ViewPulsa = ({ record }) => {
   return (
     <>
       <Box alignY="center">
-        <Text fontWeight="bold">
-          <PhoneLabel />
-        </Text>
+        <PhoneLabel />
       </Box>
       <Box alignY="center" data-field="phone">
         {record?.detail?.phone ?? ""}

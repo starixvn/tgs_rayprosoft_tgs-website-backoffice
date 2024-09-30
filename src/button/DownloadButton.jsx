@@ -21,9 +21,14 @@ export const DownloadButton = ({
     isLoading={isLoading}
     disabled={disabled || isLoading}
     whiteSpace={whiteSpace}
-    // variant={variant}
-    // palette={palette}
+    variant={variant}
+    palette={palette}
     {...props}
+    css={css`
+      &:focus {
+        box-shadow: none !important;
+      }
+    `}
   >
     <ExportTrans />
   </Button>

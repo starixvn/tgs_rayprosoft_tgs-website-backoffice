@@ -1141,6 +1141,7 @@ const BetLimitDialog = ({
         hideBackdrop={true}
         dialog={dialog}
         title={title}
+        minWidth="30vw"
         css={css`
           & .bb-DialogHeader {
             margin-bottom: 0;

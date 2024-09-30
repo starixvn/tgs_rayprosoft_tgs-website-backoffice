@@ -220,8 +220,25 @@ const Body = ({}) => {
 
   let columns = useColumns({ mutate, items, brandId, setDelayUpdate })
   return (
-    <Set orientation="vertical" isFilled height="100%">
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
+      <Level
+        alignY="bottom"
+        alignX="left"
+        verticalBelow="mobile"
+        css={css`
+          .bb-PopoverDisclosure {
+            background: red;
+          }
+        `}
+      >
         <SearchBar
           brandId={brandId}
           username={username}
@@ -276,6 +293,19 @@ const Body = ({}) => {
         toggleColumnHidden={true}
         menubar={Level}
         menuAddonBefore={<Summary key="summary" total={data?.sum} />}
+        css={css`
+          > tbody {
+            tr {
+              &:not(:last-child) {
+                border-bottom: 1px solid #dbdfe6 !important;
+              }
+              &:nth-child(odd) {
+                background: none;
+                box-shadow: inset 0 0 0 9999px #0000000d;
+              }
+            }
+          }
+        `}
       />
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>
@@ -289,7 +319,7 @@ const Summary = ({ total, totalPromotion }) => {
   }
 
   return (
-    <Blockquote borderColor="primary" padding="0.75rem">
+    <Blockquote borderColor="primary" background="#fff">
       <Set>
         <Box>
           <Heading use="h5">
@@ -449,6 +479,9 @@ const SearchBar = ({
               brandId={brandId}
               transferType={PlatformPaymentTransferType.Deposit}
               placeholder={paymentProviderPlaceholder}
+              css={css`
+                min-width: 251px;
+              `}
             />
             <PaymentMethodSelect
               name="method"
@@ -482,6 +515,15 @@ const SearchBar = ({
               }}
               minDate={minDate}
               maxRangeDays={maxRangeDays}
+              css={css`
+                input {
+                  border-top-right-radius: 0 !important;
+                  border-bottom-right-radius: 0 !important;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
             />
             <DateInputRangeField
               label={<UpdatedTimeTrans />}
@@ -493,6 +535,15 @@ const SearchBar = ({
               }}
               minDate={minDate}
               maxRangeDays={maxRangeDays}
+              css={css`
+                input {
+                  border-top-right-radius: 0 !important;
+                  border-bottom-right-radius: 0 !important;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
             />
             <SearchButton
               isLoading={isLoading}
@@ -515,7 +566,9 @@ const useColumns = ({ brandId, items = [], mutate, setDelayUpdate }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       noWrapTextColumn({
         accessor: "username",
         Header: <UserNameTrans />,
