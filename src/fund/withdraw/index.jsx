@@ -72,6 +72,8 @@ import { RejectFundWithdrawDisclosure } from "./RejectFundWithdraw"
 import { UserTypeLabel, UserTypeSelect } from "./UserType"
 import { VerifyFundWithdrawDisclosure } from "./VerifyFundWithdraw"
 import { ViewFundWithdrawDisclosure } from "./ViewFundWithdraw"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -250,64 +252,91 @@ const Body = ({}) => {
   })
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          brandId={brandId}
-          username={username}
-          channelName={channelName}
-          payment={state.payment}
-          status={status}
-          thirdOrderNo={state.thirdOrderNo}
-          orderNo={state.orderNo}
-          id={state.id}
-          beginCreateOn={beginCreateOn}
-          endCreateOn={endCreateOn}
-          beginUpdateOn={beginUpdateOn}
-          endUpdateOn={endUpdateOn}
-          brandPaymentIds={state.brandPaymentIds}
-          minDate={minDate}
-          maxRangeDays={QueryMaxRangeDays}
-          search={(data = {}) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          isLoading={isLoading || autoLoading}
-        />
-        {data?.items?.length > 0 && (
-          <Box>
-            <DownloadButton
-              id="export-report"
-              isLoading={isLoading}
-              href={urlWith(
-                toSearchParams(),
-                `${API}/exportWithdraw/${brandId}`
-              )}
-              download="Withdraw.xlsx"
-            />
-          </Box>
-        )}
-      </Level>
-      <Table
-        id="withdraw"
-        columns={columns}
-        data={items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading || autoLoading}
-        getRowId={(row) => row.id}
-        localStorageKey={TableLocalStorageKey}
-        toggleColumnHidden={true}
-        menubar={Level}
-        menuAddonBefore={<Summary key="summary" total={data?.sum} />}
-      />
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        .bb-PopoverDisclosure {
+          position: absolute;
+          right: 8px;
+          top: 8px;
+          &:focus,
+          &:hover,
+          &:active {
+            box-shadow: none !important;
+            border: 1px solid #d9d9e1;
+          }
+        }
+      `}
+    >
+      <WrapperBg>
+        <Level
+          alignY="bottom"
+          alignX="left"
+          verticalBelow="mobile"
+          marginBottom="8px"
+        >
+          <SearchBar
+            brandId={brandId}
+            username={username}
+            channelName={channelName}
+            payment={state.payment}
+            status={status}
+            thirdOrderNo={state.thirdOrderNo}
+            orderNo={state.orderNo}
+            id={state.id}
+            beginCreateOn={beginCreateOn}
+            endCreateOn={endCreateOn}
+            beginUpdateOn={beginUpdateOn}
+            endUpdateOn={endUpdateOn}
+            brandPaymentIds={state.brandPaymentIds}
+            minDate={minDate}
+            maxRangeDays={QueryMaxRangeDays}
+            search={(data = {}) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            isLoading={isLoading || autoLoading}
+          />
+          {data?.items?.length > 0 && (
+            <Box>
+              <DownloadButton
+                id="export-report"
+                isLoading={isLoading}
+                href={urlWith(
+                  toSearchParams(),
+                  `${API}/exportWithdraw/${brandId}`
+                )}
+                download="Withdraw.xlsx"
+              />
+            </Box>
+          )}
+        </Level>
+        <CustomTableStyle>
+          <Table
+            id="withdraw"
+            columns={columns}
+            data={items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading || autoLoading}
+            getRowId={(row) => row.id}
+            localStorageKey={TableLocalStorageKey}
+            toggleColumnHidden={true}
+            menubar={Level}
+            menuAddonBefore={<Summary key="summary" total={data?.sum} />}
+          />
+        </CustomTableStyle>
+
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -319,7 +348,7 @@ const Summary = ({ total }) => {
   }
 
   return (
-    <Blockquote borderColor="primary" padding="0.75rem">
+    <Blockquote borderColor="primary" background="#fff" width="100%">
       <Heading use="h5">
         {`${totalWithdrawAmountLabel}：`}
         <FormattedNumberDecimal id="total-amount" value={total} />
