@@ -128,7 +128,15 @@ const Body = () => {
   })
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       <Level alignY="bottom" alignX="left" verticalBelow="mobile">
         <SearchBar
           keyword={state.keyword}
@@ -150,10 +158,44 @@ const Body = () => {
             setPageIndex={setPageIndex}
             setSortOrder={setSortOrder}
             isLoading={isLoading}
+            css={css`
+              > tbody {
+                tr {
+                  &:not(:last-child) {
+                    border-bottom: 1px solid #dbdfe6 !important;
+                  }
+                  &:nth-child(odd) {
+                    background: none;
+                    box-shadow: inset 0 0 0 9999px #0000000d;
+                  }
+                }
+              }
+            `}
           />
           {
             <Dialog.Footer position="sticky" bottom="0">
-              <Button isLoading={isChangingDisplayOrder} type="submit">
+              <Button
+                isLoading={isChangingDisplayOrder}
+                type="submit"
+                css={css`
+                  background: #4b49b6;
+                  color: #fff;
+                  border-radius: 6px !important;
+                  border: 1px solid !important;
+                  font-weight: 400;
+                  &:focus,
+                  &:hover,
+                  &:active {
+                    background: #4b49b6;
+                    box-shadow: none !important;
+                  }
+                  &:hover {
+                    &:active {
+                      background: #4b49b6;
+                    }
+                  }
+                `}
+              >
                 <ConfirmOrderTrans />
               </Button>
             </Dialog.Footer>
@@ -182,7 +224,7 @@ const SearchBar = ({ name: keyword = "", search, isLoading, ...props }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-        <Set>
+        <Set marginBottom="8px">
           <InputField
             name="keyword"
             showEmptyFieldValueAddonAfter
@@ -322,7 +364,25 @@ const useColumns = ({
         },
         Cell: ({ value }) => {
           return (
-            <Set orientation="vertical" alignX="center">
+            <Set
+              orientation="vertical"
+              alignX="center"
+              css={css`
+                flex-wrap: nowrap;
+                flex-direction: row;
+                gap: 8px;
+                > button {
+                  padding: 10px 12px;
+                  height: 38px;
+                  min-height: 38px;
+                  border: none;
+                  &:focus {
+                    box-shadow: none !important;
+                    border: none;
+                  }
+                }
+              `}
+            >
               <EditButton record={value} onSubmitted={mutate} />
               <EditPresetButton record={value} onSubmitted={mutate} />
             </Set>

@@ -128,6 +128,17 @@ export const StatusMenu = ({ record = {}, onSubmitted, ...props }) => {
           palette={toPalette(status)}
           isLoading={isLoading}
           disabled={isLoading}
+          css={css`
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 1px 4px;
+            min-height: auto;
+            color: #fff;
+            opacity: 1 !important;
+            &:focus {
+              box-shadow: none !important;
+            }
+          `}
         >
           <Label value={status} />
         </Button>

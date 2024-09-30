@@ -48,6 +48,9 @@ export const GameTagSwitch = ({ id, tag, checked, onSubmitted, ...props }) => {
           enabled: event.target.checked
         })
       }}
+      css={css`
+        justify-content: center;
+      `}
     />
   )
 }

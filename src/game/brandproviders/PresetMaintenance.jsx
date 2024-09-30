@@ -50,7 +50,7 @@ export const EditPresetButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog}>
+      <Disclosure {...dialog} palette="secondary">
         <PresetMaintenanceTrans />
       </Disclosure>
       {dialog.visible && (
@@ -168,12 +168,14 @@ const EditBody = ({
   setScheduleStatus
 }) => {
   return (
-    <Stack minHeight="50vh">
-      <AddPresetMaintenance add={add} />
-      <ScheduleStatusDropdownMenu
-        items={items}
-        setScheduleStatus={setScheduleStatus}
-      />
+    <Stack minHeight="50vh" padding="5rem 1rem 1rem 1rem">
+      <Stack orientation="horizontal" marginBottom="0">
+        <AddPresetMaintenance add={add} />
+        <ScheduleStatusDropdownMenu
+          items={items}
+          setScheduleStatus={setScheduleStatus}
+        />
+      </Stack>
       <Table>
         <Table.Head>
           <Table.Row>
@@ -223,6 +225,15 @@ const PresetMaintenanceRow = ({
           visibility={
             scheduleStatus === ScheduleStatus.Enabled ? "visible" : "hidden"
           }
+          css={css`
+            padding: 10px 12px;
+            height: 38px;
+            min-height: 38px;
+            border: none;
+            &:focus {
+              box-shadow: none !important;
+            }
+          `}
         >
           <Trans zh="删除" en="Delete" />
         </Button>
@@ -244,16 +255,21 @@ const AddPresetMaintenance = ({ add }) => {
   let maxDate = watch("to")
   let scheduleStatus = watch("scheduleStatus")
   return (
-    <Set orientation="horizontal">
+    <Set
+      orientation="horizontal"
+      marginBottom="major-1"
+      marginRight="0"
+      minWidth="812px"
+    >
       <Group>
-        <Button isStatic>
+        <Button isStatic minWidth="150px">
           <StartTimeTrans />
         </Button>
         <DateTimeInput name="from" maxDate={maxDate} />
       </Group>
 
       <Group>
-        <Button isStatic>
+        <Button isStatic minWidth="150px">
           <EndTimeTrans />
         </Button>
         <DateTimeInput name="to" minDate={minDate} />
@@ -326,7 +342,6 @@ const ScheduleStatusDropdownMenu = ({
       setValue(name, result.scheduleStatus ?? ScheduleStatus.Enabled)
     }
   }, [JSON.stringify(items)])
-
   return (
     <Controller
       control={control}
@@ -362,13 +377,22 @@ const ScheduleStatusDropdownMenu = ({
                 )}
               </>
             }
+            marginBottom="major-1"
           >
             <Group>
               <Button isStatic={!!value}>
                 <StatusTrans />
               </Button>
               {value && (
-                <Button>
+                <Button
+                  palette={value === "Enabled" ? "success" : "danger"}
+                  color="#fff"
+                  css={css`
+                    &:focus {
+                      box-shadow: none !important;
+                    }
+                  `}
+                >
                   <ScheduleStatusLabel value={value} />
                 </Button>
               )}

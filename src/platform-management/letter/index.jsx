@@ -209,7 +209,14 @@ const SearchBar = ({ brandId, boxType, search, isLoading }) => {
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
           {isInbox(boxType) && (
-            <PlayerSelect id="player-select" name="player" brandId={brandId} />
+            <PlayerSelect
+              id="player-select"
+              name="player"
+              brandId={brandId}
+              css={css`
+                min-width: 250px;
+              `}
+            />
           )}
           {isSentBox(boxType) && (
             <InputField

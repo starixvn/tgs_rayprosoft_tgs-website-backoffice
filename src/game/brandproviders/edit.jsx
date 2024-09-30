@@ -43,7 +43,12 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <EditDisclosure {...dialog} />
+      <EditDisclosure
+        {...dialog}
+        css={css`
+          margin-bottom: 0 !important;
+        `}
+      />
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <EditDialog
@@ -119,7 +124,7 @@ const EditBody = ({ record = {} }) => {
   })
 
   return (
-    <Stack orientation="vertical" width="500px">
+    <Stack orientation="vertical" width="500px" padding="5rem 1rem 1rem 1rem">
       <Heading use="h5">
         <BasicInformationTrans />
       </Heading>
@@ -133,7 +138,11 @@ const EditBody = ({ record = {} }) => {
       <Heading use="h5">
         <PeriodicMaintenanceTrans />
       </Heading>
-      <FieldValues>
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
         <Label>
           <StatusTrans />
         </Label>
@@ -145,21 +154,51 @@ const EditBody = ({ record = {} }) => {
           <WeeklyTrans />
         </Label>
         <Box>
-          <WeekDaySelect name="dayOfWeek" required />
+          <WeekDaySelect
+            name="dayOfWeek"
+            required
+            css={css`
+              width: 100%;
+            `}
+          />
         </Box>
 
         <Label>
           <StartTimeTrans />
         </Label>
         <Box>
-          <TimeSelectField name={FromFieldName} required max={to} />
+          <TimeSelectField
+            name={FromFieldName}
+            required
+            max={to}
+            css={css`
+              .bb-Group {
+                width: 100%;
+                .bb-SelectWrapper {
+                  width: 100%;
+                }
+              }
+            `}
+          />
         </Box>
 
         <Label marginRight="major-2">
           <EndTimeTrans />
         </Label>
         <Box>
-          <TimeSelectField name={ToFieldName} required min={from} />
+          <TimeSelectField
+            name={ToFieldName}
+            required
+            min={from}
+            css={css`
+              .bb-Group {
+                width: 100%;
+                .bb-SelectWrapper {
+                  width: 100%;
+                }
+              }
+            `}
+          />
         </Box>
       </FieldValues>
     </Stack>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { css, Stack, Heading, Box, Button, useModalState } from "bumbag"
+import { css, Stack, Heading, Box, Button, useModalState, Icon } from "bumbag"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import { ViewDetail, UpdateDetail } from "./menu"
 import Disclosure, { EditDisclosure } from "../../dialog/Disclosure"
@@ -37,6 +37,7 @@ import {
 import { SpecialProcessingTrans } from "../../trans/Action.jsx"
 import { VipCommissionRebateTrans } from "../../trans/Vip.jsx"
 import { SWRConfig } from "swr"
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
 export const PlatformGameDetailButton = ({ record, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -50,8 +51,28 @@ export const PlatformGameDetailButton = ({ record, onSubmitted, ...props }) => {
   let readOnly = !editable
   return (
     <>
-      <Disclosure {...dialog} {...props}>
-        <GameDetailTrans />
+      <Disclosure
+        {...dialog}
+        {...props}
+        palette="success"
+        css={css`
+          padding: 10px 12px;
+          height: 38px;
+          min-height: 38px;
+          border: none;
+          &:focus {
+            box-shadow: none !important;
+          }
+        `}
+      >
+        {/* <GameDetailTrans /> */}
+        <Icon
+          icon={faMagnifyingGlass}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
@@ -141,74 +162,106 @@ const EditBody = ({ record = {}, readOnly }) => {
 
   let notLobbyGame = notLobbyGameType(gameType)
   return (
-    <Stack orientation="vertical" marginLeft="1rem">
-      <Heading use="h5" marginBottom="major-1">
+    <Stack padding="5rem 1rem 1rem 1rem">
+      <Heading use="h5" marginBottom="major-3">
         <BasicInformationTrans />
       </Heading>
       <Stack>
         <Stack orientation="horizontal" marginBottom="major-1">
-          <FieldValues>
-            <Label fontWeight="normal">
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+              align-items: center;
+            `}
+          >
+            <Label fontWeight="normal" minWidth="100px">
               <VendorTrans />
             </Label>
-            <Box alignY="center">{gameProviderName}</Box>
+            <Box>{gameProviderName}</Box>
           </FieldValues>
 
-          <FieldValues>
-            <Label fontWeight="normal">
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+              align-items: center;
+            `}
+          >
+            <Label fontWeight="normal" minWidth="100px">
               <GameTypeTrans />
             </Label>
-            <Box alignY="center">
+            <Box>
               <GameTypeLabel value={gameType} />
               <Input name="gameType" type="hidden" />
             </Box>
           </FieldValues>
         </Stack>
         <Stack orientation="horizontal" marginBottom="major-1">
-          <FieldValues>
-            <Label fontWeight="normal">
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+              align-items: center;
+            `}
+          >
+            <Label fontWeight="normal" minWidth="100px">
               <GameNameTrans />
             </Label>
-            <Box alignY="center">{gameName}</Box>
+            <Box>{gameName}</Box>
           </FieldValues>
-          <FieldValues>
-            <Label fontWeight="normal">
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+              align-items: center;
+            `}
+          >
+            <Label fontWeight="normal" minWidth="100px">
               <GameIdTrans />
             </Label>
-            <Box alignY="center">{gameId}</Box>
+            <Box>{gameId}</Box>
           </FieldValues>
         </Stack>
         <Stack orientation="horizontal" marginBottom="major-1">
-          <FieldValues>
-            <Label fontWeight="normal">
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+              align-items: center;
+            `}
+          >
+            <Label fontWeight="normal" minWidth="100px">
               <SupportingDeviceTrans />
             </Label>
-            <Box alignY="center">
+            <Box>
               <GamePlatformLabel value={platform} />
             </Box>
           </FieldValues>
 
-          <FieldValues>
-            <Label fontWeight="normal">
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+              align-items: center;
+            `}
+          >
+            <Label fontWeight="normal" minWidth="100px">
               <SupportHtml5Trans />
             </Label>
-            <Box alignY="center">
-              {supportHtml5 ? <YesTrans /> : <NoTrans />}
-            </Box>
+            <Box>{supportHtml5 ? <YesTrans /> : <NoTrans />}</Box>
           </FieldValues>
         </Stack>
       </Stack>
 
       {notLobbyGame && (
         <>
-          <Heading use="h5" marginBottom="major-1">
+          <Heading use="h5" marginBottom="major-3">
             <SpecialProcessingTrans />
           </Heading>
-          <FieldValues>
+          <FieldValues
+            css={css`
+              gap: 16px 24px;
+            `}
+          >
             <Label fontWeight="normal">
               <TurnoverPercentageTrans />
             </Label>
-            <Box alignY="center">
+            <Box>
               <PercentageNumberInputField
                 name="effectiveBettingPercentage"
                 readOnly={readOnly}

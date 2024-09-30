@@ -70,6 +70,17 @@ export const MaintenanceStatusToggleButton = ({
               let status = value == Enabled ? Disabled : Enabled
               setValue(name, status)
             }}
+            css={css`
+              font-size: 0.75em;
+              font-weight: 700;
+              padding: 1px 4px;
+              min-height: auto;
+              color: #fff;
+              opacity: 1 !important;
+              &:focus {
+                box-shadow: none !important;
+              }
+            `}
           >
             <ScheduleStatusLabel value={value} />
           </Button>

@@ -94,7 +94,15 @@ const Body = () => {
   })
 
   return (
-    <Set orientation="vertical" isFilled height="100%">
+    <Set
+      orientation="vertical"
+      isFilled
+      height="100%"
+      css={css`
+        padding: 1rem;
+        background: #f3f4f7;
+      `}
+    >
       <Level alignY="bottom" alignX="left" verticalBelow="mobile">
         <SearchBar
           brandId={brandId}
@@ -205,11 +213,33 @@ const DataTable = ({
             setPageIndex={setPageIndex}
             setSortOrder={setSortOrder}
             isLoading={isLoading}
+            css={css`
+              > tbody {
+                tr {
+                  &:not(:last-child) {
+                    border-bottom: 1px solid #dbdfe6 !important;
+                  }
+                  &:nth-child(odd) {
+                    background: none;
+                    box-shadow: inset 0 0 0 9999px #0000000d;
+                  }
+                }
+              }
+            `}
           />
           {error && <AlertDialog {...error} onClickClose={deleteCache} />}
           {editable && (
             <Dialog.Footer position="sticky" bottom="0">
-              <Button isLoading={isChangingDisplayOrder} type="submit">
+              <Button
+                isLoading={isChangingDisplayOrder}
+                type="submit"
+                palette="primary"
+                css={css`
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                `}
+              >
                 <ConfirmOrderTrans />
               </Button>
             </Dialog.Footer>
