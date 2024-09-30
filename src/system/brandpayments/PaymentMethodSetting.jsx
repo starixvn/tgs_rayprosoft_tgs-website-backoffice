@@ -27,6 +27,7 @@ export const PaymentMethodSetting = ({
   let { getValues } = useFormContext()
   const transferType = getValues("transferType")
   let isDeposit = isDepositPlatformPayment(transferType)
+  const required = !isWithdrawManual(paymentCode, isDeposit)
 
   switch (paymentMethodCode) {
     case BankTransfer:
@@ -69,6 +70,7 @@ export const PaymentMethodSetting = ({
           brandId={brandId}
           paymentCode={paymentCode}
           isDeposit={isDeposit}
+          required={required}
         />
       )
     case Pulsa:
@@ -93,17 +95,17 @@ export const PaymentMethodSetting = ({
 }
 
 const CoinsphSetting = ({ brandId, paymentCode, isDeposit }) => {
-  const required = isNotWithdrawManual(paymentCode, isDeposit)
+  const required = isWithdrawManual(paymentCode, isDeposit)
   return (
     <>
-      <Label required={required}>
+      <Label required={!required}>
         <PhoneTrans />
       </Label>
-      <Input name="extendedData.phone" required={required} />
-      <Label required={required}>
+      <Input name="extendedData.phone" required={!required} />
+      <Label required={!required}>
         <RealNameTrans />
       </Label>
-      <Input name="extendedData.name" required={required} />
+      <Input name="extendedData.name" required={!required} />
       <Label>
         <Trans zh="QR Code" en="QR Code" />
       </Label>
@@ -112,15 +114,13 @@ const CoinsphSetting = ({ brandId, paymentCode, isDeposit }) => {
         name="extendedData.qrCode"
         prefix="payment"
         showLocalizationAddonAfter={false}
-        required={required}
+        required={!required}
       />
     </>
   )
 }
 
-const PulsaSetting = ({ brandId, paymentCode, isDeposit }) => {
-  const required = isNotWithdrawManual(paymentCode, isDeposit)
-
+const PulsaSetting = ({ brandId, paymentCode, isDeposit, required = true }) => {
   return (
     <>
       <Label required={required}>
@@ -131,8 +131,12 @@ const PulsaSetting = ({ brandId, paymentCode, isDeposit }) => {
   )
 }
 
-const EWalletSetting = ({ brandId, paymentCode, isDeposit }) => {
-  const required = isNotWithdrawManual(paymentCode, isDeposit)
+const EWalletSetting = ({
+  brandId,
+  paymentCode,
+  isDeposit,
+  required = true
+}) => {
   return (
     <>
       <Label required={required}>
@@ -159,8 +163,13 @@ const EWalletSetting = ({ brandId, paymentCode, isDeposit }) => {
   )
 }
 
-const CryptoSetting = ({ brandId, paymentCode, isDeposit, currency = "" }) => {
-  const required = isNotWithdrawManual(paymentCode, isDeposit)
+const CryptoSetting = ({
+  brandId,
+  paymentCode,
+  isDeposit,
+  currency = "",
+  required = true
+}) => {
   return (
     <>
       <Label required={required}>
@@ -199,26 +208,25 @@ const CryptoSetting = ({ brandId, paymentCode, isDeposit, currency = "" }) => {
   )
 }
 
-const FPSSetting = ({ brandId, paymentCode, isDeposit }) => {
-  const required = isNotWithdrawManual(paymentCode, isDeposit)
+const FPSSetting = ({ brandId, paymentCode, isDeposit, required = true }) => {
   return (
     <>
-      <Label required={required}>
+      <Label required={!required}>
         <PhoneTrans />
       </Label>
-      <Input name="extendedData.phone" required={required} />
+      <Input name="extendedData.phone" required={!required} />
 
-      <Label required={required}>
+      <Label required={!required}>
         <Trans zh="电子邮件" en="Email" />
       </Label>
-      <Input name="extendedData.email" required={required} />
+      <Input name="extendedData.email" required={!required} />
 
-      <Label required={required}>
+      <Label required={!required}>
         <Trans zh="FPS ID" en="FPS ID" />
       </Label>
-      <Input name="extendedData.fpsId" required={required} />
+      <Input name="extendedData.fpsId" required={!required} />
 
-      <Label required={required}>
+      <Label required={!required}>
         <Trans zh="QR Code" en="QR Code" />
       </Label>
       <ImageUploadButton
@@ -226,7 +234,7 @@ const FPSSetting = ({ brandId, paymentCode, isDeposit }) => {
         name="extendedData.qrCodeFileUrl"
         prefix="payment"
         showLocalizationAddonAfter={false}
-        required={required}
+        required={!required}
       />
     </>
   )
@@ -268,11 +276,15 @@ const BankTransferSetting = ({ brandId, paymentCode, isDeposit }) => {
   )
 }
 
-const ThirdPartySetting = ({ brandId, paymentCode, isDeposit }) => {
-  const required = isNotWithdrawManual(paymentCode, isDeposit)
+const ThirdPartySetting = ({
+  brandId,
+  paymentCode,
+  isDeposit,
+  required = true
+}) => {
   return (
     <>
-      <Label required={required}>
+      <Label required={!required}>
         <Trans zh="QR Code" en="QR Code" />
       </Label>
       <ImageUploadButton
@@ -287,5 +299,5 @@ const ThirdPartySetting = ({ brandId, paymentCode, isDeposit }) => {
 }
 
 const isManual = (paymentCode) => paymentCode === ManualCode
-const isNotWithdrawManual = (paymentCode, isDeposit) =>
-  isManual(paymentCode) || isDeposit
+const isWithdrawManual = (paymentCode, isDeposit) =>
+  isManual(paymentCode) && !isDeposit
