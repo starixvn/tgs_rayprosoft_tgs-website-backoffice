@@ -470,20 +470,34 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(search)}>
         <FieldStack orientation="vertical" spacing="minor-2">
-          <Set orientation="horizontal" alignY="bottom">
+          <Set orientation="horizontal">
             <InputField
               name="username"
               showEmptyFieldValueAddonAfter
               placeholder={usernameInputPlaceholder}
             />
-            <UserTypeSelect name="userType" />
+            <UserTypeSelect
+              name="userType"
+              css={css`
+                min-width: 251px;
+              `}
+            />
             <PlatformPaymentProviderSelect
               name="payment"
               brandId={brandId}
               transferType={PlatformPaymentTransferType.Withdrawal}
               placeholder={paymentProviderPlaceholder}
+              css={css`
+                min-width: 251px;
+              `}
             />
-            <FundWithdrawStatusSelect id="status-select" name="status" />
+            <FundWithdrawStatusSelect
+              id="status-select"
+              name="status"
+              css={css`
+                min-width: 251px;
+              `}
+            />
             <BrandPaymentMultiSelect
               name="brandPaymentIds"
               brandId={brandId}
@@ -506,7 +520,7 @@ const SearchBar = ({
               showEmptyFieldValueAddonAfter
             />
           </Set>
-          <Set orientation="horizontal">
+          <Set orientation="horizontal" alignItems="flex-end">
             <DateInputRangeField
               label={<ApplicationTimeTrans />}
               startProps={{
@@ -517,6 +531,15 @@ const SearchBar = ({
               }}
               minDate={minDate}
               maxRangeDays={maxRangeDays}
+              css={css`
+                input {
+                  border-top-right-radius: 0 !important;
+                  border-bottom-right-radius: 0 !important;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
             />
             <DateInputRangeField
               label={<UpdatedTimeTrans />}
@@ -528,6 +551,15 @@ const SearchBar = ({
               }}
               minDate={minDate}
               maxRangeDays={maxRangeDays}
+              css={css`
+                input {
+                  border-top-right-radius: 0 !important;
+                  border-bottom-right-radius: 0 !important;
+                  &:focus {
+                    box-shadow: none !important;
+                  }
+                }
+              `}
             />
             <SearchButton
               isLoading={isLoading}

@@ -1,3 +1,4 @@
+import { css } from "@emotion/react"
 import Big from "big.js"
 import { Box, Columns, FieldStack, Heading, useModalState } from "bumbag"
 import clone from "clone-deep"
@@ -44,6 +45,7 @@ import {
   isFundUnderReview
 } from "./FundWithdrawStatus"
 import { View } from "./menu"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const ViewFundWithdrawDisclosure = ({
   brandId,
@@ -127,9 +129,14 @@ export const FormBody = ({
 }) => {
   let disabled = readonly
   return (
-    <>
+    <WrapperModal>
       <FieldStack>
-        <FieldValues marginLeft="1.5rem">
+        <FieldValues
+          css={css`
+            gap: 16px 24px;
+            align-items: center;
+          `}
+        >
           <NormalLabel>
             <UserNameTrans />
           </NormalLabel>
@@ -198,20 +205,14 @@ export const FormBody = ({
           </Box>
         </FieldValues>
         <Separator />
-        <Columns orientation="horizontal" alignY="top">
-          <Columns.Column>
-            <PayerInfo
-              brandId={brandId}
-              record={record}
-              disabled={disabled}
-              readonly={readonly}
-              showBalance={showBalance}
-            />
-          </Columns.Column>
-          <Columns.Column>
-            <PayeeInfo record={record} />
-          </Columns.Column>
-        </Columns>
+        <PayerInfo
+          brandId={brandId}
+          record={record}
+          disabled={disabled}
+          readonly={readonly}
+          showBalance={showBalance}
+        />
+        <PayeeInfo record={record} />
 
         <Separator />
 
@@ -228,7 +229,7 @@ export const FormBody = ({
         />
       </FieldStack>
       <Input type="hidden" value={brandId} />
-    </>
+    </WrapperModal>
   )
 }
 
@@ -269,7 +270,7 @@ const PayerInfo = ({ brandId, record, disabled, showBalance }) => {
       <Heading use="h6">
         <Trans zh="出款信息" en="Payout Info" />
       </Heading>
-      <FieldValues marginLeft="1.5rem">
+      <FieldValues>
         <NormalLabel>
           <Trans zh="出款渠道" en="Withdrawal Payment" />
         </NormalLabel>
@@ -413,7 +414,12 @@ const PayeeInfo = ({ record }) => {
       <Heading use="h6">
         <Trans zh="收款人信息" en="Payee Info" />
       </Heading>
-      <FieldValues marginLeft="1.5rem">
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+          align-items: center;
+        `}
+      >
         <NormalLabel>
           <Trans zh="收款通道" en="Channel" />
         </NormalLabel>

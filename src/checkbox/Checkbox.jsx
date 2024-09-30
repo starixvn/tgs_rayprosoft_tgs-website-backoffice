@@ -32,7 +32,6 @@ export const Checkbox = ({
 
   let error = get(formContext?.formState?.errors ?? {}, name)
   state = state ?? (error && "danger")
-  console.log(props)
   return (
     <_Checkbox
       name={name}

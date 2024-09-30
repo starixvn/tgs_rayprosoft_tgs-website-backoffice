@@ -32,6 +32,7 @@ import {
 import { TextareaField } from "../../textarea"
 import { PlayerNoteTrans } from "../../trans/Player"
 import { FieldValues } from "../../layout/Grid"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const FundWithdrawPaidDialogDisclosure = ({
   brandId,
@@ -53,7 +54,7 @@ export const FundWithdrawPaidDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure {...dialog} {...props} palette="info">
         <ReviewWaitingPaymentTrans />
       </Disclosure>
       {dialog.visible && (
@@ -143,15 +144,17 @@ const PaidDialog = ({ brandId, formId, onSubmitted, dialog, ...props }) => {
         }
       `}
     >
-      <Alert title={<ConfirmPaidTrans />} type="warning" variant="" />
+      <WrapperModal>
+        <Alert title={<ConfirmPaidTrans />} type="warning" variant="" />
 
-      <FieldValues marginTop="1rem">
-        <PlayerNoteTrans />
-        <TextareaField name="playerRemark" />
-      </FieldValues>
+        <FieldValues marginTop="1rem">
+          <PlayerNoteTrans />
+          <TextareaField name="playerRemark" />
+        </FieldValues>
 
-      <Input type="hidden" name="brandId" />
-      <Input type="hidden" name="formId" />
+        <Input type="hidden" name="brandId" />
+        <Input type="hidden" name="formId" />
+      </WrapperModal>
     </FormDialog>
   )
 }
