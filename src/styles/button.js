@@ -36,3 +36,27 @@ export const SearchAndSubmitButton = styled.div`
     }
   }
 `
+
+export const CustomBadgeButton = styled.div`
+  > button {
+    font-size: 0.75em;
+    font-weight: 700;
+    padding: 1px 4px;
+    min-height: auto;
+    color: #fff;
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+`
+
+export const CustomBadgeLabel = styled.div`
+  .bb-Badge {
+    font-size: 0.75em;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #fff;
+    display: inline;
+  }
+`

@@ -13,6 +13,7 @@ import {
   RejectedTrans,
   ReviewTrans
 } from "../../trans/Status"
+import { CustomBadgeButton, CustomBadgeLabel } from "../../styles/button"
 
 const InVerify = "WaitApproving"
 
@@ -27,36 +28,20 @@ export const PlatformBannerStatusLabel = ({ value = "" }) => {
     case "WaitApprving": //TODO: rm after 1.8
     case InVerify:
       return (
-        <Badge
-          palette="info"
-          css={css`
-            font-size: 0.75em;
-            font-weight: 700;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #fff;
-            display: inline;
-          `}
-        >
-          <ReviewTrans />
-        </Badge>
+        <CustomBadgeLabel>
+          <Badge palette="info">
+            <ReviewTrans />
+          </Badge>
+        </CustomBadgeLabel>
       )
 
     case Effective:
       return (
-        <Badge
-          palette="success"
-          css={css`
-            font-size: 0.75em;
-            font-weight: 700;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #fff;
-            display: inline;
-          `}
-        >
-          <EffectiveTrans />
-        </Badge>
+        <CustomBadgeLabel>
+          <Badge palette="success">
+            <EffectiveTrans />
+          </Badge>
+        </CustomBadgeLabel>
       )
 
     case Expired:
@@ -64,19 +49,11 @@ export const PlatformBannerStatusLabel = ({ value = "" }) => {
 
     case Rejected:
       return (
-        <Badge
-          palette="danger"
-          css={css`
-            font-size: 0.75em;
-            font-weight: 700;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #fff;
-            display: inline;
-          `}
-        >
-          <RejectedTrans />
-        </Badge>
+        <CustomBadgeLabel>
+          <Badge palette="danger">
+            <RejectedTrans />
+          </Badge>
+        </CustomBadgeLabel>
       )
 
     default:
@@ -109,9 +86,19 @@ export const PlatformBannerStatusToggleButton = ({
 
   if (!editable) {
     return (
-      <Button isLoading={isLoading} palette={palette} disabled isStatic>
-        <BannerLabel value={isEnabled} />
-      </Button>
+      <CustomBadgeButton>
+        <Button
+          isLoading={isLoading}
+          palette={palette}
+          disabled
+          isStatic
+          css={css`
+            opacity: ${disabled ? "0.7" : "1"} !important;
+          `}
+        >
+          <BannerLabel value={isEnabled} />
+        </Button>
+      </CustomBadgeButton>
     )
   }
 

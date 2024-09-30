@@ -50,6 +50,7 @@ import {
   UpdatedTimeTrans
 } from "../../trans/Date"
 import { BannersTrans } from "../../trans/Platform"
+import { CustomTableStyle } from "../../styles/tablle"
 
 export { Code }
 
@@ -263,30 +264,19 @@ const AsyncTable = ({
   })
 
   return (
-    <Table
-      id={id}
-      columns={columns}
-      data={data?.items}
-      initialState={state}
-      controlledState={state}
-      pageCount={pageCount(pageSize, data?.totalCount)}
-      setPageIndex={setPageIndex}
-      setSortOrder={setSortOrder}
-      isLoading={isLoading}
-      css={css`
-        > tbody {
-          tr {
-            &:not(:last-child) {
-              border-bottom: 1px solid #dbdfe6 !important;
-            }
-            &:nth-child(odd) {
-              background: none;
-              box-shadow: inset 0 0 0 9999px #0000000d;
-            }
-          }
-        }
-      `}
-    />
+    <CustomTableStyle>
+      <Table
+        id={id}
+        columns={columns}
+        data={data?.items}
+        initialState={state}
+        controlledState={state}
+        pageCount={pageCount(pageSize, data?.totalCount)}
+        setPageIndex={setPageIndex}
+        setSortOrder={setSortOrder}
+        isLoading={isLoading}
+      />
+    </CustomTableStyle>
   )
 }
 
@@ -312,31 +302,20 @@ const EffectiveTable = ({
 
   return (
     <FormProvider {...formMethods}>
-      <Table
-        id={id}
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        getRowId={(row) => row.id}
-        css={css`
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
+      <CustomTableStyle>
+        <Table
+          id={id}
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          getRowId={(row) => row.id}
+        />
+      </CustomTableStyle>
     </FormProvider>
   )
 }

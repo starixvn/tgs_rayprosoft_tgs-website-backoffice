@@ -40,7 +40,6 @@ export const CustomModalXs = styled.div`
 `
 
 export const CustomModalHiddenFooter = styled.div`
-  background: red;
   max-width: 70vw;
   overflow: hidden;
   .bb-DialogContent {
