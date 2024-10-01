@@ -49,6 +49,8 @@ import {
   useInstantMessagingTrans
 } from "../../trans/Platform"
 import Modal from "../../dialog/Modal"
+import { WrapperModal } from "../../styles/wrapper"
+import { ModalButtonPlatForm } from "../../styles/button"
 
 //TODO: fine tune layout & add test cases
 export const MessengerDialogDisclosure = ({ brandId, ...props }) => {
@@ -119,7 +121,7 @@ const InstantMessagingDialog = ({ brandId, dialog }) => {
         }
       `}
     >
-      <Stack padding="5rem 1rem 1rem 1rem">
+      <WrapperModal>
         <Box>
           <Columns spacing="major-3">
             {items.map((item) => (
@@ -138,7 +140,7 @@ const InstantMessagingDialog = ({ brandId, dialog }) => {
             </Columns.Column>
           </Columns>
         </Box>
-      </Stack>
+      </WrapperModal>
     </Modal>
   )
 }
@@ -213,22 +215,15 @@ const AddDialog = ({ brandId, dialog, onSubmitted, ...props }) => {
 const MessengerCard = ({ brandId, record, onSubmitted }) => {
   return (
     <Set orientation="vertical">
-      <Set
+      <ModalButtonPlatForm
         css={css`
-          > button {
-            padding: 10px 12px;
-            height: 38px;
-            min-height: 38px;
-            border: none;
-            &:focus {
-              box-shadow: none !important;
-            }
-          }
+          display: flex;
+          gap: 5px;
         `}
       >
         <DeleteDialogDisclosure id={record?.id} onSubmitted={onSubmitted} />
         <EditDialogDisclosure record={record} onSubmitted={onSubmitted} />
-      </Set>
+      </ModalButtonPlatForm>
       <Card width="100%">
         <FieldValues
           css={css`

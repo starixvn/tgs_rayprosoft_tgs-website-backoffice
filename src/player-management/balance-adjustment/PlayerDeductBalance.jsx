@@ -35,6 +35,8 @@ import {
 import { UserNameTrans } from "../../trans/User"
 import { TransactionAmountTrans } from "../../trans/Field"
 import { SWRConfig } from "swr"
+import { ModalButtonPlatForm } from "../../styles/button"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const PlayerDeductBalanceDisclosure = ({
   brandId,
@@ -52,24 +54,19 @@ export const PlayerDeductBalanceDisclosure = ({
 
   return (
     <>
-      <Disclosure
-        {...dialog}
-        {...props}
-        palette="danger"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          color: #fff;
-          font-weight: 400;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      >
-        <DeductBalanceTrans />
-      </Disclosure>
+      <ModalButtonPlatForm>
+        <Disclosure
+          {...dialog}
+          {...props}
+          palette="danger"
+          css={css`
+            color: #fff;
+            font-weight: 400;
+          `}
+        >
+          <DeductBalanceTrans />
+        </Disclosure>
+      </ModalButtonPlatForm>
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <DeductDialog
@@ -149,66 +146,67 @@ const FormBody = ({ brandId, username, playerCode }) => {
       <Input type="hidden" name="brandId" value={brandId} />
       <Input type="hidden" name="username" value={username} />
       <Input type="hidden" name="playerCode" value={playerCode} />
-      <FieldValues
-        padding="5rem 1rem 1rem 1rem"
-        css={css`
-          gap: 16px 24px;
-          .bb-SelectWrapper {
-            width: 100%;
-          }
-        `}
-      >
-        <Box alignY="center">
-          <UserNameTrans />
-        </Box>
-        <Box alignY="center">{username}</Box>
+      <WrapperModal>
+        <FieldValues
+          css={css`
+            gap: 16px 24px;
+            .bb-SelectWrapper {
+              width: 100%;
+            }
+          `}
+        >
+          <Box alignY="center">
+            <UserNameTrans />
+          </Box>
+          <Box alignY="center">{username}</Box>
 
-        <Box alignY="center">
-          <TransactionTypeTrans />
-        </Box>
-        <Set>
-          <PlayerAdjustBalanceTypeSelect
-            name={TransactionTypeField}
-            transferable={!!player?.agentUsername}
-            required
-            onChange={(event) => {
-              let type = event.target.value
-              if (!showIncludeInNetProfitSetting(type)) {
-                setValue(IncludeInNetProfitField, undefined)
-              }
-            }}
-          />
-        </Set>
+          <Box alignY="center">
+            <TransactionTypeTrans />
+          </Box>
+          <Set>
+            <PlayerAdjustBalanceTypeSelect
+              name={TransactionTypeField}
+              transferable={!!player?.agentUsername}
+              required
+              onChange={(event) => {
+                let type = event.target.value
+                if (!showIncludeInNetProfitSetting(type)) {
+                  setValue(IncludeInNetProfitField, undefined)
+                }
+              }}
+            />
+          </Set>
 
-        {showIncludeInNetProfitSetting(transactionType) && (
-          <>
-            <Box alignY="center">
-              <Trans zh="需算入净盈利" en="Include in Net Profit" />
-            </Box>
-            <Checkbox name={IncludeInNetProfitField} defaultChecked={true} />
-          </>
-        )}
+          {showIncludeInNetProfitSetting(transactionType) && (
+            <>
+              <Box alignY="center">
+                <Trans zh="需算入净盈利" en="Include in Net Profit" />
+              </Box>
+              <Checkbox name={IncludeInNetProfitField} defaultChecked={true} />
+            </>
+          )}
 
-        {isTransferTransactionType && player?.agentUsername && (
-          <>
-            <Box alignY="center">
-              <Trans zh="转账代理用户名" en="Transfer Agent Username" />
-            </Box>
-            <Input value={player?.agentUsername} readOnly />
-          </>
-        )}
+          {isTransferTransactionType && player?.agentUsername && (
+            <>
+              <Box alignY="center">
+                <Trans zh="转账代理用户名" en="Transfer Agent Username" />
+              </Box>
+              <Input value={player?.agentUsername} readOnly />
+            </>
+          )}
 
-        <Box alignY="center">
-          <TransactionAmountTrans />
-        </Box>
-        <NumberInputField name="amount" min="0" step="0.01" required />
+          <Box alignY="center">
+            <TransactionAmountTrans />
+          </Box>
+          <NumberInputField name="amount" min="0" step="0.01" required />
 
-        <Box alignY="center">
-          <RemarkTrans />
-        </Box>
+          <Box alignY="center">
+            <RemarkTrans />
+          </Box>
 
-        <Input name="remark" />
-      </FieldValues>
+          <Input name="remark" />
+        </FieldValues>
+      </WrapperModal>
     </>
   )
 }

@@ -38,6 +38,7 @@ import {
 import { UserNameTrans } from "../../trans/User"
 import { GameTypeTrans } from "../../trans/Game"
 import { TransactionAmountTrans } from "../../trans/Field"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const PlayerAddBalanceDisclosure = ({
   brandId,
@@ -63,15 +64,8 @@ export const PlayerAddBalanceDisclosure = ({
         {...props}
         palette="success"
         css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
           color: #fff;
           font-weight: 400;
-          &:focus {
-            box-shadow: none !important;
-          }
         `}
       >
         <AddBalanceTrans />
@@ -165,70 +159,71 @@ const FormBody = ({}) => {
   let TransactionAmountField = "amount"
   return (
     <>
-      <FieldValues
-        padding="5rem 1rem 1rem 1rem"
-        css={css`
-          gap: 16px 24px;
-          .bb-SelectWrapper {
-            width: 100%;
-          }
-        `}
-      >
-        <Box>
-          <UserNameTrans />
-        </Box>
-        <Box alignY="center">{username}</Box>
+      <WrapperModal>
+        <FieldValues
+          css={css`
+            gap: 16px 24px;
+            .bb-SelectWrapper {
+              width: 100%;
+            }
+          `}
+        >
+          <Box>
+            <UserNameTrans />
+          </Box>
+          <Box alignY="center">{username}</Box>
 
-        <Box alignY="center">
-          <TransactionTypeTrans />
-        </Box>
-        <Set>
-          <PlayerAdjustBalanceTypeSelect
-            name={TransactionTypeField}
-            required
-            onChange={(event) => {
-              let type = event.target.value
-              if (!showIncludeInNetProfitSetting(type)) {
-                setValue(IncludeInNetProfitField, undefined)
-              }
-            }}
-          />
-        </Set>
+          <Box alignY="center">
+            <TransactionTypeTrans />
+          </Box>
+          <Set>
+            <PlayerAdjustBalanceTypeSelect
+              name={TransactionTypeField}
+              required
+              onChange={(event) => {
+                let type = event.target.value
+                if (!showIncludeInNetProfitSetting(type)) {
+                  setValue(IncludeInNetProfitField, undefined)
+                }
+              }}
+            />
+          </Set>
 
-        <Box alignY="center">
-          <GameTypeTrans />
-        </Box>
-        <Box>
-          <PlatformBucketSelect name="bucketTypes[0]" platformId={brandId} />
-        </Box>
+          <Box alignY="center">
+            <GameTypeTrans />
+          </Box>
+          <Box>
+            <PlatformBucketSelect name="bucketTypes[0]" platformId={brandId} />
+          </Box>
 
-        {showIncludeInNetProfitSetting(transactionType) && (
-          <>
-            <Box alignY="center">
-              <Trans zh="需算入净盈利" en="Include in Net Profit" />
-            </Box>
-            <Checkbox name={IncludeInNetProfitField} defaultChecked={true} />
-          </>
-        )}
+          {showIncludeInNetProfitSetting(transactionType) && (
+            <>
+              <Box alignY="center">
+                <Trans zh="需算入净盈利" en="Include in Net Profit" />
+              </Box>
+              <Checkbox name={IncludeInNetProfitField} defaultChecked={true} />
+            </>
+          )}
 
-        <Box alignY="center">
-          <TransactionAmountTrans />
-        </Box>
-        <NumberInputField name={TransactionAmountField} min="0" step="0.01" />
+          <Box alignY="center">
+            <TransactionAmountTrans />
+          </Box>
+          <NumberInputField name={TransactionAmountField} min="0" step="0.01" />
 
-        <Box alignY="center">
-          <Trans zh="流水金额" en="Turnover Requirement Amount" />
-        </Box>
-        <NumberInputField name="bucketAmount" min="0" step="0.01" />
+          <Box alignY="center">
+            <Trans zh="流水金额" en="Turnover Requirement Amount" />
+          </Box>
+          <NumberInputField name="bucketAmount" min="0" step="0.01" />
 
-        <Box alignY="center">
-          <RemarkTrans />
-        </Box>
-        <Input name="remark" />
-      </FieldValues>
-      <Input type="hidden" name="brandId" value={brandId} />
-      <Input type="hidden" name="username" value={username} />
-      <Input type="hidden" name="playerCode" value={playerCode} />
+          <Box alignY="center">
+            <RemarkTrans />
+          </Box>
+          <Input name="remark" />
+        </FieldValues>
+        <Input type="hidden" name="brandId" value={brandId} />
+        <Input type="hidden" name="username" value={username} />
+        <Input type="hidden" name="playerCode" value={playerCode} />
+      </WrapperModal>
     </>
   )
 }

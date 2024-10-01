@@ -43,6 +43,7 @@ import {
   ThirdPartyLiveChatProviderTrans,
   useThirdPartyLiveChatProviderTrans
 } from "../../trans/Platform"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const CreateOrEditLiveChatDialogDisclosure = ({ brandId, ...props }) => {
   let addDialog = useModalState()
@@ -294,21 +295,23 @@ const FormBody = ({ readOnly }) => {
   let brandId = getValues("brandId")
   return (
     <>
-      <FieldStack padding="5rem 1rem 1rem 1rem">
-        <InputField
-          name="name"
-          readOnly={readOnly}
-          label={<Trans zh="名称" en="Name" />}
-        />
-        <FieldWrapper label={<Trans zh="设定" en="Setting" />}>
-          <JsonEditor
-            name="setting"
-            height="40vh"
+      <WrapperModal>
+        <FieldStack>
+          <InputField
+            name="name"
             readOnly={readOnly}
-            disabled={readOnly}
+            label={<Trans zh="名称" en="Name" />}
           />
-        </FieldWrapper>
-      </FieldStack>
+          <FieldWrapper label={<Trans zh="设定" en="Setting" />}>
+            <JsonEditor
+              name="setting"
+              height="40vh"
+              readOnly={readOnly}
+              disabled={readOnly}
+            />
+          </FieldWrapper>
+        </FieldStack>
+      </WrapperModal>
       <Input type="hidden" name={BrandIdField} value={brandId} />
     </>
   )

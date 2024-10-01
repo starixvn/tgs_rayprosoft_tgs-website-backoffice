@@ -33,6 +33,7 @@ import {
 } from "../../trans/Field"
 import { EndTimeTrans, StartTimeTrans, WeeklyTrans } from "../../trans/Date"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const EditButton = ({ record, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -124,84 +125,86 @@ const EditBody = ({ record = {} }) => {
   })
 
   return (
-    <Stack orientation="vertical" width="500px" padding="5rem 1rem 1rem 1rem">
-      <Heading use="h5">
-        <BasicInformationTrans />
-      </Heading>
-      <FieldValues>
-        <Label>
-          <VendorTrans />
-        </Label>
-        <ValueBlock>{gameProviderName}</ValueBlock>
-      </FieldValues>
+    <WrapperModal>
+      <Stack orientation="vertical" width="500px">
+        <Heading use="h5">
+          <BasicInformationTrans />
+        </Heading>
+        <FieldValues>
+          <Label>
+            <VendorTrans />
+          </Label>
+          <ValueBlock>{gameProviderName}</ValueBlock>
+        </FieldValues>
 
-      <Heading use="h5">
-        <PeriodicMaintenanceTrans />
-      </Heading>
-      <FieldValues
-        css={css`
-          gap: 16px 24px;
-        `}
-      >
-        <Label>
-          <StatusTrans />
-        </Label>
-        <Box>
-          <MaintenanceStatusToggleButton name="scheduleStatus" required />
-        </Box>
+        <Heading use="h5">
+          <PeriodicMaintenanceTrans />
+        </Heading>
+        <FieldValues
+          css={css`
+            gap: 16px 24px;
+          `}
+        >
+          <Label>
+            <StatusTrans />
+          </Label>
+          <Box>
+            <MaintenanceStatusToggleButton name="scheduleStatus" required />
+          </Box>
 
-        <Label>
-          <WeeklyTrans />
-        </Label>
-        <Box>
-          <WeekDaySelect
-            name="dayOfWeek"
-            required
-            css={css`
-              width: 100%;
-            `}
-          />
-        </Box>
-
-        <Label>
-          <StartTimeTrans />
-        </Label>
-        <Box>
-          <TimeSelectField
-            name={FromFieldName}
-            required
-            max={to}
-            css={css`
-              .bb-Group {
+          <Label>
+            <WeeklyTrans />
+          </Label>
+          <Box>
+            <WeekDaySelect
+              name="dayOfWeek"
+              required
+              css={css`
                 width: 100%;
-                .bb-SelectWrapper {
-                  width: 100%;
-                }
-              }
-            `}
-          />
-        </Box>
+              `}
+            />
+          </Box>
 
-        <Label marginRight="major-2">
-          <EndTimeTrans />
-        </Label>
-        <Box>
-          <TimeSelectField
-            name={ToFieldName}
-            required
-            min={from}
-            css={css`
-              .bb-Group {
-                width: 100%;
-                .bb-SelectWrapper {
+          <Label>
+            <StartTimeTrans />
+          </Label>
+          <Box>
+            <TimeSelectField
+              name={FromFieldName}
+              required
+              max={to}
+              css={css`
+                .bb-Group {
                   width: 100%;
+                  .bb-SelectWrapper {
+                    width: 100%;
+                  }
                 }
-              }
-            `}
-          />
-        </Box>
-      </FieldValues>
-    </Stack>
+              `}
+            />
+          </Box>
+
+          <Label marginRight="major-2">
+            <EndTimeTrans />
+          </Label>
+          <Box>
+            <TimeSelectField
+              name={ToFieldName}
+              required
+              min={from}
+              css={css`
+                .bb-Group {
+                  width: 100%;
+                  .bb-SelectWrapper {
+                    width: 100%;
+                  }
+                }
+              `}
+            />
+          </Box>
+        </FieldValues>
+      </Stack>
+    </WrapperModal>
   )
 }
 

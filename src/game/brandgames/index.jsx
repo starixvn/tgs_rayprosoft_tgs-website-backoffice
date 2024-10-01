@@ -53,6 +53,9 @@ import {
   useMobileTrans,
   usePlatformTrans
 } from "../../trans/Platform.jsx"
+import { WrapperBg } from "../../styles/wrapper.js"
+import { CustomInputSearch } from "../../styles/input.js"
+import { ActionTableButton } from "../../styles/button.js"
 
 export { Code } from "./menu"
 
@@ -94,40 +97,39 @@ const Body = () => {
   })
 
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      css={css`
-        padding: 1rem;
-        background: #f3f4f7;
-      `}
-    >
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          brandId={brandId}
-          gameProviderId={gameProviderId}
-          gameType={gameType}
-          keyword={keyword}
-          search={(data) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
+    <Set orientation="vertical" isFilled height="100%">
+      <WrapperBg>
+        <Level
+          alignY="bottom"
+          alignX="left"
+          verticalBelow="mobile"
+          marginBottom="major-2"
+        >
+          <SearchBar
+            brandId={brandId}
+            gameProviderId={gameProviderId}
+            gameType={gameType}
+            keyword={keyword}
+            search={(data) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+          />
+        </Level>
+        <DataTable
+          controlledState={state}
+          data={data}
+          pageSize={state.pageSize}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          mutate={mutate}
+          isLoading={isLoading}
         />
-      </Level>
-      <DataTable
-        controlledState={state}
-        data={data}
-        pageSize={state.pageSize}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        mutate={mutate}
-        isLoading={isLoading}
-      />
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -334,12 +336,14 @@ const SearchBar = ({
         <Set>
           <BrandGameProviderSelect name="gameProviderId" brandId={brandId} />
           <AllGameTypeSelect name="gameType" />
-          <InputField
-            name="keyword"
-            showEmptyFieldValueAddonAfter
-            placeholder={searchPlaceHolder}
-            autocomplete="off"
-          />
+          <CustomInputSearch>
+            <InputField
+              name="keyword"
+              showEmptyFieldValueAddonAfter
+              placeholder={searchPlaceHolder}
+              autocomplete="off"
+            />
+          </CustomInputSearch>
 
           <SelectField name="platform" options={platformOptions} />
           <SelectField name="status" options={statusOptions} />
@@ -602,11 +606,13 @@ const useColumns = ({
         Cell: ({ value }) => {
           return (
             <Set orientation="vertical" alignX="center">
-              <PlatformGameDetailButton
-                id="edit-game-dialog-disclosure"
-                record={value}
-                onSubmitted={mutate}
-              />
+              <ActionTableButton>
+                <PlatformGameDetailButton
+                  id="edit-game-dialog-disclosure"
+                  record={value}
+                  onSubmitted={mutate}
+                />
+              </ActionTableButton>
             </Set>
           )
         }

@@ -57,6 +57,8 @@ import { Table, useTable } from "../../table"
 import { Trans } from "../../i18n"
 import { isDev } from "../../env"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
+import { SearchAndSubmitButton } from "../../styles/button"
 
 //TODO: test case
 export const SocialMediaListDialogDisclosure = ({
@@ -152,7 +154,7 @@ const ListDialog = ({ brandId, dialog, dialogId, ...props }) => {
       `}
       {...props}
     >
-      <FieldStack padding="5rem 1rem 1rem 1rem">
+      <WrapperModal>
         <Box alignX="right">
           <AddDialogDisclosure brandId={brandId} onSubmitted={mutate} />
         </Box>
@@ -167,7 +169,7 @@ const ListDialog = ({ brandId, dialog, dialogId, ...props }) => {
           isLoading={isLoading}
           getRowId={(row, index) => row.id ?? index}
         />
-      </FieldStack>
+      </WrapperModal>
     </Modal>
   )
 }
@@ -309,28 +311,13 @@ const AddDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <AddDisclosure
-        id={id}
-        {...dialog}
+      <SearchAndSubmitButton
         css={css`
-          background: #4b49b6;
-          color: #fff;
-          border-radius: 6px !important;
-          border: 1px solid !important;
-          font-weight: 400;
-          &:focus,
-          &:hover,
-          &:active {
-            background: #4b49b6;
-            box-shadow: none !important;
-          }
-          &:hover {
-            &:active {
-              background: #4b49b6;
-            }
-          }
+          margin-bottom: 10px;
         `}
-      />
+      >
+        <AddDisclosure id={id} {...dialog} />
+      </SearchAndSubmitButton>
       {dialog.visible && (
         <AddDialog
           brandId={brandId}
@@ -386,31 +373,33 @@ const AddDialog = ({ brandId, dialog, dialogId, onSubmitted }) => {
 
 const FormBody = ({}) => {
   return (
-    <FieldStack padding="5rem 1rem 1rem 1rem">
-      <FieldStack alignY="bottom" orientation="horizontal">
-        <InputField name="name" required label={<NameTrans />} />
-        <SocialMediaSelectField
-          name="type"
+    <WrapperModal>
+      <FieldStack>
+        <FieldStack alignY="bottom" orientation="horizontal">
+          <InputField name="name" required label={<NameTrans />} />
+          <SocialMediaSelectField
+            name="type"
+            required
+            label={<SocialMediaTrans />}
+          />
+        </FieldStack>
+        <InputField
+          name="url"
+          type="url"
+          registerOptions={{
+            validate: (v) => {
+              let missingSlashRegex = /^(file|http|https|ftp):(?!\/\/)/
+              if (missingSlashRegex.test(v)) {
+                return false
+              }
+              return true
+            }
+          }}
           required
-          label={<SocialMediaTrans />}
+          label="URL"
         />
       </FieldStack>
-      <InputField
-        name="url"
-        type="url"
-        registerOptions={{
-          validate: (v) => {
-            let missingSlashRegex = /^(file|http|https|ftp):(?!\/\/)/
-            if (missingSlashRegex.test(v)) {
-              return false
-            }
-            return true
-          }
-        }}
-        required
-        label="URL"
-      />
-    </FieldStack>
+    </WrapperModal>
   )
 }
 

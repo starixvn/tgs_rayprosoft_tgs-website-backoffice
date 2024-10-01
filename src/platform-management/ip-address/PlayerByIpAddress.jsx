@@ -37,6 +37,8 @@ import { IpAddressTypeSelect } from "./IpAddressType"
 import { TimeTrans } from "../../trans/Date"
 import { UserNameTrans } from "../../trans/User"
 import { SearchMemberByIPTrans } from "../../trans/Platform"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
 
 export const PlayerByIpAddressTabId = "PlayerByIpAddress"
 
@@ -89,29 +91,18 @@ const Body = ({ brandId, table = {} }) => {
         isLoading={isLoading}
       />
       {state?.ipAddress && (
-        <Table
-          columns={columns}
-          data={items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(state.pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-          css={css`
-            > tbody {
-              tr {
-                &:not(:last-child) {
-                  border-bottom: 1px solid #dbdfe6 !important;
-                }
-                &:nth-child(odd) {
-                  background: none;
-                  box-shadow: inset 0 0 0 9999px #0000000d;
-                }
-              }
-            }
-          `}
-        />
+        <CustomTableStyle>
+          <Table
+            columns={columns}
+            data={items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+          />
+        </CustomTableStyle>
       )}
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </FieldStack>
@@ -132,12 +123,14 @@ const ActionBar = ({ ipType, ipAddress, search, isLoading, ...props }) => {
         <form onSubmit={formMethods.handleSubmit(search)}>
           <Set>
             <IpAddressTypeSelect required />
-            <InputField
-              name="ipAddress"
-              required
-              placeholder="IP"
-              showEmptyFieldValueAddonAfter
-            />
+            <CustomInputSearch>
+              <InputField
+                name="ipAddress"
+                required
+                placeholder="IP"
+                showEmptyFieldValueAddonAfter
+              />
+            </CustomInputSearch>
             <SearchButton isLoading={isLoading} disabled={isLoading} />
           </Set>
         </form>

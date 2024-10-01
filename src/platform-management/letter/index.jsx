@@ -34,6 +34,10 @@ import { UserNameTrans } from "../../trans/User"
 import { StationLetterTrans } from "../../trans/Platform"
 import { SubjectTrans } from "../../trans/Field"
 import { TimeTrans } from "../../trans/Date"
+import { WrapperBg } from "../../styles/wrapper"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomInputSearch } from "../../styles/input"
+import { CustomTableStyle } from "../../styles/tablle"
 
 export { Code }
 
@@ -86,105 +90,85 @@ const Body = () => {
       isFilled
       height="100%"
       css={css`
-        padding: 1rem;
-        background: #f3f4f7;
+        .bb-OptionButtons {
+          margin-bottom: 10px;
+        }
       `}
     >
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          brandId={brandId}
-          boxType={boxType}
-          search={(data = {}) => {
+      <WrapperBg>
+        <Level
+          alignY="bottom"
+          alignX="left"
+          verticalBelow="mobile"
+          marginBottom="10px;"
+        >
+          <SearchBar
+            brandId={brandId}
+            boxType={boxType}
+            search={(data = {}) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate(undefined, true)
+            }}
+          />
+          <SearchAndSubmitButton>
+            <SendLetterDialogDisclosure
+              brandId={brandId}
+              onSubmitted={() => {
+                if (isSentBox(boxType)) {
+                  mutate()
+                }
+              }}
+            />
+          </SearchAndSubmitButton>
+        </Level>
+        <BoxTypeButtons
+          onChange={(value) => {
             setState({
-              pageIndex: 0,
-              ...data
+              player: "",
+              operator: ""
             })
+
             mutate(undefined, true)
+
+            setBoxType(value)
           }}
         />
         <Box>
-          <SendLetterDialogDisclosure
-            brandId={brandId}
-            onSubmitted={() => {
-              if (isSentBox(boxType)) {
-                mutate()
-              }
-            }}
-            css={css`
-              background: #4b49b6;
-              color: #fff;
-              border-radius: 6px !important;
-              border: 1px solid !important;
-              font-weight: 400;
-              &:focus,
-              &:hover,
-              &:active {
-                background: #4b49b6;
-              }
-              &:hover {
-                &:active {
-                  background: #4b49b6;
-                }
-              }
-            `}
-          />
+          {/* <AutoSizer disableWidth={true}></AutoSizer> */}
+          {({ height }) => {
+            let width = pageWidth
+            return (
+              <CustomTableStyle>
+                <Table
+                  columns={columns}
+                  data={items}
+                  initialState={state}
+                  controlledState={state}
+                  pageCount={pageCount(state?.pageSize, data?.totalCount)}
+                  setPageIndex={setPageIndex}
+                  setSortOrder={setSortOrder}
+                  isLoading={isLoading}
+                  maxSize={{ height, width }}
+                  stickyHead
+                  getRowProps={({ original: { replied } } = {}) => {
+                    if (replied) {
+                      return {
+                        //TODO: define white500 = #fefeff
+                        backgroundColor: "#fefeff" //white500
+                      }
+                    }
+                    return {}
+                  }}
+                />
+              </CustomTableStyle>
+            )
+          }}
         </Box>
-      </Level>
-      <BoxTypeButtons
-        onChange={(value) => {
-          setState({
-            player: "",
-            operator: ""
-          })
-
-          mutate(undefined, true)
-
-          setBoxType(value)
-        }}
-      />
-      <Box>
-        {/* <AutoSizer disableWidth={true}></AutoSizer> */}
-        {({ height }) => {
-          let width = pageWidth
-          return (
-            <Table
-              columns={columns}
-              data={items}
-              initialState={state}
-              controlledState={state}
-              pageCount={pageCount(state?.pageSize, data?.totalCount)}
-              setPageIndex={setPageIndex}
-              setSortOrder={setSortOrder}
-              isLoading={isLoading}
-              maxSize={{ height, width }}
-              stickyHead
-              getRowProps={({ original: { replied } } = {}) => {
-                if (replied) {
-                  return {
-                    //TODO: define white500 = #fefeff
-                    backgroundColor: "#fefeff" //white500
-                  }
-                }
-                return {}
-              }}
-              css={css`
-                > tbody {
-                  tr {
-                    &:not(:last-child) {
-                      border-bottom: 1px solid #dbdfe6 !important;
-                    }
-                    &:nth-child(odd) {
-                      background: none;
-                      box-shadow: inset 0 0 0 9999px #0000000d;
-                    }
-                  }
-                }
-              `}
-            />
-          )
-        }}
-      </Box>
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -219,11 +203,13 @@ const SearchBar = ({ brandId, boxType, search, isLoading }) => {
             />
           )}
           {isSentBox(boxType) && (
-            <InputField
-              name="operator"
-              placeholder={senderPlaceholder}
-              showEmptyFieldValueAddonAfter
-            />
+            <CustomInputSearch>
+              <InputField
+                name="operator"
+                placeholder={senderPlaceholder}
+                showEmptyFieldValueAddonAfter
+              />
+            </CustomInputSearch>
           )}
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
@@ -305,31 +291,19 @@ const useColumns = ({ brandId, items = [], boxType }) => {
         disableSortBy: true,
         Cell: ({ value: record }) => {
           return (
-            <Set
-              alignX="center"
-              css={css`
-                flex-wrap: nowrap;
-                > button {
-                  padding: 10px 12px;
-                  height: 38px;
-                  min-height: 38px;
-                  border: none;
-                  &:focus {
-                    box-shadow: none !important;
-                  }
-                }
-              `}
-            >
-              <ViewLetterDisclosure
-                brandId={brandId}
-                boxType={boxType}
-                letterId={record?.id}
-              />
-              <ReplyLetterDisclosure
-                brandId={brandId}
-                boxType={boxType}
-                letterId={record?.id}
-              />
+            <Set alignX="center">
+              <ActionTableButton>
+                <ViewLetterDisclosure
+                  brandId={brandId}
+                  boxType={boxType}
+                  letterId={record?.id}
+                />
+                <ReplyLetterDisclosure
+                  brandId={brandId}
+                  boxType={boxType}
+                  letterId={record?.id}
+                />
+              </ActionTableButton>
             </Set>
           )
         }

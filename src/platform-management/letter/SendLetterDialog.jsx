@@ -35,6 +35,7 @@ import { TextareaField } from "../../textarea"
 import { PlayerSelect } from "../../player-management/player-list/PlayerSelect"
 import { DoubleConfirmDialogDisclosure } from "./DoubleConfirmDialog"
 import { SubjectTrans } from "../../trans/Field"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const SendLetterDialogDisclosure = ({
   brandId,
@@ -170,28 +171,29 @@ const GroupFieldBody = ({ brandId, letterType }) => {
 
 const FormBody = ({}) => {
   return (
-    <FieldValues
-      padding="5rem 1rem 1rem 1rem"
-      css={css`
-        gap: 16px 24px;
-      `}
-    >
-      <GroupFieldBox />
-      <Label name="subject" required>
-        <SubjectTrans />
-      </Label>
-      <InputField name="subject" required />
-      <Label name="content" required>
-        <Trans zh="内容" en="Content" />
-      </Label>
-      <TextareaField
-        name="content"
+    <WrapperModal>
+      <FieldValues
         css={css`
-          textarea {
-            min-height: 45vh;
-          }
+          gap: 16px 24px;
         `}
-      />
-    </FieldValues>
+      >
+        <GroupFieldBox />
+        <Label name="subject" required>
+          <SubjectTrans />
+        </Label>
+        <InputField name="subject" required />
+        <Label name="content" required>
+          <Trans zh="内容" en="Content" />
+        </Label>
+        <TextareaField
+          name="content"
+          css={css`
+            textarea {
+              min-height: 45vh;
+            }
+          `}
+        />
+      </FieldValues>
+    </WrapperModal>
   )
 }

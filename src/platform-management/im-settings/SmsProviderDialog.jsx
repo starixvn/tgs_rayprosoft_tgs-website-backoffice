@@ -38,6 +38,7 @@ import { PlatformSmsSelect } from "../../sms/PlatformSmsSelect"
 import { useFormContext, useWatch } from "react-hook-form"
 import { SWRConfig } from "swr"
 import { DisabledTrans } from "../../trans/Status"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const SmsProviderDialogDisclosure = ({
   brandId,
@@ -153,9 +154,10 @@ const FormBody = ({ brandId, smsVendorCode, enableSms, readOnly }) => {
   let currentSmsProvider = useCurrentSMSProviderTrans()
   let changeSmsProvider = useChangeSMSProviderTrans()
   return (
-    <FieldStack padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       {smsVendorCode && (
         <Box
+          marginBottom="major-1"
           data-sms-code={smsVendorCode}
         >{`${currentSmsProvider}: ${smsVendorCode}`}</Box>
       )}
@@ -167,11 +169,14 @@ const FormBody = ({ brandId, smsVendorCode, enableSms, readOnly }) => {
           required
           disabled={readOnly}
           readOnly={readOnly}
+          css={css`
+            width: 100%;
+          `}
         />
       )}
       {!enableSms && (
         <Alert variant="tint" title={<DisabledTrans />} type="warning" />
       )}
-    </FieldStack>
+    </WrapperModal>
   )
 }

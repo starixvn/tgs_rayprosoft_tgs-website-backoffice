@@ -56,6 +56,8 @@ import {
 import { useDepositAmountTrans } from "../../trans/Payment"
 import { usePlayerNoteTrans } from "../../trans/Player"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
+import { removeBorderRadiusDropdownButton, selectWrapperFull } from "../style"
 
 export const PlayerDepositFormDialogDisclosure = ({
   brandId,
@@ -246,8 +248,7 @@ const FormBody = ({ paymentList = [], brandId, playerCode }) => {
     setValue(BankTypeField, bankType)
   }, [paymentMethod, paymentChannel])
   return (
-    <Box
-      padding="5rem 1rem 1rem 1rem"
+    <WrapperModal
       css={css`
         input,
         button {
@@ -274,11 +275,7 @@ const FormBody = ({ paymentList = [], brandId, playerCode }) => {
               name={PaymentMethodField}
               paymentList={paymentList}
               required
-              css={css`
-                .bb-SelectWrapper {
-                  width: 100%;
-                }
-              `}
+              css={selectWrapperFull}
             />
           </Columns.Column>
           <Columns.Column>
@@ -287,11 +284,7 @@ const FormBody = ({ paymentList = [], brandId, playerCode }) => {
               paymentMethod={paymentMethod}
               paymentList={paymentList}
               required
-              css={css`
-                .bb-SelectWrapper {
-                  width: 100%;
-                }
-              `}
+              css={selectWrapperFull}
             />
           </Columns.Column>
         </Columns>
@@ -304,7 +297,7 @@ const FormBody = ({ paymentList = [], brandId, playerCode }) => {
           </>
         )}
       </FieldStack>
-    </Box>
+    </WrapperModal>
   )
 }
 
@@ -480,12 +473,7 @@ const EMoneyNameMenu = ({ onClickBankCard }) => {
         </DropdownMenu.Item>
       ))}
     >
-      <Button
-        css={css`
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        `}
-      >
+      <Button css={removeBorderRadiusDropdownButton}>
         <Icon icon={faChevronDown} type="font-awesome" />
       </Button>
     </DropdownMenu>
@@ -512,12 +500,7 @@ const PhoneDropdownMenu = () => {
         </DropdownMenu.Item>
       ))}
     >
-      <Button
-        css={css`
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        `}
-      >
+      <Button css={removeBorderRadiusDropdownButton}>
         <Icon icon={faChevronDown} type="font-awesome" />
       </Button>
     </DropdownMenu>
@@ -618,12 +601,7 @@ const BankNameDropdownMenu = ({ onClickBankCard }) => {
         </DropdownMenu.Item>
       ))}
     >
-      <Button
-        css={css`
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        `}
-      >
+      <Button css={removeBorderRadiusDropdownButton}>
         <Icon icon={faChevronDown} type="font-awesome" />
       </Button>
     </DropdownMenu>

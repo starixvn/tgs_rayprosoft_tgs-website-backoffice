@@ -41,6 +41,10 @@ import { PlayerAdjustLockedAmountDialogDisclosure } from "./PlayerAdjustLockedAm
 import { ActionTrans } from "../../trans/Action"
 import { UserNameTrans, useUserNameTrans } from "../../trans/User"
 import { PlayerBalanceAdjustmentTrans } from "../../trans/Player"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -84,65 +88,43 @@ const Body = () => {
 
   let columns = useColumns({ mutate, items: data?.items, brandId })
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      css={css`
-        padding: 1rem;
-        background: #f3f4f7;
-      `}
-    >
-      <Level
-        alignY="bottom"
-        alignX="left"
-        verticalBelow="mobile"
-        marginBottom="16px"
-      >
-        <SearchBar
-          brandId={brandId}
-          search={(data) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          isLoading={isLoading}
-        />
-        <Box>
-          <PlayerBatchAddBalanceDisclosure brandId={brandId} />
-        </Box>
-      </Level>
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        css={css`
-          > thead {
-            th {
-              white-space: nowrap !important;
-            }
-          }
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+    <Set orientation="vertical" isFilled height="100%">
+      <WrapperBg>
+        <Level
+          alignY="bottom"
+          alignX="left"
+          verticalBelow="mobile"
+          marginBottom="16px"
+        >
+          <SearchBar
+            brandId={brandId}
+            search={(data) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            isLoading={isLoading}
+          />
+          <Box>
+            <PlayerBatchAddBalanceDisclosure brandId={brandId} />
+          </Box>
+        </Level>
+        <CustomTableStyle>
+          <Table
+            columns={columns}
+            data={data?.items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+          />
+        </CustomTableStyle>
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -158,11 +140,13 @@ const SearchBar = ({ brandId, search, isLoading, ...props }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
-          <InputField
-            name="username"
-            showEmptyFieldValueAddonAfter
-            placeholder={usernameInputPlaceholder}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="username"
+              showEmptyFieldValueAddonAfter
+              placeholder={usernameInputPlaceholder}
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -196,30 +180,32 @@ const useColumns = ({ brandId, items = [], mutate }) => {
             let playerCode = value?.playerCode
             return (
               <Set alignX="center">
-                <PlayerAddBalanceDisclosure
-                  id="add-balance-dialog-disclosure"
-                  brandId={brandId}
-                  username={username}
-                  playerCode={playerCode}
-                  onSubmitted={mutate}
-                />
-                <PlayerDeductBalanceDisclosure
-                  id="deduct-balance-dialog-disclosure"
-                  brandId={brandId}
-                  username={username}
-                  playerCode={playerCode}
-                  onSubmitted={mutate}
-                />
-                <PlayerWageringRequirementDialogDisclosure
-                  id="wagering-requirement-dialog-disclosure"
-                  brandId={brandId}
-                  username={username}
-                  playerCode={playerCode}
-                />
-                <PlayerAdjustLockedAmountDialogDisclosure
-                  username={username}
-                  playerCode={playerCode}
-                />
+                <ActionTableButton>
+                  <PlayerAddBalanceDisclosure
+                    id="add-balance-dialog-disclosure"
+                    brandId={brandId}
+                    username={username}
+                    playerCode={playerCode}
+                    onSubmitted={mutate}
+                  />
+                  <PlayerDeductBalanceDisclosure
+                    id="deduct-balance-dialog-disclosure"
+                    brandId={brandId}
+                    username={username}
+                    playerCode={playerCode}
+                    onSubmitted={mutate}
+                  />
+                  <PlayerWageringRequirementDialogDisclosure
+                    id="wagering-requirement-dialog-disclosure"
+                    brandId={brandId}
+                    username={username}
+                    playerCode={playerCode}
+                  />
+                  <PlayerAdjustLockedAmountDialogDisclosure
+                    username={username}
+                    playerCode={playerCode}
+                  />
+                </ActionTableButton>
               </Set>
             )
           }

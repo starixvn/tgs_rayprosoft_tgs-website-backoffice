@@ -56,6 +56,7 @@ import {
   useWithdrawCanceledTrans
 } from "../../trans/Payment"
 import { BalanceChangeUnsavedDataDisclosure } from "./BalanceChangeUnsavedData"
+import { hiddenCheckBoxShadow } from "../style"
 
 export const Key = "BalanceChange"
 
@@ -235,15 +236,7 @@ const useColumns = ({ items = [] }) =>
               <Checkbox
                 checked={value}
                 inputProps={{ readOnly: true }}
-                css={css`
-                  cursor: not-allowed;
-                  > input {
-                    &:focus + .bb-CheckboxIcon {
-                      box-shadow: none !important;
-                      border: 1px solid #d9d9e1 !important;
-                    }
-                  }
-                `}
+                css={hiddenCheckBoxShadow}
               />
             </Box>
           )

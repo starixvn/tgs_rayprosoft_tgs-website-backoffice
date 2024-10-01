@@ -28,6 +28,9 @@ import { VipLevelTrans } from "../../trans/Vip"
 import { UserNameTrans, useUserNameTrans } from "../../trans/User"
 import { StatusTrans } from "../../trans/Status"
 import { OnlinePlayersTrans, TotalOnlinePlayersTrans } from "../../trans/Player"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -68,58 +71,36 @@ const Body = () => {
   let columns = useColumns({ mutate, items: data?.datas?.items, brandId })
 
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      css={css`
-        padding: 1rem;
-        background: #f3f4f7;
-      `}
-    >
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          brandId={brandId}
-          search={(data = {}) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          isLoading={isLoading}
-        />
-      </Level>
-      <Summary onlineUsers={data?.onlineUsers} />
-      <Table
-        columns={columns}
-        data={data?.datas?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state.pageSize, data?.datas?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        css={css`
-          > thead {
-            th {
-              white-space: nowrap !important;
-            }
-          }
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+    <Set orientation="vertical" isFilled height="100%">
+      <WrapperBg>
+        <Level alignY="bottom" alignX="left" verticalBelow="mobile">
+          <SearchBar
+            brandId={brandId}
+            search={(data = {}) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            isLoading={isLoading}
+          />
+        </Level>
+        <Summary onlineUsers={data?.onlineUsers} />
+        <CustomTableStyle>
+          <Table
+            columns={columns}
+            data={data?.datas?.items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.datas?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+          />
+        </CustomTableStyle>
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -150,12 +131,14 @@ const SearchBar = ({ brandId, search, isLoading, ...props }) => {
         <Set>
           <PlayerStatusSelect name="status" />
           <VipLevelSelect name="vipId" brandId={brandId} />
-          <InputField
-            name="username"
-            showEmptyFieldValueAddonAfter
-            placeholder={usernameInputPlaceholder}
-            autocomplete="off"
-          />
+          <CustomInputSearch>
+            <InputField
+              name="username"
+              showEmptyFieldValueAddonAfter
+              placeholder={usernameInputPlaceholder}
+              autocomplete="off"
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>

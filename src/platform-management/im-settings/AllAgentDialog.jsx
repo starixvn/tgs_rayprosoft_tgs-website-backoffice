@@ -65,6 +65,8 @@ import {
   WinLossTrans
 } from "../../trans/Game"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
+import { CustomNavTab } from "../../styles/navtab"
 
 export const AllAgentDialogDisclosure = ({ brandId, ...props }) => {
   let dialog = useModalState()
@@ -141,7 +143,7 @@ const AllAgentSettingDialog = ({ brandId, readOnly, dialog }) => {
 
 const DialogBody = ({ brandId, readOnly, dialog }) => {
   return (
-    <FieldStack padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <Set
         orientation="horizontal"
         css={css`
@@ -164,7 +166,7 @@ const DialogBody = ({ brandId, readOnly, dialog }) => {
         readOnly={readOnly}
         dialog={dialog}
       />
-    </FieldStack>
+    </WrapperModal>
   )
 }
 
@@ -250,17 +252,19 @@ const SettlementCycleDialog = ({ brandId, readOnly, dialog, ...props }) => {
         showActionButtons={readOnly ? false : true}
         {...props}
       >
-        <FieldValues padding="5rem 1rem 1rem 1rem">
-          <Box alignY="center">
-            <Trans zh="周期" en="Cycle" />
-          </Box>
-          <SettlementIntervalTypeSelect
-            name="settlementIntervalType"
-            filter={({ value }) => value != SettlementIntervalType.Biweekly}
-            required
-            disabled={readOnly}
-          />
-        </FieldValues>
+        <WrapperModal>
+          <FieldValues>
+            <Box alignY="center">
+              <Trans zh="周期" en="Cycle" />
+            </Box>
+            <SettlementIntervalTypeSelect
+              name="settlementIntervalType"
+              filter={({ value }) => value != SettlementIntervalType.Biweekly}
+              required
+              disabled={readOnly}
+            />
+          </FieldValues>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )
@@ -386,74 +390,60 @@ const AllAgentGameTypeTabs = ({ brandId, readOnly, dialog }) => {
   })
 
   return (
-    <Tabs>
-      <TabList
-        use={TabList}
-        {...tab}
-        css={css`
-          > button {
-            box-shadow: none !important;
-            border-bottom: 2px solid transparent;
-            &:hover {
-              box-shadow: none !important;
-              border-bottom: 2px solid #574feb;
-            }
-          }
-          > button[aria-selected="true"] {
-            border-bottom: 2px solid #574feb !important;
-          }
-        `}
-      >
-        <GameTypeTab gameType={GameType.LiveDealer} {...tab} />
-        <GameTypeTab gameType={GameType.Slot} {...tab} />
-        <GameTypeTab gameType={GameType.Sportsbook} {...tab} />
-        <GameTypeTab gameType={GameType.VirtualSports} {...tab} />
-        <GameTypeTab gameType={GameType.CardGame} {...tab} />
-        <GameTypeTab gameType={GameType.Lottery} {...tab} />
-      </TabList>
+    <CustomNavTab>
+      <Tabs>
+        <TabList use={TabList} {...tab}>
+          <GameTypeTab gameType={GameType.LiveDealer} {...tab} />
+          <GameTypeTab gameType={GameType.Slot} {...tab} />
+          <GameTypeTab gameType={GameType.Sportsbook} {...tab} />
+          <GameTypeTab gameType={GameType.VirtualSports} {...tab} />
+          <GameTypeTab gameType={GameType.CardGame} {...tab} />
+          <GameTypeTab gameType={GameType.Lottery} {...tab} />
+        </TabList>
 
-      <GameTypePanel
-        brandId={brandId}
-        gameType={GameType.LiveDealer}
-        readOnly={readOnly}
-        dialog={dialog}
-        {...tab}
-      />
-      <GameTypePanel
-        brandId={brandId}
-        gameType={GameType.Slot}
-        readOnly={readOnly}
-        {...tab}
-      />
-      <GameTypePanel
-        brandId={brandId}
-        gameType={GameType.Sportsbook}
-        readOnly={readOnly}
-        dialog={dialog}
-        {...tab}
-      />
-      <GameTypePanel
-        brandId={brandId}
-        gameType={GameType.VirtualSports}
-        readOnly={readOnly}
-        dialog={dialog}
-        {...tab}
-      />
-      <GameTypePanel
-        brandId={brandId}
-        gameType={GameType.CardGame}
-        readOnly={readOnly}
-        dialog={dialog}
-        {...tab}
-      />
-      <GameTypePanel
-        brandId={brandId}
-        gameType={GameType.Lottery}
-        readOnly={readOnly}
-        dialog={dialog}
-        {...tab}
-      />
-    </Tabs>
+        <GameTypePanel
+          brandId={brandId}
+          gameType={GameType.LiveDealer}
+          readOnly={readOnly}
+          dialog={dialog}
+          {...tab}
+        />
+        <GameTypePanel
+          brandId={brandId}
+          gameType={GameType.Slot}
+          readOnly={readOnly}
+          {...tab}
+        />
+        <GameTypePanel
+          brandId={brandId}
+          gameType={GameType.Sportsbook}
+          readOnly={readOnly}
+          dialog={dialog}
+          {...tab}
+        />
+        <GameTypePanel
+          brandId={brandId}
+          gameType={GameType.VirtualSports}
+          readOnly={readOnly}
+          dialog={dialog}
+          {...tab}
+        />
+        <GameTypePanel
+          brandId={brandId}
+          gameType={GameType.CardGame}
+          readOnly={readOnly}
+          dialog={dialog}
+          {...tab}
+        />
+        <GameTypePanel
+          brandId={brandId}
+          gameType={GameType.Lottery}
+          readOnly={readOnly}
+          dialog={dialog}
+          {...tab}
+        />
+      </Tabs>
+    </CustomNavTab>
   )
 }
 
@@ -673,7 +663,7 @@ const MultileLayerSettingFormDialog = ({
         minWidth="50vw"
         {...props}
       >
-        <Box padding="5rem 1rem 1rem 1rem">
+        <WrapperModal>
           <AllAgentProfitSharingSetting
             name="conditions"
             profitSharingPercentageFieldName="rebatePercentage"
@@ -682,7 +672,7 @@ const MultileLayerSettingFormDialog = ({
             profitSharingPercentageLabel={profitSharingPercentageLabel}
             readOnly={readOnly}
           />
-        </Box>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

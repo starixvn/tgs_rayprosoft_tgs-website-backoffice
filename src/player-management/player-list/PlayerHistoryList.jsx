@@ -60,6 +60,7 @@ import { VipLevelTrans } from "../../trans/Vip"
 import { UpperLevelAgentTrans } from "../../trans/Agent"
 import { TimeTrans } from "../../trans/Date"
 import { formatDateTime } from "../../date/format"
+import { ModalButtonPlatForm } from "../../styles/button"
 
 export const Key = "history"
 
@@ -213,19 +214,10 @@ const PlayerHistoryDialogDisclosure = ({ action, eventId, brandId }) => {
 
   return (
     <>
-      <DetailDisclosure
-        {...dialog}
-        palette="info"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      />
+      <ModalButtonPlatForm>
+        <DetailDisclosure {...dialog} palette="info" />
+      </ModalButtonPlatForm>
+
       {dialog.visible && (
         <PlayerHistoryDialog
           action={action}

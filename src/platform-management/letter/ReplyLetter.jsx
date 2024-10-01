@@ -44,6 +44,7 @@ import AlertDialog from "../../dialog/Alert"
 import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import { DoubleConfirmDialogDisclosure } from "./DoubleConfirmDialog"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const ReplyLetterDisclosure = ({
   brandId,
@@ -191,31 +192,33 @@ const ReplyLetterFormDialog = ({
 
 const ReplyLetterFormBody = ({ context }) => {
   return (
-    <FieldValues padding="5rem 1rem 1rem 1rem">
-      <Label>
-        <Trans zh="內容" en="Content" />
-      </Label>
-      <Set orientation="vertical" isFilled height="100%">
-        <Textarea
-          name="content"
-          autoFocus
-          css={css`
-            textarea {
-              min-height: 30vh;
-            }
-          `}
-        />
-        <Textarea
-          value={context}
-          readOnly
-          disabled
-          css={css`
-            textarea {
-              min-height: 30vh;
-            }
-          `}
-        />
-      </Set>
-    </FieldValues>
+    <WrapperModal>
+      <FieldValues>
+        <Label>
+          <Trans zh="內容" en="Content" />
+        </Label>
+        <Set orientation="vertical" isFilled height="100%">
+          <Textarea
+            name="content"
+            autoFocus
+            css={css`
+              textarea {
+                min-height: 30vh;
+              }
+            `}
+          />
+          <Textarea
+            value={context}
+            readOnly
+            disabled
+            css={css`
+              textarea {
+                min-height: 30vh;
+              }
+            `}
+          />
+        </Set>
+      </FieldValues>
+    </WrapperModal>
   )
 }

@@ -45,6 +45,10 @@ import {
   PlayerIdVerificationTrans
 } from "../../trans/Player"
 import { AttachmentTrans } from "../../trans/Field"
+import { CustomInputPlayerIdCss } from "../style"
+import { ActionTableButton } from "../../styles/button"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
 
 export { Code }
 
@@ -124,68 +128,46 @@ const BodyContent = ({ brandId = "", brand }) => {
   })
 
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      css={css`
-        padding: 1rem;
-        background: #f3f4f7;
-      `}
-    >
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          brandId={brandId}
-          status={state.status}
-          search={(data = {}) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          isLoading={isLoading}
-        />
-      </Level>
-      <Stack>
-        <Alert variant="bordered" type="info" accent marginBottom="8px">
-          <List listStyleType="disc" listStylePosition="inside">
-            <List.Item>
-              <PlayerIdVerificationInfoTrans />
-            </List.Item>
-          </List>
-        </Alert>
-      </Stack>
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        getRowId={(row) => row.playerCode}
-        css={css`
-          > thead {
-            th {
-              white-space: nowrap !important;
-            }
-          }
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+    <Set orientation="vertical" isFilled height="100%">
+      <WrapperBg>
+        <Level alignY="bottom" alignX="left" verticalBelow="mobile">
+          <SearchBar
+            brandId={brandId}
+            status={state.status}
+            search={(data = {}) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            isLoading={isLoading}
+          />
+        </Level>
+        <Stack>
+          <Alert variant="bordered" type="info" accent marginBottom="8px">
+            <List listStyleType="disc" listStylePosition="inside">
+              <List.Item>
+                <PlayerIdVerificationInfoTrans />
+              </List.Item>
+            </List>
+          </Alert>
+        </Stack>
+        <CustomTableStyle>
+          <Table
+            columns={columns}
+            data={data?.items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+            getRowId={(row) => row.playerCode}
+          />
+        </CustomTableStyle>
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -201,42 +183,7 @@ const SearchBar = ({ brandId, status, search, isLoading, ...props }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-        <Set
-          alignY="bottom"
-          css={css`
-            .bb-InputFieldGroup,
-            .react-datepicker-wrapper {
-              input {
-                border: 1px solid #dbdfe6;
-                &:focus {
-                  box-shadow: none !important;
-                }
-              }
-              button {
-                &:focus,
-                &:hover,
-                &:active {
-                  box-shadow: none !important;
-                  border: 1px solid #dbdfe6;
-                  border-left: none;
-                  background: #fff;
-                }
-              }
-            }
-            .react-datepicker-wrapper {
-              min-width: unset !important;
-              width: 205px !important;
-              input {
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-              }
-            }
-            .bb-Label {
-              margin: 5px 0 !important;
-            }
-            margin-bottom: 8px;
-          `}
-        >
+        <Set alignY="bottom" css={CustomInputPlayerIdCss}>
           <PlayerIdentitySelect
             name="status"
             css={css`
@@ -352,33 +299,22 @@ const useColumns = ({ mutate, items = [], brandId, brand } = {}) => {
           Cell: ({ value: record }) => {
             let { playerCode, formId, status } = record
             return (
-              <Set
-                alignX="center"
-                css={css`
-                  button {
-                    padding: 10px 12px;
-                    height: 38px;
-                    min-height: 38px;
-                    border: none;
-                    &:focus {
-                      box-shadow: none !important;
-                    }
-                  }
-                `}
-              >
-                {enablePlayerIdentity && (
-                  <ReviewPlayerIdDialogDisclosure
-                    id="review-player-id-dialog-disclosure"
-                    brandId={brandId}
-                    playerCode={playerCode}
-                    formId={formId}
-                    status={status}
-                    onSubmitted={mutate}
-                  />
-                )}
-                {enablePlayerIdentity && (
-                  <ResetPlayerIdentityAuthDisclosure record={record} />
-                )}
+              <Set alignX="center">
+                <ActionTableButton>
+                  {enablePlayerIdentity && (
+                    <ReviewPlayerIdDialogDisclosure
+                      id="review-player-id-dialog-disclosure"
+                      brandId={brandId}
+                      playerCode={playerCode}
+                      formId={formId}
+                      status={status}
+                      onSubmitted={mutate}
+                    />
+                  )}
+                  {enablePlayerIdentity && (
+                    <ResetPlayerIdentityAuthDisclosure record={record} />
+                  )}
+                </ActionTableButton>
               </Set>
             )
           }

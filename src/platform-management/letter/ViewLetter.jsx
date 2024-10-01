@@ -47,6 +47,7 @@ import {
 } from "./LetterType"
 import { usePlayer } from "../../player-management/player-list/client"
 import { SubjectTrans } from "../../trans/Field"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const ViewLetterDisclosure = ({
   brandId,
@@ -173,37 +174,39 @@ const ViewDialog = ({ brandId, boxType, letterId, dialog, dialogId }) => {
         }
       `}
     >
-      <FieldValues padding="5rem 1rem 1rem 1rem">
-        <ReceiverField
-          receiverType={data?.receiverType}
-          receiver={data?.receiver}
-        />
-        <Label>
-          <SubjectTrans />
-        </Label>
-        <Input
-          name="subject"
-          data-type="subject"
-          value={data?.subject}
-          readOnly
-          disabled
-        />
-        <Label>
-          <Trans zh="內容" en="Content" />
-        </Label>
-        <Textarea
-          name="content"
-          data-type="content"
-          value={data?.content}
-          readOnly
-          disabled
-          css={css`
-            textarea {
-              min-height: 50vh;
-            }
-          `}
-        />
-      </FieldValues>
+      <WrapperModal>
+        <FieldValues>
+          <ReceiverField
+            receiverType={data?.receiverType}
+            receiver={data?.receiver}
+          />
+          <Label>
+            <SubjectTrans />
+          </Label>
+          <Input
+            name="subject"
+            data-type="subject"
+            value={data?.subject}
+            readOnly
+            disabled
+          />
+          <Label>
+            <Trans zh="內容" en="Content" />
+          </Label>
+          <Textarea
+            name="content"
+            data-type="content"
+            value={data?.content}
+            readOnly
+            disabled
+            css={css`
+              textarea {
+                min-height: 50vh;
+              }
+            `}
+          />
+        </FieldValues>
+      </WrapperModal>
     </Modal>
   )
 }

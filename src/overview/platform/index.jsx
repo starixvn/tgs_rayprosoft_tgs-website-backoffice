@@ -32,6 +32,8 @@ import { Overview } from "./Overview"
 import { TopPlayerTable } from "./TopPlayerTable"
 import { TopGameTable } from "./TopGameTable"
 import { useGameProviderCodeStylePairs } from "../client"
+import { OverviewTrans } from "../../trans/Platform"
+import { WrapperBg } from "../../styles/wrapper"
 
 export { Code }
 
@@ -48,7 +50,7 @@ export const CodeContentPair = [Code, Content]
 
 export const PlatformDashboardPage = () => {
   return (
-    <PlatformPageContent>
+    <PlatformPageContent title={<OverviewTrans />}>
       <Body />
     </PlatformPageContent>
   )
@@ -85,24 +87,26 @@ const Body = () => {
   }
 
   return (
-    <Columns spacing="minor-2">
-      <Columns.Column spread={3}>
-        <WelcomeBox brand={brand} />
-        <Overview />
-      </Columns.Column>
-      <Columns.Column spread={9}>
-        <Columns spacing="minor-2">
-          <Columns.Column spread={6}>
-            <PlayerTableBox brand={brand} />
-          </Columns.Column>
-          <Columns.Column spread={6}>
-            <GameTableBox
-              gameProviderCodeStylePairs={gameProviderCodeStylePairs}
-            />
-          </Columns.Column>
-        </Columns>
-      </Columns.Column>
-    </Columns>
+    <WrapperBg>
+      <WelcomeBox brand={brand} />
+      <Columns spacing="minor-2">
+        <Columns.Column spread={3}>
+          <Overview />
+        </Columns.Column>
+        <Columns.Column spread={9}>
+          <Columns spacing="minor-2">
+            <Columns.Column spread={12}>
+              <PlayerTableBox brand={brand} />
+            </Columns.Column>
+            <Columns.Column spread={12}>
+              <GameTableBox
+                gameProviderCodeStylePairs={gameProviderCodeStylePairs}
+              />
+            </Columns.Column>
+          </Columns>
+        </Columns.Column>
+      </Columns>
+    </WrapperBg>
   )
 }
 
@@ -112,7 +116,7 @@ const WelcomeBox = ({ brand }) => {
   }
 
   return (
-    <Box marginBottom="0.5rem">
+    <Box marginBottom="0.8rem">
       <Trans zh={`欢迎回来`} en={`Welcome back`} />
       <span>{`, ${brand.code}`}</span>
     </Box>

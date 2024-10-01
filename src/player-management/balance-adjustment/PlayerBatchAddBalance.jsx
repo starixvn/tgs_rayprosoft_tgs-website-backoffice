@@ -83,6 +83,8 @@ import {
   useBatchAddBalanceTitleTrans
 } from "../../trans/Player"
 import { getApiUrl } from "../../client"
+import { SearchAndSubmitButton } from "../../styles/button"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const PlayerBatchAddBalanceDisclosure = ({
   brandId,
@@ -101,31 +103,11 @@ export const PlayerBatchAddBalanceDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <Disclosure
-        id={id}
-        {...dialog}
-        {...props}
-        css={css`
-          background: #4b49b6;
-          color: #fff;
-          border-radius: 6px !important;
-          border: 1px solid !important;
-          font-weight: 400;
-          &:focus,
-          &:hover,
-          &:active {
-            background: #4b49b6;
-            box-shadow: none !important;
-          }
-          &:hover {
-            &:active {
-              background: #4b49b6;
-            }
-          }
-        `}
-      >
-        <BatchAddBalanceTrans />
-      </Disclosure>
+      <SearchAndSubmitButton>
+        <Disclosure id={id} {...dialog} {...props}>
+          <BatchAddBalanceTrans />
+        </Disclosure>
+      </SearchAndSubmitButton>
       {dialog.visible && (
         <BatchAddDialog
           brandId={brandId}
@@ -344,26 +326,30 @@ const FormBody = ({}) => {
 
   return (
     <>
-      <FieldStack padding="5rem 1rem 1rem 1rem">
-        <FieldStack orientation="horizontal">
-          <FieldWrapper label={<TransactionTypeTrans />}>
-            <Set>
-              <PlayerAdjustBalanceTypeSelect
-                name={TransactionTypeField}
-                required
-              />
-              {showIncludeInNetProfitSetting(transactionType) && (
-                <Switch
-                  name="includeInNetProfit"
-                  label={<Trans zh="需算入净盈利" en="Include in Net Profit" />}
+      <WrapperModal>
+        <FieldStack>
+          <FieldStack orientation="horizontal">
+            <FieldWrapper label={<TransactionTypeTrans />}>
+              <Set>
+                <PlayerAdjustBalanceTypeSelect
+                  name={TransactionTypeField}
+                  required
                 />
-              )}
-            </Set>
-          </FieldWrapper>
-          <ImportBatchAddDataField />
+                {showIncludeInNetProfitSetting(transactionType) && (
+                  <Switch
+                    name="includeInNetProfit"
+                    label={
+                      <Trans zh="需算入净盈利" en="Include in Net Profit" />
+                    }
+                  />
+                )}
+              </Set>
+            </FieldWrapper>
+            <ImportBatchAddDataField />
+          </FieldStack>
+          <BatchAddTable />
         </FieldStack>
-        <BatchAddTable />
-      </FieldStack>
+      </WrapperModal>
       <Input type="hidden" name="brandId" value={brandId} />
     </>
   )

@@ -40,6 +40,8 @@ import {
 } from "../../trans/Game"
 import { EndTimeTrans, StartTimeTrans } from "../../trans/Date"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
+import { ActionTableButton } from "../../styles/button"
 
 export const EditPresetButton = ({ record, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -168,40 +170,42 @@ const EditBody = ({
   setScheduleStatus
 }) => {
   return (
-    <Stack minHeight="50vh" padding="5rem 1rem 1rem 1rem">
-      <Stack orientation="horizontal" marginBottom="0">
-        <AddPresetMaintenance add={add} />
-        <ScheduleStatusDropdownMenu
-          items={items}
-          setScheduleStatus={setScheduleStatus}
-        />
+    <WrapperModal>
+      <Stack minHeight="50vh">
+        <Stack orientation="horizontal" marginBottom="0">
+          <AddPresetMaintenance add={add} />
+          <ScheduleStatusDropdownMenu
+            items={items}
+            setScheduleStatus={setScheduleStatus}
+          />
+        </Stack>
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeadCell textAlign="center">
+                <StartTimeTrans />
+              </Table.HeadCell>
+              <Table.HeadCell textAlign="center">
+                <EndTimeTrans />
+              </Table.HeadCell>
+              <Table.HeadCell textAlign="center">
+                <ActionTrans />
+              </Table.HeadCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            {items.map((item, index, list) => (
+              <PresetMaintenanceRow
+                key={index}
+                {...item}
+                index={index}
+                deletePresetMaintenance={deletePresetMaintenance}
+              />
+            ))}
+          </Table.Body>
+        </Table>
       </Stack>
-      <Table>
-        <Table.Head>
-          <Table.Row>
-            <Table.HeadCell textAlign="center">
-              <StartTimeTrans />
-            </Table.HeadCell>
-            <Table.HeadCell textAlign="center">
-              <EndTimeTrans />
-            </Table.HeadCell>
-            <Table.HeadCell textAlign="center">
-              <ActionTrans />
-            </Table.HeadCell>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          {items.map((item, index, list) => (
-            <PresetMaintenanceRow
-              key={index}
-              {...item}
-              index={index}
-              deletePresetMaintenance={deletePresetMaintenance}
-            />
-          ))}
-        </Table.Body>
-      </Table>
-    </Stack>
+    </WrapperModal>
   )
 }
 
@@ -217,26 +221,23 @@ const PresetMaintenanceRow = ({
       <Table.Cell textAlign="center">{format(from)}</Table.Cell>
       <Table.Cell textAlign="center">{format(to)}</Table.Cell>
       <Table.Cell textAlign="center">
-        <Button
-          palette="danger"
-          onClick={() => {
-            deletePresetMaintenance(index)
-          }}
-          visibility={
-            scheduleStatus === ScheduleStatus.Enabled ? "visible" : "hidden"
-          }
+        <ActionTableButton
           css={css`
-            padding: 10px 12px;
-            height: 38px;
-            min-height: 38px;
-            border: none;
-            &:focus {
-              box-shadow: none !important;
-            }
+            justify-content: center;
           `}
         >
-          <Trans zh="删除" en="Delete" />
-        </Button>
+          <Button
+            palette="danger"
+            onClick={() => {
+              deletePresetMaintenance(index)
+            }}
+            visibility={
+              scheduleStatus === ScheduleStatus.Enabled ? "visible" : "hidden"
+            }
+          >
+            <Trans zh="删除" en="Delete" />
+          </Button>
+        </ActionTableButton>
       </Table.Cell>
     </Table.Row>
   )

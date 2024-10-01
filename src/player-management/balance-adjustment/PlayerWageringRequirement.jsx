@@ -15,6 +15,8 @@ import AlertDialog from "../../dialog/Alert"
 import { View } from "./menu"
 import { FieldValues } from "../../layout/Grid"
 import { BalanceTrans, UserNameTrans, useBalanceTrans } from "../../trans/User"
+import { ModalButtonPlatForm } from "../../styles/button"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const PlayerWageringRequirementDialogDisclosure = ({
   brandId,
@@ -31,24 +33,19 @@ export const PlayerWageringRequirementDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure
-        {...dialog}
-        {...props}
-        palette="info"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          color: #fff;
-          font-weight: 400;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      >
-        <BalanceTrans />
-      </Disclosure>
+      <ModalButtonPlatForm>
+        <Disclosure
+          {...dialog}
+          {...props}
+          palette="info"
+          css={css`
+            color: #fff;
+            font-weight: 400;
+          `}
+        >
+          <BalanceTrans />
+        </Disclosure>
+      </ModalButtonPlatForm>
       {dialog.visible && (
         <WageringRequirementDialog
           brandId={brandId}
@@ -140,25 +137,26 @@ const WageringRequirementDialog = ({
         }
       `}
     >
-      <FieldValues
-        padding="5rem 1rem 1rem 1rem"
-        css={css`
-          gap: 16px 24px;
-        `}
-      >
-        <UserNameTrans />
-        <Box>{username}</Box>
+      <WrapperModal>
+        <FieldValues
+          css={css`
+            gap: 16px 24px;
+          `}
+        >
+          <UserNameTrans />
+          <Box>{username}</Box>
 
-        <BalanceTrans />
-        <Box>
-          <FormattedNumberDecimal value={player?.balance} />
-        </Box>
+          <BalanceTrans />
+          <Box>
+            <FormattedNumberDecimal value={player?.balance} />
+          </Box>
 
-        <Trans zh="流水" en="Unfinished Wagering" />
-        <Box>
-          <FormattedNumberDecimal value={wageringRequirement} />
-        </Box>
-      </FieldValues>
+          <Trans zh="流水" en="Unfinished Wagering" />
+          <Box>
+            <FormattedNumberDecimal value={wageringRequirement} />
+          </Box>
+        </FieldValues>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }

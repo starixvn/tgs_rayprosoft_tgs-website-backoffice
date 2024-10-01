@@ -37,6 +37,8 @@ import IpAddressType, { setLoginIpType } from "./IpAddressType"
 import { TimeTrans } from "../../trans/Date"
 import { SearchIPByAccountIDTrans } from "../../trans/Platform"
 import { LoginIPTrans, useUserNameTrans } from "../../trans/User"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
 
 export const PlayerIPAddressByUsernameTabId = "PlayerIPAddressByUsername"
 
@@ -106,29 +108,18 @@ const Body = ({ brandId, table = {}, onClickIpAddress }) => {
         isLoading={isLoading}
       />
       {state?.userName && (
-        <Table
-          columns={columns}
-          data={items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(state.pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-          css={css`
-            > tbody {
-              tr {
-                &:not(:last-child) {
-                  border-bottom: 1px solid #dbdfe6 !important;
-                }
-                &:nth-child(odd) {
-                  background: none;
-                  box-shadow: inset 0 0 0 9999px #0000000d;
-                }
-              }
-            }
-          `}
-        />
+        <CustomTableStyle>
+          <Table
+            columns={columns}
+            data={items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+          />
+        </CustomTableStyle>
       )}
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </FieldStack>
@@ -149,12 +140,14 @@ const ActionBar = ({ userName, search, isLoading, ...props }) => {
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(search)}>
           <Set>
-            <InputField
-              name="userName"
-              required
-              placeholder={usernamePlaceholder}
-              showEmptyFieldValueAddonAfter
-            />
+            <CustomInputSearch>
+              <InputField
+                name="userName"
+                required
+                placeholder={usernamePlaceholder}
+                showEmptyFieldValueAddonAfter
+              />
+            </CustomInputSearch>
             <SearchButton isLoading={isLoading} disabled={isLoading} />
           </Set>
         </form>
@@ -167,7 +160,9 @@ const useColumns = ({ items = [], mutate, onClickIpAddress }) => {
   let readable = useIsDisplayMenuByRoute([View])
   return useMemo(
     () => [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "ipAddress",
         Header: <LoginIPTrans />,

@@ -18,6 +18,7 @@ import {
   useReviewTrans
 } from "../../trans/Status"
 import { usePlayerIdVerificationStatusTrans } from "../../trans/Player"
+import { CustomBadgeStatus } from "../../styles/status"
 
 const WaitingVerify = "WaitingVerify"
 
@@ -59,51 +60,27 @@ export const PlayerIdentityStateLabel = ({ value = "" }) => {
   switch (value) {
     case WaitingVerify:
       return (
-        <Badge
-          palette="info"
-          css={css`
-            font-size: 0.75em;
-            font-weight: 700;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #fff;
-            display: inline;
-          `}
-        >
-          <ReviewTrans />
-        </Badge>
+        <CustomBadgeStatus>
+          <Badge palette="info">
+            <ReviewTrans />
+          </Badge>
+        </CustomBadgeStatus>
       )
     case Approve:
       return (
-        <Badge
-          palette="success"
-          css={css`
-            font-size: 0.75em;
-            font-weight: 700;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #fff;
-            display: inline;
-          `}
-        >
-          <ApprovedTrans />
-        </Badge>
+        <CustomBadgeStatus>
+          <Badge palette="success">
+            <ApprovedTrans />
+          </Badge>
+        </CustomBadgeStatus>
       )
     case Reject:
       return (
-        <Badge
-          palette="danger"
-          css={css`
-            font-size: 0.75em;
-            font-weight: 700;
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #fff;
-            display: inline;
-          `}
-        >
-          <RejectedTrans />
-        </Badge>
+        <CustomBadgeStatus>
+          <Badge palette="danger">
+            <RejectedTrans />
+          </Badge>
+        </CustomBadgeStatus>
       )
     default:
       return value

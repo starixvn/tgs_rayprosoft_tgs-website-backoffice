@@ -15,6 +15,7 @@ import AlertDialog from "../../dialog/Alert"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import { Update } from "./menu"
 import { getApiUrl } from "../../client"
+import { ModalButtonPlatForm } from "../../styles/button"
 
 export const PlayerIdentityAttachment = ({
   brandId,
@@ -95,28 +96,26 @@ const UploadButton = ({
   }, [result])
 
   return (
-    <Button
-      isLoading={isLoading}
-      disabled={disabled}
-      {...getRootProps({
-        disabled,
-        refKey: "elementRef"
-      })}
-      {...props}
-      palette="info"
-      css={css`
-        padding: 10px 12px;
-        height: 38px;
-        min-height: 38px;
-        border: none;
-        &:focus {
-          box-shadow: none !important;
-        }
-      `}
-    >
-      <Trans zh="重新上传" en="Re-upload" />
-      <input {...getInputProps()} />
-      {error && <AlertDialog {...error} onClickClose={deleteCache} />}
-    </Button>
+    <ModalButtonPlatForm>
+      <Button
+        isLoading={isLoading}
+        disabled={disabled}
+        {...getRootProps({
+          disabled,
+          refKey: "elementRef"
+        })}
+        {...props}
+        palette="info"
+        css={css`
+          &:focus {
+            border: none !important;
+          }
+        `}
+      >
+        <Trans zh="重新上传" en="Re-upload" />
+        <input {...getInputProps()} />
+        {error && <AlertDialog {...error} onClickClose={deleteCache} />}
+      </Button>
+    </ModalButtonPlatForm>
   )
 }

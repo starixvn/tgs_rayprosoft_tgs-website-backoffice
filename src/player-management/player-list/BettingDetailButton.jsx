@@ -6,26 +6,17 @@ import { useModalState } from "../../dialog/Modal"
 import { Trans, useTrans } from "../../i18n"
 import GameRoundDialog from "../../game/round/GameRoundDialog"
 import Backdrop from "../../dialog/Backdrop"
+import { ModalButtonPlatForm } from "../../styles/button"
 
 export const Button = ({ record, dialogId, ...props }) => {
   let dialog = useModalState()
 
   return (
     <>
-      <DetailDisclosure
-        {...dialog}
-        {...props}
-        palette="info"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      />
+      <ModalButtonPlatForm>
+        <DetailDisclosure {...dialog} {...props} palette="info" />
+      </ModalButtonPlatForm>
+
       {dialog.visible && (
         <GameRoundDialog id={dialogId} record={record} dialog={dialog} />
       )}

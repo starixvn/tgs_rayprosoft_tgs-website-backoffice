@@ -33,6 +33,8 @@ import { OperationSettingsTrans } from "../../trans/Platform"
 import { SmsProviderDialogDisclosure } from "./SmsProviderDialog"
 import { SocialMediaListDialogDisclosure } from "./SocialMediaListDialog"
 import { SWRConfig } from "swr"
+import { WrapperBg, WrapperModal } from "../../styles/wrapper"
+import { SearchAndSubmitButton } from "../../styles/button"
 
 export { Code }
 
@@ -54,24 +56,18 @@ const Body = () => {
   let { isLoading, data: brand, error, mutate, emptyData } = useBrand(brandId)
 
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      css={css`
-        padding: 1rem;
-        background: #f3f4f7;
-      `}
-    >
-      {isLoading && (
-        <Box alignY="center" alignX="center">
-          <Spinner />
-        </Box>
-      )}
-      {!isLoading && brandId && brand && (
-        <BodyContent brandId={brandId} brand={brand} />
-      )}
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+    <Set orientation="vertical" isFilled height="100%">
+      <WrapperBg>
+        {isLoading && (
+          <Box alignY="center" alignX="center">
+            <Spinner />
+          </Box>
+        )}
+        {!isLoading && brandId && brand && (
+          <BodyContent brandId={brandId} brand={brand} />
+        )}
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -81,26 +77,10 @@ const BodyContent = ({ brandId, brand }) => {
   let multipleLayer = isAgentProfitSharingMultipleLayer(agentProfitSharingType)
 
   return (
-    <Set
+    <SearchAndSubmitButton
       css={css`
-        > button {
-          background: #4b49b6;
-          color: #fff;
-          border-radius: 6px !important;
-          border: 1px solid !important;
-          font-weight: 400;
-          &:focus,
-          &:hover,
-          &:active {
-            background: #4b49b6;
-            box-shadow: none !important;
-          }
-          &:hover {
-            &:active {
-              background: #4b49b6;
-            }
-          }
-        }
+        display: flex;
+        gap: 8px;
       `}
     >
       <MessengerDialogDisclosure
@@ -124,7 +104,7 @@ const BodyContent = ({ brandId, brand }) => {
       />
       <SmsProviderDialogDisclosure brandId={brandId} />
       <SocialMediaListDialogDisclosure brandId={brandId} />
-    </Set>
+    </SearchAndSubmitButton>
   )
 }
 
@@ -232,9 +212,9 @@ const ProfitSharingSettingFormDialog = ({
       {...props}
       minWidth="45vw"
     >
-      <Box padding="5rem 1rem 1rem 1rem">
+      <WrapperModal>
         <AgentMultipleLayerProfitSharingSettingFormBody name="brandAgentDividendConditions" />
-      </Box>
+      </WrapperModal>
     </FormDialog>
   )
 }

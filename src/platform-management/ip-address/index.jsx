@@ -28,6 +28,7 @@ import {
   PlayerByIpAddressTabPanel
 } from "./PlayerByIpAddress"
 import { CheckIPTrans } from "../../trans/Platform"
+import { CustomNavTab } from "../../styles/navtab"
 
 export { Code }
 
@@ -73,52 +74,45 @@ const Body = () => {
   }, [brandId])
 
   return (
-    <Tabs>
-      <TabList
-        {...tab}
-        css={css`
-          > button {
-            box-shadow: none !important;
-            border-bottom: 2px solid transparent;
-            &:hover {
-              box-shadow: none !important;
-              border-bottom: 2px solid #574feb;
-            }
-          }
-          > button[aria-selected="true"] {
-            border-bottom: 2px solid #574feb !important;
-          }
-        `}
-      >
-        <SamePlayerIpAddressTab {...tab} />
-        <PlayerIPAddressByUsernameTab {...tab} />
-        <PlayerByIpAddressTab {...tab} />
-      </TabList>
-      <SamePlayerIpAddressTabPanel
-        table={table}
-        brandId={brandId}
-        onClickIpAddress={(ipAddress) => {
-          setState({
-            ipAddress,
-            pageIndex: 0
-          })
-          activePlayerIPAddressByUsernameTab()
-        }}
-        {...tab}
-      />
-      <PlayerIPAddressByUsernameTabPanel
-        table={table}
-        brandId={brandId}
-        onClickIpAddress={(ipAddress) => {
-          setState({
-            ipAddress,
-            pageIndex: 0
-          })
-          activePlayerIPAddressByUsernameTab()
-        }}
-        {...tab}
-      />
-      <PlayerByIpAddressTabPanel table={table} brandId={brandId} {...tab} />
-    </Tabs>
+    <CustomNavTab
+      css={css`
+        .bb-TabsPanel {
+          background: #f3f4f7;
+        }
+      `}
+    >
+      <Tabs>
+        <TabList {...tab}>
+          <SamePlayerIpAddressTab {...tab} />
+          <PlayerIPAddressByUsernameTab {...tab} />
+          <PlayerByIpAddressTab {...tab} />
+        </TabList>
+        <SamePlayerIpAddressTabPanel
+          table={table}
+          brandId={brandId}
+          onClickIpAddress={(ipAddress) => {
+            setState({
+              ipAddress,
+              pageIndex: 0
+            })
+            activePlayerIPAddressByUsernameTab()
+          }}
+          {...tab}
+        />
+        <PlayerIPAddressByUsernameTabPanel
+          table={table}
+          brandId={brandId}
+          onClickIpAddress={(ipAddress) => {
+            setState({
+              ipAddress,
+              pageIndex: 0
+            })
+            activePlayerIPAddressByUsernameTab()
+          }}
+          {...tab}
+        />
+        <PlayerByIpAddressTabPanel table={table} brandId={brandId} {...tab} />
+      </Tabs>
+    </CustomNavTab>
   )
 }

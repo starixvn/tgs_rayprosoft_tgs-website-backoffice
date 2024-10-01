@@ -39,6 +39,8 @@ import {
 import { usePlayerNoteTrans } from "../../trans/Player"
 import { useBankTrans } from "../../trans/Payment"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
+import { selectWrapperFull } from "../style"
 
 export const PlayerWithdrawFormDialogDisclosure = ({
   brandId,
@@ -180,7 +182,7 @@ const FormBody = ({ bankInfoList = [] }) => {
   let { control, getValues } = useFormContext()
   let player = getValues("player")
   return (
-    <Box padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <FieldStack>
         <FieldWrapper label={<RealNameTrans />}>
           <Box>{player.realName}</Box>
@@ -189,7 +191,7 @@ const FormBody = ({ bankInfoList = [] }) => {
         <AmountInputField required />
         <NoteInputField />
       </FieldStack>
-    </Box>
+    </WrapperModal>
   )
 }
 
@@ -229,11 +231,7 @@ const BankInfoSelect = ({
       options={options}
       label={label}
       {...props}
-      css={css`
-        .bb-SelectWrapper {
-          width: 100%;
-        }
-      `}
+      css={selectWrapperFull}
     />
   )
 }

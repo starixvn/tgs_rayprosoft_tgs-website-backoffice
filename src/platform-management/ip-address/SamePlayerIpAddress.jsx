@@ -35,6 +35,7 @@ import SearchButton from "../../button/SearchButton"
 import { InputField } from "../../input/Input"
 import { IpAddressTypeSelect, IpAddressTypeLabel } from "./IpAddressType"
 import { SearchDuplicateIPTrans } from "../../trans/Platform"
+import { CustomTableStyle } from "../../styles/tablle"
 
 export const SamePlayerIpAddressTabId = "SamePlayerIpAddress"
 
@@ -103,29 +104,18 @@ const Body = ({ brandId, table = {}, onClickIpAddress }) => {
         isLoading={isLoading}
       />
       {state?.ipType && (
-        <Table
-          columns={columns}
-          data={items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(state.pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-          css={css`
-            > tbody {
-              tr {
-                &:not(:last-child) {
-                  border-bottom: 1px solid #dbdfe6 !important;
-                }
-                &:nth-child(odd) {
-                  background: none;
-                  box-shadow: inset 0 0 0 9999px #0000000d;
-                }
-              }
-            }
-          `}
-        />
+        <CustomTableStyle>
+          <Table
+            columns={columns}
+            data={items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+          />
+        </CustomTableStyle>
       )}
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </FieldStack>

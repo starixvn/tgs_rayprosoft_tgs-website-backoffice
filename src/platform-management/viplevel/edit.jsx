@@ -63,6 +63,7 @@ import {
   WithdrawalPolicyTrans
 } from "../../trans/Vip"
 import { SearchAndSubmitButton } from "../../styles/button"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const AddButton = ({ brandId, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -283,7 +284,7 @@ const EditBody = ({ record, readonly = false, isAdd = false }) => {
   let isLevel1 = record?.level === 1
   return (
     <>
-      <Box padding="5rem 1rem 1rem 1rem">
+      <WrapperModal>
         <Box marginBottom="20px">
           <Blockquote
             borderColor="primary"
@@ -560,7 +561,7 @@ const EditBody = ({ record, readonly = false, isAdd = false }) => {
             )}
           </FieldValues>
         </Box>
-      </Box>
+      </WrapperModal>
     </>
   )
 }

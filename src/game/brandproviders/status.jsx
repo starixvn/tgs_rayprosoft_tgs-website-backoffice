@@ -16,6 +16,7 @@ import { useTrans, Trans } from "../../i18n"
 import { Update as UpdateMenu } from "./menu"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import { DisabledTrans, EnabledTrans } from "../../trans/Status"
+import { CustomBadgeButton } from "../../styles/button"
 
 const Active = "Active"
 
@@ -123,25 +124,16 @@ export const StatusMenu = ({ record = {}, onSubmitted, ...props }) => {
           </>
         }
       >
-        <Button
-          data-status={status}
-          palette={toPalette(status)}
-          isLoading={isLoading}
-          disabled={isLoading}
-          css={css`
-            font-size: 0.75em;
-            font-weight: 700;
-            padding: 1px 4px;
-            min-height: auto;
-            color: #fff;
-            opacity: 1 !important;
-            &:focus {
-              box-shadow: none !important;
-            }
-          `}
-        >
-          <Label value={status} />
-        </Button>
+        <CustomBadgeButton>
+          <Button
+            data-status={status}
+            palette={toPalette(status)}
+            isLoading={isLoading}
+            disabled={isLoading}
+          >
+            <Label value={status} />
+          </Button>
+        </CustomBadgeButton>
       </DropdownMenu>
       {error && <Alert {...error} onClickClose={reset} />}
     </>

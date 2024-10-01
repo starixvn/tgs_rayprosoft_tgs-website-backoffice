@@ -45,6 +45,8 @@ import {
 import Checkbox from "../../checkbox"
 import { RemarkTrans } from "../../trans/Action"
 import { UserNameTrans } from "../../trans/User"
+import { ModalButtonPlatForm } from "../../styles/button"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const PlayerAdjustLockedAmountDialogDisclosure = ({
   playerCode,
@@ -64,24 +66,19 @@ export const PlayerAdjustLockedAmountDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure
-        id={id}
-        {...dialog}
-        {...props}
-        palette="warning"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          font-weight: 400;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      >
-        <Trans zh="解鎖" en="Unlock" />
-      </Disclosure>
+      <ModalButtonPlatForm>
+        <Disclosure
+          id={id}
+          {...dialog}
+          {...props}
+          palette="warning"
+          css={css`
+            font-weight: 400;
+          `}
+        >
+          <Trans zh="解鎖" en="Unlock" />
+        </Disclosure>
+      </ModalButtonPlatForm>
       {dialog.visible && (
         <AdjustLockedAmountDialog
           playerCode={playerCode}
@@ -139,27 +136,28 @@ const AdjustLockedAmountDialog = ({
 
 const FormBody = ({ username }) => {
   return (
-    <FieldValues
-      padding="5rem 1rem 1rem 1rem"
-      css={css`
-        gap: 16px 24px;
-      `}
-    >
-      <Box alignY="center">
-        <UserNameTrans />
-      </Box>
-      <Box alignY="center">{username}</Box>
+    <WrapperModal>
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
+        <Box alignY="center">
+          <UserNameTrans />
+        </Box>
+        <Box alignY="center">{username}</Box>
 
-      <Box alignY="center">
-        <Trans zh="金额" en="Amount" />
-      </Box>
-      <NumberInputField name="lockAmount" step="0.01" required />
+        <Box alignY="center">
+          <Trans zh="金额" en="Amount" />
+        </Box>
+        <NumberInputField name="lockAmount" step="0.01" required />
 
-      <Box alignY="center">
-        <RemarkTrans />
-      </Box>
+        <Box alignY="center">
+          <RemarkTrans />
+        </Box>
 
-      <Input name="remark" />
-    </FieldValues>
+        <Input name="remark" />
+      </FieldValues>
+    </WrapperModal>
   )
 }

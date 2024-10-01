@@ -16,6 +16,7 @@ import {
 import { ConfirmTrans } from "../../trans/Action"
 import { UpgradePlayerToAgent } from "./menu"
 import { useIsDisplayMenuByRoute } from "../../user/context"
+import { WrapperBg } from "../../styles/wrapper"
 
 export const UpgradePlayerToAgentDialogDisclosure = ({
   brand,
@@ -120,8 +121,8 @@ const UpgradeDialog = ({
 const FormBody = ({ player }) => {
   // let hasMasterAgent = !!player?.agentUsername
   return (
-    <Stack padding="5rem 1rem 1rem 1rem">
+    <WrapperBg>
       <ConfirmUpgradeToAgentTrans />
-    </Stack>
+    </WrapperBg>
   )
 }

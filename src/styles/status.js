@@ -7,4 +7,17 @@ export const CustomStatusLabel = styled.div`
   color: #fff;
   border-radius: 6px;
   display: inline-block;
+  white-space: nowrap;
+`
+
+export const CustomBadgeStatus = styled.div`
+  .bb-Badge {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 4px;
+    min-height: 18px;
+    white-space: nowrap;
+    color: #fff;
+    border-radius: 4px;
+  }
 `

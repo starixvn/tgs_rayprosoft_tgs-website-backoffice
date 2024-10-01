@@ -47,6 +47,7 @@ import {
   PlayerHistoryListTab
 } from "./PlayerHistoryList"
 import { SWRConfig } from "swr"
+import { CustomNavTab } from "../../styles/navtab.js"
 
 export const ViewButton = ({
   player,
@@ -252,68 +253,54 @@ const ViewTabs = ({
   let contactAuth = useIsDisplayMenuByRoute([Contact])
 
   return (
-    <Tabs>
-      <TabList
-        use={TabList}
-        {...tab}
-        css={css`
-          > button {
-            box-shadow: none !important;
-            border-bottom: 2px solid transparent;
-            &:hover {
-              box-shadow: none !important;
-              border-bottom: 2px solid #574feb;
-            }
-          }
-          > button[aria-selected="true"] {
-            border-bottom: 2px solid #574feb !important;
-          }
-        `}
-      >
-        <PlayerInfoTab {...tab} />
-        {contactAuth && <ContractTab {...tab} />}
-        <BankTab {...tab} />
-        <BettingTab {...tab} />
-        <PlayerHistoryListTab {...tab} />
-        <PlayerBalanceChangeTab {...tab} />
-        <PlayerPromotionTab {...tab} />
-        <PlayerVipChangeListTab {...tab} />
-      </TabList>
-      <PlayerInfoPanel
-        player={player}
-        brand={brand}
-        showParentUsername={showParentUsername}
-        {...tab}
-      />
-      {contactAuth && <ContractPanel player={player} {...tab} />}
-      <BankPanel playerCode={playerCode} banks={player.banks} {...tab} />
-      <BettingPanel
-        playerCode={playerCode}
-        player={player}
-        brandId={brandId}
-        {...tab}
-      />
-      <PlayerHistoryListPanel
-        playerCode={playerCode}
-        brandId={brandId}
-        {...tab}
-      />
-      <PlayerBalanceChangePanel
-        playerCode={playerCode}
-        brandId={brandId}
-        {...tab}
-      />
-      <PlayerPromotionPanel
-        playerCode={playerCode}
-        brandId={brandId}
-        {...tab}
-      />
-      <PlayerVipChangeListPanel
-        playerCode={playerCode}
-        brandId={brandId}
-        {...tab}
-      />
-    </Tabs>
+    <CustomNavTab>
+      <Tabs>
+        <TabList use={TabList} {...tab}>
+          <PlayerInfoTab {...tab} />
+          {contactAuth && <ContractTab {...tab} />}
+          <BankTab {...tab} />
+          <BettingTab {...tab} />
+          <PlayerHistoryListTab {...tab} />
+          <PlayerBalanceChangeTab {...tab} />
+          <PlayerPromotionTab {...tab} />
+          <PlayerVipChangeListTab {...tab} />
+        </TabList>
+        <PlayerInfoPanel
+          player={player}
+          brand={brand}
+          showParentUsername={showParentUsername}
+          {...tab}
+        />
+        {contactAuth && <ContractPanel player={player} {...tab} />}
+        <BankPanel playerCode={playerCode} banks={player.banks} {...tab} />
+        <BettingPanel
+          playerCode={playerCode}
+          player={player}
+          brandId={brandId}
+          {...tab}
+        />
+        <PlayerHistoryListPanel
+          playerCode={playerCode}
+          brandId={brandId}
+          {...tab}
+        />
+        <PlayerBalanceChangePanel
+          playerCode={playerCode}
+          brandId={brandId}
+          {...tab}
+        />
+        <PlayerPromotionPanel
+          playerCode={playerCode}
+          brandId={brandId}
+          {...tab}
+        />
+        <PlayerVipChangeListPanel
+          playerCode={playerCode}
+          brandId={brandId}
+          {...tab}
+        />
+      </Tabs>
+    </CustomNavTab>
   )
 }
 
@@ -330,63 +317,49 @@ const EditTabs = ({
   let contactAuth = useIsDisplayMenuByRoute([Contact])
   let bankAuth = useIsDisplayMenuByRoute([Bank])
   return (
-    <Tabs>
-      <TabList
-        use={TabList}
-        {...tab}
-        css={css`
-          > button {
-            box-shadow: none !important;
-            border-bottom: 2px solid transparent;
-            &:hover {
-              box-shadow: none !important;
-              border-bottom: 2px solid #574feb;
-            }
-          }
-          > button[aria-selected="true"] {
-            border-bottom: 2px solid #574feb !important;
-          }
-        `}
-      >
-        <PlayerInfoTab {...tab} />
-        {contactAuth && <ContractTab {...tab} />}
-        {bankAuth && <BankTab {...tab} />}
-        <PasswordTab {...tab} />
-      </TabList>
-      <PlayerInfoEditPanel
-        player={player}
-        showParentUsername={showParentUsername}
-        brandId={brandId}
-        brand={brand}
-        playerCode={playerCode}
-        onSubmitted={onSubmitted}
-        onClickClose={onClickClose}
-        {...tab}
-      />
-      {contactAuth && (
-        <ContractEditPanel
+    <CustomNavTab>
+      <Tabs>
+        <TabList use={TabList} {...tab}>
+          <PlayerInfoTab {...tab} />
+          {contactAuth && <ContractTab {...tab} />}
+          {bankAuth && <BankTab {...tab} />}
+          <PasswordTab {...tab} />
+        </TabList>
+        <PlayerInfoEditPanel
           player={player}
+          showParentUsername={showParentUsername}
+          brandId={brandId}
+          brand={brand}
           playerCode={playerCode}
           onSubmitted={onSubmitted}
           onClickClose={onClickClose}
           {...tab}
         />
-      )}
-      {bankAuth && (
-        <BankPanel
-          brandId={brandId}
+        {contactAuth && (
+          <ContractEditPanel
+            player={player}
+            playerCode={playerCode}
+            onSubmitted={onSubmitted}
+            onClickClose={onClickClose}
+            {...tab}
+          />
+        )}
+        {bankAuth && (
+          <BankPanel
+            brandId={brandId}
+            playerCode={playerCode}
+            banks={player.banks}
+            edit={true}
+            {...tab}
+          />
+        )}
+        <PasswordPanel
           playerCode={playerCode}
-          banks={player.banks}
-          edit={true}
+          onSubmitted={onSubmitted}
+          onClickClose={onClickClose}
           {...tab}
         />
-      )}
-      <PasswordPanel
-        playerCode={playerCode}
-        onSubmitted={onSubmitted}
-        onClickClose={onClickClose}
-        {...tab}
-      />
-    </Tabs>
+      </Tabs>
+    </CustomNavTab>
   )
 }

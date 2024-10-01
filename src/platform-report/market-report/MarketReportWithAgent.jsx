@@ -51,6 +51,13 @@ import {
 } from "../../trans/Platform"
 import { AgentProfitTrans } from "../../trans/Agent"
 import { RegisteredCountTrans } from "../../trans/User"
+import { WrapperBg } from "../../styles/wrapper"
+import {
+  cssTableLineBg,
+  CustomInputReport,
+  GroupSearchBarButton
+} from "../style"
+import { CustomTableStyle } from "../../styles/tablle"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -97,69 +104,68 @@ export const MarketReportWithAgent = ({ brandId, useFetch, exportUrl }) => {
 
   return (
     <Set orientation="vertical" isFilled height="100%" spacing="major-2">
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          from={state.from}
-          to={state.to}
-          isLoading={isLoading}
-          search={(data) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-        />
-        {data?.items?.length > 0 && (
-          <Box>
-            {exportUrl && (
-              <DownloadButton
-                id="export-report"
-                isLoading={isLoading}
-                href={urlWith(toSearchParams(), exportUrl)}
-              />
-            )}
-          </Box>
-        )}
-      </Level>
-      <Alert variant="bordered" type="info" accent marginBottom="1rem">
-        <List listStyleType="disc" listStylePosition="inside">
-          <List.Item>
-            <DepositAmountAfterDeductingTransferFeeTrans />
-          </List.Item>
-          <List.Item>
-            <PlatformCoveredBonusInfoTrans />
-          </List.Item>
-          <List.Item>
-            <PlatformCoveredBonusAdjustInfoTrans />
-          </List.Item>
-          <List.Item>
-            <PlatformMarketReportNetProfitInfoTrans />
-          </List.Item>
-        </List>
-      </Alert>
-      <AutoSizer flex="1 0 50%">
-        {({ height, width }) => {
-          return (
-            <Table
-              columns={columns}
-              data={data?.items}
-              total={data?.items?.length > 0 && data?.total}
-              initialState={state}
-              controlledState={state}
-              pageCount={pageCount(pageSize, data?.totalCount)}
-              setPageIndex={setPageIndex}
-              setSortOrder={setSortOrder}
+      <WrapperBg>
+        <Level alignY="bottom" alignX="left" verticalBelow="mobile">
+          <GroupSearchBarButton>
+            <SearchBar
+              from={state.from}
+              to={state.to}
               isLoading={isLoading}
-              maxSize={{ height, width }}
-              stickyHead
-              localStorageKey={TableLocalStorageKey}
-              toggleColumnHidden={true}
+              search={(data) => {
+                setState({
+                  pageIndex: 0,
+                  ...data
+                })
+                mutate()
+              }}
             />
-          )
-        }}
-      </AutoSizer>
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+            {data?.items?.length > 0 && (
+              <Box>
+                {exportUrl && (
+                  <DownloadButton
+                    id="export-report"
+                    isLoading={isLoading}
+                    href={urlWith(toSearchParams(), exportUrl)}
+                  />
+                )}
+              </Box>
+            )}
+          </GroupSearchBarButton>
+        </Level>
+        <Alert variant="bordered" type="info" accent marginBottom="1rem">
+          <List listStyleType="disc" listStylePosition="inside">
+            <List.Item>
+              <DepositAmountAfterDeductingTransferFeeTrans />
+            </List.Item>
+            <List.Item>
+              <PlatformCoveredBonusInfoTrans />
+            </List.Item>
+            <List.Item>
+              <PlatformCoveredBonusAdjustInfoTrans />
+            </List.Item>
+            <List.Item>
+              <PlatformMarketReportNetProfitInfoTrans />
+            </List.Item>
+          </List>
+        </Alert>
+        <CustomTableStyle css={cssTableLineBg}>
+          <Table
+            columns={columns}
+            data={data?.items}
+            total={data?.items?.length > 0 && data?.total}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+            stickyHead
+            localStorageKey={TableLocalStorageKey}
+            toggleColumnHidden={true}
+          />
+        </CustomTableStyle>
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -183,7 +189,7 @@ const SearchBar = ({ from, to, search, isLoading, ...props }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-        <Set>
+        <Set marginBottom="8px">
           <DateInputRange
             showDateDropdownMenu
             maxRangeDays={QueryMaxRangeDays}
@@ -205,6 +211,7 @@ const SearchBar = ({ from, to, search, isLoading, ...props }) => {
             }}
             fakeTimeLabel
             required
+            css={CustomInputReport}
           />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>

@@ -72,7 +72,7 @@ export const TopPlayerTable = ({ brand, brandId, maxWidth }) => {
             }
 
             tr:nth-child(odd) td {
-              background-color: white;
+              background-color: #fff;
             }
           }
         `}
@@ -167,28 +167,29 @@ const PlayerRow = ({ player = {}, brand, index }) => {
               playerUsername: player.playerUsername
             }}
             css={css`
-              color: #574feb;
+              color: #06c;
             `}
             title={player.playerUsername}
           >
             {player.playerUsername}
           </Link>
         </Table.Cell>
-        <Table.Cell textAlign="right">
+        <Table.Cell textAlign="center">
           <FormattedNumber value={player.deposit} />
         </Table.Cell>
-        <Table.Cell textAlign="right">
+        <Table.Cell textAlign="center">
           <FormattedNumber value={player.withdraw} />
         </Table.Cell>
-        <Table.Cell textAlign="right">
+        <Table.Cell textAlign="center">
           <FormattedNumber value={player.bet} />
         </Table.Cell>
-        <Table.Cell textAlign="right">
+        <Table.Cell textAlign="center">
           <FormattedNumber value={player.settle} />
         </Table.Cell>
         <Table.Cell
-          textAlign="right"
+          textAlign="center"
           color={isPlayerWin ? "danger" : "success"}
+          fontWeight="bold"
           css={css`
             position: sticky;
             right: 0;

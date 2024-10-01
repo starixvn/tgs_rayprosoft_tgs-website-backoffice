@@ -38,6 +38,7 @@ import { SpecialProcessingTrans } from "../../trans/Action.jsx"
 import { VipCommissionRebateTrans } from "../../trans/Vip.jsx"
 import { SWRConfig } from "swr"
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
+import { WrapperModal } from "../../styles/wrapper.js"
 
 export const PlatformGameDetailButton = ({ record, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -51,20 +52,7 @@ export const PlatformGameDetailButton = ({ record, onSubmitted, ...props }) => {
   let readOnly = !editable
   return (
     <>
-      <Disclosure
-        {...dialog}
-        {...props}
-        palette="success"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      >
+      <Disclosure {...dialog} {...props} palette="success">
         {/* <GameDetailTrans /> */}
         <Icon
           icon={faMagnifyingGlass}
@@ -162,7 +150,7 @@ const EditBody = ({ record = {}, readOnly }) => {
 
   let notLobbyGame = notLobbyGameType(gameType)
   return (
-    <Stack padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <Heading use="h5" marginBottom="major-3">
         <BasicInformationTrans />
       </Heading>
@@ -250,7 +238,7 @@ const EditBody = ({ record = {}, readOnly }) => {
 
       {notLobbyGame && (
         <>
-          <Heading use="h5" marginBottom="major-3">
+          <Heading use="h5" marginBottom="major-3" marginTop="major-3">
             <SpecialProcessingTrans />
           </Heading>
           <FieldValues
@@ -277,6 +265,6 @@ const EditBody = ({ record = {}, readOnly }) => {
         </>
       )}
       <Input name="id" type="hidden" />
-    </Stack>
+    </WrapperModal>
   )
 }
