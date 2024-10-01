@@ -341,7 +341,7 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set alignY="bottom">
-          <TimezoneSelectField />
+          <TimezoneSelectField disabled />
           <DateHourRangeInput
             id="date-range"
             dateFormat="yyyy/MM/dd HH"

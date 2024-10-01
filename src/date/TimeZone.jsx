@@ -93,9 +93,11 @@ const timezoneRange = (start, end) => {
 
 const TimezoneNumberFormat = "+0[.]0"
 
+const DefaultGMTValue = -240
+
 export const TimezoneSelectField = ({
   name = "timezoneOffset",
-  defaultValue = localTimeOffset(),
+  defaultValue = DefaultGMTValue,
   prefix = "",
   rangeStart = -11,
   rangeEnd = 15,
