@@ -35,6 +35,7 @@ import {
 import { HtmlEditor } from "../text/editor/HtmlEditor"
 import { CloseButtonFooter } from "../form/ConfirmButtonFooter"
 import { useLanguageList } from "../language/client"
+import { WrapperModal } from "../styles/wrapper"
 
 export const LocalizationDialogMode = {
   List: "list",
@@ -386,7 +387,7 @@ const ListBody = ({
   disabled
 }) => {
   return (
-    <FieldStack padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       {codes.map((code) => (
         <LocalizationField
           key={code}
@@ -396,6 +397,6 @@ const ListBody = ({
           {...localizationFieldProps}
         />
       ))}
-    </FieldStack>
+    </WrapperModal>
   )
 }

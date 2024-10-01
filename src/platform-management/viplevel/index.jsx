@@ -22,6 +22,9 @@ import { useVipLevelList } from "../../vip-levels/client"
 import AlertDialog from "../../dialog/Alert"
 import { ActionTrans } from "../../trans/Action"
 import { VipLevelTrans } from "../../trans/Vip"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -60,59 +63,42 @@ const BodyContent = ({}) => {
 
   let pageWidth = usePlatformPageContentWidth()
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      css={css`
-        padding: 1rem;
-        background: #f3f4f7;
-      `}
-    >
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <Box></Box>
-        <Box alignX="right">
-          {data?.items?.length < FrontendLobbyVipLimit && (
-            <AddButton
-              id="add-vip-level-dialog-disclosure"
-              brandId={brandId}
-              onSubmitted={mutate}
-            />
-          )}
+    <Set orientation="vertical" isFilled height="100%">
+      <WrapperBg>
+        <Level alignY="bottom" alignX="left" verticalBelow="mobile">
+          <Box></Box>
+          <Box alignX="right" marginBottom="major-2">
+            {data?.items?.length < FrontendLobbyVipLimit && (
+              <AddButton
+                id="add-vip-level-dialog-disclosure"
+                brandId={brandId}
+                onSubmitted={mutate}
+              />
+            )}
+          </Box>
+        </Level>
+        <Box>
+          {({ height }) => {
+            let width = pageWidth
+            return (
+              <CustomTableStyle>
+                <Table
+                  columns={columns}
+                  data={data?.items}
+                  initialState={state}
+                  controlledState={state}
+                  pageCount={pageCount(state?.pageSize, data?.totalCount)}
+                  setPageIndex={setPageIndex}
+                  setSortOrder={setSortOrder}
+                  isLoading={isLoading}
+                  maxSize={{ height, width }}
+                  stickyHead
+                />
+              </CustomTableStyle>
+            )
+          }}
         </Box>
-      </Level>
-      <Box>
-        {({ height }) => {
-          let width = pageWidth
-          return (
-            <Table
-              columns={columns}
-              data={data?.items}
-              initialState={state}
-              controlledState={state}
-              pageCount={pageCount(state?.pageSize, data?.totalCount)}
-              setPageIndex={setPageIndex}
-              setSortOrder={setSortOrder}
-              isLoading={isLoading}
-              maxSize={{ height, width }}
-              stickyHead
-              css={css`
-                > tbody {
-                  tr {
-                    &:not(:last-child) {
-                      border-bottom: 1px solid #dbdfe6 !important;
-                    }
-                    &:nth-child(odd) {
-                      background: none;
-                      box-shadow: inset 0 0 0 9999px #0000000d;
-                    }
-                  }
-                }
-              `}
-            />
-          )
-        }}
-      </Box>
+      </WrapperBg>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>
   )
@@ -144,31 +130,19 @@ const useColumns = ({ brandId, items = [], mutate }) => {
         },
         Cell: ({ value }) => {
           return (
-            <Set
-              alignX="center"
-              css={css`
-                flex-wrap: nowrap;
-                > button {
-                  padding: 10px 12px;
-                  height: 38px;
-                  min-height: 38px;
-                  border: none;
-                  &:focus {
-                    box-shadow: none !important;
-                  }
-                }
-              `}
-            >
-              <ViewButton
-                id="view-vip-level-dialog-disclosure"
-                record={value}
-              />
-              <EditButton
-                id="edit-vip-level-dialog-disclosure"
-                brandId={brandId}
-                record={value}
-                onSubmitted={mutate}
-              />
+            <Set alignX="center">
+              <ActionTableButton>
+                <ViewButton
+                  id="view-vip-level-dialog-disclosure"
+                  record={value}
+                />
+                <EditButton
+                  id="edit-vip-level-dialog-disclosure"
+                  brandId={brandId}
+                  record={value}
+                  onSubmitted={mutate}
+                />
+              </ActionTableButton>
             </Set>
           )
         }

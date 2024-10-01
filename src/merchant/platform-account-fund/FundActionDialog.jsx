@@ -28,6 +28,7 @@ import {
 } from "./FundAction"
 import { PlatformTrans } from "../../trans/Platform"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 const AddOrDeductFund = {
   zh: "上/下分",
@@ -257,7 +258,7 @@ const FormBody = ({}) => {
   let operator = useUsername()
   let estimatedCredit = useEstimatedCredit()
   return (
-    <FieldStack padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <FieldValues
         css={css`
           gap: 16px 24px;
@@ -317,10 +318,10 @@ const FormBody = ({}) => {
         </Box>
         <MoneyInput />
       </FieldValues>
-      <Box>
+      <Box marginTop="major-3">
         <ConfirmCheckbox />
       </Box>
-    </FieldStack>
+    </WrapperModal>
   )
 }
 

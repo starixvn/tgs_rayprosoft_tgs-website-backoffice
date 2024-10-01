@@ -40,6 +40,7 @@ import Backdrop from "../../dialog/Backdrop"
 import { useMaintenanceMessage, useUpdateMaintenanceMessage } from "./client"
 import { TextareaField } from "../../textarea"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const ViewMaintenanceMessageDisclosure = ({
   brandMaintenanceId,
@@ -184,7 +185,7 @@ const FormBody = ({ readOnly = false, message = "" }) => {
 
   let editable = !readOnly
   return (
-    <Box padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <FieldStack height="100%">
         {readOnly && (
           <Blockquote
@@ -218,6 +219,6 @@ const FormBody = ({ readOnly = false, message = "" }) => {
           />
         )}
       </FieldStack>
-    </Box>
+    </WrapperModal>
   )
 }

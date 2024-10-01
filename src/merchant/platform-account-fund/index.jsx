@@ -41,6 +41,8 @@ import { FundHistoryDialogDisclosure } from "./FundHistoryDialog"
 import { isObject } from "lodash-es"
 import { FundActionDetailDialogDisclosure } from "./FundActionDetailDialog"
 import { UsedCreditDetailDialog } from "./UsedCreditDetailDialog"
+import { SearchAndSubmitButton } from "../../styles/button"
+import { CustomTableStyle } from "../../styles/tablle"
 
 export { Code }
 
@@ -77,32 +79,11 @@ const Body = () => {
           background: #f3f4f7;
         `}
       >
-        <Set
-          css={css`
-            > button {
-              background: #4b49b6;
-              color: #fff;
-              border-radius: 6px !important;
-              border: 1px solid !important;
-              font-weight: 400;
-              &:focus,
-              &:hover,
-              &:active {
-                background: #4b49b6;
-                box-shadow: none !important;
-              }
-              &:hover {
-                &:active {
-                  background: #4b49b6;
-                }
-              }
-            }
-          `}
-        >
+        <SearchAndSubmitButton>
           <FundActionDialogDisclosure brandId={brandId} onSubmitted={mutate} />
           <AlertSettingDialogDisclosure brandId={brandId} />
           <FundHistoryDialogDisclosure brandId={brandId} />
-        </Set>
+        </SearchAndSubmitButton>
         <Text.Block fontSize="200" padding="1rem 0">
           <Trans zh="當月資金" en="Fund of the month" />
         </Text.Block>
@@ -111,29 +92,18 @@ const Body = () => {
             let width = pageWidth
 
             return (
-              <Table
-                id="current-fund"
-                columns={columns}
-                data={items}
-                maxSize={{ height, width }}
-                isLoading={isLoading}
-                hasCellDividers
-                isResponsive
-                isStriped
-                css={css`
-                  > tbody {
-                    tr {
-                      &:not(:last-child) {
-                        border-bottom: 1px solid #dbdfe6 !important;
-                      }
-                      &:nth-child(odd) {
-                        background: none;
-                        box-shadow: inset 0 0 0 9999px #0000000d;
-                      }
-                    }
-                  }
-                `}
-              />
+              <CustomTableStyle>
+                <Table
+                  id="current-fund"
+                  columns={columns}
+                  data={items}
+                  maxSize={{ height, width }}
+                  isLoading={isLoading}
+                  hasCellDividers
+                  isResponsive
+                  isStriped
+                />
+              </CustomTableStyle>
             )
           }}
         </Box>

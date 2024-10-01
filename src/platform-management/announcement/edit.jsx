@@ -54,6 +54,7 @@ import {
 } from "../../trans/Action"
 import { EndTimeTrans, StartTimeTrans } from "../../trans/Date"
 import { faPen } from "@fortawesome/free-solid-svg-icons"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const AddButton = ({ brandId, onSubmitted, ...props }) => {
   let dialog = Modal.useState()
@@ -296,94 +297,96 @@ const EditBody = ({ readOnly = false } = {}) => {
   let required = !readOnly
   let textareaHeight = readOnly ? "15vh" : "30vh"
   return (
-    <FieldStack padding="5rem 1rem 1rem 1rem" marginBottom="0">
-      {required && (
-        <Alert
-          type="info"
-          variant="bordered"
-          title={
-            <Trans
-              zh="*点击「多语系」按钮以新增其他语系内容。"
-              en={`*Click on “multi-language” button and fill fields in other languages.(optional)`}
-            />
-          }
-        ></Alert>
-      )}
-      <FieldValues
-        css={css`
-          gap: 16px 24px;
-          .react-datepicker-wrapper {
-            width: 100%;
-            > input {
-              &:focus {
-                box-shadow: none !important;
+    <WrapperModal>
+      <FieldStack marginBottom="0">
+        {required && (
+          <Alert
+            type="info"
+            variant="bordered"
+            title={
+              <Trans
+                zh="*点击「多语系」按钮以新增其他语系内容。"
+                en={`*Click on “multi-language” button and fill fields in other languages.(optional)`}
+              />
+            }
+          ></Alert>
+        )}
+        <FieldValues
+          css={css`
+            gap: 16px 24px;
+            .react-datepicker-wrapper {
+              width: 100%;
+              > input {
+                &:focus {
+                  box-shadow: none !important;
+                }
               }
             }
-          }
-        `}
-      >
-        <Label name="type">
-          <Trans zh="类型" en="Type" />
-        </Label>
-        <AnnouncementTypeSelect name="type" disabled={readOnly} />
-
-        <Label name="subject" required={required}>
-          <SubjectTrans />
-        </Label>
-        <InputField
-          name="subject"
-          brandId={brandId}
-          required={required}
-          disabled={readOnly}
-          showLocalizationAddonAfter
-        />
-
-        <Label name="from" required={required}>
-          <StartTimeTrans />
-        </Label>
-        <Box id="from-date-box">
-          <DateTimeInput
-            name="from"
-            maxDate={maxDate}
-            required={required}
-            disabled={readOnly}
-          />
-        </Box>
-
-        <Label name="to" required={required}>
-          <EndTimeTrans />
-        </Label>
-        <Box id="to-date-box">
-          <DateTimeInput
-            name="to"
-            minDate={minDate}
-            required={required}
-            disabled={readOnly}
-          />
-        </Box>
-
-        <Label name="content" required={required}>
-          <Trans zh="内容" en="Content" />
-        </Label>
-        <TextareaField
-          name="content"
-          showLocalizationAddonAfter
-          brandId={brandId}
-          required={required}
-          disabled={readOnly}
-          height={textareaHeight}
-          css={css`
-            height: ${textareaHeight};
-
-            & .bb-FieldWrapper,
-            & .bb-TextareaWrapper,
-            & .bb-Textarea {
-              height: ${textareaHeight};
-            }
           `}
-        />
-      </FieldValues>
-    </FieldStack>
+        >
+          <Label name="type">
+            <Trans zh="类型" en="Type" />
+          </Label>
+          <AnnouncementTypeSelect name="type" disabled={readOnly} />
+
+          <Label name="subject" required={required}>
+            <SubjectTrans />
+          </Label>
+          <InputField
+            name="subject"
+            brandId={brandId}
+            required={required}
+            disabled={readOnly}
+            showLocalizationAddonAfter
+          />
+
+          <Label name="from" required={required}>
+            <StartTimeTrans />
+          </Label>
+          <Box id="from-date-box">
+            <DateTimeInput
+              name="from"
+              maxDate={maxDate}
+              required={required}
+              disabled={readOnly}
+            />
+          </Box>
+
+          <Label name="to" required={required}>
+            <EndTimeTrans />
+          </Label>
+          <Box id="to-date-box">
+            <DateTimeInput
+              name="to"
+              minDate={minDate}
+              required={required}
+              disabled={readOnly}
+            />
+          </Box>
+
+          <Label name="content" required={required}>
+            <Trans zh="内容" en="Content" />
+          </Label>
+          <TextareaField
+            name="content"
+            showLocalizationAddonAfter
+            brandId={brandId}
+            required={required}
+            disabled={readOnly}
+            height={textareaHeight}
+            css={css`
+              height: ${textareaHeight};
+
+              & .bb-FieldWrapper,
+              & .bb-TextareaWrapper,
+              & .bb-Textarea {
+                height: ${textareaHeight};
+              }
+            `}
+          />
+        </FieldValues>
+      </FieldStack>
+    </WrapperModal>
   )
 }
 

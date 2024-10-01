@@ -27,6 +27,7 @@ import { usePlatformAccountFundColumns } from "./index"
 import { usePlatformAccountFundHistory } from "./client"
 import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import AlertDialog from "../../dialog/Alert"
+import { WrapperModal } from "../../styles/wrapper"
 
 const usePlatformAccountFundHistoryTrans = () =>
   useTrans({
@@ -86,37 +87,53 @@ const HistoryDialog = ({ brandId, dialog, dialogId, title }) => {
       {...dialog}
       css={css`
         min-width: 75vw;
+        & .bb-DialogContent {
+          max-height: 70vh;
+          padding: 0;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
         & .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
           > button {
-            &:focus,
-            &:hover {
-              background: none !important;
-              box-shadow: none !important;
-            }
+            box-shadow: none !important;
+            background: none !important;
           }
         }
       `}
     >
-      <Table
-        columns={columns}
-        data={items}
-        controlledState={state}
-        autoPaging={true}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        hasCellDividers
-        css={css`
-          > tbody {
-            tr {
-              background: #fff;
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
+      <WrapperModal>
+        <Table
+          columns={columns}
+          data={items}
+          controlledState={state}
+          autoPaging={true}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          hasCellDividers
+          css={css`
+            > tbody {
+              tr {
+                background: #fff;
+                &:not(:last-child) {
+                  border-bottom: 1px solid #dbdfe6 !important;
+                }
               }
             }
-          }
-        `}
-      />
+          `}
+        />
+      </WrapperModal>
     </Modal>
   )
 }

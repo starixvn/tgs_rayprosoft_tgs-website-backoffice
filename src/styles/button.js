@@ -40,6 +40,7 @@ export const SearchAndSubmitButton = styled.div`
     &:hover,
     &:active {
       background: #4b49b6;
+      box-shadow: none !important;
     }
     &:hover {
       &:active {

@@ -25,6 +25,7 @@ import { useFormContext } from "react-hook-form"
 import Input from "../../input/Input"
 import { NumberInput } from "../../input/NumberInput"
 import { BalanceTrans } from "../../trans/User"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const PlatformCreditPaymentDialogDisclosure = ({
   record,
@@ -101,7 +102,7 @@ const FormBody = () => {
     "balance"
   ])
   return (
-    <Box padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <FieldValues
         css={css`
           align-items: center;
@@ -139,6 +140,6 @@ const FormBody = () => {
           <NumberInput name="amount" required />
         </Box>
       </FieldValues>
-    </Box>
+    </WrapperModal>
   )
 }

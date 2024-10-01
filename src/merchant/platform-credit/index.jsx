@@ -23,6 +23,9 @@ import { PlatformCreditPaymentDialogDisclosure } from "./PlatformCreditPaymentDi
 import { PlatformCreditPaymentListDialogDisclosure } from "./PlatformCreditPaymentListDialog"
 import { ActionTrans } from "../../trans/Action"
 import { BalanceTrans } from "../../trans/User"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -69,31 +72,20 @@ const Body = () => {
         </>
       }
     >
-      <Table
-        id="platform-credit"
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        getRowId={(row) => row.id}
-        css={css`
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
+      <CustomTableStyle>
+        <Table
+          id="platform-credit"
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          getRowId={(row) => row.id}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -123,16 +115,20 @@ const SearchForm = ({ search, isLoading, ...props }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
-          <InputField
-            name="licenseeName"
-            showEmptyFieldValueAddonAfter
-            placeholder={licenseePlaceholder}
-          />
-          <InputField
-            name="keyword"
-            showEmptyFieldValueAddonAfter
-            placeholder={searchPlaceHolder}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="licenseeName"
+              showEmptyFieldValueAddonAfter
+              placeholder={licenseePlaceholder}
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="keyword"
+              showEmptyFieldValueAddonAfter
+              placeholder={searchPlaceHolder}
+            />
+          </CustomInputSearch>
 
           <SearchButton isLoading={isLoading} />
         </Set>
@@ -187,37 +183,23 @@ const useColumns = ({ items = [], mutate }) => {
           accessor: (row) => row,
           Cell: ({ value }) => {
             return (
-              <Set
-                orientation="horizontal"
-                alignX="center"
-                css={css`
-                  flex-wrap: nowrap;
-                  > button {
-                    padding: 10px 12px;
-                    height: 38px;
-                    min-height: 38px;
-                    border: 1px solid #d9d9e1;
-                    &:focus {
-                      box-shadow: none !important;
-                      border: 1px solid #d9d9e1;
-                    }
-                  }
-                `}
-              >
-                <EditPlatformCreditDialogDisclosure
-                  id={`platform-credit-dialog-disclosure`}
-                  record={value}
-                  onSubmitted={mutate}
-                />
-                <PlatformCreditPaymentDialogDisclosure
-                  id={`platform-credit-payment-dialog-disclosure`}
-                  record={value}
-                  onSubmitted={mutate}
-                />
-                <PlatformCreditPaymentListDialogDisclosure
-                  id={`platform-credit-payment-list-dialog-disclosure`}
-                  record={value}
-                />
+              <Set orientation="horizontal" alignX="center">
+                <ActionTableButton>
+                  <EditPlatformCreditDialogDisclosure
+                    id={`platform-credit-dialog-disclosure`}
+                    record={value}
+                    onSubmitted={mutate}
+                  />
+                  <PlatformCreditPaymentDialogDisclosure
+                    id={`platform-credit-payment-dialog-disclosure`}
+                    record={value}
+                    onSubmitted={mutate}
+                  />
+                  <PlatformCreditPaymentListDialogDisclosure
+                    id={`platform-credit-payment-list-dialog-disclosure`}
+                    record={value}
+                  />
+                </ActionTableButton>
               </Set>
             )
           }

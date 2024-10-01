@@ -34,6 +34,7 @@ import { TimeSelectField } from "../../date/TimeSelect"
 import { formatHourMinute } from "../../date/format"
 import { useUpdateMaintenance } from "./client"
 import { useBrandList } from "../platforms/client"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const MaintenanceTimeRangeDialogDisclosure = ({
   brandId,
@@ -166,26 +167,28 @@ const FormBody = ({ brandName }) => {
   })
 
   return (
-    <FieldStack orientation="vertical" padding="5rem 1rem 1rem 1rem">
-      {brandName && (
-        <Box borderColor="primary" fontWeight="bold">
-          <Trans zh="平台：" en="Platform：" /> {brandName}
-        </Box>
-      )}
-      <FieldStack orientation="horizontal">
-        <TimeSelectField
-          name={BeginTimeField}
-          max={endTime}
-          label={startLabel}
-          required
-        />
-        <TimeSelectField
-          name={EndTimeField}
-          min={beginTime}
-          label={endLabel}
-          required
-        />
+    <WrapperModal>
+      <FieldStack orientation="vertical">
+        {brandName && (
+          <Box borderColor="primary" fontWeight="bold">
+            <Trans zh="平台：" en="Platform：" /> {brandName}
+          </Box>
+        )}
+        <FieldStack orientation="horizontal">
+          <TimeSelectField
+            name={BeginTimeField}
+            max={endTime}
+            label={startLabel}
+            required
+          />
+          <TimeSelectField
+            name={EndTimeField}
+            min={beginTime}
+            label={endLabel}
+            required
+          />
+        </FieldStack>
       </FieldStack>
-    </FieldStack>
+    </WrapperModal>
   )
 }

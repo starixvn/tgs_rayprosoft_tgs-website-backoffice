@@ -51,6 +51,9 @@ import {
 } from "../../trans/Date"
 import { BannersTrans } from "../../trans/Platform"
 import { CustomTableStyle } from "../../styles/tablle"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomNavTab } from "../../styles/navtab"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -119,126 +122,101 @@ const Body = () => {
   }
 
   return (
-    <Set
-      orientation="vertical"
-      isFilled
-      height="100%"
-      css={css`
-        padding: 1rem;
-        background: #f3f4f7;
-      `}
-    >
-      <Box alignX="right" position="absolute" top="16px" right="16px">
-        <AddPlatformBannerDisclosure
-          id="add-banner-dialog-disclosure"
-          brandId={brandId}
-          onSubmitted={mutate}
-        />
-      </Box>
-      <Tabs
-        css={css`
-          .bb-TabsPanel {
-            background: #fff;
-          }
-        `}
-      >
-        <TabList
-          {...tab}
-          css={css`
-            > button {
-              box-shadow: none !important;
-              border-bottom: 2px solid transparent;
-              &:hover {
-                box-shadow: none !important;
-                border-bottom: 2px solid #574feb;
-              }
-            }
-            > button[aria-selected="true"] {
-              border-bottom: 2px solid #574feb !important;
-            }
-          `}
-        >
-          {hasVerifyAuth && (
-            <Tab tabId={InVerify} onClick={activeTab(InVerify)} {...tab}>
-              <ReviewTrans />
-            </Tab>
-          )}
+    <Set orientation="vertical" isFilled height="100%">
+      <WrapperBg>
+        <Box alignX="right" position="absolute" top="16px" right="16px">
+          <AddPlatformBannerDisclosure
+            id="add-banner-dialog-disclosure"
+            brandId={brandId}
+            onSubmitted={mutate}
+          />
+        </Box>
+        <CustomNavTab>
+          <Tabs>
+            <TabList {...tab}>
+              {hasVerifyAuth && (
+                <Tab tabId={InVerify} onClick={activeTab(InVerify)} {...tab}>
+                  <ReviewTrans />
+                </Tab>
+              )}
 
-          <Tab tabId={Effective} onClick={activeTab(Effective)} {...tab}>
-            <EffectiveTrans />
-          </Tab>
-          <Tab tabId={Expired} onClick={activeTab(Expired)} {...tab}>
-            <ExpiredTrans />
-          </Tab>
-          <Tab tabId={Rejected} onClick={activeTab(Rejected)} {...tab}>
-            <RejectedTrans />
-          </Tab>
-        </TabList>
-        {hasVerifyAuth && (
-          <TabPanel id="in-verify-tab-panel" tabId={InVerify} {...tab}>
-            {status === InVerify && (
-              <AsyncTable
-                id="banner"
-                status={status}
-                data={data}
-                state={state}
-                setPageIndex={setPageIndex}
-                setSortOrder={setSortOrder}
-                isLoading={isLoading}
-                mutate={mutate}
-                brandId={brandId}
-              />
+              <Tab tabId={Effective} onClick={activeTab(Effective)} {...tab}>
+                <EffectiveTrans />
+              </Tab>
+              <Tab tabId={Expired} onClick={activeTab(Expired)} {...tab}>
+                <ExpiredTrans />
+              </Tab>
+              <Tab tabId={Rejected} onClick={activeTab(Rejected)} {...tab}>
+                <RejectedTrans />
+              </Tab>
+            </TabList>
+            {hasVerifyAuth && (
+              <TabPanel id="in-verify-tab-panel" tabId={InVerify} {...tab}>
+                {status === InVerify && (
+                  <AsyncTable
+                    id="banner"
+                    status={status}
+                    data={data}
+                    state={state}
+                    setPageIndex={setPageIndex}
+                    setSortOrder={setSortOrder}
+                    isLoading={isLoading}
+                    mutate={mutate}
+                    brandId={brandId}
+                  />
+                )}
+              </TabPanel>
             )}
-          </TabPanel>
-        )}
-        <TabPanel id="effective-tab-panel" tabId={Effective} {...tab}>
-          {status === Effective && (
-            <EffectiveTable
-              id="banner"
-              status={status}
-              data={data}
-              state={state}
-              setPageIndex={setPageIndex}
-              setSortOrder={setSortOrder}
-              isLoading={isLoading}
-              mutate={mutate}
-              brandId={brandId}
-            />
-          )}
-        </TabPanel>
-        <TabPanel id="expired-tab-panel" tabId={Expired} {...tab}>
-          {status === Expired && (
-            <AsyncTable
-              id="banner"
-              status={status}
-              data={data}
-              state={state}
-              setPageIndex={setPageIndex}
-              setSortOrder={setSortOrder}
-              isLoading={isLoading}
-              mutate={mutate}
-              brandId={brandId}
-            />
-          )}
-        </TabPanel>
-        <TabPanel id="rejected-tab-panel" tabId={Rejected} {...tab}>
-          {status === Rejected && (
-            <AsyncTable
-              id="banner"
-              status={status}
-              data={data}
-              state={state}
-              setPageIndex={setPageIndex}
-              setSortOrder={setSortOrder}
-              isLoading={isLoading}
-              mutate={mutate}
-              brandId={brandId}
-            />
-          )}
-        </TabPanel>
-      </Tabs>
+            <TabPanel id="effective-tab-panel" tabId={Effective} {...tab}>
+              {status === Effective && (
+                <EffectiveTable
+                  id="banner"
+                  status={status}
+                  data={data}
+                  state={state}
+                  setPageIndex={setPageIndex}
+                  setSortOrder={setSortOrder}
+                  isLoading={isLoading}
+                  mutate={mutate}
+                  brandId={brandId}
+                />
+              )}
+            </TabPanel>
+            <TabPanel id="expired-tab-panel" tabId={Expired} {...tab}>
+              {status === Expired && (
+                <AsyncTable
+                  id="banner"
+                  status={status}
+                  data={data}
+                  state={state}
+                  setPageIndex={setPageIndex}
+                  setSortOrder={setSortOrder}
+                  isLoading={isLoading}
+                  mutate={mutate}
+                  brandId={brandId}
+                />
+              )}
+            </TabPanel>
+            <TabPanel id="rejected-tab-panel" tabId={Rejected} {...tab}>
+              {status === Rejected && (
+                <AsyncTable
+                  id="banner"
+                  status={status}
+                  data={data}
+                  state={state}
+                  setPageIndex={setPageIndex}
+                  setSortOrder={setSortOrder}
+                  isLoading={isLoading}
+                  mutate={mutate}
+                  brandId={brandId}
+                />
+              )}
+            </TabPanel>
+          </Tabs>
+        </CustomNavTab>
 
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -481,62 +459,51 @@ const useColumns = ({ mutate, brandId, status: tabStatusName, items = [] }) => {
         },
         Cell: ({ value }) => {
           return (
-            <Set
-              alignX="center"
-              css={css`
-                button {
-                  padding: 10px 12px;
-                  height: 38px;
-                  min-height: 38px;
-                  border: none;
-                  &:focus {
-                    box-shadow: none !important;
-                  }
-                }
-              `}
-            >
-              {(tabStatusName === Effective ||
-                tabStatusName === Expired ||
-                tabStatusName === Rejected) && (
-                <ViewPlatformBannerDisclosure
-                  id="view-banner-dialog-disclosure"
-                  brandId={brandId}
-                  record={value}
-                />
-              )}
-              {tabStatusName === InVerify && (
-                <VerifyPlatformBannerDisclosure
-                  id="verify-banner-dialog-disclosure"
-                  brandId={brandId}
-                  record={value}
-                  onSubmitted={mutate}
-                />
-              )}
-              {tabStatusName === Effective && (
-                <EditPlatformBannerDisclosure
-                  id="edit-banner-dialog-disclosure"
-                  brandId={brandId}
-                  record={value}
-                  onSubmitted={mutate}
-                />
-              )}
-              {hasUpdateAuth &&
-                (tabStatusName === Effective ||
+            <Set alignX="center">
+              <ActionTableButton>
+                {(tabStatusName === Effective ||
                   tabStatusName === Expired ||
                   tabStatusName === Rejected) && (
-                  <ConfirmDeleteDialogDisclosure
-                    id="delete-banner-dialog-disclosure"
-                    dialogId="delete-banner-dialog"
-                    useFetch={useDeleteBanner}
-                    onSubmit={() => {
-                      return value.id
-                    }}
-                    onSubmitted={mutate}
-                    addonAfter={
-                      <Input type="hidden" name="id" value={value.id} />
-                    }
+                  <ViewPlatformBannerDisclosure
+                    id="view-banner-dialog-disclosure"
+                    brandId={brandId}
+                    record={value}
                   />
                 )}
+                {tabStatusName === InVerify && (
+                  <VerifyPlatformBannerDisclosure
+                    id="verify-banner-dialog-disclosure"
+                    brandId={brandId}
+                    record={value}
+                    onSubmitted={mutate}
+                  />
+                )}
+                {tabStatusName === Effective && (
+                  <EditPlatformBannerDisclosure
+                    id="edit-banner-dialog-disclosure"
+                    brandId={brandId}
+                    record={value}
+                    onSubmitted={mutate}
+                  />
+                )}
+                {hasUpdateAuth &&
+                  (tabStatusName === Effective ||
+                    tabStatusName === Expired ||
+                    tabStatusName === Rejected) && (
+                    <ConfirmDeleteDialogDisclosure
+                      id="delete-banner-dialog-disclosure"
+                      dialogId="delete-banner-dialog"
+                      useFetch={useDeleteBanner}
+                      onSubmit={() => {
+                        return value.id
+                      }}
+                      onSubmitted={mutate}
+                      addonAfter={
+                        <Input type="hidden" name="id" value={value.id} />
+                      }
+                    />
+                  )}
+              </ActionTableButton>
             </Set>
           )
         }

@@ -62,6 +62,7 @@ import {
   VirtualSportsCommissionRebateTrans,
   WithdrawalPolicyTrans
 } from "../../trans/Vip"
+import { SearchAndSubmitButton } from "../../styles/button"
 
 export const AddButton = ({ brandId, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -73,28 +74,9 @@ export const AddButton = ({ brandId, onSubmitted, ...props }) => {
 
   return (
     <>
-      <AddDisclosure
-        {...dialog}
-        {...props}
-        css={css`
-          background: #4b49b6;
-          color: #fff;
-          border-radius: 6px !important;
-          border: 1px solid !important;
-          font-weight: 400;
-          &:focus,
-          &:hover,
-          &:active {
-            background: #4b49b6;
-            box-shadow: none !important;
-          }
-          &:hover {
-            &:active {
-              background: #4b49b6;
-            }
-          }
-        `}
-      />
+      <SearchAndSubmitButton>
+        <AddDisclosure {...dialog} {...props} />
+      </SearchAndSubmitButton>
       {dialog.visible && (
         <AddDialog
           brandId={brandId}

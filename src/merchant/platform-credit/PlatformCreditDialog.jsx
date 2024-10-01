@@ -24,6 +24,7 @@ import { NormalLabel } from "../../form/Label"
 import { useFormContext } from "react-hook-form"
 import Input from "../../input/Input"
 import { NumberInput } from "../../input/NumberInput"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const EditPlatformCreditDialogDisclosure = ({
   record,
@@ -96,7 +97,7 @@ const FormBody = () => {
     "brandCode"
   ])
   return (
-    <Box padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <FieldValues
         css={css`
           align-items: center;
@@ -122,6 +123,6 @@ const FormBody = () => {
         </Box>
       </FieldValues>
       <Input type="hidden" name="id" />
-    </Box>
+    </WrapperModal>
   )
 }

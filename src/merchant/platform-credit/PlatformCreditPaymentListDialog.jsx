@@ -36,6 +36,7 @@ import { SortOrder } from "../../table/order"
 import dateTimeColumn from "../../table/column/dateTime"
 import { BalanceTrans } from "../../trans/User"
 import { TimeTrans } from "../../trans/Date"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const PlatformCreditPaymentListDialogDisclosure = ({
   record,
@@ -96,29 +97,31 @@ const ListDialog = ({ record, onSubmitted, dialog, ...props }) => {
       hideOnClickOutside={false}
       css={css`
         & .bb-DialogContent {
-          max-height: 85vh;
-          overflow-y: unset;
-        }
-        & .bb-Stack {
           max-height: 70vh;
+          padding: 0;
           overflow-y: scroll;
           &::-webkit-scrollbar {
             display: none;
           }
         }
+
         & .bb-DialogHeader {
+          padding: 1rem;
+          border-bottom: 1px solid #dbdfe6;
+          margin-bottom: 0;
+          position: fixed;
+          width: 100%;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 6px 6px 0 0;
           > button {
-            &:focus,
-            &:hover,
-            &:active {
-              background: none !important;
-              box-shadow: none !important;
-            }
+            box-shadow: none !important;
+            background: none !important;
           }
         }
       `}
     >
-      <Stack>
+      <WrapperModal>
         <Table
           id="platform-credit-payments"
           columns={columns}
@@ -130,7 +133,7 @@ const ListDialog = ({ record, onSubmitted, dialog, ...props }) => {
           setSortOrder={setSortOrder}
           isLoading={isLoading}
         />
-      </Stack>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }

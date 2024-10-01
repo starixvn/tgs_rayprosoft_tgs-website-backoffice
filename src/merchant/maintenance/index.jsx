@@ -32,6 +32,9 @@ import { MerchantStatusMenu, MerchantStatus } from "../MerchantStatus"
 import { StartMaintenanceDialogDisclosure } from "./StartMaintenanceDialog"
 import { ActionTrans } from "../../trans/Action"
 import { StatusTrans } from "../../trans/Status"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -90,31 +93,20 @@ const Body = () => {
         </>
       }
     >
-      <Table
-        id="maintenance"
-        columns={columns}
-        data={items}
-        initialState={state}
-        controlledState={state}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        stickyHead
-        getRowId={(row) => row.brandCode}
-        css={css`
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
+      <CustomTableStyle>
+        <Table
+          id="maintenance"
+          columns={columns}
+          data={items}
+          initialState={state}
+          controlledState={state}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          stickyHead
+          getRowId={(row) => row.brandCode}
+        />
+      </CustomTableStyle>
       {error && (
         <AlertDialog
           {...error}
@@ -145,12 +137,13 @@ const SearchForm = ({ search, isLoading, ...props }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
-          <InputField
-            name="brandCode"
-            showEmptyFieldValueAddonAfter
-            placeholder={searchPlaceHolder}
-          />
-
+          <CustomInputSearch>
+            <InputField
+              name="brandCode"
+              showEmptyFieldValueAddonAfter
+              placeholder={searchPlaceHolder}
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} />
         </Set>
       </form>
@@ -232,59 +225,49 @@ const useColumns = ({ items = [], mutate }) => {
           accessor: (row) => row,
           Cell: ({ value: record }) => {
             return (
-              <Set
-                orientation="horizontal"
-                alignX="center"
-                css={css`
-                  flex-wrap: nowrap;
-                  > button {
-                    padding: 10px 12px;
-                    height: 38px;
-                    min-height: 38px;
-                    border: 1px solid #d9d9e1;
-                    &:focus {
-                      box-shadow: none !important;
-                      border: 1px solid #d9d9e1;
-                    }
-                  }
-                `}
-              >
-                {record?.brandMaintenanceId ? (
-                  <ViewMaintenanceMessageDisclosure
-                    brandMaintenanceId={record?.brandMaintenanceId}
-                    dialogId="view-maintenance-message-dialog"
-                  />
-                ) : (
-                  <div
-                    css={css`
-                      width: 42px;
-                      height: 38px;
-                    `}
-                  />
-                )}
-                {record?.brandMaintenanceId ? (
-                  <EditMaintenanceMessageDisclosure
-                    brandMaintenanceId={record?.brandMaintenanceId}
-                    dialogId="edit-maintenance-message-dialog"
-                  />
-                ) : (
-                  <div
-                    css={css`
-                      width: 42px;
-                      height: 38px;
-                    `}
-                  />
-                )}
+              <Set orientation="horizontal" alignX="center">
+                <ActionTableButton
+                  css={css`
+                    flex-wrap: nowrap;
+                  `}
+                >
+                  {record?.brandMaintenanceId ? (
+                    <ViewMaintenanceMessageDisclosure
+                      brandMaintenanceId={record?.brandMaintenanceId}
+                      dialogId="view-maintenance-message-dialog"
+                    />
+                  ) : (
+                    <div
+                      css={css`
+                        width: 42px;
+                        height: 38px;
+                      `}
+                    />
+                  )}
+                  {record?.brandMaintenanceId ? (
+                    <EditMaintenanceMessageDisclosure
+                      brandMaintenanceId={record?.brandMaintenanceId}
+                      dialogId="edit-maintenance-message-dialog"
+                    />
+                  ) : (
+                    <div
+                      css={css`
+                        width: 42px;
+                        height: 38px;
+                      `}
+                    />
+                  )}
 
-                <MaintenanceTimeRangeDialogDisclosure
-                  useFetch={useUpdateMaintenance}
-                  brandId={record?.brandId}
-                  brandName={record?.brandName}
-                  beginTime={record?.beginTime}
-                  endTime={record?.endTime}
-                  onSubmitted={mutate}
-                  dialogId="platform-maintenance-time-dialog"
-                />
+                  <MaintenanceTimeRangeDialogDisclosure
+                    useFetch={useUpdateMaintenance}
+                    brandId={record?.brandId}
+                    brandName={record?.brandName}
+                    beginTime={record?.beginTime}
+                    endTime={record?.endTime}
+                    onSubmitted={mutate}
+                    dialogId="platform-maintenance-time-dialog"
+                  />
+                </ActionTableButton>
               </Set>
             )
           }
