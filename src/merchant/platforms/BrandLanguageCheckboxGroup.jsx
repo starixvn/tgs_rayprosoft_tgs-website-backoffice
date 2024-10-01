@@ -23,6 +23,8 @@ import FormDialog from "../../form/FormDialog"
 import Disclosure from "../../dialog/Disclosure"
 import { CloseText, ConfirmText } from "../../button/ActionButtons"
 import { faLanguage } from "@fortawesome/free-solid-svg-icons"
+import { ModalButtonPlatForm } from "../../styles/button"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const BrandLanguageCheckboxGroupTable = ({
   name = "languages",
@@ -100,20 +102,11 @@ export const BrandLanguageCheckboxGroupTable = ({
                           let dialog = useModalState()
                           return (
                             <Box>
-                              <Disclosure
-                                {...dialog}
-                                css={css`
-                                  padding: 10px 12px;
-                                  height: 38px;
-                                  min-height: 38px;
-                                  &:focus {
-                                    box-shadow: none !important;
-                                    border: 1px solid #d9d9e1;
-                                  }
-                                `}
-                              >
-                                <Icon icon={faLanguage} type="font-awesome" />
-                              </Disclosure>
+                              <ModalButtonPlatForm>
+                                <Disclosure {...dialog}>
+                                  <Icon icon={faLanguage} type="font-awesome" />
+                                </Disclosure>
+                              </ModalButtonPlatForm>
                               {dialog.visible && (
                                 <CodeDialog
                                   value={value}
@@ -172,14 +165,16 @@ const CodeDialog = ({ value, disabled, readOnly, dialog, onChange }) => {
           }
         `}
       >
-        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
-          <Input
-            name="code"
-            defaultValue={value}
-            disabled={disabled}
-            readOnly={readOnly}
-          />
-        </Stack>
+        <WrapperModal>
+          <Stack orientation="vertical">
+            <Input
+              name="code"
+              defaultValue={value}
+              disabled={disabled}
+              readOnly={readOnly}
+            />
+          </Stack>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

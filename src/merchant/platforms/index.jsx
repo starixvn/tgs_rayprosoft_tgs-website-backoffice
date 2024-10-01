@@ -39,6 +39,9 @@ import {
 } from "../../page/LicenseePageContent"
 import AutoSizer from "react-virtualized-auto-sizer"
 import { AccountFundSettingDialogDisclosure } from "./AccountFundSettingDialog"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
 // import { PlatformDomainDialogDisclosure } from "./PlatformDomain"
 
 export { Code }
@@ -97,12 +100,7 @@ const LicenseeBodyBox = () => {
   let pageWidth = useLicenseePageContentWidth()
   return (
     <Set orientation="vertical" isFilled height="100%">
-      <Box
-        css={css`
-          padding: 1rem;
-          background: #f3f4f7;
-        `}
-      >
+      <WrapperBg>
         <Level
           alignY="bottom"
           alignX="left"
@@ -120,67 +118,40 @@ const LicenseeBodyBox = () => {
             isLoading={isLoading}
           />
           <Set orientation="horizontal" alignX="right">
-            <AddButton
-              id="add-platform-dialog-disclosure"
-              licenseeId={licenseeId}
-              onSubmitted={mutate}
-              css={css`
-                background: #4b49b6;
-                color: #fff;
-                border-radius: 6px !important;
-                border: 1px solid !important;
-                font-weight: 400;
-                &:focus,
-                &:hover,
-                &:active {
-                  background: #4b49b6;
-                  box-shadow: none !important;
-                }
-                &:hover {
-                  &:active {
-                    background: #4b49b6;
-                  }
-                }
-              `}
-            />
+            <SearchAndSubmitButton>
+              <AddButton
+                id="add-platform-dialog-disclosure"
+                licenseeId={licenseeId}
+                onSubmitted={mutate}
+              />
+            </SearchAndSubmitButton>
           </Set>
         </Level>
         <Box>
           {({ height }) => {
             let width = pageWidth
             return (
-              <Table
-                columns={columns}
-                data={data?.items}
-                initialState={state}
-                controlledState={state}
-                pageCount={pageCount(pageSize, data?.totalCount)}
-                setPageIndex={setPageIndex}
-                setSortOrder={setSortOrder}
-                isLoading={isLoading}
-                maxSize={{ height, width }}
-                stickyHead
-                getRowId={(row, index) => row.id ?? index}
-                isResponsive
-                isStriped
-                css={css`
-                  > tbody {
-                    tr {
-                      &:not(:last-child) {
-                        border-bottom: 1px solid #dbdfe6 !important;
-                      }
-                      &:nth-child(odd) {
-                        background: none;
-                        box-shadow: inset 0 0 0 9999px #0000000d;
-                      }
-                    }
-                  }
-                `}
-              />
+              <CustomTableStyle>
+                <Table
+                  columns={columns}
+                  data={data?.items}
+                  initialState={state}
+                  controlledState={state}
+                  pageCount={pageCount(pageSize, data?.totalCount)}
+                  setPageIndex={setPageIndex}
+                  setSortOrder={setSortOrder}
+                  isLoading={isLoading}
+                  maxSize={{ height, width }}
+                  stickyHead
+                  getRowId={(row, index) => row.id ?? index}
+                  isResponsive
+                  isStriped
+                />
+              </CustomTableStyle>
             )
           }}
         </Box>
-      </Box>
+      </WrapperBg>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </Set>
   )
@@ -307,46 +278,33 @@ const useColumns = ({ items = [], mutate }) => {
           accessor: (row) => row,
           Cell: ({ value }) => {
             return (
-              <Set
-                orientation="horizontal"
-                alignX="center"
-                css={css`
-                  flex-wrap: nowrap;
-                  > button {
-                    padding: 10px 12px;
-                    height: 38px;
-                    min-height: 38px;
-                    border: none;
-                    &:focus {
-                      box-shadow: none !important;
-                    }
-                  }
-                `}
-              >
-                <ViewButton
-                  id="view-platform-dialog-disclosure"
-                  record={value}
-                />
-                <EditButton
-                  id="edit-platform-dialog-disclosure"
-                  record={value}
-                  onSubmitted={mutate}
-                />
-                <EditBrandBetLimitGameProviderBetLimit
-                  id="edit-platform-betlimit-dialog-disclosure"
-                  record={value}
-                  onSubmitted={mutate}
-                />
-                {/* <PlatformDomainDialogDisclosure
+              <Set orientation="horizontal" alignX="center">
+                <ActionTableButton>
+                  <ViewButton
+                    id="view-platform-dialog-disclosure"
+                    record={value}
+                  />
+                  <EditButton
+                    id="edit-platform-dialog-disclosure"
+                    record={value}
+                    onSubmitted={mutate}
+                  />
+                  <EditBrandBetLimitGameProviderBetLimit
+                    id="edit-platform-betlimit-dialog-disclosure"
+                    record={value}
+                    onSubmitted={mutate}
+                  />
+                  {/* <PlatformDomainDialogDisclosure
                   id="platform-domain-dialog-disclosure"
                   brandId={value.id}
                 /> */}
-                <BrandLogoDialogDisclosure
-                  id="platform-logo-dialog-disclosure"
-                  brandId={value.id}
-                />
-                <ContactsDialogDisclosure brandId={value.id} />
-                <AccountFundSettingDialogDisclosure brandId={value.id} />
+                  <BrandLogoDialogDisclosure
+                    id="platform-logo-dialog-disclosure"
+                    brandId={value.id}
+                  />
+                  <ContactsDialogDisclosure brandId={value.id} />
+                  <AccountFundSettingDialogDisclosure brandId={value.id} />
+                </ActionTableButton>
               </Set>
             )
           }

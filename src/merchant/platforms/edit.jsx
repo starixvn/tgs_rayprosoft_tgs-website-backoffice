@@ -84,6 +84,7 @@ import Switch from "../../switch/Switch"
 import { AutoOrManualSwitch } from "../../switch/AutoOrManualSwitch"
 import { SWRConfig } from "swr"
 import { faPen } from "@fortawesome/free-solid-svg-icons"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const AddButton = ({ licenseeId, onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -493,249 +494,258 @@ const EditBody = ({ record, readonly, isAdd = false, businessType }) => {
   let AutoSendAgentBonusFieldName = "autoSendAgentBonus"
 
   return (
-    <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
-      <Heading use="h5" marginBottom="major-3">
-        <BasicInformationTrans />
-      </Heading>
+    <Stack orientation="vertical">
+      <WrapperModal>
+        <Heading use="h5" marginBottom="major-3">
+          <BasicInformationTrans />
+        </Heading>
 
-      <FieldValues
-        css={css`
-          gap: 18px 30px;
-          input,
-          button,
-          textarea,
-          select {
-            &:focus {
-              box-shadow: none !important;
-            }
-          }
-          textarea {
-            border-radius: 6px !important;
-          }
-        `}
-      >
-        {!userLicenseeId && (
-          <>
-            <NormalLabel>
-              <Trans zh="所属公司" en="Licensee" />
-            </NormalLabel>
-            <Box alignY="center">
-              {!licensee?.name && <MerchantIdSelect end={RoleTypes.Licensee} />}
-              {licensee?.name && <Text.Block>{licensee?.name}</Text.Block>}
-            </Box>
-          </>
-        )}
-
-        {!isAdd && (
-          <>
-            <NormalLabel>
-              <Trans zh="ID" en="ID" />
-            </NormalLabel>
-            <Box alignY="center">
-              <Text.Block>{getValues("id")}</Text.Block>
-            </Box>
-          </>
-        )}
-
-        <NormalLabel>
-          <Trans zh="平台代码" en="Code" />
-        </NormalLabel>
-        <Box alignY="center">
-          <Input
-            name="code"
-            type={isAdd ? "input" : "hidden"}
-            registerOptions={{
-              setValueAs: (value = "") => value?.trim?.()?.toUpperCase?.()
-            }}
-            css={css`
-              & input {
-                text-transform: uppercase;
-              }
-            `}
-          />
-          {!isAdd && (
-            <Text.Block data-type="code">{getValues("code")}</Text.Block>
-          )}
-        </Box>
-
-        <NormalLabel>
-          <Trans zh="平台名称" en="Name" />
-        </NormalLabel>
-        <Box alignY="center">
-          {editable && <Input name="name" required />}
-          {readonly && <Text.Block>{record?.name}</Text.Block>}
-        </Box>
-
-        <NormalLabel>
-          <Trans zh="平台简介" en="Description" />
-        </NormalLabel>
-        <Box alignY="center">
-          {editable && <Textarea name="description" />}
-          {readonly && <Text.Block>{record.description}</Text.Block>}
-        </Box>
-
-        <NormalLabel>
-          <Trans zh="平台邮箱" en="Email" />
-        </NormalLabel>
-        <Box alignY="center">
-          {editable && <Input type="email" name="operationalEmail" required />}
-          {readonly && <Text.Block>{record.operationalEmail}</Text.Block>}
-        </Box>
-
-        <NormalLabel>
-          <Trans zh="分紅模式" en="Profit Sharing Type" />
-        </NormalLabel>
-        <Box alignY="center">
-          {isAdd && (
-            <AgentProfitSharingTypeSelect
-              name={AgentDividendTypeFieldName}
-              required
-            />
-          )}
-          {!isAdd && (
-            <AgentProfitSharingTypeLabel value={record.agentDividendType} />
-          )}
-        </Box>
-
-        <NormalLabel>
-          <PlayerUpgradesToAgentTrans />
-        </NormalLabel>
-        <Box alignY="center">
-          <Switch
-            name={UpgradePlayerToAgentFieldName}
-            disabled={!isAdd}
-            css={css`
-              width: max-content;
-            `}
-          />
-        </Box>
-
-        <NormalLabel>
-          <DistributionTrans />
-        </NormalLabel>
-        <Box alignY="center">
-          <AutoOrManualSwitch
-            name={AutoSendAgentBonusFieldName}
-            disabled={!isAdd}
-          />
-        </Box>
-
-        <NormalLabel>
-          <Trans zh="平台域名" en="Brand Domain" />
-        </NormalLabel>
-        <Box alignY="center">
-          <Input name="domains.0" disabled={readonly} />
-        </Box>
-
-        {!isAdd && (
-          <>
-            <NormalLabel>
-              <Trans zh="API密钥 " en="API Key" />
-            </NormalLabel>
-            <Box alignY="center">
-              <Input type="hidden" name="apiKey" />
-              <InputField
-                readonly
-                defaultValue={getValues("apiKey")}
-                addonAfter={
-                  <Button
-                    onClick={() => {
-                      copy(getValues("apiKey"))
-                    }}
-                  >
-                    <Trans zh="复制" en="Copy" />
-                  </Button>
-                }
-                css={css`
-                  & input {
-                    text-overflow: ellipsis;
-                  }
-                `}
-              />
-            </Box>
-          </>
-        )}
-
-        {!isAdd && (
-          <>
-            <NormalLabel>
-              <Trans zh="Brand Token" en="Brand Token" />
-            </NormalLabel>
-            <Box alignY="center">
-              <PlatformTokenActionButtons platformId={getValues("id")} />
-            </Box>
-          </>
-        )}
-
-        <NormalLabel>
-          <AgentProfitSharingIntervalTrans />
-        </NormalLabel>
-        <Box alignY="center">
-          <Set orientation="horizontal">
-            <SettlementIntervalTypeSelect
-              name={SettlementIntervalTypeFieldName}
-              required
-              disabled={readonly}
-            />
-            {isMonthly && <MonthlyDaySelect name="settlementDay" />}
-            {isAgentProfitSharingMultipleLayer(agentDividendType) && (
-              <Checkbox
-                name={CheckDividendActiveCountFieldName}
-                label={checkDividendActiveCountLabel}
-                disabled={readonly}
-              />
-            )}
-          </Set>
-        </Box>
-
-        <NormalLabel>
-          <Trans zh="时区" en="Time Zone" />
-        </NormalLabel>
-        <Box>
-          <TimezoneSelect
-            name="timeSpanMinutes"
-            defaultValue={isAdd ? SystemZoneOffset : undefined}
-            disabled={readonly || !isAdd}
-          />
-        </Box>
-
-        <NormalLabel
+        <FieldValues
           css={css`
-            display: flex;
-            align-items: center;
+            gap: 18px 30px;
+            input,
+            button,
+            textarea,
+            select {
+              &:focus {
+                box-shadow: none !important;
+              }
+            }
+            textarea {
+              border-radius: 6px !important;
+            }
           `}
         >
-          <Trans zh="自动清除流水" en="Auto Clear Wagering Requirement" />
-        </NormalLabel>
-        <Set alignY="center">
-          <Checkbox name="autoClearWageringRequirement" disabled={readonly} />
-          <NumberInputField
-            name="autoClearWageringRequirementBalance"
-            addonBefore={
-              <Button isStatic>
-                <Trans zh="玩家钱包余额 ＜＝" en="Player Wallet Balance ＜＝" />
-              </Button>
-            }
-            disabled={readonly}
+          {!userLicenseeId && (
+            <>
+              <NormalLabel>
+                <Trans zh="所属公司" en="Licensee" />
+              </NormalLabel>
+              <Box alignY="center">
+                {!licensee?.name && (
+                  <MerchantIdSelect end={RoleTypes.Licensee} />
+                )}
+                {licensee?.name && <Text.Block>{licensee?.name}</Text.Block>}
+              </Box>
+            </>
+          )}
+
+          {!isAdd && (
+            <>
+              <NormalLabel>
+                <Trans zh="ID" en="ID" />
+              </NormalLabel>
+              <Box alignY="center">
+                <Text.Block>{getValues("id")}</Text.Block>
+              </Box>
+            </>
+          )}
+
+          <NormalLabel>
+            <Trans zh="平台代码" en="Code" />
+          </NormalLabel>
+          <Box alignY="center">
+            <Input
+              name="code"
+              type={isAdd ? "input" : "hidden"}
+              registerOptions={{
+                setValueAs: (value = "") => value?.trim?.()?.toUpperCase?.()
+              }}
+              css={css`
+                & input {
+                  text-transform: uppercase;
+                }
+              `}
+            />
+            {!isAdd && (
+              <Text.Block data-type="code">{getValues("code")}</Text.Block>
+            )}
+          </Box>
+
+          <NormalLabel>
+            <Trans zh="平台名称" en="Name" />
+          </NormalLabel>
+          <Box alignY="center">
+            {editable && <Input name="name" required />}
+            {readonly && <Text.Block>{record?.name}</Text.Block>}
+          </Box>
+
+          <NormalLabel>
+            <Trans zh="平台简介" en="Description" />
+          </NormalLabel>
+          <Box alignY="center">
+            {editable && <Textarea name="description" />}
+            {readonly && <Text.Block>{record.description}</Text.Block>}
+          </Box>
+
+          <NormalLabel>
+            <Trans zh="平台邮箱" en="Email" />
+          </NormalLabel>
+          <Box alignY="center">
+            {editable && (
+              <Input type="email" name="operationalEmail" required />
+            )}
+            {readonly && <Text.Block>{record.operationalEmail}</Text.Block>}
+          </Box>
+
+          <NormalLabel>
+            <Trans zh="分紅模式" en="Profit Sharing Type" />
+          </NormalLabel>
+          <Box alignY="center">
+            {isAdd && (
+              <AgentProfitSharingTypeSelect
+                name={AgentDividendTypeFieldName}
+                required
+              />
+            )}
+            {!isAdd && (
+              <AgentProfitSharingTypeLabel value={record.agentDividendType} />
+            )}
+          </Box>
+
+          <NormalLabel>
+            <PlayerUpgradesToAgentTrans />
+          </NormalLabel>
+          <Box alignY="center">
+            <Switch
+              name={UpgradePlayerToAgentFieldName}
+              disabled={!isAdd}
+              css={css`
+                width: max-content;
+              `}
+            />
+          </Box>
+
+          <NormalLabel>
+            <DistributionTrans />
+          </NormalLabel>
+          <Box alignY="center">
+            <AutoOrManualSwitch
+              name={AutoSendAgentBonusFieldName}
+              disabled={!isAdd}
+            />
+          </Box>
+
+          <NormalLabel>
+            <Trans zh="平台域名" en="Brand Domain" />
+          </NormalLabel>
+          <Box alignY="center">
+            <Input name="domains.0" disabled={readonly} />
+          </Box>
+
+          {!isAdd && (
+            <>
+              <NormalLabel>
+                <Trans zh="API密钥 " en="API Key" />
+              </NormalLabel>
+              <Box alignY="center">
+                <Input type="hidden" name="apiKey" />
+                <InputField
+                  readonly
+                  defaultValue={getValues("apiKey")}
+                  addonAfter={
+                    <Button
+                      onClick={() => {
+                        copy(getValues("apiKey"))
+                      }}
+                    >
+                      <Trans zh="复制" en="Copy" />
+                    </Button>
+                  }
+                  css={css`
+                    & input {
+                      text-overflow: ellipsis;
+                    }
+                  `}
+                />
+              </Box>
+            </>
+          )}
+
+          {!isAdd && (
+            <>
+              <NormalLabel>
+                <Trans zh="Brand Token" en="Brand Token" />
+              </NormalLabel>
+              <Box alignY="center">
+                <PlatformTokenActionButtons platformId={getValues("id")} />
+              </Box>
+            </>
+          )}
+
+          <NormalLabel>
+            <AgentProfitSharingIntervalTrans />
+          </NormalLabel>
+          <Box alignY="center">
+            <Set orientation="horizontal">
+              <SettlementIntervalTypeSelect
+                name={SettlementIntervalTypeFieldName}
+                required
+                disabled={readonly}
+              />
+              {isMonthly && <MonthlyDaySelect name="settlementDay" />}
+              {isAgentProfitSharingMultipleLayer(agentDividendType) && (
+                <Checkbox
+                  name={CheckDividendActiveCountFieldName}
+                  label={checkDividendActiveCountLabel}
+                  disabled={readonly}
+                />
+              )}
+            </Set>
+          </Box>
+
+          <NormalLabel>
+            <Trans zh="时区" en="Time Zone" />
+          </NormalLabel>
+          <Box>
+            <TimezoneSelect
+              name="timeSpanMinutes"
+              defaultValue={isAdd ? SystemZoneOffset : undefined}
+              disabled={readonly || !isAdd}
+            />
+          </Box>
+
+          <NormalLabel
+            css={css`
+              display: flex;
+              align-items: center;
+            `}
+          >
+            <Trans zh="自动清除流水" en="Auto Clear Wagering Requirement" />
+          </NormalLabel>
+          <Set alignY="center">
+            <Checkbox name="autoClearWageringRequirement" disabled={readonly} />
+            <NumberInputField
+              name="autoClearWageringRequirementBalance"
+              addonBefore={
+                <Button isStatic>
+                  <Trans
+                    zh="玩家钱包余额 ＜＝"
+                    en="Player Wallet Balance ＜＝"
+                  />
+                </Button>
+              }
+              disabled={readonly}
+            />
+          </Set>
+
+          <NormalLabel>
+            <Trans zh="身分证审核" en="ID Verification" />
+          </NormalLabel>
+          <Box alignY="center">
+            <Checkbox name="enablePlayerIdentity" disabled={readonly} />
+          </Box>
+
+          <LanguageFieldsBox
+            readonly={readonly}
+            brandCultureCodeReadOnly={isB2C}
           />
-        </Set>
 
-        <NormalLabel>
-          <Trans zh="身分证审核" en="ID Verification" />
-        </NormalLabel>
-        <Box alignY="center">
-          <Checkbox name="enablePlayerIdentity" disabled={readonly} />
-        </Box>
+          <CurrencyBetLimitFieldsBox readonly={readonly} showBetLimitDefault />
 
-        <LanguageFieldsBox
-          readonly={readonly}
-          brandCultureCodeReadOnly={isB2C}
-        />
-
-        <CurrencyBetLimitFieldsBox readonly={readonly} showBetLimitDefault />
-
-        <BrandGameProviderFieldsBox readonly={readonly} />
-      </FieldValues>
+          <BrandGameProviderFieldsBox readonly={readonly} />
+        </FieldValues>
+      </WrapperModal>
     </Stack>
   )
 }

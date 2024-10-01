@@ -59,27 +59,7 @@ export const AddButton = ({ onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure
-        {...dialog}
-        css={css`
-          background: #4b49b6;
-          color: #fff;
-          border-radius: 6px !important;
-          border: 1px solid !important;
-          font-weight: 400;
-          &:focus,
-          &:hover,
-          &:active {
-            background: #4b49b6;
-            box-shadow: none !important;
-          }
-          &:hover {
-            &:active {
-              background: #4b49b6;
-            }
-          }
-        `}
-      >
+      <Disclosure {...dialog}>
         <AddTrans />
       </Disclosure>
       {dialog.visible && (

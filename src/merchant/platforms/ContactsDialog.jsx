@@ -25,6 +25,7 @@ import { isEmpty } from "lodash-es"
 import { faMinus, faCog, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { repeat } from "ramda"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 const Contacts = {
   zh: "聯絡資訊",
@@ -143,7 +144,7 @@ const FormBody = ({ name = ContactsField, readOnly }) => {
     keyName: "_id"
   })
   return (
-    <Box padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <Table
         css={css`
           background: #fff;
@@ -193,7 +194,7 @@ const FormBody = ({ name = ContactsField, readOnly }) => {
           )}
         </Table.Body>
       </Table>
-    </Box>
+    </WrapperModal>
   )
 }
 

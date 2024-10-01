@@ -17,6 +17,18 @@ export const ActionTableButton = styled.div`
   }
 `
 
+export const ModalButtonPlatForm = styled.div`
+  > button {
+    padding: 10px 12px;
+    height: 38px;
+    min-height: 38px;
+    &:focus {
+      box-shadow: none !important;
+      border: 1px solid #d9d9e1;
+    }
+  }
+`
+
 export const SearchAndSubmitButton = styled.div`
   > button {
     background: #4b49b6;

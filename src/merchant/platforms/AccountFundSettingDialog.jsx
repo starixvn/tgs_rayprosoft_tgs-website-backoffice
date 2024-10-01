@@ -14,6 +14,7 @@ import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import AlertDialog from "../../dialog/Alert"
 import Switch from "../../switch/Switch"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const AccountFundSettingDialogDisclosure = ({
   brandId,
@@ -111,9 +112,11 @@ const SettingDialog = ({ brandId, readOnly, dialog, dialogId, ...props }) => {
 
 const FormBody = ({ readOnly }) => {
   return (
-    <Set orientation="horizontal" padding="5rem 1rem 1rem 1rem">
-      <AccountFundsTrans />
-      <Switch name="setting" disabled={readOnly} />
-    </Set>
+    <WrapperModal>
+      <Set orientation="horizontal">
+        <AccountFundsTrans />
+        <Switch name="setting" disabled={readOnly} />
+      </Set>
+    </WrapperModal>
   )
 }

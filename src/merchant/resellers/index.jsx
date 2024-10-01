@@ -23,6 +23,9 @@ import textColumn from "../../table/column/textColumn"
 import { ActionTrans } from "../../trans/Action"
 import { CreatedTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
 import { StatusTrans } from "../../trans/Status"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -79,35 +82,31 @@ const Body = () => {
             }}
             isLoading={isLoading}
           />
-          <AddButton onSubmitted={mutate} />
+          <SearchAndSubmitButton
+            css={css`
+              display: flex;
+              justify-content: flex-end;
+            `}
+          >
+            <AddButton onSubmitted={mutate} />
+          </SearchAndSubmitButton>
         </>
       }
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        isResponsive
-        isStriped
-        css={css`
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          isResponsive
+          isStriped
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -131,29 +130,13 @@ const SearchForm = ({ search, isLoading, ...props }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
-          <InputField
-            name="keyword"
-            showEmptyFieldValueAddonAfter
-            placeholder={searchPlaceHolder}
-            css={css`
-              input {
-                border: 1px solid #dbdfe6;
-                &:focus {
-                  box-shadow: none !important;
-                }
-              }
-              button {
-                &:focus,
-                &:hover,
-                &:active {
-                  box-shadow: none !important;
-                  border: 1px solid #dbdfe6;
-                  border-left: none;
-                  background: #fff;
-                }
-              }
-            `}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="keyword"
+              showEmptyFieldValueAddonAfter
+              placeholder={searchPlaceHolder}
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} />
         </Set>
       </form>
@@ -250,21 +233,11 @@ const useColumns = ({ items = [], mutate }) => {
                 alignY="center"
                 padding="0"
                 palette="success"
-                css={css`
-                  flex-wrap: nowrap;
-                  > button {
-                    padding: 10px 12px;
-                    height: 38px;
-                    min-height: 38px;
-                    border: none;
-                    &:focus {
-                      box-shadow: none !important;
-                    }
-                  }
-                `}
               >
-                <ViewButton record={value} />
-                <EditButton record={value} onSubmitted={mutate} />
+                <ActionTableButton>
+                  <ViewButton record={value} />
+                  <EditButton record={value} onSubmitted={mutate} />
+                </ActionTableButton>
               </Set>
             )
           }

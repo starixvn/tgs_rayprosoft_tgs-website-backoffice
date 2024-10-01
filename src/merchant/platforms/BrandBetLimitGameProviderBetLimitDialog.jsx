@@ -50,6 +50,8 @@ import { CurrencyTrans } from "../../trans/Payment.jsx"
 import { SupportingDeviceTrans } from "../../trans/Field.jsx"
 import { CloseButtonFooter } from "../../form/ConfirmButtonFooter.jsx"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper.js"
+import { ModalButtonPlatForm } from "../../styles/button.js"
 
 export const EditBrandBetLimitGameProviderBetLimit = ({
   record,
@@ -246,7 +248,7 @@ const EditDialog = ({
         }
       `}
     >
-      <Box padding="5rem 1rem 1rem 1rem">
+      <WrapperModal>
         <FieldStack>
           <ActionBar
             brandId={brandId}
@@ -267,7 +269,7 @@ const EditDialog = ({
             gameProviders={gameProviders}
           />
         </FieldStack>
-      </Box>
+      </WrapperModal>
     </FormDialog>
   )
 }
@@ -424,7 +426,7 @@ const EditBody = ({
   let isEmpty = fields.length === 0
   let editable = !readonly
   return (
-    <Stack padding="5rem 1rem 1rem 1rem">
+    <Stack>
       {fields.map((field, index) => (
         <GroupCard
           key={field._id}
@@ -683,18 +685,9 @@ const BetLimitRow = ({
           }) => {
             return (
               <>
-                <ConfigIconDisclosure
-                  {...dialog}
-                  css={css`
-                    padding: 10px 12px;
-                    height: 38px;
-                    min-height: 38px;
-                    &:focus {
-                      box-shadow: none !important;
-                      border: 1px solid #d9d9e1;
-                    }
-                  `}
-                />
+                <ModalButtonPlatForm>
+                  <ConfigIconDisclosure {...dialog} />
+                </ModalButtonPlatForm>
                 {dialog.visible && (
                   <SWRConfig value={{ provider: () => new Map() }}>
                     <BetLimitDialog
@@ -795,27 +788,29 @@ const GroupGameListDialog = ({
           }
         `}
       >
-        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
-          <Table>
-            <Table.Head>
-              <Table.Row>
-                <Table.HeadCell textAlign="center">
-                  <GameProviderNameTrans />
-                </Table.HeadCell>
-                <Table.HeadCell textAlign="center"></Table.HeadCell>
-              </Table.Row>
-            </Table.Head>
-            <Table.Body>
-              {gameProviders.map((gameProvider, index) => (
-                <GameProviderRow
-                  key={gameProvider.id}
-                  gameProvider={gameProvider}
-                  readonly={readonly}
-                />
-              ))}
-            </Table.Body>
-          </Table>
-        </Stack>
+        <WrapperModal>
+          <Stack orientation="vertical">
+            <Table>
+              <Table.Head>
+                <Table.Row>
+                  <Table.HeadCell textAlign="center">
+                    <GameProviderNameTrans />
+                  </Table.HeadCell>
+                  <Table.HeadCell textAlign="center"></Table.HeadCell>
+                </Table.Row>
+              </Table.Head>
+              <Table.Body>
+                {gameProviders.map((gameProvider, index) => (
+                  <GameProviderRow
+                    key={gameProvider.id}
+                    gameProvider={gameProvider}
+                    readonly={readonly}
+                  />
+                ))}
+              </Table.Body>
+            </Table>
+          </Stack>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )
@@ -1012,9 +1007,9 @@ const GameProviderGameListDialog = ({
           }
         `}
       >
-        <Box padding="5rem 1rem 1rem 1rem">
+        <WrapperModal>
           <GameProviderGameListDialogBody readonly={readonly} />
-        </Box>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )
@@ -1155,7 +1150,7 @@ const BetLimitDialog = ({
           }
         `}
       >
-        <Stack padding="5rem 1rem 1rem 1rem">
+        <WrapperModal>
           <Table>
             <Table.Head>
               <Table.Row>
@@ -1184,7 +1179,7 @@ const BetLimitDialog = ({
               })}
             </Table.Body>
           </Table>
-        </Stack>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

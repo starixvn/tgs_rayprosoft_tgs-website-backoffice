@@ -30,6 +30,8 @@ import { CloseButtonFooter } from "../../form/ConfirmButtonFooter"
 import { faTimes } from "@fortawesome/free-solid-svg-icons"
 import { useFormContext, useWatch } from "react-hook-form"
 import { SWRConfig } from "swr"
+import { RemoveBoxShadowInputButton } from "../../styles/input"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const BrandLogoDialogDisclosure = ({ brandId, ...props }) => {
   let dialog = useModalState()
@@ -150,43 +152,29 @@ const FormBody = ({ readOnly }) => {
     name: LoadingField
   })
   return (
-    <Box
-      padding="5rem 1rem 1rem 1rem"
-      css={css`
-        input {
-          &:focus {
-            box-shadow: none !important;
-          }
-        }
-        button {
-          &:focus {
-            border: 1px solid #d9d9e1;
-            border-left: none;
-            box-shadow: none !important;
-          }
-        }
-      `}
-    >
-      <FieldStack>
-        <InputField
-          name="mobile"
-          readOnly={readOnly}
-          label={<Trans zh="手机版 Logo" en="Mobile Logo" />}
-          showEmptyFieldValueAddonAfter
-        />
-        <InputField
-          name={DesktopField}
-          readOnly={readOnly}
-          label={<Trans zh="桌面版 Logo" en="Desktop Logo" />}
-          showEmptyFieldValueAddonAfter
-        />
-        <InputField
-          name={LoadingField}
-          readOnly={readOnly}
-          label={<Trans zh="Loading Logo" en="Loading Logo" />}
-          showEmptyFieldValueAddonAfter
-        />
-      </FieldStack>
-    </Box>
+    <WrapperModal>
+      <RemoveBoxShadowInputButton>
+        <FieldStack>
+          <InputField
+            name="mobile"
+            readOnly={readOnly}
+            label={<Trans zh="手机版 Logo" en="Mobile Logo" />}
+            showEmptyFieldValueAddonAfter
+          />
+          <InputField
+            name={DesktopField}
+            readOnly={readOnly}
+            label={<Trans zh="桌面版 Logo" en="Desktop Logo" />}
+            showEmptyFieldValueAddonAfter
+          />
+          <InputField
+            name={LoadingField}
+            readOnly={readOnly}
+            label={<Trans zh="Loading Logo" en="Loading Logo" />}
+            showEmptyFieldValueAddonAfter
+          />
+        </FieldStack>
+      </RemoveBoxShadowInputButton>
+    </WrapperModal>
   )
 }

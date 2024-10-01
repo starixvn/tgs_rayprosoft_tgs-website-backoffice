@@ -36,6 +36,8 @@ import { GameProviderLanguageSelect } from "../../game/providers/GameProviderLan
 import { JsonEditor, JsonEditorFormDialog } from "../../text/editor/JsonEditor"
 import { GameProviderTrans } from "../../trans/Game"
 import { useQueryStringTrans } from "../../trans/Platform"
+import { WrapperModal } from "../../styles/wrapper"
+import { ModalButtonPlatForm } from "../../styles/button"
 
 export const BrandGameProviderCheckboxGroupTable = ({
   name = "gameProviders",
@@ -178,20 +180,13 @@ const Row = ({ name, disabled, field, index }) => {
               let variant = error ? "outlined" : "default"
               return (
                 <>
-                  <ConfigIconDisclosure
-                    variant={variant}
-                    palette={palette}
-                    {...configDialog}
-                    css={css`
-                      padding: 10px 12px;
-                      height: 38px;
-                      min-height: 38px;
-                      &:focus {
-                        box-shadow: none !important;
-                        border: 1px solid #d9d9e1;
-                      }
-                    `}
-                  />
+                  <ModalButtonPlatForm>
+                    <ConfigIconDisclosure
+                      variant={variant}
+                      palette={palette}
+                      {...configDialog}
+                    />
+                  </ModalButtonPlatForm>
                   {configDialog.visible && (
                     <ConfigDialog
                       gameProvider={field}
@@ -264,19 +259,11 @@ const Row = ({ name, disabled, field, index }) => {
             }) => {
               return (
                 <>
-                  <Disclosure
-                    {...desktopQueryStringDialog}
-                    css={css`
-                      padding: 10px 12px;
-                      height: 38px;
-                      min-height: 38px;
-                      &:focus {
-                        box-shadow: none !important;
-                      }
-                    `}
-                  >
-                    <Icon icon={faDesktop} type="font-awesome" />
-                  </Disclosure>
+                  <ModalButtonPlatForm>
+                    <Disclosure {...desktopQueryStringDialog}>
+                      <Icon icon={faDesktop} type="font-awesome" />
+                    </Disclosure>
+                  </ModalButtonPlatForm>
                   {desktopQueryStringDialog.visible && (
                     <QueryStringDialog
                       type={QueryStringType.Desktop}
@@ -308,19 +295,11 @@ const Row = ({ name, disabled, field, index }) => {
             }) => {
               return (
                 <>
-                  <Disclosure
-                    {...mobileQueryStringDialog}
-                    css={css`
-                      padding: 10px 12px;
-                      height: 38px;
-                      min-height: 38px;
-                      &:focus {
-                        box-shadow: none !important;
-                      }
-                    `}
-                  >
-                    <Icon icon={faMobile} type="font-awesome" />
-                  </Disclosure>
+                  <ModalButtonPlatForm>
+                    <Disclosure {...mobileQueryStringDialog}>
+                      <Icon icon={faMobile} type="font-awesome" />
+                    </Disclosure>
+                  </ModalButtonPlatForm>
                   {mobileQueryStringDialog.visible && (
                     <QueryStringDialog
                       type={QueryStringType.Mobile}
@@ -411,14 +390,16 @@ const QueryStringDialog = ({ type, value, disabled, dialog, onChange }) => {
         hideBackdrop={true}
         minWidth="500px"
       >
-        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
-          <InputField
-            label={useQueryStringTrans()}
-            name="url"
-            defaultValue={value}
-            disabled={disabled}
-          />
-        </Stack>
+        <WrapperModal>
+          <Stack orientation="vertical">
+            <InputField
+              label={useQueryStringTrans()}
+              name="url"
+              defaultValue={value}
+              disabled={disabled}
+            />
+          </Stack>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )
@@ -462,15 +443,17 @@ const ConfigDialog = ({
           }
         `}
       >
-        <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
-          <GameProviderConfigSelect
-            name="id"
-            gameProviderId={gameProvider?.gameProviderId}
-            defaultValue={configurationId}
-            required={!disabled}
-            disabled={disabled}
-          />
-        </Stack>
+        <WrapperModal>
+          <Stack orientation="vertical">
+            <GameProviderConfigSelect
+              name="id"
+              gameProviderId={gameProvider?.gameProviderId}
+              defaultValue={configurationId}
+              required={!disabled}
+              disabled={disabled}
+            />
+          </Stack>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )
