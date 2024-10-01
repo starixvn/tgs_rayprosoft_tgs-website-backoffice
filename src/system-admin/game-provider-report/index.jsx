@@ -64,6 +64,7 @@ import {
 } from "../../trans/Game"
 import { CurrencyTrans } from "../../trans/Payment"
 import { CompanyWinLossTrans } from "../../trans/Platform"
+import { toGMT4 } from "../../date/range"
 
 export { Code }
 
@@ -104,8 +105,8 @@ const ReportContent = ({}) => {
   let culture = useLangCode()
   let toSearchParams = () => ({
     ...toApiParams(state),
-    from: toZonedTime(state.from, state.timezoneOffset),
-    to: toZonedTime(state.to, state.timezoneOffset),
+    from: toGMT4(state.from),
+    to: toGMT4(state.to),
     culture
   })
 
@@ -232,7 +233,8 @@ const UpdateGameProviderReportButton = ({ month }) => {
         isLoading={isLoading}
         onClick={() => {
           setSubmit({
-            startDate: month,
+            // startDate: month,
+            startDate: new Date(toGMT4(month)),
             gameProviderId
           })
         }}
@@ -302,7 +304,8 @@ export const UpdatePlatformGameProviderReport = ({ month }) => {
         isLoading={isLoading}
         onClick={() => {
           setSubmit({
-            startDate: month,
+            // startDate: month,
+            startDate: new Date(toGMT4(month)),
             brandId: platformId
           })
         }}
