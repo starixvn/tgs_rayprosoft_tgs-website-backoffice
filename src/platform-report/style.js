@@ -20,11 +20,33 @@ export const CustomInputReport = css`
       }
     }
   }
+  #date-range-dropdown-menu {
+    button {
+      border-right: none;
+      &:focus,
+      &:hover,
+      &:active {
+        box-shadow: none !important;
+        border: 1px solid #dbdfe6;
+        border-right: none;
+        background: #fff;
+      }
+    }
+  }
 `
 
 export const cssTableLineBg = css`
+  .custom-width-table {
+    border: 1px solid #e6e6eb;
+  }
   .bb-Table {
+    border: none !important;
     overflow-x: auto !important;
+    max-height: 80vh;
+    border-collapse: separate !important;
+    .bb-TableHeadCell {
+      border-bottom: 1px solid #e6e6eb;
+    }
     .bb-TableBody {
       &:nth-child(odd) {
         background: none;
@@ -38,4 +60,10 @@ export const GroupSearchBarButton = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+`
+
+export const CustomSpacingMerchantBar = styled.div`
+  #page-merchant-bar {
+    margin: 24px 24px -24px;
+  }
 `

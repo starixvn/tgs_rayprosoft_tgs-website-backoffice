@@ -132,7 +132,7 @@ export const MarketReportWithAgent = ({ brandId, useFetch, exportUrl }) => {
             )}
           </GroupSearchBarButton>
         </Level>
-        <Alert variant="bordered" type="info" accent marginBottom="1rem">
+        <Alert variant="bordered" type="info" accent marginBottom="8px">
           <List listStyleType="disc" listStylePosition="inside">
             <List.Item>
               <DepositAmountAfterDeductingTransferFeeTrans />
@@ -241,70 +241,83 @@ const useColumns = ({ brandId, items = [] }) => {
       numberColumn({
         accessor: "registeredCount",
         Header: <RegisteredCountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberColumn({
         accessor: "depositCount",
         Header: <Trans zh="存款人数" en="Deposit Count" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberColumn({
         accessor: "activePlayer",
         Header: <Trans zh="活跃玩家" en="Active Player" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberColumn({
         accessor: "loginPlayer",
         Header: <Trans zh="登入玩家" en="Login Player" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberColumn({
         accessor: "firstFundInCount",
         Header: <FirstDepositCountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "depositAmount",
         Header: <DepositAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "withdrawalAmount",
         Header: <Trans zh="提款金额" en="Withdrawal Amount" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "companyAdjustAmount",
         Header: <CompanyAdjustmentAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "bonusAdjustAmount",
         Header: <Trans zh="优惠调帐" en="Bonus Adjust" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "platformCoveredBonusAdjust",
         Header: (
           <Trans zh="平台承担优惠调帐" en="Platform-Covered Bonus Adjust" />
         ),
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "bonusAmount",
         Header: <BonusAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "platformCoveredBonus",
         Header: <Trans zh="平台承担红利" en="Platform-Covered Bonus" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         id: "agentProfit",
         accessor: (row) => row,
         Header: <AgentProfitTrans />,
         disableSortBy: true,
+        textAlign: "center",
         TotalCell: ({ value }) => (
           <FormattedNumber value={value} format="0,0.00" digits={2} />
         ),
@@ -322,22 +335,26 @@ const useColumns = ({ brandId, items = [] }) => {
       numberDecimalColumn({
         accessor: "betAmount",
         Header: <BetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
         Header: <ValidBetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "turnover",
         Header: <TurnoverTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "winLossAmount",
         Header: <CompanyWinLossTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         id: "additionalExpenses",
@@ -349,6 +366,7 @@ const useColumns = ({ brandId, items = [] }) => {
             title={additionalExpenseTooltip}
           />
         ),
+        textAlign: "center",
         disableSortBy: true,
         TotalCell: ({ value }) => (
           <FormattedNumber value={value} format="0,0.00" digits={2} />
@@ -372,7 +390,8 @@ const useColumns = ({ brandId, items = [] }) => {
       numberDecimalColumn({
         accessor: "netProfit",
         Header: <NetProfitTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       })
     ],
     [JSON.stringify(items), brandId]

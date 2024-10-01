@@ -74,6 +74,13 @@ import { UserNameTrans, useUserNameTrans } from "../../trans/User"
 import { CurrencyTrans } from "../../trans/Payment"
 import { DetailTrans } from "../../trans/Action"
 import { SettleAmountTrans } from "../../trans/Field"
+import { CustomTableStyle } from "../../styles/tablle"
+import {
+  cssTableLineBg,
+  CustomInputReport,
+  CustomSpacingMerchantBar
+} from "../style"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -94,13 +101,14 @@ export const Body = () => {
 
   return (
     <Set orientation="vertical" isFilled>
-      <BrandBar
-        onBrandChange={(value) => {
-          setBrandId(value)
-        }}
-        paddingTop="0.5rem"
-        paddingLeft="0.5rem"
-      />
+      <CustomSpacingMerchantBar>
+        <BrandBar
+          onBrandChange={(value) => {
+            setBrandId(value)
+          }}
+        />
+      </CustomSpacingMerchantBar>
+
       {brandId && <ReportContent brandId={brandId} />}
     </Set>
   )
@@ -167,53 +175,57 @@ const ReportContent = ({ brandId }) => {
 
   let columns = useColumns({ items: data?.items })
   return (
-    <PageContent
-      actionBar={
-        <SearchBar
-          externalFrom={state.externalFrom}
-          externalTo={state.externalTo}
-          externalClosedFrom={state.externalClosedFrom}
-          externalClosedTo={state.externalClosedTo}
-          start={from}
-          end={to}
-          closedFrom={state?.closedFrom}
-          closedTo={state?.closedTo}
-          username={username}
-          roundId={roundId}
-          externalRoundId={state?.externalRoundId}
-          status={status}
-          gameProviderId={gameProviderId}
-          minDate={minDate}
-          maxDate={dateRange.end}
-          maxRangeDays={QueryMaxRangeDays}
-          isLoading={isLoading}
-          search={({ start, end, ...rest }) => {
-            setState({
-              pageIndex: 0,
-              from: start,
-              to: end,
-              ...rest
-            })
-            mutate()
-          }}
-        />
-      }
-      title={<OrderTrackingTrans />}
-    >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        getRowId={(row) => row.id}
-        stickyHead
-      />
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
-    </PageContent>
+    <>
+      <PageContent
+        actionBar={
+          <SearchBar
+            externalFrom={state.externalFrom}
+            externalTo={state.externalTo}
+            externalClosedFrom={state.externalClosedFrom}
+            externalClosedTo={state.externalClosedTo}
+            start={from}
+            end={to}
+            closedFrom={state?.closedFrom}
+            closedTo={state?.closedTo}
+            username={username}
+            roundId={roundId}
+            externalRoundId={state?.externalRoundId}
+            status={status}
+            gameProviderId={gameProviderId}
+            minDate={minDate}
+            maxDate={dateRange.end}
+            maxRangeDays={QueryMaxRangeDays}
+            isLoading={isLoading}
+            search={({ start, end, ...rest }) => {
+              setState({
+                pageIndex: 0,
+                from: start,
+                to: end,
+                ...rest
+              })
+              mutate()
+            }}
+          />
+        }
+        title={<OrderTrackingTrans />}
+      >
+        <CustomTableStyle css={cssTableLineBg}>
+          <Table
+            columns={columns}
+            data={data?.items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+            getRowId={(row) => row.id}
+            stickyHead
+          />
+        </CustomTableStyle>
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </PageContent>
+    </>
   )
 }
 
@@ -341,6 +353,7 @@ const SearchBar = ({
 
                 return pass ? true : "one-of-date-range-required"
               }}
+              css={CustomInputReport}
             />
             <DateInputRangeField
               label={<SettleTimeTrans />}
@@ -370,6 +383,7 @@ const SearchBar = ({
                   return pass ? true : "one-of-date-range-required"
                 }
               }}
+              css={CustomInputReport}
             />
           </Set>
           <Set orientation="horizontal">
@@ -463,27 +477,32 @@ export const useColumns = ({ items = [], filter: predicate }) => {
       numberDecimalColumn({
         accessor: "betAmount",
         Header: <BetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
         Header: <ValidBetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "turnover",
         Header: <TurnoverTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "settleAmount",
         Header: <SettleAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "winLoss",
         Header: <PlayerWinLossTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       {
         id: "detail",
@@ -493,14 +512,16 @@ export const useColumns = ({ items = [], filter: predicate }) => {
         Cell: ({ value: record }) => {
           return (
             <Set alignX="center">
-              <GameRoundButton
-                id="game-round-dialog-disclosure"
-                record={record}
-              />
-              <GameActionDialogDisclosure
-                id="game-action-dialog-disclosure"
-                roundId={record?.id}
-              />
+              <ActionTableButton>
+                <GameRoundButton
+                  id="game-round-dialog-disclosure"
+                  record={record}
+                />
+                <GameActionDialogDisclosure
+                  id="game-action-dialog-disclosure"
+                  roundId={record?.id}
+                />
+              </ActionTableButton>
             </Set>
           )
         },
