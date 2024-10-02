@@ -87,6 +87,10 @@ const LocalizationUploadImageField = ({ code, prefix, disabled }) => {
       css={css`
         display: flex;
         flex-wrap: nowrap;
+        margin-bottom: 8px;
+        &:last-child {
+          margin-bottom: 0;
+        }
       `}
     >
       <Group

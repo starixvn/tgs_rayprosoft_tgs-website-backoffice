@@ -185,6 +185,7 @@ export const LocalizationDialogDisclosure = ({
               {...dialogProps}
               css={css`
                 .bb-Group {
+                  margin-bottom: 8px;
                   > button {
                     &:first-child {
                       min-width: 100px;
