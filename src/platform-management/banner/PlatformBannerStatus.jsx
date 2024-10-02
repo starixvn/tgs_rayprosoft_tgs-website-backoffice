@@ -90,10 +90,10 @@ export const PlatformBannerStatusToggleButton = ({
         <Button
           isLoading={isLoading}
           palette={palette}
-          disabled
           isStatic
           css={css`
             opacity: ${disabled ? "0.7" : "1"} !important;
+            cursor: ${disabled ? "not-allowed" : "pointer"} !important;
           `}
         >
           <BannerLabel value={isEnabled} />

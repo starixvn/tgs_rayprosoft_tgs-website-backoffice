@@ -38,6 +38,10 @@ import { ActionTrans, OperatorTrans } from "../../trans/Action"
 import { LicenseeTrans, PlatformTrans } from "../../trans/Platform"
 import dateTimeColumn from "../../table/column/dateTime"
 import { UpdatedTimeTrans } from "../../trans/Date"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomTableStyle } from "../../styles/tablle"
+import { cssFlexSearchBar, cssSpacingSelectGroup } from "./style"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -83,7 +87,7 @@ const Body = ({}) => {
     <PageContent
       title={<Trans zh="权限组管理" en="Roles" />}
       actionBar={
-        <>
+        <Box css={cssFlexSearchBar}>
           <SearchBar
             resellerId={state.resellerId}
             licenseeId={state.licenseeId}
@@ -97,20 +101,24 @@ const Body = ({}) => {
             }}
             isLoading={isLoading}
           />
-          <AddButton onSubmitted={mutate} />
-        </>
+          <SearchAndSubmitButton>
+            <AddButton onSubmitted={mutate} />
+          </SearchAndSubmitButton>
+        </Box>
       }
     >
-      <Table
-        columns={columns}
-        data={items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -152,13 +160,16 @@ const SearchBar = ({
                 defaultValue: brandId
               }}
               required={false}
+              css={cssSpacingSelectGroup}
             />
           )}
-          <InputField
-            name="name"
-            showEmptyFieldValueAddonAfter
-            placeholder={useSearchInputPlaceHolder()}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="name"
+              showEmptyFieldValueAddonAfter
+              placeholder={useSearchInputPlaceHolder()}
+            />
+          </CustomInputSearch>
           <Checkbox name="isRoot" label={isRootLabel} />
           <SearchButton isLoading={isLoading} />
         </Set>
@@ -185,7 +196,9 @@ const useColumns = ({ mutate, items = [] }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       {
         id: "name",
         accessor: "name",
@@ -244,7 +257,11 @@ const useColumns = ({ mutate, items = [] }) => {
       Cell: ({ value: isRoot }) => {
         return (
           <Box alignX="center">
-            {isRoot ? <Icon icon={faCheck} type="font-awesome" /> : ""}
+            {isRoot ? (
+              <Icon icon={faCheck} type="font-awesome" color="success" />
+            ) : (
+              ""
+            )}
           </Box>
         )
       }
@@ -282,14 +299,16 @@ const useColumns = ({ mutate, items = [] }) => {
           let { id, name, isRoot } = value
           return (
             <Set alignX="center">
-              <EditButton id={id} record={value} onSubmitted={mutate} />
-              <CopyButton
-                id={id}
-                name={name}
-                onSubmitted={mutate}
-                disabled={isRoot}
-              />
-              <DeleteButton id={id} name={name} onSubmitted={mutate} />
+              <ActionTableButton>
+                <EditButton id={id} record={value} onSubmitted={mutate} />
+                <CopyButton
+                  id={id}
+                  name={name}
+                  onSubmitted={mutate}
+                  disabled={isRoot}
+                />
+                <DeleteButton id={id} name={name} onSubmitted={mutate} />
+              </ActionTableButton>
             </Set>
           )
         }

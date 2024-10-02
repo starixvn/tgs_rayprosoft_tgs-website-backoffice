@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Stack, Box, Button, Text, Modal, Set } from "bumbag"
+import { Stack, Box, Button, Text, Modal, Set, Icon } from "bumbag"
 import { DepartmentSelect } from "../departments/DepartmentSelect"
 import { RoleSelect } from "../roles/select"
 import { Trans, useTrans } from "../../i18n"
@@ -45,6 +45,11 @@ import {
   useEditTrans
 } from "../../trans/Action"
 import { DepartmentTrans } from "../../trans/Platform"
+import { SearchAndSubmitButton } from "../../styles/button"
+import { faPen } from "@fortawesome/free-solid-svg-icons"
+import { WrapperModal } from "../../styles/wrapper"
+import { RemoveBoxShadowInputButton } from "../../styles/input"
+import { spacingFormStart } from "../../styles/spacing"
 
 export const AddButton = ({ onSubmitted, ...props }) => {
   let dialog = Modal.useState()
@@ -56,30 +61,11 @@ export const AddButton = ({ onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure
-        {...dialog}
-        {...props}
-        css={css`
-          background: #4b49b6;
-          color: #fff;
-          border-radius: 6px !important;
-          border: 1px solid !important;
-          font-weight: 400;
-          &:focus,
-          &:hover,
-          &:active {
-            background: #4b49b6;
-            box-shadow: none !important;
-          }
-          &:hover {
-            &:active {
-              background: #4b49b6;
-            }
-          }
-        `}
-      >
-        <AddTrans />
-      </Disclosure>
+      <SearchAndSubmitButton>
+        <Disclosure {...dialog} {...props}>
+          <AddTrans />
+        </Disclosure>
+      </SearchAndSubmitButton>
       {dialog.visible && (
         <AddDialog onSubmitted={onSubmitted} dialog={dialog} />
       )}
@@ -97,21 +83,15 @@ export const EditButton = ({ user, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure
-        {...dialog}
-        {...props}
-        palette="primary"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      >
-        <EditTrans />
+      <Disclosure {...dialog} {...props} palette="secondary">
+        {/* <EditTrans /> */}
+        <Icon
+          icon={faPen}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <EditDialog user={user} onSubmitted={onSubmitted} dialog={dialog} />
@@ -130,20 +110,7 @@ export const EditPasswordButton = ({ user, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure
-        {...dialog}
-        {...props}
-        palette="primary"
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          &:focus {
-            box-shadow: none !important;
-          }
-        `}
-      >
+      <Disclosure {...dialog} {...props} palette="secondary">
         <ChangePasswordTrans />
       </Disclosure>
       {dialog.visible && (
@@ -204,8 +171,8 @@ const PasswordBody = ({ dialog }) => {
   let { watch } = useFormContext()
   let password = watch("password")
   return (
-    <Stack padding="5rem 1rem 1rem 1rem">
-      <FieldValues marginBottom="0">
+    <WrapperModal>
+      <FieldValues css={spacingFormStart}>
         <Label name="password" required>
           <Trans zh="密码" en="Password" />
         </Label>
@@ -225,7 +192,7 @@ const PasswordBody = ({ dialog }) => {
         </Box>
       </FieldValues>
       <Input name="id" type="hidden" />
-    </Stack>
+    </WrapperModal>
   )
 }
 
@@ -309,73 +276,65 @@ const AddBody = ({}) => {
   }
 
   return (
-    <Stack padding="5rem 1rem 1rem 1rem">
-      <FieldValues
-        css={css`
-          gap: 16px 24px;
-          input {
-            border: 1px solid #dbdfe6;
-            &:focus {
-              box-shadow: none !important;
-            }
-          }
-        `}
-      >
-        <UsernameLabel required />
-        <Box>
-          <InputField name="username" required />
-        </Box>
+    <WrapperModal>
+      <RemoveBoxShadowInputButton>
+        <FieldValues css={spacingFormStart}>
+          <UsernameLabel required />
+          <Box>
+            <InputField name="username" required />
+          </Box>
 
-        <RoleLabel required />
-        <RoleSelectGroup
-          resellerId={resellerId}
-          setResellerId={setResellerId}
-          licenseeId={licenseeId}
-          setLicenseeId={setLicenseeId}
-          brandId={brandId}
-          setBrandId={setBrandId}
-          emptyDepartment={() => {
-            setValue("departmentId", "")
-          }}
-        />
-
-        <DepartmentLabel required />
-        <Box width="100%">
-          <DepartmentSelect
-            name="departmentId"
-            required
+          <RoleLabel required />
+          <RoleSelectGroup
             resellerId={resellerId}
+            setResellerId={setResellerId}
             licenseeId={licenseeId}
+            setLicenseeId={setLicenseeId}
             brandId={brandId}
-            width="100%"
-            minWidth="100%"
+            setBrandId={setBrandId}
+            emptyDepartment={() => {
+              setValue("departmentId", "")
+            }}
           />
-        </Box>
 
-        <NameLabel required />
-        <Box>
-          <InputField name="name" required />
-        </Box>
+          <DepartmentLabel required />
+          <Box width="100%">
+            <DepartmentSelect
+              name="departmentId"
+              required
+              resellerId={resellerId}
+              licenseeId={licenseeId}
+              brandId={brandId}
+              width="100%"
+              minWidth="100%"
+            />
+          </Box>
 
-        <Label name="password" required>
-          <Trans zh="密码" en="Password" />
-        </Label>
-        <Box>
-          <PasswordInputField name="password" autoComplete="off" />
-        </Box>
+          <NameLabel required />
+          <Box>
+            <InputField name="name" required />
+          </Box>
 
-        <Label name="confirmPassword" required>
-          <Trans zh="确认密码" en="Confirm Password" />
-        </Label>
-        <Box>
-          <PasswordInputField
-            name="confirmPassword"
-            matchPassword={password}
-            autoComplete="off"
-          />
-        </Box>
-      </FieldValues>
-    </Stack>
+          <Label name="password" required>
+            <Trans zh="密码" en="Password" />
+          </Label>
+          <Box>
+            <PasswordInputField name="password" autoComplete="off" />
+          </Box>
+
+          <Label name="confirmPassword" required>
+            <Trans zh="确认密码" en="Confirm Password" />
+          </Label>
+          <Box>
+            <PasswordInputField
+              name="confirmPassword"
+              matchPassword={password}
+              autoComplete="off"
+            />
+          </Box>
+        </FieldValues>
+      </RemoveBoxShadowInputButton>
+    </WrapperModal>
   )
 }
 
@@ -405,9 +364,6 @@ const RoleSelectGroup = ({
       css={css`
         flex-wrap: nowrap;
         gap: 6px;
-        > .bb-Box {
-          width: 100%;
-        }
       `}
     >
       {roleTypeOptions.length > 1 && (
@@ -600,7 +556,7 @@ const EditBody = ({ user }) => {
   let departmentId = watch("departmentId")
 
   return (
-    <Stack padding="5rem 1rem 1rem 1rem">
+    <WrapperModal>
       <FieldValues marginBottom="0">
         <UsernameLabel />
         <Box>
@@ -647,7 +603,7 @@ const EditBody = ({ user }) => {
         </Box>
       </FieldValues>
       <Input name="id" type="hidden" />
-    </Stack>
+    </WrapperModal>
   )
 }
 

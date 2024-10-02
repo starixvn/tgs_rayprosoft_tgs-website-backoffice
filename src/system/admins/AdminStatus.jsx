@@ -3,6 +3,8 @@ import { css, Global } from "@emotion/react"
 import { Trans, useTrans } from "../../i18n"
 import Select from "../../select/Select"
 import { useStatusTrans } from "../../trans/Status"
+import { CustomBadgeLabel } from "../../styles/button"
+import { Badge } from "bumbag"
 
 const Disabled = "Disabled"
 const DisabledTrans = {
@@ -19,10 +21,22 @@ const EnabledTrans = {
 export const AdminStatusLabel = ({ value }) => {
   switch (value) {
     case Disabled:
-      return <Trans {...DisabledTrans} />
+      return (
+        <CustomBadgeLabel>
+          <Badge palette="danger">
+            <Trans {...DisabledTrans} />
+          </Badge>
+        </CustomBadgeLabel>
+      )
 
     case Enabled:
-      return <Trans {...EnabledTrans} />
+      return (
+        <CustomBadgeLabel>
+          <Badge palette="success">
+            <Trans {...EnabledTrans} />
+          </Badge>
+        </CustomBadgeLabel>
+      )
 
     default:
       return value

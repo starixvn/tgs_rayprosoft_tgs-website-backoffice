@@ -23,6 +23,7 @@ import { useCopyRole } from "./client"
 import { Trans, useTrans } from "../../i18n"
 import FormDialog from "../../form/FormDialog"
 import Input from "../../input/Input"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const CopyButton = ({ id, name, onSubmitted, disabled, ...props }) => {
   let dialog = Modal.useState()
@@ -91,7 +92,9 @@ const CopyDialog = ({
       dialog={dialog}
       id={dialogId}
     >
-      <Input name="name" required />
+      <WrapperModal>
+        <Input name="name" required />
+      </WrapperModal>
     </FormDialog>
   )
 }

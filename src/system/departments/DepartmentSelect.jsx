@@ -37,6 +37,9 @@ export const DepartmentSelect = ({
       isLoading={isLoading}
       options={options}
       {...props}
+      css={css`
+        width: 100%;
+      `}
     />
   )
 }

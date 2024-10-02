@@ -70,7 +70,7 @@ export const PageContent = ({
               background: #f3f4f7;
             `}
           >
-            <Box marginBottom="major-2">
+            <Box marginBottom="major-1">
               {actionBar && <Stack orientation="horizontal">{actionBar}</Stack>}
             </Box>
             <Box flex="1">{children}</Box>

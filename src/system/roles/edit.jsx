@@ -11,7 +11,8 @@ import {
   FieldStack,
   useModalState,
   Table,
-  Set
+  Set,
+  Icon
 } from "bumbag"
 import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import AlertDialog from "../../dialog/Alert"
@@ -66,6 +67,7 @@ import {
   useEditTrans
 } from "../../trans/Action"
 import { LicenseeTrans, PlatformTrans } from "../../trans/Platform"
+import { faPen } from "@fortawesome/free-solid-svg-icons"
 
 export const AddButton = ({
   onSubmitted,
@@ -539,8 +541,15 @@ export const EditButton = ({ id, record, onSubmitted, ...props }) => {
   let disclosureId = `${dialogId}-disclosure`
   return (
     <>
-      <Disclosure id={disclosureId} {...dialog}>
-        <EditTrans />
+      <Disclosure id={disclosureId} {...dialog} palette="secondary">
+        {/* <EditTrans /> */}
+        <Icon
+          icon={faPen}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <EditRoleDialog

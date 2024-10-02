@@ -37,6 +37,9 @@ import {
   DepartmentTrans,
   useDepartmentTrans
 } from "../../trans/Platform"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -101,29 +104,18 @@ const Body = () => {
         </Box>
       }
     >
-      <Table
-        columns={columns}
-        data={items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        css={css`
-          > tbody {
-            tr {
-              &:not(:last-child) {
-                border-bottom: 1px solid #dbdfe6 !important;
-              }
-              &:nth-child(odd) {
-                background: none;
-                box-shadow: inset 0 0 0 9999px #0000000d;
-              }
-            }
-          }
-        `}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -146,75 +138,27 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(search)}>
         <Set>
-          <InputField
-            name="username"
-            showEmptyFieldValueAddonAfter
-            placeholder={useUserNameTrans()}
-            css={css`
-              input {
-                border: 1px solid #dbdfe6;
-                &:focus {
-                  box-shadow: none !important;
-                }
-              }
-              button {
-                &:focus,
-                &:hover,
-                &:active {
-                  box-shadow: none !important;
-                  border: 1px solid #dbdfe6;
-                  border-left: none;
-                  background: #fff;
-                }
-              }
-            `}
-          />
-          <InputField
-            name="departmentName"
-            showEmptyFieldValueAddonAfter
-            placeholder={useDepartmentTrans()}
-            css={css`
-              input {
-                border: 1px solid #dbdfe6;
-                &:focus {
-                  box-shadow: none !important;
-                }
-              }
-              button {
-                &:focus,
-                &:hover,
-                &:active {
-                  box-shadow: none !important;
-                  border: 1px solid #dbdfe6;
-                  border-left: none;
-                  background: #fff;
-                }
-              }
-            `}
-          />
-          <InputField
-            name="role"
-            showEmptyFieldValueAddonAfter
-            placeholder={useRolePlaceholder()}
-            css={css`
-              input {
-                border: 1px solid #dbdfe6;
-                &:focus {
-                  box-shadow: none !important;
-                }
-              }
-              button {
-                &:focus,
-                &:hover,
-                &:active {
-                  box-shadow: none !important;
-                  border: 1px solid #dbdfe6;
-                  border-left: none;
-                  background: #fff;
-                }
-              }
-            `}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="username"
+              showEmptyFieldValueAddonAfter
+              placeholder={useUserNameTrans()}
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="departmentName"
+              showEmptyFieldValueAddonAfter
+              placeholder={useDepartmentTrans()}
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="role"
+              showEmptyFieldValueAddonAfter
+              placeholder={useRolePlaceholder()}
+            />
+          </CustomInputSearch>
           <AdminStatusSelect name="status" />
           <SearchButton isLoading={isLoading} />
         </Set>
@@ -317,24 +261,19 @@ const useColumns = ({ mutate, items = [] }) => {
         },
         Cell: ({ value }) => {
           return (
-            <Set
-              orientation="horizontal"
-              spacing="minor-2"
-              alignY="center"
-              css={css`
-                flex-wrap: nowrap;
-              `}
-            >
-              <EditButton
-                id="edit-user-dialog-disclosure"
-                user={value}
-                onSubmitted={mutate}
-              />
-              <EditPasswordButton
-                id="edit-user-password-dialog-disclosure"
-                user={value}
-                onSubmitted={mutate}
-              />
+            <Set orientation="horizontal" spacing="minor-2" alignY="center">
+              <ActionTableButton>
+                <EditButton
+                  id="edit-user-dialog-disclosure"
+                  user={value}
+                  onSubmitted={mutate}
+                />
+                <EditPasswordButton
+                  id="edit-user-password-dialog-disclosure"
+                  user={value}
+                  onSubmitted={mutate}
+                />
+              </ActionTableButton>
             </Set>
           )
         }

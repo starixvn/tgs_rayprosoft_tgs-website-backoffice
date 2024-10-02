@@ -77,7 +77,7 @@ import { SettleAmountTrans } from "../../trans/Field"
 import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
 import { CustomSpacingMerchantBar } from "../style"
 import { ActionTableButton } from "../../styles/button"
-import { cssCustomInputReport } from "../../styles/input"
+import { cssCustomInputReport, CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -350,7 +350,7 @@ const SearchBar = ({
 
                 return pass ? true : "one-of-date-range-required"
               }}
-              css={CustomInputReport}
+              css={cssCustomInputReport}
             />
             <DateInputRangeField
               label={<SettleTimeTrans />}
@@ -384,21 +384,27 @@ const SearchBar = ({
             />
           </Set>
           <Set orientation="horizontal">
-            <InputField
-              name="username"
-              showEmptyFieldValueAddonAfter
-              placeholder={playerNamePlaceholder}
-            />
-            <InputField
-              name="roundId"
-              showEmptyFieldValueAddonAfter
-              placeholder={roundIdPlaceholder}
-            />
-            <InputField
-              name="externalRoundId"
-              showEmptyFieldValueAddonAfter
-              placeholder={externalRoundIdPlaceholder}
-            />
+            <CustomInputSearch>
+              <InputField
+                name="username"
+                showEmptyFieldValueAddonAfter
+                placeholder={playerNamePlaceholder}
+              />
+            </CustomInputSearch>
+            <CustomInputSearch>
+              <InputField
+                name="roundId"
+                showEmptyFieldValueAddonAfter
+                placeholder={roundIdPlaceholder}
+              />
+            </CustomInputSearch>
+            <CustomInputSearch>
+              <InputField
+                name="externalRoundId"
+                showEmptyFieldValueAddonAfter
+                placeholder={externalRoundIdPlaceholder}
+              />
+            </CustomInputSearch>
             <GameProviderSelect name="gameProviderId" />
             <SearchButton isLoading={isLoading} disabled={isLoading} />
           </Set>
