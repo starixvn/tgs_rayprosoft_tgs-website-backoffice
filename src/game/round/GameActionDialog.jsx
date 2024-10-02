@@ -22,6 +22,9 @@ import { TransactionTypeTrans } from "../../trans/Action"
 import { BalanceAfterTrans, BalanceBeforeTrans } from "../../trans/User"
 import { TimeTrans } from "../../trans/Date"
 import { TransactionAmountTrans } from "../../trans/Field"
+import { cssCustomModalXs } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
 
 export const GameActionDialogDisclosure = ({
   roundId,
@@ -87,19 +90,24 @@ export const GameActionDialog = ({
       hideOnClickOutside={false}
       footer={<CloseButtonFooter dialog={dialog} alignX="right" />}
       minWidth="60vw"
+      css={cssCustomModalXs}
       {...dialog}
     >
-      <Table
-        id="game-action"
-        columns={columns}
-        data={data?.items}
-        pageCount={pageCount(state.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        initialState={state}
-        controlledState={state}
-        isLoading={isLoading}
-      />
+      <WrapperModal>
+        <CustomTableStyle>
+          <Table
+            id="game-action"
+            columns={columns}
+            data={data?.items}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            initialState={state}
+            controlledState={state}
+            isLoading={isLoading}
+          />
+        </CustomTableStyle>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }

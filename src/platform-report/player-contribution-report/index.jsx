@@ -77,6 +77,8 @@ import {
   PlayerTrans,
   usePlayerUsernameTrans
 } from "../../trans/Player"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import { cssCustomInputReport, CustomInputSearch } from "../../styles/input"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -104,8 +106,9 @@ export const Body = () => {
         onBrandChange={(value) => {
           setBrandId(value)
         }}
-        paddingTop="0.5rem"
-        paddingLeft="0.5rem"
+        css={css`
+          margin: 24px 24px -16px 24px !important;
+        `}
       />
       {brandId && (
         <PlayerContributionReport
@@ -205,21 +208,23 @@ export const PlayerContributionReport = ({ brandId, useFetch }) => {
             </List.Item>
           </List>
         </Alert>
-        <Table
-          columns={columns}
-          data={data?.items}
-          total={data?.items?.length > 0 && data?.total}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-          foot={data?.items?.length > 0}
-          stickyHead
-          localStorageKey={TableLocalStorageKey}
-          toggleColumnHidden={true}
-        />
+        <CustomTableStyle css={cssTableLineBg}>
+          <Table
+            columns={columns}
+            data={data?.items}
+            total={data?.items?.length > 0 && data?.total}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+            foot={data?.items?.length > 0}
+            stickyHead
+            localStorageKey={TableLocalStorageKey}
+            toggleColumnHidden={true}
+          />
+        </CustomTableStyle>
       </Stack>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
@@ -283,12 +288,15 @@ const SearchBar = ({
             }}
             fakeTimeLabel
             required
+            css={cssCustomInputReport}
           />
-          <InputField
-            name="username"
-            showEmptyFieldValueAddonAfter
-            placeholder={usernamePlaceholder}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="username"
+              showEmptyFieldValueAddonAfter
+              placeholder={usernamePlaceholder}
+            />
+          </CustomInputSearch>
           <PlayerHasAgentSelect />
           <VipLevelSelect
             name="level"
@@ -355,13 +363,15 @@ const useColumns = ({ items = [] }) => {
             : depositAmount
           return value
         },
-        TotalCell: ({ value }) => <FormattedNumberDecimal value={value} />
+        TotalCell: ({ value }) => <FormattedNumberDecimal value={value} />,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "withdrawalAmount",
         sumColumn: "withdrawalAmount",
         Header: <Trans zh="提款金额" en="Withdrawal Amount" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         /*
@@ -372,7 +382,8 @@ const useColumns = ({ items = [] }) => {
         accessor: "bonusAmount",
         sumColumn: "bonusAmount",
         Header: <BonusAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
         /*
         TotalCell: ({ value }) => <FormattedNumberDecimal value={value} />,
         Cell: ({ value: record }) => {
@@ -406,49 +417,57 @@ const useColumns = ({ items = [] }) => {
         accessor: "companyAdjustAmount",
         sumColumn: "companyAdjustAmount",
         Header: <CompanyAdjustmentAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "bonusAdjustAmount",
         sumColumn: "bonusAdjustAmount",
         Header: <Trans zh="优惠调帐" en="Bonus Adjustment Amount" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "agentAdjustAmount",
         sumColumn: "agentAdjustAmount",
         Header: <Trans zh="代理调账" en="Agent Adjustment Amount" />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "betAmount",
         sumColumn: "betAmount",
         Header: <BetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
         sumColumn: "validBetAmount",
         Header: <ValidBetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "turnover",
         sumColumn: "turnover",
         Header: <TurnoverTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "winLossAmount",
         sumColumn: "winLossAmount",
         Header: <CompanyWinLossTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "netProfit",
         sumColumn: "netProfit",
         Header: <NetProfitTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       })
     ],
     [JSON.stringify(items)]

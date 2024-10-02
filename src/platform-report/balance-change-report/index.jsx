@@ -47,6 +47,9 @@ import {
 import { BalanceChangeReportTrans } from "../../trans/Platform"
 import { TimeTrans } from "../../trans/Date"
 import { TransactionAmountTrans } from "../../trans/Field"
+import { CustomSpacingMerchantBar } from "../style"
+import { cssCustomInputReport, CustomInputSearch } from "../../styles/input"
+import { CustomTableStyle } from "../../styles/tablle"
 
 export { Code }
 
@@ -67,13 +70,13 @@ export const Body = () => {
 
   return (
     <Set orientation="vertical" isFilled>
-      <BrandBar
-        onBrandChange={(value) => {
-          setBrandId(value)
-        }}
-        paddingTop="0.5rem"
-        paddingLeft="0.5rem"
-      />
+      <CustomSpacingMerchantBar>
+        <BrandBar
+          onBrandChange={(value) => {
+            setBrandId(value)
+          }}
+        />
+      </CustomSpacingMerchantBar>
       {brandId && <ReportContent brandId={brandId} />}
     </Set>
   )
@@ -139,18 +142,20 @@ const ReportContent = ({ brandId }) => {
       }
       title={<BalanceChangeReportTrans />}
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        // foot={data?.items?.length > 0}
-        stickyHead
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          // foot={data?.items?.length > 0}
+          stickyHead
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -190,12 +195,15 @@ const SearchBar = ({
             maxRangeDays={maxRangeDays}
             fakeTimeLabel
             required
+            css={cssCustomInputReport}
           />
-          <InputField
-            name="username"
-            showEmptyFieldValueAddonAfter
-            placeholder={usernamePlaceholder}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="username"
+              showEmptyFieldValueAddonAfter
+              placeholder={usernamePlaceholder}
+            />
+          </CustomInputSearch>
           <TransactionTypeSelect name="transactionType" />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
@@ -207,7 +215,9 @@ const SearchBar = ({
 const useColumns = ({ brandId, items = [] }) => {
   return useMemo(
     () => [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       textColumn({
         accessor: "username",
         Header: <UserNameTrans />,

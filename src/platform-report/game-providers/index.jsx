@@ -45,6 +45,9 @@ import {
   PlatformSettlementTimeTrans
 } from "../../trans/Platform"
 import { TotalTrans } from "../../trans/Field"
+import { CustomTableStyle } from "../../styles/tablle"
+import { cssCustomInputReport } from "../../styles/input"
+import { WrapperBg } from "../../styles/wrapper"
 
 export { Code }
 
@@ -99,45 +102,44 @@ const Body = ({}) => {
   let pageWidth = usePlatformPageContentWidth()
   return (
     <Set orientation="vertical" isFilled height="100%">
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          from={state.from}
-          to={state.to}
-          gameProviderCode={state.gameProviderCode}
-          gameType={state.gameType}
-          isLoading={isLoading}
-          search={(data = {}) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate(undefined, true)
-          }}
-        />
-      </Level>
-      <Box flex="1 0 50%">
-        <AutoSizer disableWidth={true}>
-          {({ height }) => {
-            let width = pageWidth
-            return (
-              <Table
-                columns={columns}
-                data={data?.items}
-                total={data?.items?.length > 0 && data?.total}
-                initialState={state}
-                controlledState={state}
-                pageCount={pageCount(state.pageSize, data?.totalCount)}
-                setPageIndex={setPageIndex}
-                setSortOrder={setSortOrder}
-                isLoading={isLoading}
-                maxSize={{ height, width }}
-                stickyHead
-              />
-            )
-          }}
-        </AutoSizer>
-      </Box>
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      <WrapperBg>
+        <Level
+          alignY="bottom"
+          alignX="left"
+          verticalBelow="mobile"
+          marginBottom="8px"
+        >
+          <SearchBar
+            from={state.from}
+            to={state.to}
+            gameProviderCode={state.gameProviderCode}
+            gameType={state.gameType}
+            isLoading={isLoading}
+            search={(data = {}) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate(undefined, true)
+            }}
+          />
+        </Level>
+        <CustomTableStyle>
+          <Table
+            columns={columns}
+            data={data?.items}
+            total={data?.items?.length > 0 && data?.total}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+            stickyHead
+          />
+        </CustomTableStyle>
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -197,9 +199,25 @@ const SearchBar = ({
             }}
             fakeTimeLabel
             required
+            css={cssCustomInputReport}
           />
-          <GameProviderSelect name="gameProviderCode" valueField="code" />
-          <GameTypeSelect name="gameType" />
+          <GameProviderSelect
+            name="gameProviderCode"
+            valueField="code"
+            css={css`
+              select {
+                min-width: 251px;
+              }
+            `}
+          />
+          <GameTypeSelect
+            name="gameType"
+            css={css`
+              select {
+                min-width: 251px;
+              }
+            `}
+          />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -224,29 +242,35 @@ const useColumns = ({ items = [] }) => {
       numberColumn({
         accessor: "transactionCount",
         Header: <TransactionCountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "betAmount",
-        Header: <BetAmountTrans />
+        Header: <BetAmountTrans />,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "turnover",
         Header: <TurnoverTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
-        Header: <ValidBetAmountTrans />
+        Header: <ValidBetAmountTrans />,
+        textAlign: "center"
       }),
       numberColumn({
         accessor: "playerCount",
         Header: <GamingCountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "companyWinLoss",
-        Header: <CompanyWinLossTrans />
+        Header: <CompanyWinLossTrans />,
+        textAlign: "center"
       })
     ],
     [JSON.stringify(items)]

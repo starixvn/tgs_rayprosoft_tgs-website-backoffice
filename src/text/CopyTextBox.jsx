@@ -18,6 +18,7 @@ import {
 import { faClipboard } from "@fortawesome/free-solid-svg-icons"
 import copy from "clipboard-copy"
 import { Trans } from "../i18n"
+import { customPopover } from "../styles/popover"
 
 export const CopyTextBox = ({
   width = "100%",
@@ -40,7 +41,13 @@ export const CopyTextBox = ({
         <span title={value}>{value}</span>
       </Popover.Disclosure>
       {popover.visible && (
-        <Popover hasArrow maxWidth="90vw" whiteSpace="normal" {...popover}>
+        <Popover
+          hasArrow
+          maxWidth="90vw"
+          whiteSpace="normal"
+          {...popover}
+          css={customPopover}
+        >
           <Trans zh={`复制了 ${value}`} en={`${value} Copied`} />
         </Popover>
       )}

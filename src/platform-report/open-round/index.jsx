@@ -66,6 +66,10 @@ import { UserNameTrans, useUserNameTrans } from "../../trans/User"
 import { CurrencyTrans } from "../../trans/Payment"
 import { DetailTrans } from "../../trans/Action"
 import { SettleAmountTrans } from "../../trans/Field"
+import { CustomSpacingMerchantBar } from "../style"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton } from "../../styles/button"
+import { cssCustomInputReport } from "../../styles/input"
 
 export { Code }
 
@@ -86,13 +90,14 @@ export const Body = () => {
 
   return (
     <Set orientation="vertical" isFilled>
-      <BrandBar
-        onBrandChange={(value) => {
-          setBrandId(value)
-        }}
-        paddingTop="0.5rem"
-        paddingLeft="0.5rem"
-      />
+      <CustomSpacingMerchantBar>
+        <BrandBar
+          onBrandChange={(value) => {
+            setBrandId(value)
+          }}
+        />
+      </CustomSpacingMerchantBar>
+
       {brandId && <ReportContent brandId={brandId} />}
     </Set>
   )
@@ -164,18 +169,21 @@ const ReportContent = ({ brandId }) => {
       }
       title={<UnsettledBetTrans />}
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        getRowId={(row) => row.id}
-        stickyHead
-      />
+      <CustomTableStyle css={cssTableLineBg}>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          getRowId={(row) => row.id}
+          stickyHead
+        />
+      </CustomTableStyle>
+
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -236,6 +244,7 @@ const SearchBar = ({
                 name: EndField
               }}
               required
+              css={cssCustomInputReport}
             />
           </Set>
           <Set orientation="horizontal">
@@ -325,27 +334,32 @@ const useColumns = ({ items = [] }) => {
       numberDecimalColumn({
         accessor: "betAmount",
         Header: <BetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
         Header: <ValidBetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "turnover",
         Header: <TurnoverTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "settleAmount",
         Header: <SettleAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "winLoss",
         Header: <PlayerWinLossTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       textColumn({
         id: "detail",
@@ -356,14 +370,16 @@ const useColumns = ({ items = [] }) => {
           let { id: roundId } = value
           return (
             <Set alignX="center">
-              <GameRoundButton
-                id="game-round-dialog-disclosure"
-                record={value}
-              />
-              <GameActionDialogDisclosure
-                id="game-action-dialog-disclosure"
-                roundId={roundId}
-              />
+              <ActionTableButton>
+                <GameRoundButton
+                  id="game-round-dialog-disclosure"
+                  record={value}
+                />
+                <GameActionDialogDisclosure
+                  id="game-action-dialog-disclosure"
+                  roundId={roundId}
+                />
+              </ActionTableButton>
             </Set>
           )
         }

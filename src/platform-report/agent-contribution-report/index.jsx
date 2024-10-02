@@ -72,6 +72,9 @@ import {
   useAgentUsernameTrans
 } from "../../trans/Agent"
 import { PlayerTrans } from "../../trans/Player"
+import { CustomSpacingMerchantBar } from "../style"
+import { cssCustomInputReport, CustomInputSearch } from "../../styles/input"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -95,13 +98,13 @@ export const Body = () => {
 
   return (
     <Set orientation="vertical" isFilled>
-      <BrandBar
-        onBrandChange={(value) => {
-          setBrandId(value)
-        }}
-        paddingTop="0.5rem"
-        paddingLeft="0.5rem"
-      />
+      <CustomSpacingMerchantBar>
+        <BrandBar
+          onBrandChange={(value) => {
+            setBrandId(value)
+          }}
+        />
+      </CustomSpacingMerchantBar>
       {brandId && <ReportContent brandId={brandId} />}
     </Set>
   )
@@ -208,21 +211,23 @@ const ReportContent = ({ brandId }) => {
         </Alert>
         <AgentBreadcrumb usernames={usernames} setUsernames={setUsernames} />
         {username && (
-          <Table
-            columns={columns}
-            data={data?.items}
-            total={data?.items?.length > 0 && data?.total}
-            initialState={state}
-            controlledState={state}
-            pageCount={pageCount(pageSize, data?.totalCount)}
-            setPageIndex={setPageIndex}
-            setSortOrder={setSortOrder}
-            isLoading={isLoading}
-            foot={data?.items?.length > 0}
-            stickyHead
-            localStorageKey={TableLocalStorageKey}
-            toggleColumnHidden={true}
-          />
+          <CustomTableStyle css={cssTableLineBg}>
+            <Table
+              columns={columns}
+              data={data?.items}
+              total={data?.items?.length > 0 && data?.total}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+              foot={data?.items?.length > 0}
+              stickyHead
+              localStorageKey={TableLocalStorageKey}
+              toggleColumnHidden={true}
+            />
+          </CustomTableStyle>
         )}
       </FieldStack>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
@@ -237,7 +242,6 @@ const AgentBreadcrumb = ({ usernames = [], setUsernames }) => {
 
   return (
     <Breadcrumb
-      marginLeft="1rem"
       separator={
         <Icon icon={faChevronRight} type="font-awesome" color="gray" />
       }
@@ -327,15 +331,19 @@ const SearchBar = ({
             }}
             fakeTimeLabel
             required
+            css={cssCustomInputReport}
           />
-          <InputField
-            name="agentUsername"
-            showEmptyFieldValueAddonAfter
-            placeholder={usernamePlaceholder}
-            requiredMessage=""
-            required
-            autoFocus
-          />
+          <CustomInputSearch>
+            <InputField
+              name="agentUsername"
+              showEmptyFieldValueAddonAfter
+              placeholder={usernamePlaceholder}
+              requiredMessage=""
+              required
+              autoFocus
+            />
+          </CustomInputSearch>
+
           <AgentTypeSelect name="agentType" />
 
           {/* 

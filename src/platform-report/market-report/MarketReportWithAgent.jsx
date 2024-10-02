@@ -52,12 +52,9 @@ import {
 import { AgentProfitTrans } from "../../trans/Agent"
 import { RegisteredCountTrans } from "../../trans/User"
 import { WrapperBg } from "../../styles/wrapper"
-import {
-  cssTableLineBg,
-  CustomInputReport,
-  GroupSearchBarButton
-} from "../style"
-import { CustomTableStyle } from "../../styles/tablle"
+import { GroupSearchBarButton } from "../style"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import { cssCustomInputReport } from "../../styles/input"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -211,7 +208,7 @@ const SearchBar = ({ from, to, search, isLoading, ...props }) => {
             }}
             fakeTimeLabel
             required
-            css={CustomInputReport}
+            css={cssCustomInputReport}
           />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>

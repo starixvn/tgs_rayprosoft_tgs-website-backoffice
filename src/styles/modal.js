@@ -1,7 +1,7 @@
-import styled from "@emotion/styled"
-export const CustomModalXs = styled.div`
+import { css } from "@emotion/react"
+export const cssCustomModalXs = css`
   min-width: 320px;
-  max-width: 70vw;
+  max-width: 75vw;
   overflow: hidden;
   & .bb-DialogContent {
     max-height: 70vh;
@@ -39,7 +39,7 @@ export const CustomModalXs = styled.div`
   }
 `
 
-export const CustomModalHiddenFooter = styled.div`
+export const cssModalHiddenFooter = css`
   max-width: 70vw;
   overflow: hidden;
   .bb-DialogContent {

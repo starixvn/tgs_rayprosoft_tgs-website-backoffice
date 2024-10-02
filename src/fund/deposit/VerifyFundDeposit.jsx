@@ -22,7 +22,6 @@ import ReviewFund from "../ReviewFund"
 import { useFundDepositFormData } from "./useFundDepositFormData"
 import { RejectTrans, useApproveTrans } from "../../trans/Action"
 import { SWRConfig } from "swr"
-import { CustomModalHiddenFooter } from "../../styles/modal"
 
 export const FundDepositVerified = "FundDepositVerified"
 

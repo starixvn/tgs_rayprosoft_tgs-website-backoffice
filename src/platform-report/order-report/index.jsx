@@ -74,13 +74,10 @@ import { UserNameTrans, useUserNameTrans } from "../../trans/User"
 import { CurrencyTrans } from "../../trans/Payment"
 import { DetailTrans } from "../../trans/Action"
 import { SettleAmountTrans } from "../../trans/Field"
-import { CustomTableStyle } from "../../styles/tablle"
-import {
-  cssTableLineBg,
-  CustomInputReport,
-  CustomSpacingMerchantBar
-} from "../style"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import { CustomSpacingMerchantBar } from "../style"
 import { ActionTableButton } from "../../styles/button"
+import { cssCustomInputReport } from "../../styles/input"
 
 export { Code }
 
@@ -383,7 +380,7 @@ const SearchBar = ({
                   return pass ? true : "one-of-date-range-required"
                 }
               }}
-              css={CustomInputReport}
+              css={cssCustomInputReport}
             />
           </Set>
           <Set orientation="horizontal">
