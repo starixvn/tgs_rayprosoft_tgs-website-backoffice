@@ -38,7 +38,6 @@ export const cssTableLineBg = css`
     border-collapse: separate !important;
     .bb-TableHeadCell {
       border-bottom: 1px solid #e6e6eb;
-      white-space: nowrap !important;
     }
     .bb-TableBody {
       &:nth-child(odd) {

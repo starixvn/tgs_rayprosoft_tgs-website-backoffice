@@ -68,6 +68,8 @@ import {
 } from "../../trans/Action"
 import { LicenseeTrans, PlatformTrans } from "../../trans/Platform"
 import { faPen } from "@fortawesome/free-solid-svg-icons"
+import { WrapperModal } from "../../styles/wrapper"
+import { spacingForm, spacingFormStart } from "../../styles/spacing"
 
 export const AddButton = ({
   onSubmitted,
@@ -220,7 +222,7 @@ const AddDialog = ({ dialog, dialogId, onSubmitted }) => {
       dialog={dialog}
       placement="top"
       maxWidth="95vw"
-      width="80vw"
+      minWidth="70vw"
       css={css`
         & .bb-DialogContent {
           position: relative;
@@ -228,7 +230,7 @@ const AddDialog = ({ dialog, dialogId, onSubmitted }) => {
       `}
       id={dialogId}
     >
-      <>
+      <WrapperModal>
         {roleTypeOptions.length == 1 && (
           <RoleTypeSelect
             name="roleType"
@@ -238,7 +240,7 @@ const AddDialog = ({ dialog, dialogId, onSubmitted }) => {
           />
         )}
         {roleTypeOptions.length > 1 && (
-          <FieldValues margin="major-1">
+          <FieldValues marginBottom="16px">
             <Label name="roleType">
               <Trans zh="权限组类型" en="Role Type" />
             </Label>
@@ -297,7 +299,7 @@ const AddDialog = ({ dialog, dialogId, onSubmitted }) => {
           </FieldValues>
         )}
         <DialogBody name="" menus={menusState} setMenus={setMenus} />
-      </>
+      </WrapperModal>
     </FormDialog>
   )
 }
@@ -441,18 +443,17 @@ const RoleTemplateSelect = ({
 
 const DialogBody = ({ name = "", menus, setMenus }) => {
   return (
-    <FieldValues margin="major-1">
+    <FieldValues css={spacingFormStart}>
       <Label name="name" required>
         <Trans zh="权限组名称" en="Name" />
       </Label>
       <Box>
         <Input name="name" defaultValue={name} required />
       </Box>
-
       <Label>
         <Trans zh="权限管理" en="Role Settings" />
       </Label>
-      <MenusBody menus={menus} setMenus={setMenus} />
+      {menus?.length !== 0 && <MenusBody menus={menus} setMenus={setMenus} />}
     </FieldValues>
   )
 }
@@ -648,7 +649,7 @@ const EditDialog = ({
       dialog={dialog}
       placement="top"
       maxWidth="95vw"
-      width="80vw"
+      minWidth="60vw"
       css={css`
         & .bb-DialogContent {
           position: relative;
@@ -656,9 +657,9 @@ const EditDialog = ({
       `}
       id={dialogId}
     >
-      <>
+      <WrapperModal>
         {roleTypeOptions.length > 1 && (
-          <FieldValues margin="major-1">
+          <FieldValues css={spacingFormStart} marginBottom="16px">
             <Label name="roleType">
               <Trans zh="权限组类型" en="Role Type" />
             </Label>
@@ -693,7 +694,7 @@ const EditDialog = ({
           </FieldValues>
         )}
         <DialogBody name={name} menus={menusState} setMenus={setMenus} />
-      </>
+      </WrapperModal>
     </FormDialog>
   )
 }
@@ -743,7 +744,7 @@ const MenuTableContent = ({ menu = {}, setChecked }) => {
 
           return (
             <Table.Row key={subMenuCode}>
-              <Table.Cell>
+              <Table.Cell width="300px" verticalAlign="top">
                 <MenuCheckbox
                   path={[moduleCode]}
                   menu={menu}

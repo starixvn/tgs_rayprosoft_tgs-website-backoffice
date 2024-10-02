@@ -12,7 +12,8 @@ import {
   Label,
   Dialog,
   Modal,
-  useClassName
+  useClassName,
+  Icon
 } from "bumbag"
 import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import AlertDialog from "../../dialog/Alert"
@@ -24,6 +25,7 @@ import { Trans, useTrans } from "../../i18n"
 import FormDialog from "../../form/FormDialog"
 import Input from "../../input/Input"
 import { WrapperModal } from "../../styles/wrapper"
+import { faCopy } from "@fortawesome/free-solid-svg-icons"
 
 export const CopyButton = ({ id, name, onSubmitted, disabled, ...props }) => {
   let dialog = Modal.useState()
@@ -35,11 +37,34 @@ export const CopyButton = ({ id, name, onSubmitted, disabled, ...props }) => {
 
   let dialogId = `copy-role-dialog`
   let disclosureId = `${dialogId}-disclosure`
+
   return (
     <>
-      <Disclosure id={disclosureId} disabled={disabled} {...dialog}>
-        <Trans zh="复制" en="Copy" />
-      </Disclosure>
+      <div
+        css={css`
+          cursor: ${disabled ? "not-allowed" : "pointer"} !important;
+        `}
+      >
+        <Disclosure
+          id={disclosureId}
+          // disabled={disabled}
+          {...dialog}
+          palette="secondary"
+          css={css`
+            opacity: ${disabled ? "0.7" : "1"} !important;
+            pointer-events: ${disabled ? "none" : "unset"} !important;
+          `}
+        >
+          {/* <Trans zh="复制" en="Copy" /> */}
+          <Icon
+            icon={faCopy}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </div>
       {dialog.visible && (
         <CopyDialog
           id={id}

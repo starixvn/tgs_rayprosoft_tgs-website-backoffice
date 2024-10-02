@@ -5,7 +5,7 @@ export const ActionTableButton = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  > button {
+  button {
     padding: 10px 12px;
     height: 38px;
     min-height: 38px;

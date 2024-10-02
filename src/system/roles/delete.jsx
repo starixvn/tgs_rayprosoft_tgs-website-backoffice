@@ -8,6 +8,7 @@ import { FormDialog } from "../../form/FormDialog"
 import { Trans, useTrans } from "../../i18n"
 import { useDeleteRole } from "./client"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const DeleteButton = ({ id, name, onSubmitted, ...props }) => {
   let dialog = Modal.useState()
@@ -85,23 +86,25 @@ const DeleteDialog = ({
       dialog={dialog}
       id={dialogId}
     >
-      <Alert
-        title={
-          <Trans
-            zh={`确认删除 “${name}” 权限组？`}
-            en={`Confirm delete the “${name}”？`}
-          />
-        }
-        type="warning"
-        variant=""
-      >
-        <Text color="danger">
-          <Trans
-            zh="如果仍有管理员正使用此权限组，该权限组将不能够被删除"
-            en="If an administrator is still using this role, it cannot be deleted"
-          />
-        </Text>
-      </Alert>
+      <WrapperModal>
+        <Alert
+          title={
+            <Trans
+              zh={`确认删除 “${name}” 权限组？`}
+              en={`Confirm delete the “${name}”？`}
+            />
+          }
+          type="warning"
+          variant=""
+        >
+          <Text color="danger">
+            <Trans
+              zh="如果仍有管理员正使用此权限组，该权限组将不能够被删除"
+              en="If an administrator is still using this role, it cannot be deleted"
+            />
+          </Text>
+        </Alert>
+      </WrapperModal>
     </FormDialog>
   )
 }
