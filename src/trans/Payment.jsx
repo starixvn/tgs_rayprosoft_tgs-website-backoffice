@@ -377,3 +377,10 @@ const PaymentMethodCode = {
 }
 
 export const PaymentMethodCodeTrans = () => <Trans {...PaymentMethodCode} />
+
+const SelectPayment = {
+  ...getTranslations("select_payment")
+}
+
+export const SelectPaymentTrans = () => <Trans {...SelectPayment} />
+export const useSelectPaymentTrans = () => useTrans(SelectPayment)

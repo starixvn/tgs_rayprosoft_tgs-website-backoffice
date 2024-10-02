@@ -7,13 +7,13 @@ import { useStatusTrans } from "../../trans/Status"
 const Win = "Win"
 const WinTrans = {
   zh: "赢",
-  en: "Win"
+  en: "Won"
 }
 
 const Loss = "Loss"
 const LossTrans = {
   zh: "输",
-  en: "Loss"
+  en: "Lost"
 }
 
 const Draw = "Draw"

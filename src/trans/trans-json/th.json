@@ -564,8 +564,8 @@
   "player_name": "ชื่อผู้เล่น",
   "interval_should_be_less_than": "ระยะเวลาควรน้อยกว่า",
   "days": "วัน",
-  "win": "ชนะ",
-  "loss": "แพ้",
+  "won": "ชนะ",
+  "lost": "แพ้",
   "draw": "เสมอ",
   "void": "โมฆะ",
   "select_currency": "เลือกสกุลเงิน",
@@ -837,5 +837,13 @@
   "casino": "คาสิโน",
   "keno": "คีโน",
   "bingo": "บิงโก",
-  "racing": "การแข่ง"
+  "racing": "การแข่ง",
+  "bank_transfer": "การโอนเงินผ่านธนาคาร",
+  "fee_ratio": "อัตราค่าธรรมเนียม",
+  "bank_account_name": "ชื่อบัญชีธนาคาร",
+  "view_deposit": "ดูเงินฝาก",
+  "review_deposit": "ตรวจสอบเงินฝาก",
+  "e_money_name": "ชื่อ E-money",
+  "manual_payment": "การชำระเงินด้วยตนเอง",
+  "select_payment": "เลือกวิธีการชำระเงิน"
 }

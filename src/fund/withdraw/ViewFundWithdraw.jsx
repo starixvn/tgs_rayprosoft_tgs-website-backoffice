@@ -32,7 +32,11 @@ import { parseJSON } from "../../text/json"
 import { TextareaField } from "../../textarea"
 import { ApplicationTimeTrans } from "../../trans/Date"
 import { CSNoteTrans } from "../../trans/Field"
-import { PaidTimeTrans, WithdrawAmountTrans } from "../../trans/Payment"
+import {
+  PaidTimeTrans,
+  WithdrawAmountTrans,
+  useSelectPaymentTrans
+} from "../../trans/Payment"
 import { GmsIdTrans, ThirdPartyIdTrans } from "../../trans/Platform"
 import { PlayerNoteTrans } from "../../trans/Player"
 import { StatusTrans } from "../../trans/Status"
@@ -282,7 +286,7 @@ const PayerInfo = ({ brandId, record, disabled, showBalance }) => {
             paymentStatus={BrandPaymentStatus.Enabled}
             bankType={record?.bankInfo?.bankType}
             paymentChannelId={record?.bankInfo?.paymentChannelId}
-            placeholder={"Select Payment"}
+            placeholder={useSelectPaymentTrans()}
             required
             disabled={disabled}
           />

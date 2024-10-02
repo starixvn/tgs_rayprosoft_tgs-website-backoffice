@@ -564,8 +564,8 @@
   "player_name": "Player Name",
   "interval_should_be_less_than": "Interval should be less than",
   "days": "days",
-  "win": "Win",
-  "loss": "Loss",
+  "won": "Won",
+  "lost": "Lost",
   "draw": "Draw",
   "void": "Void",
   "select_currency": "Select Currency",
@@ -837,5 +837,13 @@
   "casino": "Casino",
   "keno": "Keno",
   "bingo": "Bingo",
-  "racing": "Racing"
+  "racing": "Racing",
+  "bank_transfer": "Bank Transfer",
+  "fee_ratio": "Fee Ratio",
+  "bank_account_name": "Bank Account Name",
+  "view_deposit": "View Deposit",
+  "review_deposit": "Review Deposit",
+  "e_money_name": "E-money name",
+  "manual_payment": "Manual Payment",
+  "select_payment": "Select Payment"
 }
