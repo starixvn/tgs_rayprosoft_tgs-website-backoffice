@@ -62,7 +62,6 @@ export const Panel = ({ brandId, playerCode, edit = false, ...props }) => {
     isActive && playerCode
   )
   let banks = data?.items
-
   return (
     <TabPanel tabId={Key} {...props}>
       {isLoading && (
@@ -71,16 +70,17 @@ export const Panel = ({ brandId, playerCode, edit = false, ...props }) => {
         </Box>
       )}
       <TwoColumns>
-        {banks?.map((bank, index) => (
-          <Bank
-            key={index}
-            brandId={brandId}
-            playerCode={playerCode}
-            record={bank}
-            onSubmitted={mutate}
-            edit={edit}
-          />
-        ))}
+        {banks &&
+          banks.map((bank, index) => (
+            <Bank
+              key={index}
+              brandId={brandId}
+              playerCode={playerCode}
+              record={bank}
+              onSubmitted={mutate}
+              edit={edit}
+            />
+          ))}
       </TwoColumns>
       {edit && (
         <AddBank
@@ -147,14 +147,23 @@ const Bank = ({
 
   return (
     <Card data-field="bank-id" data-value={record.id}>
-      <Set alignX="right">
+      <Set alignX="left">
         {edit && (
           <>
             <Disclosure
               id="delete-bank-dialog-disclosure"
               palette="danger"
-              variant="outlined"
               {...deleteDialog}
+              css={css`
+                padding: 10px 12px;
+                height: 38px;
+                min-height: 38px;
+                border: none;
+                color: #fff;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              `}
             >
               <Icon icon={faMinus} fontSize="300" type="font-awesome" />
             </Disclosure>
@@ -166,7 +175,20 @@ const Bank = ({
                 dialog={deleteDialog}
               />
             )}
-            <Disclosure id="edit-bank-dialog-disclosure" {...editDialog}>
+            <Disclosure
+              id="edit-bank-dialog-disclosure"
+              {...editDialog}
+              palette="info"
+              css={css`
+                padding: 10px 12px;
+                height: 38px;
+                min-height: 38px;
+                border: none;
+                &:focus {
+                  box-shadow: none !important;
+                }
+              `}
+            >
               <Icon icon={faCog} fontSize="300" type="font-awesome" />
             </Disclosure>
             {editDialog.visible && (
@@ -183,6 +205,16 @@ const Bank = ({
               id="set-default-dialog-disclosure"
               disabled={isDefault}
               {...setDefaultDialog}
+              css={css`
+                padding: 10px 12px;
+                height: 38px;
+                min-height: 38px;
+                border: 1px solid #d9d9e1;
+                &:focus {
+                  box-shadow: none !important;
+                  border: 1px solid #d9d9e1;
+                }
+              `}
             >
               <IsDefaultSwitch checked={isDefault} />
             </Disclosure>
@@ -200,8 +232,13 @@ const Bank = ({
         )}
         {!edit && <IsDefaultSwitch checked={isDefault} />}
       </Set>
-      <FieldValues>
-        <Box alignY="center">
+      <FieldValues
+        marginTop="major-3"
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
+        <Box alignY="top">
           <PaymentChannelTrans />
         </Box>
         <PaymentChannelLabel value={record?.paymentChannelId} />
@@ -353,7 +390,31 @@ const AddBank = ({ brandId, playerCode, onSubmitted }) => {
     <>
       <TwoColumns>
         <Card alignX="center">
-          <Disclosure id="add-bank-dialog-disclosure" {...dialog}>
+          <Disclosure
+            id="add-bank-dialog-disclosure"
+            {...dialog}
+            css={css`
+              background: #4b49b6;
+              color: #fff;
+              border-radius: 6px !important;
+              border: 1px solid !important;
+              font-weight: 400;
+              padding: 10px 12px;
+              height: 38px;
+              min-height: 38px;
+              &:focus,
+              &:hover,
+              &:active {
+                background: #4b49b6;
+                box-shadow: none !important;
+              }
+              &:hover {
+                &:active {
+                  background: #4b49b6;
+                }
+              }
+            `}
+          >
             <Icon icon={faPlus} fontSize="300" type="font-awesome" />
           </Disclosure>
         </Card>
@@ -502,41 +563,63 @@ const EditBody = ({ brandId, playerCode }) => {
   let { watch } = useFormContext()
 
   let BankTypeFieldName = "bankType"
+  let ChannelIdFieldName = "paymentChannelId"
   let bankType = watch(BankTypeFieldName)
-  let paymentChannelIdRange = paymentList
-    ?.filter((item) => item.bankType === bankType)
-    ?.map(({ channelId }) => channelId)
+
+  let paymentChannelRange = paymentList?.filter(
+    (item) => item.bankType === bankType
+  )
+
+  let paymentChannelIdRange = paymentChannelRange?.map(
+    ({ channelId }) => channelId
+  )
+
+  let channelId = watch(ChannelIdFieldName)
+
+  const channelCode =
+    paymentChannelRange?.find((item) => item.channelId == channelId)
+      ?.channelCode ?? ""
 
   return (
-    <FieldValues>
-      <Box alignY="center">
-        <PaymentBankTypeTrans />
-      </Box>
-      <PlayerBrandPaymentMethodBankTypeSelect
-        name={BankTypeFieldName}
-        paymentList={paymentList}
-        isPaymentListLoading={isPlayerPaymentLoading}
-      />
+    <Box padding="1rem">
+      <FieldValues
+        css={css`
+          gap: 16px 24px;
+        `}
+      >
+        <Box alignY="center">
+          <PaymentBankTypeTrans />
+        </Box>
+        <PlayerBrandPaymentMethodBankTypeSelect
+          name={BankTypeFieldName}
+          paymentList={paymentList}
+          isPaymentListLoading={isPlayerPaymentLoading}
+        />
 
-      <Box alignY="center">
-        <PaymentChannelTrans />
-      </Box>
-      <PaymentChannelSelect
-        name="paymentChannelId"
-        isLoadingRange={isPlayerPaymentLoading}
-        range={paymentChannelIdRange}
-        required
-      />
-
-      <EditBox bankType={bankType} />
-    </FieldValues>
+        <Box alignY="center">
+          <PaymentChannelTrans />
+        </Box>
+        <PaymentChannelSelect
+          name="paymentChannelId"
+          isLoadingRange={isPlayerPaymentLoading}
+          range={paymentChannelIdRange}
+          required
+          css={css`
+            &.bb-Box {
+              width: 100%;
+            }
+          `}
+        />
+        <EditBox bankType={bankType} channelCode={channelCode} />
+      </FieldValues>
+    </Box>
   )
 }
 
-const EditBox = ({ bankType }) => {
+const EditBox = ({ bankType, channelCode = "" }) => {
   switch (bankType) {
     case BankType.Bank:
-      return <EditBank />
+      return <EditBank channelCode={channelCode} />
     case BankType.Crypto:
     case BankType.Usdt:
       return <EditCrypto />
@@ -552,14 +635,31 @@ const EditBox = ({ bankType }) => {
   }
 }
 
-const EditBank = ({}) => {
+const useBankInfo = (channelCode = "") => {
+  const isChannelCodeDisabled =
+    channelCode !== "CustomBank" && channelCode !== ""
+  const value = channelCode === "CustomBank" ? "" : channelCode
+
+  return {
+    isChannelCodeDisabled,
+    value
+  }
+}
+
+const EditBank = ({ channelCode = "" }) => {
+  const { isChannelCodeDisabled, value } = useBankInfo(channelCode)
+
   return (
     <>
       <Box alignY="center">
         <BankNameLabel />
       </Box>
       <Box alignY="center">
-        <Input name="detail.bankName" />
+        <Input
+          name="detail.bankName"
+          value={value}
+          disabled={isChannelCodeDisabled}
+        />
       </Box>
 
       <Box alignY="center">
@@ -686,6 +786,18 @@ const DeleteDialog = ({ playerCode, bank, onSubmitted, dialog }) => {
         submitText: <SubmitTrans />
       }}
       {...dialog}
+      css={css`
+        & .bb-DialogFooter {
+          border-top: 1px solid #dbdfe6;
+          padding: 0.8rem;
+          background: #fff;
+          > div > button {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        }
+      `}
     >
       {error && <AlertDialog {...error} onClickClose={reset} />}
       <Box
@@ -731,6 +843,18 @@ const SetDefaultDialog = ({ playerCode, bank, onSubmitted, dialog }) => {
         submitText: <SubmitTrans />
       }}
       {...dialog}
+      css={css`
+        & .bb-DialogFooter {
+          border-top: 1px solid #dbdfe6;
+          padding: 0.8rem;
+          background: #fff;
+          > div > button {
+            &:focus {
+              box-shadow: none !important;
+            }
+          }
+        }
+      `}
     >
       {error && <AlertDialog {...error} onClickClose={reset} />}
       <Box
