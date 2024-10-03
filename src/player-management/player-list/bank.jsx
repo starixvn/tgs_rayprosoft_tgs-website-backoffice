@@ -563,10 +563,22 @@ const EditBody = ({ brandId, playerCode }) => {
   let { watch } = useFormContext()
 
   let BankTypeFieldName = "bankType"
+  let ChannelIdFieldName = "paymentChannelId"
   let bankType = watch(BankTypeFieldName)
-  let paymentChannelIdRange = paymentList
-    ?.filter((item) => item.bankType === bankType)
-    ?.map(({ channelId }) => channelId)
+
+  let paymentChannelRange = paymentList?.filter(
+    (item) => item.bankType === bankType
+  )
+
+  let paymentChannelIdRange = paymentChannelRange?.map(
+    ({ channelId }) => channelId
+  )
+
+  let channelId = watch(ChannelIdFieldName)
+
+  const channelCode =
+    paymentChannelRange?.find((item) => item.channelId == channelId)
+      ?.channelCode ?? ""
 
   return (
     <Box padding="1rem">
@@ -598,16 +610,16 @@ const EditBody = ({ brandId, playerCode }) => {
             }
           `}
         />
-        <EditBox bankType={bankType} />
+        <EditBox bankType={bankType} channelCode={channelCode} />
       </FieldValues>
     </Box>
   )
 }
 
-const EditBox = ({ bankType }) => {
+const EditBox = ({ bankType, channelCode = "" }) => {
   switch (bankType) {
     case BankType.Bank:
-      return <EditBank />
+      return <EditBank channelCode={channelCode} />
     case BankType.Crypto:
     case BankType.Usdt:
       return <EditCrypto />
@@ -623,14 +635,31 @@ const EditBox = ({ bankType }) => {
   }
 }
 
-const EditBank = ({}) => {
+const useBankInfo = (channelCode = "") => {
+  const isChannelCodeDisabled =
+    channelCode !== "CustomBank" && channelCode !== ""
+  const value = channelCode === "CustomBank" ? "" : channelCode
+
+  return {
+    isChannelCodeDisabled,
+    value
+  }
+}
+
+const EditBank = ({ channelCode = "" }) => {
+  const { isChannelCodeDisabled, value } = useBankInfo(channelCode)
+
   return (
     <>
       <Box alignY="center">
         <BankNameLabel />
       </Box>
       <Box alignY="center">
-        <Input name="detail.bankName" />
+        <Input
+          name="detail.bankName"
+          value={value}
+          disabled={isChannelCodeDisabled}
+        />
       </Box>
 
       <Box alignY="center">
