@@ -36,7 +36,6 @@ export const RemoveBoxShadowInputButton = styled.div`
 
 export const RemoveBoxShadowInputButtonDateTime = styled.div`
   input {
-    border-left: none !important;
     &:focus {
       box-shadow: none !important;
     }
@@ -45,6 +44,11 @@ export const RemoveBoxShadowInputButtonDateTime = styled.div`
     &:focus {
       border: 1px solid #d9d9e1;
       box-shadow: none !important;
+    }
+  }
+  .bb-DropdownMenu {
+    button {
+      border-right: none !important;
     }
   }
 `

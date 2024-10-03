@@ -48,6 +48,8 @@ import { UpdatedTimeTrans } from "../../trans/Date"
 import { useGameProviderNameTrans } from "../../trans/Game"
 import { getApiUrl } from "../../client"
 import { SelectField } from "../../select/Select"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -94,17 +96,20 @@ const Body = () => {
         />
       }
     >
-      <Table
-        id="game-provider"
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <CustomTableStyle css={cssTableLineBg}>
+        <Table
+          id="game-provider"
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          stickyHead
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -352,19 +357,23 @@ const useColumns = ({ items = [], mutate }) => {
           Cell: ({ value }) => {
             return (
               <Set orientation="vertical" alignX="center">
-                <ViewGameProviderDisclosure gameProviderId={value?.id} />
-                <EditGameProviderButton
-                  gameProviderId={value?.id}
-                  onSubmitted={mutate}
-                />
-                <GameProviderConfigListDisclosure gameProviderId={value?.id} />
-                <SubGameProviderListDisclosure gameProviderId={value?.id} />
-                <GameProviderGameListDisclosure
-                  id={`game-list-dialog-disclosure`}
-                  data-game-provider-code={value?.code}
-                  gameProviderId={value?.id}
-                  gameProviderCode={value?.code}
-                />
+                <ActionTableButton>
+                  <ViewGameProviderDisclosure gameProviderId={value?.id} />
+                  <EditGameProviderButton
+                    gameProviderId={value?.id}
+                    onSubmitted={mutate}
+                  />
+                  <GameProviderConfigListDisclosure
+                    gameProviderId={value?.id}
+                  />
+                  <SubGameProviderListDisclosure gameProviderId={value?.id} />
+                  <GameProviderGameListDisclosure
+                    id={`game-list-dialog-disclosure`}
+                    data-game-provider-code={value?.code}
+                    gameProviderId={value?.id}
+                    gameProviderCode={value?.code}
+                  />
+                </ActionTableButton>
               </Set>
             )
           }

@@ -105,7 +105,11 @@ import { CurrencyTrans } from "../../trans/Payment"
 import { PlayerWinLossTrans } from "../../trans/Player"
 import { DetailTrans, ExportTrans, ViewTrans } from "../../trans/Action"
 import { SettleAmountTrans } from "../../trans/Field"
-import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import {
+  cssTableLineBg,
+  cssTableStickyAction,
+  CustomTableStyle
+} from "../../styles/tablle"
 import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
 import { CustomInputSearch } from "../../styles/input"
 import {
@@ -298,23 +302,7 @@ const ReportContent = ({}) => {
             getRowId={(row) => row.id}
             stickyHead
             stickyRight
-            css={css`
-              tr td:last-child:not([data-type="total"]) {
-                background-color: #fff;
-              }
-              tr {
-                &:nth-child(odd):not([data-type="total"]) {
-                  td {
-                    background: #f3f4f7;
-                  }
-                }
-                &:nth-child(even):not([data-type="total"]) {
-                  td {
-                    background: #e6e6eb;
-                  }
-                }
-              }
-            `}
+            css={cssTableStickyAction}
           />
         </CustomTableStyle>
       </FieldStack>

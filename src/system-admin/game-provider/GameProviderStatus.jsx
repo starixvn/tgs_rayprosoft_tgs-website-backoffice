@@ -11,6 +11,7 @@ import Alert from "../../dialog/Alert"
 import { useTrans, Trans } from "../../i18n"
 import { Update } from "./menu"
 import { DisabledTrans, EnabledTrans } from "../../trans/Status"
+import { CustomBadgeButton } from "../../styles/button"
 
 const Active = "Active"
 
@@ -112,13 +113,15 @@ export const GameProviderStatusMenu = ({
           </>
         }
       >
-        <Button
-          palette={toPalette(status)}
-          isLoading={isLoading}
-          disabled={isLoading}
-        >
-          <GameProviderStatusLabel value={status} />
-        </Button>
+        <CustomBadgeButton>
+          <Button
+            palette={toPalette(status)}
+            isLoading={isLoading}
+            disabled={isLoading}
+          >
+            <GameProviderStatusLabel value={status} />
+          </Button>
+        </CustomBadgeButton>
       </DropdownMenu>
       {error && <Alert {...error} onClickClose={reset} />}
     </>

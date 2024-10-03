@@ -46,6 +46,13 @@ import { CurrencyTrans } from "../../trans/Payment"
 import { SettleAmountTrans, SupportingDeviceTrans } from "../../trans/Field"
 import { PlatformTrans } from "../../trans/Platform"
 import { PlayerTrans } from "../../trans/Player"
+import { CustomInputSearch } from "../../styles/input"
+import {
+  cssTableLineBg,
+  cssTableStickyAction,
+  CustomTableStyle
+} from "../../styles/tablle"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -106,23 +113,21 @@ const Body = () => {
       }
     >
       {state.externalRoundId && (
-        <Table
-          columns={columns}
-          data={data?.items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(state.pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-          stickyHead
-          stickyRight
-          css={css`
-            tr td:last-child {
-              background-color: #fff;
-            }
-          `}
-        />
+        <CustomTableStyle css={cssTableLineBg}>
+          <Table
+            columns={columns}
+            data={data?.items}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(state.pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+            stickyHead
+            stickyRight
+            css={cssTableStickyAction}
+          />
+        </CustomTableStyle>
       )}
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
@@ -158,13 +163,15 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
-          <InputField
-            name="externalRoundId"
-            showEmptyFieldValueAddonAfter
-            placeholder={externalRoundIdPlaceholder}
-            autoFocus
-            required
-          />
+          <CustomInputSearch>
+            <InputField
+              name="externalRoundId"
+              showEmptyFieldValueAddonAfter
+              placeholder={externalRoundIdPlaceholder}
+              autoFocus
+              required
+            />
+          </CustomInputSearch>
           <GameProviderSelect name="gameProviderId" required />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
@@ -277,14 +284,16 @@ const useColumns = ({ items = [], mutate }) => {
             let { id: roundId } = record
             return (
               <Set alignX="center">
-                <SettleGameRoundDialogDisclosure
-                  id="settle-game-round-dialog-disclosure"
-                  roundId={roundId}
-                  record={record}
-                  useUpdate={useResettleOpenedRound}
-                  onSubmitted={mutate}
-                />
-                <GameActionDialogDisclosure roundId={roundId} />
+                <ActionTableButton>
+                  <SettleGameRoundDialogDisclosure
+                    id="settle-game-round-dialog-disclosure"
+                    roundId={roundId}
+                    record={record}
+                    useUpdate={useResettleOpenedRound}
+                    onSubmitted={mutate}
+                  />
+                  <GameActionDialogDisclosure roundId={roundId} />
+                </ActionTableButton>
               </Set>
             )
           }

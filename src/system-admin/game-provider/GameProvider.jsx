@@ -52,6 +52,7 @@ import { StatusTrans } from "../../trans/Status"
 import { useGameProviderTrans } from "../../trans/Game"
 import { BasicInformationTrans } from "../../trans/Field"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const ViewGameProviderDisclosure = ({ gameProviderId }) => {
   let dialog = useModalState()
@@ -101,7 +102,7 @@ const ViewDialog = ({ gameProviderId, dialog }) => {
       title={title}
       dialog={dialog}
       placement="top"
-      minWidth="80vw"
+      minWidth="45vw"
       maxWidth="90vw"
       css={css`
         & .bb-DialogContent {
@@ -337,71 +338,73 @@ const FormBody = ({ readOnly, isAdd = false }) => {
   let editable = !readOnly
   let disabled = readOnly
   return (
-    <Stack orientation="vertical" marginLeft="1rem" paddingBottom="1.5rem">
-      <Heading use="h5" marginBottom="major-1">
-        <BasicInformationTrans />
-      </Heading>
+    <WrapperModal>
+      <Stack orientation="vertical">
+        <Heading use="h5" marginBottom="major-1">
+          <BasicInformationTrans />
+        </Heading>
 
-      <FieldValues>
-        <NormalLabel>
-          <Trans zh="游戏商代码" en="Code" />
-        </NormalLabel>
-        <Box alignY="center">
-          <Input name="code" readOnly={readOnly || !isAdd} />
-        </Box>
+        <FieldValues>
+          <NormalLabel>
+            <Trans zh="游戏商代码" en="Code" />
+          </NormalLabel>
+          <Box alignY="center">
+            <Input name="code" readOnly={readOnly || !isAdd} />
+          </Box>
 
-        <NormalLabel>
-          <Trans zh="游戏商名称" en="Name" />
-        </NormalLabel>
-        <Box alignY="center">
-          <Input name="name" required readOnly={readOnly} />
-        </Box>
+          <NormalLabel>
+            <Trans zh="游戏商名称" en="Name" />
+          </NormalLabel>
+          <Box alignY="center">
+            <Input name="name" required readOnly={readOnly} />
+          </Box>
 
-        <NormalLabel>
-          <Trans zh="游戏商简介" en="Description" />
-        </NormalLabel>
-        <Input name="description" readOnly={readOnly} />
+          <NormalLabel>
+            <Trans zh="游戏商简介" en="Description" />
+          </NormalLabel>
+          <Input name="description" readOnly={readOnly} />
 
-        <NormalLabel>
-          <StatusTrans />
-        </NormalLabel>
-        <GameProviderStatusSelect disabled={disabled} />
+          <NormalLabel>
+            <StatusTrans />
+          </NormalLabel>
+          <GameProviderStatusSelect disabled={disabled} />
 
-        <NormalLabel>
-          <Trans zh="Auto Close Round" en="Auto Close Round" />
-        </NormalLabel>
-        <Checkbox name="autoCloseRound" disabled={disabled} />
+          <NormalLabel>
+            <Trans zh="Auto Close Round" en="Auto Close Round" />
+          </NormalLabel>
+          <Checkbox name="autoCloseRound" disabled={disabled} />
 
-        {/* <NormalLabel>
+          {/* <NormalLabel>
           <Trans zh="Transfer Wallet" en="Transfer Wallet" />
         </NormalLabel>
         <Checkbox name="isTransferWallet" disabled={disabled} /> */}
 
-        <NormalLabel>
-          <Trans zh="Support Test Player" en="Support Test Player" />
-        </NormalLabel>
-        <Checkbox name="supportTestPlayer" disabled={disabled} />
+          <NormalLabel>
+            <Trans zh="Support Test Player" en="Support Test Player" />
+          </NormalLabel>
+          <Checkbox name="supportTestPlayer" disabled={disabled} />
 
-        <NormalLabel>
-          <Trans zh="Allow Kick Player" en="Allow Kick Player" />
-        </NormalLabel>
-        <Checkbox name="allowKickPlayer" disabled={disabled} />
+          <NormalLabel>
+            <Trans zh="Allow Kick Player" en="Allow Kick Player" />
+          </NormalLabel>
+          <Checkbox name="allowKickPlayer" disabled={disabled} />
 
-        <NormalLabel>
-          <Trans zh="Place Bet Timeout" en="Place Bet Timeout" />
-        </NormalLabel>
-        <Input name="placeBetTimeout" readOnly={readOnly} />
+          <NormalLabel>
+            <Trans zh="Place Bet Timeout" en="Place Bet Timeout" />
+          </NormalLabel>
+          <Input name="placeBetTimeout" readOnly={readOnly} />
 
-        <NormalLabel>
-          <Trans zh="Settle Bet Timeout" en="Settle Bet Timeout" />
-        </NormalLabel>
-        <Input name="settleBetTimeout" readOnly={readOnly} />
+          <NormalLabel>
+            <Trans zh="Settle Bet Timeout" en="Settle Bet Timeout" />
+          </NormalLabel>
+          <Input name="settleBetTimeout" readOnly={readOnly} />
 
-        <LanguageFieldsBox disabled={disabled} />
+          <LanguageFieldsBox disabled={disabled} />
 
-        <GameProviderCurrencyBetLimitFieldsBox disabled={readOnly} />
-      </FieldValues>
-    </Stack>
+          <GameProviderCurrencyBetLimitFieldsBox disabled={readOnly} />
+        </FieldValues>
+      </Stack>
+    </WrapperModal>
   )
 }
 

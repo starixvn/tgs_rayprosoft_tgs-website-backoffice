@@ -48,3 +48,21 @@ export const cssTableLineBg = css`
     }
   }
 `
+
+export const cssTableStickyAction = css`
+  tr td:last-child:not([data-type="total"]) {
+    background-color: #fff;
+  }
+  tr {
+    &:nth-child(odd):not([data-type="total"]) {
+      td {
+        background: #f3f4f7;
+      }
+    }
+    &:nth-child(even):not([data-type="total"]) {
+      td {
+        background: #e6e6eb;
+      }
+    }
+  }
+`
