@@ -17,7 +17,9 @@ import {
   FieldWrapper,
   Level,
   Dialog,
-  Text
+  Text,
+  Label,
+  Icon
 } from "bumbag"
 import PageContent from "../../page/Content"
 import {
@@ -103,6 +105,17 @@ import { CurrencyTrans } from "../../trans/Payment"
 import { PlayerWinLossTrans } from "../../trans/Player"
 import { DetailTrans, ExportTrans, ViewTrans } from "../../trans/Action"
 import { SettleAmountTrans } from "../../trans/Field"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomInputSearch } from "../../styles/input"
+import {
+  cssButtonInputClose,
+  cssDateTimeRangeInputCloseButton,
+  cssFlexBox,
+  cssMinWidthSelect,
+  cssRemoveBorderGroupInput
+} from "./style"
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
 export { Code }
 
@@ -213,7 +226,7 @@ const ReportContent = ({}) => {
   return (
     <PageContent
       actionBar={
-        <Level alignY="bottom" alignX="left" verticalBelow="mobile">
+        <Level alignY="top" alignX="left" verticalBelow="mobile">
           <SearchBar
             externalFrom={state.externalFrom}
             externalTo={state.externalTo}
@@ -240,7 +253,12 @@ const ReportContent = ({}) => {
               mutate()
             }}
           />
-          <Set>
+          <Set
+            css={css`
+              display: flex;
+              flex-wrap: nowrap;
+            `}
+          >
             <DownloadReportButton
               disabled={data?.items?.length === 0}
               url={systemGameRoundListDownloadUrl(toSearchParams())}
@@ -251,7 +269,9 @@ const ReportContent = ({}) => {
                 [state.closedFrom, state.to]
               ]}
             />
-            <AddGameProviderRoundDialogDisclosure onSubmitted={mutate} />
+            <SearchAndSubmitButton>
+              <AddGameProviderRoundDialogDisclosure onSubmitted={mutate} />
+            </SearchAndSubmitButton>
           </Set>
         </Level>
       }
@@ -264,25 +284,39 @@ const ReportContent = ({}) => {
             en={`Rows：${formattedTotalCount}`}
           />
         </Text.Block>
-        <Table
-          columns={columns}
-          data={data?.items}
-          total={data?.items?.length > 0 && data?.total}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-          getRowId={(row) => row.id}
-          stickyHead
-          stickyRight
-          css={css`
-            tr td:last-child:not([data-type="total"]) {
-              background-color: #fff;
-            }
-          `}
-        />
+        <CustomTableStyle css={cssTableLineBg}>
+          <Table
+            columns={columns}
+            data={data?.items}
+            total={data?.items?.length > 0 && data?.total}
+            initialState={state}
+            controlledState={state}
+            pageCount={pageCount(pageSize, data?.totalCount)}
+            setPageIndex={setPageIndex}
+            setSortOrder={setSortOrder}
+            isLoading={isLoading}
+            getRowId={(row) => row.id}
+            stickyHead
+            stickyRight
+            css={css`
+              tr td:last-child:not([data-type="total"]) {
+                background-color: #fff;
+              }
+              tr {
+                &:nth-child(odd):not([data-type="total"]) {
+                  td {
+                    background: #f3f4f7;
+                  }
+                }
+                &:nth-child(even):not([data-type="total"]) {
+                  td {
+                    background: #e6e6eb;
+                  }
+                }
+              }
+            `}
+          />
+        </CustomTableStyle>
       </FieldStack>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
@@ -362,27 +396,42 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set alignY="bottom">
-          <InputField
-            name="username"
-            showEmptyFieldValueAddonAfter
-            placeholder={playerNamePlaceholder}
-          />
-          <InputField
-            name="playerCode"
-            showEmptyFieldValueAddonAfter
-            placeholder={externalUsernamePlaceholder}
-          />
-          <InputField
-            name="externalRoundId"
-            showEmptyFieldValueAddonAfter
-            placeholder={externalRoundIdPlaceholder}
-          />
-          <InputField
-            name="roundId"
-            showEmptyFieldValueAddonAfter
-            placeholder={roundIdPlaceholder}
-          />
-          <FieldStack orientation="horizontal">
+          <CustomInputSearch>
+            <InputField
+              name="username"
+              showEmptyFieldValueAddonAfter
+              placeholder={playerNamePlaceholder}
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="playerCode"
+              showEmptyFieldValueAddonAfter
+              placeholder={externalUsernamePlaceholder}
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="externalRoundId"
+              showEmptyFieldValueAddonAfter
+              placeholder={externalRoundIdPlaceholder}
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="roundId"
+              showEmptyFieldValueAddonAfter
+              placeholder={roundIdPlaceholder}
+            />
+          </CustomInputSearch>
+          <FieldStack
+            orientation="horizontal"
+            css={css`
+              .bb-FieldWrapper {
+                margin-right: 8px !important;
+              }
+            `}
+          >
             <DateTimeRangeInputField
               label={<ExternalBetTimeTrans />}
               minDate={minDate}
@@ -425,7 +474,14 @@ const SearchBar = ({
               ]}
             />
           </FieldStack>
-          <FieldStack orientation="horizontal">
+          <FieldStack
+            orientation="horizontal"
+            css={css`
+              .bb-FieldWrapper {
+                margin-right: 8px !important;
+              }
+            `}
+          >
             <DateTimeRangeInputField
               label={<Trans zh="平台投注时间" en="Created On" />}
               minDate={minDate}
@@ -467,15 +523,22 @@ const SearchBar = ({
               ]}
             />
           </FieldStack>
-          <GameRoundStatusSelect name="status" />
-          <BrandIdSelect name="brandId" />
-          <GameProviderSubGameProviderSelect
-            gameProviderProps={{ name: "gameProviderId", required: true }}
-            subGameProviderProps={{ name: "subGameProviderCode" }}
-          />
-          <GameTypeSelect name="gameType" />
-          <CurrencySelectField name="currencyCode" />
-          <SearchButton isLoading={isLoading} disabled={isLoading} />
+          <Box css={cssFlexBox}>
+            <GameRoundStatusSelect name="status" css={cssMinWidthSelect} />
+            <BrandIdSelect name="brandId" css={cssMinWidthSelect} />
+            <GameProviderSubGameProviderSelect
+              gameProviderProps={{ name: "gameProviderId", required: true }}
+              subGameProviderProps={{ name: "subGameProviderCode" }}
+              css={cssMinWidthSelect}
+            />
+            <GameTypeSelect name="gameType" css={cssMinWidthSelect} />
+            <CurrencySelectField name="currencyCode" css={cssMinWidthSelect} />
+            <SearchButton
+              isLoading={isLoading}
+              disabled={isLoading}
+              css={cssMinWidthSelect}
+            />
+          </Box>
         </Set>
       </form>
     </FormProvider>
@@ -550,27 +613,32 @@ const useColumns = ({ items = [] }) => {
       numberDecimalColumn({
         accessor: "betAmount",
         Header: <BetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
         Header: <ValidBetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "turnover",
         Header: <TurnoverTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "settleAmount",
         Header: <SettleAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "winLoss",
         Header: <PlayerWinLossTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       textColumn({
         id: "detail",
@@ -581,15 +649,25 @@ const useColumns = ({ items = [] }) => {
         Cell: ({ value: record }) => {
           return (
             <Set alignX="center">
-              <GameRoundDialogDisclosure
-                dialogId="game-round-dialog"
-                label={<ViewTrans />}
-                record={record}
-              />
-              <GameActionDialogDisclosure
-                dialogId="game-action-dialog"
-                roundId={record?.id}
-              />
+              <ActionTableButton>
+                <GameRoundDialogDisclosure
+                  dialogId="game-round-dialog"
+                  label={
+                    <Icon
+                      icon={faMagnifyingGlass}
+                      type="font-awesome"
+                      color="#080a0c"
+                      fontSize="16px"
+                      fontWeight="400"
+                    />
+                  }
+                  record={record}
+                />
+                <GameActionDialogDisclosure
+                  dialogId="game-action-dialog"
+                  roundId={record?.id}
+                />
+              </ActionTableButton>
             </Set>
           )
         }
@@ -612,38 +690,42 @@ const DateTimeRangeInputField = ({
   let endFieldName = endProps?.name
   return (
     <FieldWrapper
-      label={
-        <Set>
-          {label}
-          <Button.Close
-            size="small"
-            onClick={() => {
-              setValue(startFieldName, "")
-              setValue(endFieldName, "")
-            }}
-          />
-        </Set>
-      }
+      label={<Label margin="10px 0">{label}</Label>}
+      css={css`
+         .bb-FieldWrapperLabelWrapper {
+           margin-bottom: 0.25rem;
+         `}
     >
-      <DateTimeRangeInput
-        dateFormat="yyyy/MM/dd HH:mm"
-        startProps={startProps}
-        endProps={endProps}
-        validate={(range) => {
-          let allDateTimeRanges = splitEvery(2, [
-            range.start,
-            range.end,
-            ...getValues(otherDateTimeRangeFields)
-          ])
+      <Set alignY="center" orientation="horizontal">
+        <DateTimeRangeInput
+          dateFormat="yyyy/MM/dd HH:mm"
+          startProps={startProps}
+          endProps={endProps}
+          validate={(range) => {
+            let allDateTimeRanges = splitEvery(2, [
+              range.start,
+              range.end,
+              ...getValues(otherDateTimeRangeFields)
+            ])
 
-          let pass = any(([start, end]) => {
-            return isValidDate(start) && isValidDate(end)
-          }, allDateTimeRanges)
+            let pass = any(([start, end]) => {
+              return isValidDate(start) && isValidDate(end)
+            }, allDateTimeRanges)
 
-          return pass ? true : "one-of-date-range-required"
-        }}
-        {...props}
-      />
+            return pass ? true : "one-of-date-range-required"
+          }}
+          {...props}
+          css={cssDateTimeRangeInputCloseButton}
+        />
+        <Button.Close
+          size="small"
+          onClick={() => {
+            setValue(startFieldName, "")
+            setValue(endFieldName, "")
+          }}
+          css={cssButtonInputClose}
+        />
+      </Set>
     </FieldWrapper>
   )
 }

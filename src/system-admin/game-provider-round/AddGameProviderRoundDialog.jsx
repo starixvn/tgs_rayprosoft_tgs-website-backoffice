@@ -48,6 +48,7 @@ import {
 } from "../../trans/Game"
 import { StatusTrans } from "../../trans/Status"
 import { SettleAmountTrans } from "../../trans/Field"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const AddGameProviderRoundDialogDisclosure = ({
   id,
@@ -180,126 +181,138 @@ const FormBody = ({}) => {
 
   //TODO: minDate & maxDate validate on DateTimeInputField
   return (
-    <FieldStack paddingLeft="1.5rem" paddingRight="1.5rem" paddingBottom="1rem">
-      <InputField name="playerCode" label={<PlayerCodeTrans />} required />
-      <FieldWrapper label={<GameProviderTrans />}>
-        <GameProviderSubGameProviderSelect
-          gameProviderProps={{
-            name: "gameProviderId",
-            required: true
-          }}
-          subGameProviderProps={{
-            name: SubGameProviderCodeField,
-            required: true
-          }}
-        />
-      </FieldWrapper>
-      <GameSelectField
-        name="gameId"
-        required
-        gameProviderId={gameProviderId}
-        label={<Trans zh="游戏" en="Game" />}
-        filter={(game) => {
-          if (subGameProviderCode) {
-            return game.subGpCode == subGameProviderCode
-          }
-          return true
-        }}
-      />
-      <InputField
-        name="externalRoundId"
-        label={<Trans zh="三方訂單ID" en="External ID" />}
-        required
-      />
-      <FieldStack orientation="horizontal">
-        <FieldWrapper
-          id={ExternalCreatedOnField}
-          label={<ExternalBetTimeTrans />}
-        >
-          <DateTimeInput
-            name={ExternalCreatedOnField}
-            maxDate={externalClosedOn ?? now}
-            required
+    <WrapperModal>
+      <FieldStack>
+        <InputField name="playerCode" label={<PlayerCodeTrans />} required />
+        <FieldWrapper label={<GameProviderTrans />}>
+          <GameProviderSubGameProviderSelect
+            gameProviderProps={{
+              name: "gameProviderId",
+              required: true
+            }}
+            subGameProviderProps={{
+              name: SubGameProviderCodeField,
+              required: true
+            }}
+            css={css`
+              .bb-SelectWrapper {
+                width: 100%;
+              }
+            `}
           />
         </FieldWrapper>
-        <FieldWrapper
-          id={ExternalClosedOnField}
-          label={<Trans zh="三方结算时间" en="External Closed On" />}
-        >
-          <DateTimeInput
-            name={ExternalClosedOnField}
-            minDate={externalCreatedOn}
-            maxDate={now}
-            required
-          />
-        </FieldWrapper>
-      </FieldStack>
-      <FieldStack orientation="horizontal">
-        <NumberInputField
-          name="betAmount"
-          min={0}
-          label={<BetAmountTrans />}
+        <GameSelectField
+          name="gameId"
           required
-        />
-        <NumberInputField
-          name="validBetAmount"
-          min={0}
-          label={<ValidBetAmountTrans />}
-          required
-        />
-      </FieldStack>
-      <FieldStack orientation="horizontal">
-        <NumberInputField
-          name="settleAmount"
-          label={<SettleAmountTrans />}
-          required
-        />
-        <NumberInputField
-          name="commission"
-          label={<Trans zh="佣金" en="Commission" />}
-          min={0}
-          required
-        />
-      </FieldStack>
-      <FieldStack orientation="horizontal">
-        <NumberInputField
-          name="turnover"
-          label={<TurnoverTrans />}
-          min={0}
-          required
-        />
-        <GameRoundStatusSelectField
-          name="clientRoundStatus"
-          filter={({ value }) => {
-            return value != GameRoundStatus.Open
+          gameProviderId={gameProviderId}
+          label={<Trans zh="游戏" en="Game" />}
+          filter={(game) => {
+            if (subGameProviderCode) {
+              return game.subGpCode == subGameProviderCode
+            }
+            return true
           }}
-          label={<StatusTrans />}
+          css={css`
+            .bb-SelectWrapper {
+              width: 100%;
+            }
+          `}
+        />
+        <InputField
+          name="externalRoundId"
+          label={<Trans zh="三方訂單ID" en="External ID" />}
           required
         />
-      </FieldStack>
-      <NumberInputField
-        name="companyWinLoss"
-        required
-        label={<WinLossTrans />}
-        hint={
-          <Text fontWeight="bold" color="warning">
-            <Trans
-              zh="输赢金额 > 0,代表公司赢"
-              en="Win loss > 0 means company win."
+        <FieldStack orientation="horizontal">
+          <FieldWrapper
+            id={ExternalCreatedOnField}
+            label={<ExternalBetTimeTrans />}
+          >
+            <DateTimeInput
+              name={ExternalCreatedOnField}
+              maxDate={externalClosedOn ?? now}
+              required
             />
-          </Text>
-        }
-      />
-      <TextareaField
-        name="remark"
-        label={<RemarkTrans />}
-        transition="unset"
-        css={css`
-          textarea {
-            transition: unset;
+          </FieldWrapper>
+          <FieldWrapper
+            id={ExternalClosedOnField}
+            label={<Trans zh="三方结算时间" en="External Closed On" />}
+          >
+            <DateTimeInput
+              name={ExternalClosedOnField}
+              minDate={externalCreatedOn}
+              maxDate={now}
+              required
+            />
+          </FieldWrapper>
+        </FieldStack>
+        <FieldStack orientation="horizontal">
+          <NumberInputField
+            name="betAmount"
+            min={0}
+            label={<BetAmountTrans />}
+            required
+          />
+          <NumberInputField
+            name="validBetAmount"
+            min={0}
+            label={<ValidBetAmountTrans />}
+            required
+          />
+        </FieldStack>
+        <FieldStack orientation="horizontal">
+          <NumberInputField
+            name="settleAmount"
+            label={<SettleAmountTrans />}
+            required
+          />
+          <NumberInputField
+            name="commission"
+            label={<Trans zh="佣金" en="Commission" />}
+            min={0}
+            required
+          />
+        </FieldStack>
+        <FieldStack orientation="horizontal">
+          <NumberInputField
+            name="turnover"
+            label={<TurnoverTrans />}
+            min={0}
+            required
+          />
+          <GameRoundStatusSelectField
+            name="clientRoundStatus"
+            filter={({ value }) => {
+              return value != GameRoundStatus.Open
+            }}
+            label={<StatusTrans />}
+            required
+          />
+        </FieldStack>
+        <NumberInputField
+          name="companyWinLoss"
+          required
+          label={<WinLossTrans />}
+          hint={
+            <Text fontWeight="bold" color="warning">
+              <Trans
+                zh="输赢金额 > 0,代表公司赢"
+                en="Win loss > 0 means company win."
+              />
+            </Text>
           }
-        `}
-      />
-    </FieldStack>
+        />
+        <TextareaField
+          name="remark"
+          label={<RemarkTrans />}
+          transition="unset"
+          css={css`
+            textarea {
+              transition: unset;
+            }
+          `}
+        />
+      </FieldStack>
+    </WrapperModal>
   )
 }

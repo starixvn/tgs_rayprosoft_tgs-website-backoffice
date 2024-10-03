@@ -73,7 +73,7 @@ export const GameRoundDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <Disclosure id={id} {...dialog} {...props}>
+      <Disclosure id={id} {...dialog} {...props} palette="success">
         {label}
       </Disclosure>
       {dialog.visible && (
