@@ -2,6 +2,7 @@ import { css } from "@emotion/react"
 import {
   List as _List,
   applyTheme,
+  Blockquote,
   Box,
   Button,
   Columns,
@@ -75,6 +76,10 @@ import {
 } from "./condition"
 import { Update as UpdateMenu } from "./menu"
 import { PaymentMethodSetting } from "./PaymentMethodSetting"
+import { WrapperModal } from "../../styles/wrapper"
+import { spacingForm } from "../../styles/spacing"
+import { RemoveBoxShadowInputButton } from "../../styles/input"
+import { cssSelectFullWidth, cssSpacingButtonModalPayment } from "./style"
 
 export const EditButton = ({
   brandId,
@@ -190,24 +195,10 @@ const EditDialog = ({
       }}
       title={title}
       showCloseButton
-      width="80vw"
-      height="95vh"
-      maxHeight="95vh"
+      width="45vw"
+      maxHeight="80vh"
+      height="80vh"
       placement="top"
-      display="flex"
-      flexDirection="column"
-      css={css`
-        & .bb-Flex.bb-DialogContent {
-          max-height: 95vh;
-          flex: 1 auto;
-          padding-bottom: 0.5em;
-        }
-
-        & .bb-DialogContent > .bb-Box {
-          display: flex;
-          flex-direction: column;
-        }
-      `}
       dialog={dialog}
     >
       <EditBody
@@ -239,28 +230,7 @@ export const AddBrandPaymentButton = ({
     : useAddWithdrawBrandPayment
   return (
     <>
-      <AddDisclosure
-        {...dialog}
-        {...props}
-        css={css`
-          background: #4b49b6;
-          color: #fff;
-          border-radius: 6px !important;
-          border: 1px solid !important;
-          font-weight: 400;
-          &:focus,
-          &:hover,
-          &:active {
-            background: #4b49b6;
-            box-shadow: none !important;
-          }
-          &:hover {
-            &:active {
-              background: #4b49b6;
-            }
-          }
-        `}
-      />
+      <AddDisclosure {...dialog} {...props} />
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <AddDialog
@@ -406,24 +376,10 @@ const AddDialog = ({
       }}
       title={title}
       showCloseButton
-      width="80vw"
-      height="95vh"
-      maxHeight="95vh"
+      width="45vw"
+      maxHeight="80vh"
+      height="80vh"
       placement="top"
-      display="flex"
-      flexDirection="column"
-      css={css`
-        & .bb-Flex.bb-DialogContent {
-          max-height: 95vh;
-          flex: 1 auto;
-          padding-bottom: 0.5em;
-        }
-
-        & .bb-DialogContent > .bb-Box {
-          display: flex;
-          flex-direction: column;
-        }
-      `}
       dialog={dialog}
       {...props}
     >
@@ -519,195 +475,200 @@ const EditBody = ({
     }
   }, [isManualPaymentProvider, paymentChannelId, paymentMethodId])
   return (
-    <Stack
-      orientation="vertical"
-      display="flex"
-      flexDirection="column"
-      flex="1 auto"
-    >
-      <Columns flex="1 auto" marginBottom="major-1">
-        <Columns.Column>
-          <Stack
-            spacing="major-1"
-            display="flex"
-            flexDirection="column"
-            height="100%"
-          >
-            <Heading use="h5">
-              <Trans zh="基本资料" en="Basic" />
-            </Heading>
-            <FieldValues>
-              <Label>
-                <PaymentProviderTrans />
-              </Label>
-              <Box alignY="center">
-                <Input type="hidden" name="paymentId" value={paymentId} />
-                <PaymentProviderLabel value={paymentId} />
-              </Box>
-
-              <Label>
-                <PaymentMethodTrans />
-              </Label>
-              <Box alignY="center">
-                {isAdd && (
-                  <PaymentMethodSelect
-                    name={PaymentMethodFieldName}
-                    range={manualPaymentMethodIdList}
-                    required
-                  />
-                )}
-                {isEdit && isManualPaymentProviderMethod && (
-                  <PaymentMethodSelect
-                    name={PaymentMethodFieldName}
-                    range={manualPaymentMethodIdList}
-                    required
-                  />
-                )}
-                {isEdit && !isManualPaymentProviderMethod && (
-                  <PaymentMethodLabel
-                    range={manualPaymentMethodIdList}
-                    value={record?.paymentMethodId}
-                  />
-                )}
-                <Input
-                  type="hidden"
-                  name={PaymentMethodChannelIdFieldName}
-                  value={paymentMethodChannelId}
-                />
-              </Box>
-
-              <Label>
-                <PaymentChannelTrans />
-              </Label>
-              <Box alignY="center">
-                {isAdd && (
-                  <PaymentChannelSelect
-                    name={PaymentChannelIdFieldName}
-                    range={manualPaymentProdiverChanneIdRange}
-                    required
-                  />
-                )}
-                {isEdit && isManualPaymentProviderMethod && (
-                  <PaymentChannelSelect
-                    name={PaymentChannelIdFieldName}
-                    range={manualPaymentProdiverChanneIdRange}
-                    required
-                  />
-                )}
-                {isEdit && !isManualPaymentProviderMethod && (
-                  <PaymentChannelLabel value={record?.paymentChannelId} />
-                )}
-              </Box>
-
-              <Label required>
-                <ChannelNameTrans />
-              </Label>
-              <Input name="channelName" size="small" required />
-
-              <PaymentMethodSetting
-                brandId={brandId}
-                paymentCode={paymentCode}
-                paymentMethodCode={paymentMethod?.code}
-              />
-
-              <Label>
-                <StatusTrans />
-              </Label>
-              <Box>
-                <BrandPaymentStatusButton name="paymentStatus" />
-              </Box>
-
-              <Label required>
-                <PaymentLimitTrans />
-              </Label>
-              <NumberRangeInputGroup
-                names={["transferLimitFrom", "transferLimitTo"]}
+    <WrapperModal>
+      <Box marginBottom="20px">
+        <Blockquote
+          borderColor="primary"
+          background="#f3f4f7"
+          marginBottom="20px"
+        >
+          <Heading use="h5">
+            <Trans zh="基本资料" en="Basic" />
+          </Heading>
+        </Blockquote>
+        <FieldValues css={spacingForm}>
+          <Label>
+            <PaymentProviderTrans />
+          </Label>
+          <Box alignY="center">
+            <Input type="hidden" name="paymentId" value={paymentId} />
+            <PaymentProviderLabel value={paymentId} />
+          </Box>
+          <Label>
+            <PaymentMethodTrans />
+          </Label>
+          <Box alignY="center" css={cssSelectFullWidth}>
+            {isAdd && (
+              <PaymentMethodSelect
+                name={PaymentMethodFieldName}
+                range={manualPaymentMethodIdList}
                 required
-                min={[0, transferLimitFrom]}
-                max={[transferLimitTo]}
-                width="100%"
               />
+            )}
+            {isEdit && isManualPaymentProviderMethod && (
+              <PaymentMethodSelect
+                name={PaymentMethodFieldName}
+                range={manualPaymentMethodIdList}
+                required
+              />
+            )}
+            {isEdit && !isManualPaymentProviderMethod && (
+              <PaymentMethodLabel
+                range={manualPaymentMethodIdList}
+                value={record?.paymentMethodId}
+              />
+            )}
+            <Input
+              type="hidden"
+              name={PaymentMethodChannelIdFieldName}
+              value={paymentMethodChannelId}
+            />
+          </Box>
+          <Label>
+            <PaymentChannelTrans />
+          </Label>
+          <Box alignY="center" css={cssSelectFullWidth}>
+            {isAdd && (
+              <PaymentChannelSelect
+                name={PaymentChannelIdFieldName}
+                range={manualPaymentProdiverChanneIdRange}
+                required
+              />
+            )}
+            {isEdit && isManualPaymentProviderMethod && (
+              <PaymentChannelSelect
+                name={PaymentChannelIdFieldName}
+                range={manualPaymentProdiverChanneIdRange}
+                required
+              />
+            )}
+            {isEdit && !isManualPaymentProviderMethod && (
+              <PaymentChannelLabel value={record?.paymentChannelId} />
+            )}
+          </Box>
+          <Label required>
+            <ChannelNameTrans />
+          </Label>
+          <Input name="channelName" size="small" required />
 
-              {isDeposit && (
-                <>
-                  <Label>
-                    <TransferFeeTrans />
-                  </Label>
-                  <Set orientation="horizontal">
-                    <PercentageNumberInputField
-                      name="handlingFeeRatePercentile"
-                      defaultValue={0}
-                      min={0}
-                    />
-                    <PlayerShallBearTransferFeeSwitch />
-                  </Set>
-                </>
-              )}
-            </FieldValues>
+          <PaymentMethodSetting
+            brandId={brandId}
+            paymentCode={paymentCode}
+            paymentMethodCode={paymentMethod?.code}
+          />
 
-            <Columns flex="1 auto">
-              <UploadListColumn
-                name="whitelist"
-                title={<Trans zh="白名单列表" en="Whitelist" />}
-                list={record.whitelist}
-                fileName="whitelist.xlsx"
-              />
-              <UploadListColumn
-                name="blacklist"
-                title={<Trans zh="黑名单列表" en="Blacklist" />}
-                list={record.blacklist}
-                fileName="blacklist.xlsx"
-              />
-            </Columns>
-          </Stack>
-        </Columns.Column>
-        <Columns.Column>
+          <Label>
+            <StatusTrans />
+          </Label>
+          <Box>
+            <BrandPaymentStatusButton name="paymentStatus" />
+          </Box>
+
+          <Label required>
+            <PaymentLimitTrans />
+          </Label>
+          <NumberRangeInputGroup
+            names={["transferLimitFrom", "transferLimitTo"]}
+            required
+            min={[0, transferLimitFrom]}
+            max={[transferLimitTo]}
+            width="100%"
+          />
+
+          {isDeposit && (
+            <>
+              <Label>
+                <TransferFeeTrans />
+              </Label>
+              <Set orientation="horizontal">
+                <PercentageNumberInputField
+                  name="handlingFeeRatePercentile"
+                  defaultValue={0}
+                  min={0}
+                />
+                <PlayerShallBearTransferFeeSwitch />
+              </Set>
+            </>
+          )}
+        </FieldValues>
+      </Box>
+      <Box height="1px" background="#d9d9e1" margin="20px 0"></Box>
+      <Box>
+        <Blockquote
+          borderColor="primary"
+          background="#f3f4f7"
+          marginBottom="20px"
+        >
           <Heading use="h5">
             <DisplayConditionTrans />
           </Heading>
-          <FieldValues>
-            <Label name="playerListCondition">
-              <Trans zh="符合条件" en="Eligible" />
-            </Label>
-            <Box alignY="center">
-              <PlayerListConditionRadioGroup
-                name="playerListCondition"
-                required
-              />
+        </Blockquote>
+
+        <FieldValues css={spacingForm}>
+          <Label name="playerListCondition">
+            <Trans zh="符合条件" en="Eligible" />
+          </Label>
+          <Box alignY="center">
+            <PlayerListConditionRadioGroup
+              name="playerListCondition"
+              required
+            />
+          </Box>
+
+          <Label name="allPlayers">
+            <AllPlayerText />
+          </Label>
+          <Box alignY="center">
+            <Switch name="allPlayers" width="auto" />
+          </Box>
+
+          <Label required>
+            <AccumulatedDepositText />
+          </Label>
+          <Box alignY="center">
+            <AccumulatedDepositGroup />
+          </Box>
+
+          <Label>
+            <IdentityAuthenticationText />
+          </Label>
+          <Box alignY="center">
+            <Switch name="identityAuthentication" />
+          </Box>
+        </FieldValues>
+      </Box>
+      <Box height="1px" background="#d9d9e1" margin="20px 0"></Box>
+      <Box>
+        <Columns>
+          <Columns.Column padding="0">
+            <UploadListColumn
+              name="whitelist"
+              title={<Trans zh="白名单列表" en="Whitelist" />}
+              list={record.whitelist}
+              fileName="whitelist.xlsx"
+            />
+          </Columns.Column>
+          <Columns.Column padding="0">
+            <UploadListColumn
+              name="blacklist"
+              title={<Trans zh="黑名单列表" en="Blacklist" />}
+              list={record.blacklist}
+              fileName="blacklist.xlsx"
+            />
+          </Columns.Column>
+        </Columns>
+        <Box>
+          <Stack spacing="major-1" orientation="vertical">
+            <Box flex="0 auto">
+              <Trans zh="变更原因" en="Reason" />
             </Box>
 
-            <Label name="allPlayers">
-              <AllPlayerText />
-            </Label>
-            <Box alignY="center">
-              <Switch name="allPlayers" width="auto" />
-            </Box>
-
-            <Label required>
-              <AccumulatedDepositText />
-            </Label>
-            <Box alignY="center">
-              <AccumulatedDepositGroup />
-            </Box>
-
-            <Label>
-              <IdentityAuthenticationText />
-            </Label>
-            <Box alignY="center">
-              <Switch name="identityAuthentication" />
-            </Box>
-          </FieldValues>
-        </Columns.Column>
-      </Columns>
-      <Stack spacing="major-1" orientation="horizontal">
-        <Box flex="0 auto">
-          <Trans zh="变更原因" en="Reason" />
+            <Textarea name="reason" />
+          </Stack>
+          <Input type="hidden" name="brandId" value={brandId} />
         </Box>
-
-        <Textarea name="reason" />
-      </Stack>
-      <Input type="hidden" name="brandId" value={brandId} />
-    </Stack>
+      </Box>
+    </WrapperModal>
   )
 }
 
@@ -801,18 +762,51 @@ const UploadListColumn = ({ name = "", title, fileName = "", list = null }) => {
         <Columns.Column display="flex" flexDirection="column">
           {error && <AlertDialog {...error} onClickClose={resetFormData} />}
           <Stack orientation="horizontal" alignY="center" spacing="major-1">
-            <Text.Block>{title}</Text.Block>
-            <Button
-              use="a"
-              href="/download/payments/list.xlsx"
-              download={fileName}
-              palette="primary"
-              size="small"
-            >
-              <Trans zh="格式" en="Format" />
-            </Button>
+            <RemoveBoxShadowInputButton css={cssSpacingButtonModalPayment}>
+              <Text.Block>{title}</Text.Block>
+              <Button
+                use="a"
+                href="/download/payments/list.xlsx"
+                download={fileName}
+                palette="primary"
+                size="small"
+              >
+                <Trans zh="格式" en="Template" />
+              </Button>
+            </RemoveBoxShadowInputButton>
+
+            <RemoveBoxShadowInputButton css={cssSpacingButtonModalPayment}>
+              <Button
+                palette="primary"
+                type="button"
+                onClick={(event) => {
+                  uploadFileInputRef?.current.click()
+                }}
+                size="small"
+                isLoading={isLoading}
+                disabled={isLoading}
+              >
+                <Trans zh="上传" en="Upload" />
+              </Button>
+              <Button
+                type="button"
+                size="small"
+                onClick={() => {
+                  console.log("name what: ")
+                  console.log(name)
+                  setValue(name, [])
+                }}
+              >
+                <Trans zh="清除" en="Clear" />
+              </Button>
+            </RemoveBoxShadowInputButton>
           </Stack>
-          <List overflowY="scroll" flex="1 0 5em" marginY="minor-1">
+          <List
+            overflowY="scroll"
+            flex="1 0 5em"
+            marginY="minor-1"
+            padding="8px"
+          >
             {currList.map((item) => (
               <List.Item key={item}>{item}</List.Item>
             ))}
@@ -835,29 +829,6 @@ const UploadListColumn = ({ name = "", title, fileName = "", list = null }) => {
                 display: none;
               `}
             />
-            <Button
-              palette="primary"
-              type="button"
-              onClick={(event) => {
-                uploadFileInputRef?.current.click()
-              }}
-              size="small"
-              isLoading={isLoading}
-              disabled={isLoading}
-            >
-              <Trans zh="上传" en="Upload" />
-            </Button>
-            <Button
-              type="button"
-              size="small"
-              onClick={() => {
-                console.log("name what: ")
-                console.log(name)
-                setValue(name, [])
-              }}
-            >
-              <Trans zh="清除" en="Clear" />
-            </Button>
           </Set>
         </Columns.Column>
       )}

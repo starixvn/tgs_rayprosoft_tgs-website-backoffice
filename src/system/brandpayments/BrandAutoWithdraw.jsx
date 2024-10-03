@@ -34,6 +34,8 @@ import {
   PaymentMinMaxLimitTrans
 } from "../../trans/Payment"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
+import { SearchAndSubmitButton } from "../../styles/button"
 
 export const BrandAutoWithdrawDialogDisclosure = ({
   brandId,
@@ -51,9 +53,11 @@ export const BrandAutoWithdrawDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <Disclosure id={id} {...dialog}>
-        <Trans zh="自动提款设定" en="Auto Payments" />
-      </Disclosure>
+      <SearchAndSubmitButton>
+        <Disclosure id={id} {...dialog}>
+          <Trans zh="自动提款设定" en="Auto Payments" />
+        </Disclosure>
+      </SearchAndSubmitButton>
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <AutoWithdrawDialog
@@ -177,14 +181,16 @@ const AutoWithdrawDialog = ({ brandId, dialog, dialogId, ...props }) => {
 
   if (error) {
     return (
-      <AlertDialog
-        {...error}
-        onClickClose={() => {
-          deleteCache()
-          mutate(undefined, false)
-          dialog.hide()
-        }}
-      />
+      <WrapperModal>
+        <AlertDialog
+          {...error}
+          onClickClose={() => {
+            deleteCache()
+            mutate(undefined, false)
+            dialog.hide()
+          }}
+        />
+      </WrapperModal>
     )
   }
 
@@ -249,26 +255,28 @@ const AutoWithdrawFormDialog = ({
       dialog={dialog}
       title={title}
     >
-      <FieldValues
-        css={css`
-          margin: 0 1rem;
-          grid-template-columns: auto 1fr;
-          gap: 1rem;
-        `}
-      >
-        <Box alignY="center">
-          <Trans zh="自动出款" en="Auto Payments" />
-        </Box>
-        <AutoWithdrawGroupField />
+      <WrapperModal>
+        <FieldValues
+          css={css`
+            margin: 0 1rem;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+          `}
+        >
+          <Box alignY="center">
+            <Trans zh="自动出款" en="Auto Payments" />
+          </Box>
+          <AutoWithdrawGroupField />
 
-        <Trans zh="金流通道" en="Payments" />
-        <BrandPaymentCheckboxGroupTable
-          brandId={brandId}
-          transferTyp={TransferType.Withdrawal}
-          paymentStatus={BrandPaymentStatus.Enabled}
-          prefetchedData={brandPaymentList}
-        />
-      </FieldValues>
+          <Trans zh="金流通道" en="Payments" />
+          <BrandPaymentCheckboxGroupTable
+            brandId={brandId}
+            transferTyp={TransferType.Withdrawal}
+            paymentStatus={BrandPaymentStatus.Enabled}
+            prefetchedData={brandPaymentList}
+          />
+        </FieldValues>
+      </WrapperModal>
     </FormDialog>
   )
 }

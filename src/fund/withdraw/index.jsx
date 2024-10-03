@@ -587,7 +587,9 @@ const useColumns = ({
   let hasUpdateMenu = useIsDisplayMenuByRoute([Update])
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       noWrapTextColumn({
         accessor: "username",
         Header: <UserNameTrans />,

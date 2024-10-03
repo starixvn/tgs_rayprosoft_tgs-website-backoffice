@@ -16,6 +16,8 @@ import { toPalette } from "./BrandPaymentStatus"
 import { useBrandPaymentLogs } from "./client"
 import { Detail } from "./condition"
 import { View as ViewMenu } from "./menu"
+import { cssModalHiddenFooter } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const ViewButton = ({ record, ...props }) => {
   let dialog = useModalState()
@@ -27,7 +29,7 @@ export const ViewButton = ({ record, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog}>
+      <Disclosure {...dialog} palette="success">
         <Trans zh="日志" en="Logs" />
       </Disclosure>
       {dialog.visible && <LogsDialog record={record} dialog={dialog} />}
@@ -60,19 +62,16 @@ const LogsDialog = ({ record = {}, dialog, ...props }) => {
       showCloseButton
       maxWidth="90vw"
       {...dialog}
-      css={css`
-        & .bb-Flex.bb-DialogContent {
-          max-height: 80vh;
-        }
-      `}
+      css={cssModalHiddenFooter}
     >
-      <Table
-        columns={columns}
-        data={items}
-        isLoading={isLoading}
-        usePagination={false}
-        maxHeight="65vh"
-      />
+      <WrapperModal>
+        <Table
+          columns={columns}
+          data={items}
+          isLoading={isLoading}
+          usePagination={false}
+        />
+      </WrapperModal>
     </Dialog.Modal>
   )
 }

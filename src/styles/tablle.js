@@ -34,10 +34,11 @@ export const cssTableLineBg = css`
   .bb-Table {
     border: none !important;
     overflow-x: auto !important;
-    max-height: 80vh;
+    max-height: 80vh !important;
     border-collapse: separate !important;
     .bb-TableHeadCell {
       border-bottom: 1px solid #e6e6eb;
+      white-space: nowrap !important;
     }
     .bb-TableBody {
       &:nth-child(odd) {

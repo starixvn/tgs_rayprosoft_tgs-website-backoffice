@@ -68,6 +68,11 @@ import { Detail as ConditionDetail } from "./condition"
 import { AddBrandPaymentButton, EditButton } from "./edit"
 import { ViewButton as LogsButton } from "./logs"
 import { Code, Update as UpdateMenu, View as ViewMenu } from "./menu"
+import { WrapperBg } from "../../styles/wrapper"
+import { CustomNavTabSecond } from "../../styles/navtab"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomInputSearch } from "../../styles/input"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
 
 export { Code }
 
@@ -118,67 +123,74 @@ const Body = ({}) => {
 
   return (
     <Set orientation="vertical" isFilled height="100%">
-      <Level alignY="bottom" alignX="left" verticalBelow="mobile">
-        <SearchBar
-          search={(newState) => {
-            setState({ pageIndex: 0, ...newState })
-            mutate()
-          }}
-          isLoading={isLoading}
-        />
-        <Set>
-          {isWithdrawalPlatformPayment(transferType) && (
-            <BrandAutoWithdrawDialogDisclosure brandId={brandId} />
-          )}
-          <AddBrandPaymentButton
-            id="add-payment-dialog-disclosure"
-            transferType={transferType}
-            brandId={brandId}
-            onSubmitted={mutate}
-          />
-        </Set>
-      </Level>
-      <Tabs selectedId={transferType}>
-        <Tabs.List>
-          <Tabs.Tab
-            tabId={TransferType.Deposit}
-            onClick={activeTab(TransferType.Deposit)}
-          >
-            <DepositTrans />
-          </Tabs.Tab>
-          <Tabs.Tab
-            tabId={TransferType.Withdrawal}
-            onClick={activeTab(TransferType.Withdrawal)}
-          >
-            <WithdrawTrans />
-          </Tabs.Tab>
-        </Tabs.List>
-        <Tabs.Panel tabId={TransferType.Deposit} paddingTop="1rem">
-          <DataTable
-            state={state}
-            data={data}
-            setPageIndex={setPageIndex}
-            setSortOrder={setSortOrder}
-            transferType={transferType}
-            mutate={mutate}
+      <WrapperBg>
+        <Level alignY="bottom" alignX="left" verticalBelow="mobile">
+          <SearchBar
+            search={(newState) => {
+              setState({ pageIndex: 0, ...newState })
+              mutate()
+            }}
             isLoading={isLoading}
-            brandId={brandId}
           />
-        </Tabs.Panel>
-        <Tabs.Panel tabId={TransferType.Withdrawal} paddingTop="1rem">
-          <DataTable
-            state={state}
-            data={data}
-            setPageIndex={setPageIndex}
-            setSortOrder={setSortOrder}
-            transferType={transferType}
-            mutate={mutate}
-            isLoading={isLoading}
-            brandId={brandId}
-          />
-        </Tabs.Panel>
-      </Tabs>
-      {error && <AlertDialog {...error} onClickClose={emptyData} />}
+          <Set>
+            {isWithdrawalPlatformPayment(transferType) && (
+              <BrandAutoWithdrawDialogDisclosure brandId={brandId} />
+            )}
+            <SearchAndSubmitButton>
+              <AddBrandPaymentButton
+                id="add-payment-dialog-disclosure"
+                transferType={transferType}
+                brandId={brandId}
+                onSubmitted={mutate}
+              />
+            </SearchAndSubmitButton>
+          </Set>
+        </Level>
+        <CustomNavTabSecond>
+          <Tabs selectedId={transferType}>
+            <Tabs.List>
+              <Tabs.Tab
+                tabId={TransferType.Deposit}
+                onClick={activeTab(TransferType.Deposit)}
+              >
+                <DepositTrans />
+              </Tabs.Tab>
+              <Tabs.Tab
+                tabId={TransferType.Withdrawal}
+                onClick={activeTab(TransferType.Withdrawal)}
+              >
+                <WithdrawTrans />
+              </Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel tabId={TransferType.Deposit} paddingTop="1rem">
+              <DataTable
+                state={state}
+                data={data}
+                setPageIndex={setPageIndex}
+                setSortOrder={setSortOrder}
+                transferType={transferType}
+                mutate={mutate}
+                isLoading={isLoading}
+                brandId={brandId}
+              />
+            </Tabs.Panel>
+            <Tabs.Panel tabId={TransferType.Withdrawal} paddingTop="1rem">
+              <DataTable
+                state={state}
+                data={data}
+                setPageIndex={setPageIndex}
+                setSortOrder={setSortOrder}
+                transferType={transferType}
+                mutate={mutate}
+                isLoading={isLoading}
+                brandId={brandId}
+              />
+            </Tabs.Panel>
+          </Tabs>
+        </CustomNavTabSecond>
+
+        {error && <AlertDialog {...error} onClickClose={emptyData} />}
+      </WrapperBg>
     </Set>
   )
 }
@@ -252,26 +264,31 @@ const DataTable = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Stack spacing="minor-1">
-          <Table
-            columns={columns}
-            data={data?.items}
-            initialState={state}
-            controlledState={state}
-            pageCount={pageCount(pageSize, data?.totalCount)}
-            setPageIndex={setPageIndex}
-            setSortOrder={setSortOrder}
-            isLoading={isLoading}
-            getRowId={(row) => row.id}
-          />
+          <CustomTableStyle css={cssTableLineBg}>
+            <Table
+              columns={columns}
+              data={data?.items}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+              getRowId={(row) => row.id}
+              stickyHead
+            />
+          </CustomTableStyle>
           {editable && (
             <Dialog.Footer position="sticky" bottom="0">
-              <Button
-                isLoading={isChangingDisplayOrder}
-                disabled={isLoading || isChangingDisplayOrder}
-                type="submit"
-              >
-                <ConfirmOrderTrans />
-              </Button>
+              <SearchAndSubmitButton>
+                <Button
+                  isLoading={isChangingDisplayOrder}
+                  disabled={isLoading || isChangingDisplayOrder}
+                  type="submit"
+                >
+                  <ConfirmOrderTrans />
+                </Button>
+              </SearchAndSubmitButton>
             </Dialog.Footer>
           )}
         </Stack>
@@ -294,31 +311,15 @@ const SearchBar = ({ search, isLoading, ...props }) => {
             name="paymentStatus"
             placeholder={EnabledTrans}
           />
-          <InputField
-            name="keyword"
-            defaultValue=""
-            showEmptyFieldValueAddonAfter
-            placeholder={keywordPlaceholder}
-            autocomplete="off"
-            css={css`
-              input {
-                border: 1px solid #dbdfe6;
-                &:focus {
-                  box-shadow: none !important;
-                }
-              }
-              button {
-                &:focus,
-                &:hover,
-                &:active {
-                  box-shadow: none !important;
-                  border: 1px solid #dbdfe6;
-                  border-left: none;
-                  background: #fff;
-                }
-              }
-            `}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="keyword"
+              defaultValue=""
+              showEmptyFieldValueAddonAfter
+              placeholder={keywordPlaceholder}
+              autocomplete="off"
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -371,8 +372,22 @@ export const BrandPaymentBalance = ({ brandId, brandPaymentId }) => {
             mutate(undefined)
           }
         }}
+        css={css`
+          &:hover,
+          &:active,
+          &:focus {
+            background: none;
+            out-line: none !important;
+            box-shadow: none !important;
+          }
+          &:hover {
+            &:active {
+              background: none;
+            }
+          }
+        `}
       >
-        <Icon icon={faRotateLeft} type="font-awesome" />
+        <Icon icon={faRotateLeft} type="font-awesome" color="secondary" />
       </Button>
     </Set>
   )
@@ -516,13 +531,15 @@ const useColumns = ({
           Cell: ({ value }) => {
             return (
               <Set alignX="center">
-                <EditButton
-                  brandId={brandId}
-                  platformPaymentId={value?.id}
-                  onSubmitted={mutate}
-                  dialogId="edit-platform-payment-dialog"
-                />
-                <LogsButton brandId={brandId} record={value} />
+                <ActionTableButton>
+                  <EditButton
+                    brandId={brandId}
+                    platformPaymentId={value?.id}
+                    onSubmitted={mutate}
+                    dialogId="edit-platform-payment-dialog"
+                  />
+                  <LogsButton brandId={brandId} record={value} />
+                </ActionTableButton>
               </Set>
             )
           }

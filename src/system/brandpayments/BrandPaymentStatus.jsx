@@ -12,6 +12,7 @@ import {
   useStatusTrans
 } from "../../trans/Status"
 import { useChangeBrandPaymentStatus } from "./client"
+import { CustomBadgeButton } from "../../styles/button"
 
 const Enabled = "Enabled"
 
@@ -75,17 +76,19 @@ export const BrandPaymentStatusButton = ({ name = "paymentStatus" }) => {
         field: { onChange, onBlur, value, name, ref },
         fieldState: { isTouched, isDirty, error }
       }) => (
-        <Button
-          type="button"
-          size="small"
-          palette={toPalette(paymentStatus)}
-          onClick={(event) => {
-            let newStatus = toggleStatus(paymentStatus)
-            setValue(name, newStatus)
-          }}
-        >
-          <BrandPaymentStatusLabel value={paymentStatus} />
-        </Button>
+        <CustomBadgeButton>
+          <Button
+            type="button"
+            size="small"
+            palette={toPalette(paymentStatus)}
+            onClick={(event) => {
+              let newStatus = toggleStatus(paymentStatus)
+              setValue(name, newStatus)
+            }}
+          >
+            <BrandPaymentStatusLabel value={paymentStatus} />
+          </Button>
+        </CustomBadgeButton>
       )}
     />
   )
@@ -139,18 +142,20 @@ export const BrandPaymentStatusToggleButton = ({
   }, [result, error])
 
   return (
-    <Button
-      isLoading={isLoading}
-      disabled={isLoading || disabled}
-      palette={toPalette(paymentStatus)}
-      onClick={() => {
-        reset()
-        setSubmit(toggleStatus(paymentStatus))
-      }}
-      whiteSpace="nowrap"
-    >
-      <BrandPaymentStatusLabel value={record.paymentStatus} />
-      {error && <AlertDialog {...error} onClickClose={reset} />}
-    </Button>
+    <CustomBadgeButton>
+      <Button
+        isLoading={isLoading}
+        disabled={isLoading || disabled}
+        palette={toPalette(paymentStatus)}
+        onClick={() => {
+          reset()
+          setSubmit(toggleStatus(paymentStatus))
+        }}
+        whiteSpace="nowrap"
+      >
+        <BrandPaymentStatusLabel value={record.paymentStatus} />
+        {error && <AlertDialog {...error} onClickClose={reset} />}
+      </Button>
+    </CustomBadgeButton>
   )
 }
