@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Alert, Button, Modal } from "bumbag"
+import { Alert, Button, Icon, Modal } from "bumbag"
 import { Delete as DeleteMenu } from "./menu"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import Disclosure from "../../dialog/Disclosure"
 import { Trans, useTrans } from "../../i18n"
 import { useDeleteDepartment } from "./client"
 import FormDialog from "../../form/FormDialog"
+import { WrapperModal } from "../../styles/wrapper"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
 export const DeleteButton = ({ id, name, onSubmitted, ...props }) => {
   let dialog = Modal.useState()
@@ -21,7 +23,14 @@ export const DeleteButton = ({ id, name, onSubmitted, ...props }) => {
   return (
     <>
       <Disclosure id={disclosureId} palette="danger" {...dialog}>
-        <Trans zh="删除" en="Delete" />
+        {/* <Trans zh="删除" en="Delete" /> */}
+        <Icon
+          icon={faTrash}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <DeleteDialog
@@ -74,16 +83,18 @@ const DeleteDialog = ({
       dialog={dialog}
       id={dialogId}
     >
-      <Alert
-        title={
-          <Trans
-            zh={`确认删除 “${name}” 部门`}
-            en={`Confirm delete the “${name}”？`}
-          />
-        }
-        type="warning"
-        variant=""
-      ></Alert>
+      <WrapperModal>
+        <Alert
+          title={
+            <Trans
+              zh={`确认删除 “${name}” 部门`}
+              en={`Confirm delete the “${name}”？`}
+            />
+          }
+          type="warning"
+          variant=""
+        ></Alert>
+      </WrapperModal>
     </FormDialog>
   )
 }

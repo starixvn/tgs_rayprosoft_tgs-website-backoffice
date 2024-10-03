@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Stack, Modal, Box } from "bumbag"
+import { Stack, Modal, Box, Icon } from "bumbag"
 import { Create as CreateMenu, Update as UpdateMenu } from "./menu"
 import {
   useIsDisplayMenuByRoute,
@@ -39,6 +39,9 @@ import {
   LicenseeTrans,
   PlatformTrans
 } from "../../trans/Platform"
+import { WrapperModal } from "../../styles/wrapper"
+import { cssSpacingRoleSelect, cssSpacingSelectEditFrom } from "./style"
+import { faPen } from "@fortawesome/free-solid-svg-icons"
 
 export const AddButton = ({
   onSubmitted,
@@ -131,11 +134,11 @@ const EditBody = ({ record = {}, isAdd = false }) => {
   let brandId = watch("brandId", record?.brandId ?? "")
 
   return (
-    <Stack spacing="major-3" margin="major-1">
-      <FieldValues>
+    <WrapperModal>
+      <Box css={cssSpacingRoleSelect}>
         {isAdd && roleTypeOptions.length > 1 && (
           <>
-            <Label name="roleType">
+            <Label name="roleType" marginBottom="8px">
               <Trans zh="类型" en="Type" />
             </Label>
             <Box>
@@ -158,33 +161,38 @@ const EditBody = ({ record = {}, isAdd = false }) => {
           </>
         )}
         {!isAdd && record?.resellerId && (
-          <>
-            <Label>{useResellerLabel()}</Label>
+          <Box css={cssSpacingSelectEditFrom}>
+            <Label marginBottom="8px">{useResellerLabel()}</Label>
             <ResellerIdSelect value={record?.resellerId} disabled />
-          </>
+          </Box>
         )}
         {!isAdd && record?.licenseeId && (
-          <>
-            <Label>
+          <Box css={cssSpacingSelectEditFrom}>
+            <Label marginBottom="8px">
               <LicenseeTrans />
             </Label>
             <LicenseeIdSelect value={record?.licenseeId} disabled />
-          </>
+          </Box>
         )}
         {!isAdd && record?.brandId && (
-          <>
-            <Label>
+          <Box css={cssSpacingSelectEditFrom}>
+            <Label marginBottom="8px">
               <PlatformTrans />
             </Label>
             <BrandIdSelect value={record?.brandId} disabled />
-          </>
+          </Box>
         )}
-        <Label name="name" label={<DepartmentNameTrans />} />
+        <Label
+          name="name"
+          label={<DepartmentNameTrans />}
+          marginBottom="8px"
+          marginTop="16px"
+        />
         <Box>
           <Input name="name" required />
         </Box>
-      </FieldValues>
-    </Stack>
+      </Box>
+    </WrapperModal>
   )
 }
 
@@ -199,8 +207,15 @@ export const EditButton = ({ id = "", record, onSubmitted, ...props }) => {
   let disclosureId = `${dialogId}-disclosure`
   return (
     <>
-      <Disclosure id={disclosureId} {...dialog}>
-        <EditTrans />
+      <Disclosure id={disclosureId} {...dialog} palette="secondary">
+        {/* <EditTrans /> */}
+        <Icon
+          icon={faPen}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
       </Disclosure>
       {dialog.visible && (
         <EditDialog

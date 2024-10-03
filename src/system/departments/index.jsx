@@ -30,6 +30,9 @@ import {
   PlatformTrans,
   useDepartmentNameTrans
 } from "../../trans/Platform"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -71,20 +74,29 @@ const Body = () => {
             }}
             isLoading={isLoading}
           />
-          <AddButton onSubmitted={mutate} />
+          <SearchAndSubmitButton
+            css={css`
+              justify-content: flex-end;
+              display: flex;
+            `}
+          >
+            <AddButton onSubmitted={mutate} />
+          </SearchAndSubmitButton>
         </>
       }
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -99,11 +111,13 @@ const SearchBar = ({ name, search, isLoading }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(search)}>
         <Set>
-          <InputField
-            name="name"
-            showEmptyFieldValueAddonAfter
-            placeholder={useDepartmentNameTrans()}
-          />
+          <CustomInputSearch>
+            <InputField
+              name="name"
+              showEmptyFieldValueAddonAfter
+              placeholder={useDepartmentNameTrans()}
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} />
         </Set>
       </form>
@@ -122,7 +136,9 @@ const useColumns = ({ mutate, items = [] }) => {
 
   return useMemo(() => {
     let columns = [
-      sequenceColumn(),
+      sequenceColumn({
+        Header: "#"
+      }),
       {
         Header: <DepartmentNameTrans />,
         id: "name",
@@ -183,8 +199,10 @@ const useColumns = ({ mutate, items = [] }) => {
           let { id, name } = value
           return (
             <Set alignX="center">
-              <EditButton id={id} record={value} onSubmitted={mutate} />
-              <DeleteButton id={id} name={name} onSubmitted={mutate} />
+              <ActionTableButton>
+                <EditButton id={id} record={value} onSubmitted={mutate} />
+                <DeleteButton id={id} name={name} onSubmitted={mutate} />
+              </ActionTableButton>
             </Set>
           )
         }
