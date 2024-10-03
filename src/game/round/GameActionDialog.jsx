@@ -41,7 +41,13 @@ export const GameActionDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <Disclosure id={id} {...dialog} {...props}>
+      <Disclosure
+        id={id}
+        {...dialog}
+        {...props}
+        palette="secondary"
+        color="#fff"
+      >
         <Trans zh="游戏纪录" en="Game Record" />
       </Disclosure>
       {dialog.visible && (

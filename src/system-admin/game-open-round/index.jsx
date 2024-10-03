@@ -52,6 +52,12 @@ import { CurrencyTrans } from "../../trans/Payment"
 import { SettleAmountTrans, SupportingDeviceTrans } from "../../trans/Field"
 import { PlatformTrans } from "../../trans/Platform"
 import { PlayerTrans } from "../../trans/Player"
+import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
+import {
+  CustomInputSearch,
+  RemoveBoxShadowInputButtonDateTime
+} from "../../styles/input"
+import { ActionTableButton } from "../../styles/button"
 
 export { Code }
 
@@ -114,23 +120,37 @@ const Body = () => {
       }
       title={<Trans zh="游戏未结算订单" en="Game Open Round" />}
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        stickyHead
-        stickyRight
-        css={css`
-          tr td:last-child {
-            background-color: #fff;
-          }
-        `}
-      />
+      <CustomTableStyle css={cssTableLineBg}>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          stickyHead
+          stickyRight
+          css={css`
+            tr td:last-child:not([data-type="total"]) {
+              background-color: #fff;
+            }
+            tr {
+              &:nth-child(odd):not([data-type="total"]) {
+                td {
+                  background: #f3f4f7;
+                }
+              }
+              &:nth-child(even):not([data-type="total"]) {
+                td {
+                  background: #e6e6eb;
+                }
+              }
+            }
+          `}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -163,18 +183,22 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set>
-          <DateInputRange
-            showDateDropdownMenu
-            minDate={minDate}
-            maxDate={maxDate}
-            maxRangeDays={maxRangeDays}
-            required
-          />
-          <InputField
-            name="externalRoundId"
-            showEmptyFieldValueAddonAfter
-            placeholder={externalRoundIdPlaceholder}
-          />
+          <RemoveBoxShadowInputButtonDateTime>
+            <DateInputRange
+              showDateDropdownMenu
+              minDate={minDate}
+              maxDate={maxDate}
+              maxRangeDays={maxRangeDays}
+              required
+            />
+          </RemoveBoxShadowInputButtonDateTime>
+          <CustomInputSearch>
+            <InputField
+              name="externalRoundId"
+              showEmptyFieldValueAddonAfter
+              placeholder={externalRoundIdPlaceholder}
+            />
+          </CustomInputSearch>
           <GameProviderSelect name="gameProviderId" />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
@@ -287,14 +311,16 @@ const useColumns = ({ items = [], mutate }) => {
             let { id: roundId } = record
             return (
               <Set alignX="center">
-                <SettleGameRoundDialogDisclosure
-                  id="settle-game-round-dialog-disclosure"
-                  roundId={roundId}
-                  record={record}
-                  useUpdate={useCloseGameOpenRound}
-                  onSubmitted={mutate}
-                />
-                <GameActionDialogDisclosure roundId={roundId} />
+                <ActionTableButton>
+                  <SettleGameRoundDialogDisclosure
+                    id="settle-game-round-dialog-disclosure"
+                    roundId={roundId}
+                    record={record}
+                    useUpdate={useCloseGameOpenRound}
+                    onSubmitted={mutate}
+                  />
+                  <GameActionDialogDisclosure roundId={roundId} />
+                </ActionTableButton>
               </Set>
             )
           }

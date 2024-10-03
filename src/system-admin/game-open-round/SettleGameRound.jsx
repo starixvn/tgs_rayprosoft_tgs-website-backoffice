@@ -41,6 +41,7 @@ import {
 } from "../../trans/Game"
 import { StatusTrans } from "../../trans/Status"
 import { SettleAmountTrans } from "../../trans/Field"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const SettleGameRoundDialogDisclosure = ({
   roundId,
@@ -58,7 +59,7 @@ export const SettleGameRoundDialogDisclosure = ({
 
   return (
     <>
-      <Disclosure {...dialog} {...props}>
+      <Disclosure {...dialog} {...props} palette="secondary" color="#fff">
         <Trans zh="结算" en="Close" />
       </Disclosure>
       {dialog.visible && (
@@ -188,99 +189,101 @@ const FormBody = () => {
     deleteCache
   } = usePlayerMainWallet(playerCode)
   return (
-    <FieldStack>
-      <FieldWrapper label={<ExternalRoundIdTrans />}>
-        <Box fontWeight="bold">{externalRoundId}</Box>
-      </FieldWrapper>
-      <FieldWrapper
-        label={<Trans zh="三方结算时间" en="External Closed Time" />}
-      >
-        <DateTimeInput name="externalClosedOn" required />
-      </FieldWrapper>
-
-      <FieldStack orientation="horizontal">
-        <NumberInputField
-          name="betAmount"
-          label={<BetAmountTrans />}
-          required
-          min="0"
-          step="0.01"
-        />
-        <NumberInputField
-          name="validBetAmount"
-          label={<ValidBetAmountTrans />}
-          min="0"
-          step="0.01"
-          required
-        />
-      </FieldStack>
-      <FieldStack orientation="horizontal">
-        <NumberInputField
-          name="settleAmount"
-          label={<SettleAmountTrans />}
-          min="0"
-          step="0.01"
-          required
-        />
-        <NumberInputField
-          name="commission"
-          label={<Trans zh="佣金" en="Commission" />}
-          step="0.01"
-          required
-        />
-      </FieldStack>
-      <FieldStack orientation="horizontal">
-        <NumberInputField
-          name="turnover"
-          label={<TurnoverTrans />}
-          min="0"
-          step="0.01"
-          required
-        />
-        <NumberInputField
-          name="winLoss"
-          label={<WinLossTrans />}
-          hint={
-            <Text fontWeight="bold" color="warning">
-              <Trans
-                // zh="输赢金额 > 0,代表公司赢"
-                en="Win loss > 0 means player win."
-              />
-            </Text>
-          }
-          step="0.01"
-          required
-        />
-      </FieldStack>
-
-      <GameRoundStatusSelectField
-        name="clientRoundStatus"
-        options={statusOptions}
-        label={<StatusTrans />}
-        required
-      />
-      <Separator />
+    <WrapperModal>
       <FieldStack>
-        <Heading use="h5">
-          <Trans zh="玩家餘額調整" en="Player Balance Adjustment" />
-        </Heading>
+        <FieldWrapper label={<ExternalRoundIdTrans />}>
+          <Box fontWeight="bold">{externalRoundId}</Box>
+        </FieldWrapper>
+        <FieldWrapper
+          label={<Trans zh="三方结算时间" en="External Closed Time" />}
+        >
+          <DateTimeInput name="externalClosedOn" required />
+        </FieldWrapper>
+
         <FieldStack orientation="horizontal">
-          <FieldWrapper label={<Trans zh="玩家余额" en="Player Balance" />}>
-            <Box>
-              {isLoadingMainWallet && <Spinner />}
-              {!isLoadingMainWallet && (
-                <FormattedNumberDecimal value={mainWallet} placeholder="--" />
-              )}
-            </Box>
-          </FieldWrapper>
           <NumberInputField
-            name="adjustAmount"
-            label={<Trans zh="调整金额" en="Adjust Amount" />}
+            name="betAmount"
+            label={<BetAmountTrans />}
+            required
+            min="0"
             step="0.01"
           />
+          <NumberInputField
+            name="validBetAmount"
+            label={<ValidBetAmountTrans />}
+            min="0"
+            step="0.01"
+            required
+          />
         </FieldStack>
+        <FieldStack orientation="horizontal">
+          <NumberInputField
+            name="settleAmount"
+            label={<SettleAmountTrans />}
+            min="0"
+            step="0.01"
+            required
+          />
+          <NumberInputField
+            name="commission"
+            label={<Trans zh="佣金" en="Commission" />}
+            step="0.01"
+            required
+          />
+        </FieldStack>
+        <FieldStack orientation="horizontal">
+          <NumberInputField
+            name="turnover"
+            label={<TurnoverTrans />}
+            min="0"
+            step="0.01"
+            required
+          />
+          <NumberInputField
+            name="winLoss"
+            label={<WinLossTrans />}
+            hint={
+              <Text fontWeight="bold" color="warning">
+                <Trans
+                  // zh="输赢金额 > 0,代表公司赢"
+                  en="Win loss > 0 means player win."
+                />
+              </Text>
+            }
+            step="0.01"
+            required
+          />
+        </FieldStack>
+
+        <GameRoundStatusSelectField
+          name="clientRoundStatus"
+          options={statusOptions}
+          label={<StatusTrans />}
+          required
+        />
+        <Separator />
+        <FieldStack>
+          <Heading use="h5">
+            <Trans zh="玩家餘額調整" en="Player Balance Adjustment" />
+          </Heading>
+          <FieldStack orientation="horizontal">
+            <FieldWrapper label={<Trans zh="玩家余额" en="Player Balance" />}>
+              <Box>
+                {isLoadingMainWallet && <Spinner />}
+                {!isLoadingMainWallet && (
+                  <FormattedNumberDecimal value={mainWallet} placeholder="--" />
+                )}
+              </Box>
+            </FieldWrapper>
+            <NumberInputField
+              name="adjustAmount"
+              label={<Trans zh="调整金额" en="Adjust Amount" />}
+              step="0.01"
+            />
+          </FieldStack>
+        </FieldStack>
+        <TextareaField name="remark" label="备注" required />
       </FieldStack>
-      <TextareaField name="remark" label="备注" required />
-    </FieldStack>
+    </WrapperModal>
   )
 }

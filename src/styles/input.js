@@ -34,6 +34,21 @@ export const RemoveBoxShadowInputButton = styled.div`
   }
 `
 
+export const RemoveBoxShadowInputButtonDateTime = styled.div`
+  input {
+    border-left: none !important;
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+  button {
+    &:focus {
+      border: 1px solid #d9d9e1;
+      box-shadow: none !important;
+    }
+  }
+`
+
 export const cssCustomInputReport = css`
   .bb-InputFieldGroup,
   .react-datepicker-wrapper {
