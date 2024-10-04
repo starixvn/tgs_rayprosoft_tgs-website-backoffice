@@ -323,7 +323,12 @@ const SearchBar = ({
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-        <Set>
+        <Set
+          css={css`
+            display: flex;
+            flex-wrap: nowrap;
+          `}
+        >
           <BrandGameProviderSelect name="gameProviderId" brandId={brandId} />
           <AllGameTypeSelect name="gameType" />
           <CustomInputSearch>
@@ -334,7 +339,6 @@ const SearchBar = ({
               autocomplete="off"
             />
           </CustomInputSearch>
-
           <SelectField name="platform" options={platformOptions} />
           <SelectField name="status" options={statusOptions} />
           <SelectField name="tag" options={tagOptions} />
