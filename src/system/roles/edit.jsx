@@ -701,7 +701,17 @@ const EditDialog = ({
 
 const MenuTable = ({ menus = [], setChecked } = {}) => {
   return (
-    <Table hasDividers>
+    <Table
+      hasDividers
+      css={css`
+        background: #fff;
+        .bb-TableHead {
+          &:not(:first-child) {
+            border-top: 1px solid #e6e6eb;
+          }
+        }
+      `}
+    >
       {menus.map((menu, index) => {
         return (
           <MenuTableContent key={index} menu={menu} setChecked={setChecked} />

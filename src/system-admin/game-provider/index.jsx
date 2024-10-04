@@ -49,7 +49,7 @@ import { useGameProviderNameTrans } from "../../trans/Game"
 import { getApiUrl } from "../../client"
 import { SelectField } from "../../select/Select"
 import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
-import { ActionTableButton } from "../../styles/button"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
 
 export { Code }
 
@@ -178,7 +178,9 @@ const SearchBar = ({
         </form>
       </FormProvider>
       <Set>
-        <AddGameProviderButton onSubmitted={mutate} />
+        <SearchAndSubmitButton>
+          <AddGameProviderButton onSubmitted={mutate} />
+        </SearchAndSubmitButton>
         <LocalizationMenuButton />
       </Set>
     </Level>
