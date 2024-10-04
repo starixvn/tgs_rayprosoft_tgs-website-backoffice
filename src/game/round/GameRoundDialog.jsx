@@ -126,148 +126,163 @@ export const GameRoundDialog = ({
       css={cssCustomModalXs}
       {...props}
       minWidth="45vw"
+      width="70vw"
     >
       <WrapperModal>
         <Set orientation="vertical" isFilled>
-          <FieldValues css={spacingForm} marginBottom="20px">
-            <NormalLabel whiteSpace="normal">
-              <UserNameTrans />
-            </NormalLabel>
-            <Box alignY="center">{record.playerName}</Box>
+          <Columns>
+            <Columns.Column spread={6}>
+              <FieldValues css={spacingForm}>
+                <NormalLabel whiteSpace="normal">
+                  <UserNameTrans />
+                </NormalLabel>
+                <Box alignY="center">{record.playerName}</Box>
 
-            <NormalLabel whiteSpace="normal">
-              <RoundIdTrans />
-            </NormalLabel>
-            <Box alignY="center">{record.id}</Box>
+                <NormalLabel whiteSpace="normal">
+                  <RoundIdTrans />
+                </NormalLabel>
+                <Box alignY="center">{record.id}</Box>
 
-            <NormalLabel whiteSpace="normal">
-              <BetTimeTrans />
-            </NormalLabel>
-            <Box alignY="center">{defaultFormatDateTime(record.createdOn)}</Box>
+                <NormalLabel whiteSpace="normal">
+                  <BetTimeTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  {defaultFormatDateTime(record.createdOn)}
+                </Box>
 
-            <NormalLabel whiteSpace="normal">
-              <SettleTimeTrans />
-            </NormalLabel>
-            <Box alignY="center">{defaultFormatDateTime(record.closedOn)}</Box>
-          </FieldValues>
-          <FieldValues css={spacingForm}>
-            <NormalLabel whiteSpace="normal">
-              <Trans zh="三方用户名" en="Player Code" />
-            </NormalLabel>
-            <Box alignY="center">{record.playerCode}</Box>
+                <NormalLabel whiteSpace="normal">
+                  <SettleTimeTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  {defaultFormatDateTime(record.closedOn)}
+                </Box>
+              </FieldValues>
+            </Columns.Column>
+            <Columns.Column spread={6}>
+              <FieldValues css={spacingForm}>
+                <NormalLabel whiteSpace="normal">
+                  <Trans zh="三方用户名" en="Player Code" />
+                </NormalLabel>
+                <Box alignY="center">{record.playerCode}</Box>
 
-            <NormalLabel whiteSpace="normal">
-              <ExternalRoundIdTrans />
-            </NormalLabel>
-            <Box alignY="center">{record.externalRoundId}</Box>
+                <NormalLabel whiteSpace="normal">
+                  <ExternalRoundIdTrans />
+                </NormalLabel>
+                <Box alignY="center">{record.externalRoundId}</Box>
 
-            <NormalLabel whiteSpace="nowrap">
-              <ExternalBetTimeTrans />
-            </NormalLabel>
-            <Box alignY="center">
-              {defaultFormatDateTime(record.externalCreatedOn)}
-            </Box>
+                <NormalLabel whiteSpace="nowrap">
+                  <ExternalBetTimeTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  {defaultFormatDateTime(record.externalCreatedOn)}
+                </Box>
 
-            <NormalLabel whiteSpace="nowrap">
-              <Trans zh="三方结算时间" en="External Closed On" use={Box} />
-            </NormalLabel>
-            <Box alignY="center">
-              {defaultFormatDateTime(record.externalClosedOn)}
-            </Box>
-          </FieldValues>
-          <Box
-            border="default"
-            height="1px"
-            width="100%"
-            borderBottom="none"
-            margin="20px 0"
-          ></Box>
-          <FieldValues css={spacingForm} marginBottom="20px">
-            <NormalLabel whiteSpace="normal">
-              <GameProviderTrans />
-            </NormalLabel>
-            <Box alignY="center">{record.gameProviderName}</Box>
+                <NormalLabel whiteSpace="nowrap">
+                  <Trans zh="三方结算时间" en="External Closed On" use={Box} />
+                </NormalLabel>
+                <Box alignY="center">
+                  {defaultFormatDateTime(record.externalClosedOn)}
+                </Box>
+              </FieldValues>
+            </Columns.Column>
+            <Box
+              border="default"
+              height="1px"
+              width="100%"
+              borderBottom="none"
+              margin="20px 10px"
+            />
+            <Columns.Column spread={6}>
+              <FieldValues css={spacingForm}>
+                <NormalLabel whiteSpace="normal">
+                  <GameProviderTrans />
+                </NormalLabel>
+                <Box alignY="center">{record.gameProviderName}</Box>
 
-            <NormalLabel whiteSpace="normal">
-              <GameNameTrans />
-            </NormalLabel>
-            <Box alignY="center">{record.gameName}</Box>
+                <NormalLabel whiteSpace="normal">
+                  <GameNameTrans />
+                </NormalLabel>
+                <Box alignY="center">{record.gameName}</Box>
 
-            <NormalLabel whiteSpace="normal">
-              <BetAmountTrans />
-            </NormalLabel>
-            <Box alignY="center">
-              <FormattedNumberDecimal
-                id="bet-amount"
-                value={record.betAmount}
-              />
-            </Box>
+                <NormalLabel whiteSpace="normal">
+                  <BetAmountTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  <FormattedNumberDecimal
+                    id="bet-amount"
+                    value={record.betAmount}
+                  />
+                </Box>
 
-            <NormalLabel whiteSpace="normal">
-              <ValidBetAmountTrans />
-            </NormalLabel>
-            <Box alignY="center">
-              <FormattedNumberDecimal value={record.validBetAmount} />
-            </Box>
+                <NormalLabel whiteSpace="normal">
+                  <ValidBetAmountTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  <FormattedNumberDecimal value={record.validBetAmount} />
+                </Box>
 
-            <NormalLabel whiteSpace="normal">
-              <TurnoverTrans />
-            </NormalLabel>
-            <Box alignY="center">
-              <FormattedNumberDecimal value={record.originalTurnover} />
-            </Box>
+                <NormalLabel whiteSpace="normal">
+                  <TurnoverTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  <FormattedNumberDecimal value={record.originalTurnover} />
+                </Box>
 
-            <NormalLabel whiteSpace="normal">
-              <Trans zh="流水比例" en="Turnover Percentage" />
-            </NormalLabel>
-            <Box alignY="center">
-              <FormattedNumberDecimalPercentage
-                value={record.effectiveBettingPercentage}
-              />
-            </Box>
+                <NormalLabel whiteSpace="normal">
+                  <Trans zh="流水比例" en="Turnover Percentage" />
+                </NormalLabel>
+                <Box alignY="center">
+                  <FormattedNumberDecimalPercentage
+                    value={record.effectiveBettingPercentage}
+                  />
+                </Box>
 
-            <NormalLabel whiteSpace="normal">
-              <WinLossTrans />
-            </NormalLabel>
-            <Box alignY="center">
-              <FormattedNumberDecimal value={record.winLoss} />
-            </Box>
+                <NormalLabel whiteSpace="normal">
+                  <WinLossTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  <FormattedNumberDecimal value={record.winLoss} />
+                </Box>
 
-            <NormalLabel whiteSpace="normal">
-              <Trans zh="订单状态" en="Status" />
-            </NormalLabel>
-            <Box alignY="center">
-              <GameRoundStatusLabel value={record.status} />
-            </Box>
+                <NormalLabel whiteSpace="normal">
+                  <Trans zh="订单状态" en="Status" />
+                </NormalLabel>
+                <Box alignY="center">
+                  <GameRoundStatusLabel value={record.status} />
+                </Box>
 
-            <NormalLabel whiteSpace="normal">
-              <Trans zh="开奖结果" en="Game Result" />
-            </NormalLabel>
-            <Box alignY="center">{data.gameResult}</Box>
-          </FieldValues>
-          <FieldValues css={spacingForm} marginBottom="20px">
-            <NormalLabel whiteSpace="normal">
-              <SubGameProviderTrans />
-            </NormalLabel>
-            <Box alignY="center">{record.subGameProviderName}</Box>
+                <NormalLabel whiteSpace="normal">
+                  <Trans zh="开奖结果" en="Game Result" />
+                </NormalLabel>
+                <Box alignY="center">{data.gameResult}</Box>
+              </FieldValues>
+            </Columns.Column>
+            <Columns.Column spread={6}>
+              <FieldValues css={spacingForm}>
+                <NormalLabel whiteSpace="normal">
+                  <SubGameProviderTrans />
+                </NormalLabel>
+                <Box alignY="center">{record.subGameProviderName}</Box>
 
-            <NormalLabel whiteSpace="normal">
-              <Trans zh="游戏局号" en="ID" />
-            </NormalLabel>
-            <Box alignY="center">{record.id}</Box>
+                <NormalLabel whiteSpace="normal">
+                  <Trans zh="游戏局号" en="ID" />
+                </NormalLabel>
+                <Box alignY="center">{record.id}</Box>
 
-            <NormalLabel whiteSpace="normal">
-              <ValidBetAmountTrans />
-            </NormalLabel>
-            <Box alignY="center">
-              <FormattedNumberDecimal value={record.validBetAmount} />
-            </Box>
-            {/* <EmptyPlaceholderField />
+                <NormalLabel whiteSpace="normal">
+                  <ValidBetAmountTrans />
+                </NormalLabel>
+                <Box alignY="center">
+                  <FormattedNumberDecimal value={record.validBetAmount} />
+                </Box>
+                {/* <EmptyPlaceholderField />
             <EmptyPlaceholderValue />
 
             <EmptyPlaceholderField />
             <EmptyPlaceholderValue /> */}
-          </FieldValues>
+              </FieldValues>
+            </Columns.Column>
+          </Columns>
 
           <GameRoundDataCard value={data?.data} />
         </Set>
