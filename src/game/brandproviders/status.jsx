@@ -80,15 +80,21 @@ export const StatusMenu = ({ record = {}, onSubmitted, ...props }) => {
 
   if (!editable) {
     return (
-      <Button
-        data-status={status}
-        palette={toPalette(status)}
-        isLoading={isLoading}
-        isStatic
-        disabled
+      <CustomBadgeButton
+        css={css`
+          cursor: not-allowed;
+        `}
       >
-        <Label value={status} />
-      </Button>
+        <Button
+          data-status={status}
+          palette={toPalette(status)}
+          isLoading={isLoading}
+          isStatic
+          disabled
+        >
+          <Label value={status} />
+        </Button>
+      </CustomBadgeButton>
     )
   }
 

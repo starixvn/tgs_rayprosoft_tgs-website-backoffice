@@ -55,7 +55,11 @@ import {
 } from "../../trans/Platform.jsx"
 import { WrapperBg } from "../../styles/wrapper.js"
 import { CustomInputSearch } from "../../styles/input.js"
-import { ActionTableButton } from "../../styles/button.js"
+import {
+  ActionTableButton,
+  SearchAndSubmitButton
+} from "../../styles/button.js"
+import { CustomTableStyle } from "../../styles/tablle.js"
 
 export { Code } from "./menu"
 
@@ -206,44 +210,30 @@ const DataTable = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Stack spacing="major-1">
-          <Table
-            id="games"
-            columns={columns}
-            data={items}
-            controlledState={controlledState}
-            pageCount={pageCount(pageSize, data?.totalCount)}
-            setPageIndex={setPageIndex}
-            setSortOrder={setSortOrder}
-            isLoading={isLoading}
-            css={css`
-              > tbody {
-                tr {
-                  &:not(:last-child) {
-                    border-bottom: 1px solid #dbdfe6 !important;
-                  }
-                  &:nth-child(odd) {
-                    background: none;
-                    box-shadow: inset 0 0 0 9999px #0000000d;
-                  }
-                }
-              }
-            `}
-          />
+          <CustomTableStyle>
+            <Table
+              id="games"
+              columns={columns}
+              data={items}
+              controlledState={controlledState}
+              pageCount={pageCount(pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+            />
+          </CustomTableStyle>
           {error && <AlertDialog {...error} onClickClose={deleteCache} />}
           {editable && (
             <Dialog.Footer position="sticky" bottom="0">
-              <Button
-                isLoading={isChangingDisplayOrder}
-                type="submit"
-                palette="primary"
-                css={css`
-                  &:focus {
-                    box-shadow: none !important;
-                  }
-                `}
-              >
-                <ConfirmOrderTrans />
-              </Button>
+              <SearchAndSubmitButton>
+                <Button
+                  isLoading={isChangingDisplayOrder}
+                  type="submit"
+                  palette="primary"
+                >
+                  <ConfirmOrderTrans />
+                </Button>
+              </SearchAndSubmitButton>
             </Dialog.Footer>
           )}
         </Stack>
@@ -499,14 +489,14 @@ const useColumns = ({
         Cell: ({ value }) => {
           let { id, isHot } = value
           return (
-            <Text.Block whiteSpace="nowrap">
+            <Box alignX="center">
               <GameTagSwitch
                 id={id}
                 tag={GameTag.Hot}
                 checked={isHot}
                 onSubmitted={mutate}
               />
-            </Text.Block>
+            </Box>
           )
         }
       },
@@ -525,14 +515,14 @@ const useColumns = ({
         Cell: ({ value }) => {
           let { id, isNew } = value
           return (
-            <Text.Block whiteSpace="nowrap">
+            <Box alignX="center">
               <GameTagSwitch
                 id={id}
                 tag={GameTag.New}
                 checked={isNew}
                 onSubmitted={mutate}
               />
-            </Text.Block>
+            </Box>
           )
         }
       },
@@ -551,14 +541,14 @@ const useColumns = ({
         Cell: ({ value }) => {
           let { id, isRecommend } = value
           return (
-            <Text.Block whiteSpace="nowrap">
+            <Box alignX="center">
               <GameTagSwitch
                 id={id}
                 tag={GameTag.Recommend}
                 checked={isRecommend}
                 onSubmitted={mutate}
               />
-            </Text.Block>
+            </Box>
           )
         }
       },

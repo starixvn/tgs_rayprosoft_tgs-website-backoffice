@@ -35,7 +35,17 @@ export const GameTagSwitch = ({ id, tag, checked, onSubmitted, ...props }) => {
   }
 
   if (!editable) {
-    return <Switch checked={checked} disabled={true} />
+    return (
+      <Switch
+        checked={checked}
+        disabled={true}
+        css={css`
+          .bb-SwitchHiddenInput[disabled] + .bb-SwitchIcon {
+            cursor: no-drop;
+          }
+        `}
+      />
+    )
   }
 
   return (
