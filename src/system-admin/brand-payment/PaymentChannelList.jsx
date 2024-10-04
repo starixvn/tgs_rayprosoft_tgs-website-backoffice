@@ -19,6 +19,9 @@ import { CloseButtonFooter } from "../../form/ConfirmButtonFooter"
 import dateTimeColumn from "../../table/column/dateTime"
 import { Trans, useTrans } from "../../i18n"
 import { AddPaymentChannelDisclosure } from "./PaymentChannel"
+import { cssCustomModalXs } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
+import { SearchAndSubmitButton } from "../../styles/button"
 
 export const PaymentChannelListDialog = ({ dialog, onSubmitted }) => {
   let title = useTrans({
@@ -46,19 +49,22 @@ export const PaymentChannelListDialog = ({ dialog, onSubmitted }) => {
       {...dialog}
       footer={<CloseButtonFooter dialog={dialog} alignX="right" />}
       hideOnClickOutside={false}
+      css={cssCustomModalXs}
     >
-      <FieldStack>
+      <WrapperModal>
         <ActionBar onSubmitted={mutate} />
         <Table columns={columns} data={items} />
-      </FieldStack>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }
 
 const ActionBar = ({ onSubmitted }) => {
   return (
-    <Box alignX="right">
-      <AddPaymentChannelDisclosure onSubmitted={onSubmitted} />
+    <Box alignX="right" marginBottom="8px">
+      <SearchAndSubmitButton>
+        <AddPaymentChannelDisclosure onSubmitted={onSubmitted} />
+      </SearchAndSubmitButton>
     </Box>
   )
 }

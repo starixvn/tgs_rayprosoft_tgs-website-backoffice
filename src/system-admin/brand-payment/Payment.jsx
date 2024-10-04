@@ -34,6 +34,7 @@ import { TextareaField } from "../../textarea"
 import { FormDialog } from "../../form/FormDialog"
 import clone from "clone-deep"
 import Backdrop from "../../dialog/Backdrop"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const AddPaymentDisclosure = ({ onSubmitted }) => {
   let dialog = useModalState()
@@ -87,7 +88,7 @@ const AddDialog = ({ dialog, onSubmitted }) => {
         onCloseErrorAlert={reset}
         title={title}
         dialog={dialog}
-        width="40vw"
+        minWidth="40vw"
       >
         <FormBody />
       </FormDialog>
@@ -120,11 +121,13 @@ const FormBody = ({}) => {
   let isAdd = !id
   let isEdit = !isAdd
   return (
-    <FieldStack>
-      <InputField name="code" label="Code" readOnly={isEdit} />
-      <InputField name="name" label="Name" />
-      <TextareaField name="description" label="Description" />
-      <Input type="hidden" name={IdFieldName} value={id} />
-    </FieldStack>
+    <WrapperModal>
+      <FieldStack>
+        <InputField name="code" label="Code" readOnly={isEdit} />
+        <InputField name="name" label="Name" />
+        <TextareaField name="description" label="Description" />
+        <Input type="hidden" name={IdFieldName} value={id} />
+      </FieldStack>
+    </WrapperModal>
   )
 }

@@ -56,6 +56,9 @@ import {
   PaymentMethodTrans,
   PaymentProviderTrans
 } from "../../trans/Payment"
+import { WrapperModal } from "../../styles/wrapper"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { cssCustomModalXs } from "../../styles/modal"
 
 export const PaymentMethodChannelListDialog = ({ dialog, onSubmitted }) => {
   let { isLoading, data, error, mutate, deleteCache } =
@@ -79,21 +82,24 @@ export const PaymentMethodChannelListDialog = ({ dialog, onSubmitted }) => {
       {...dialog}
       footer={<CloseButtonFooter dialog={dialog} alignX="right" />}
       hideOnClickOutside={false}
-      width="60vw"
+      minWidth="60vw"
       maxWidth="80vw"
+      css={cssCustomModalXs}
     >
-      <FieldStack>
+      <WrapperModal>
         <ActionBar mutate={mutate} />
         <Table columns={columns} data={items} />
-      </FieldStack>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }
 
 const ActionBar = ({ mutate }) => {
   return (
-    <Box alignX="right">
-      <AddPaymentMethodChannelDialogDisclosure onSubmitted={mutate} />
+    <Box alignX="right" marginBottom="8px">
+      <SearchAndSubmitButton>
+        <AddPaymentMethodChannelDialogDisclosure onSubmitted={mutate} />
+      </SearchAndSubmitButton>
     </Box>
   )
 }
@@ -153,6 +159,7 @@ export const AddPaymentMethodChannelDialog = ({ onSubmitted, dialog }) => {
         title={title}
         dialog={dialog}
         width="40vw"
+        css={cssCustomModalXs}
       >
         <FormBody />
       </FormDialog>
@@ -208,7 +215,9 @@ const useColumns = ({ items = [], mutate }) => {
           Header: <ActionTrans />,
           disableSortBy: true,
           Cell: ({ value }) => (
-            <DeleteDialogDisclosure record={value} onSubmitted={mutate} />
+            <ActionTableButton>
+              <DeleteDialogDisclosure record={value} onSubmitted={mutate} />
+            </ActionTableButton>
           )
         })
       )
@@ -278,19 +287,21 @@ const DeleteDialog = ({ record, onSubmitted, dialog }) => {
           }
         }}
       >
-        <FieldStack orientation="horizontal">
-          <FieldWrapper label="Payment">
-            <PaymentProviderLabel value={record.paymentId} />
-          </FieldWrapper>
+        <WrapperModal>
+          <FieldStack orientation="horizontal">
+            <FieldWrapper label="Payment">
+              <PaymentProviderLabel value={record.paymentId} />
+            </FieldWrapper>
 
-          <FieldWrapper label="Method">
-            <PaymentMethodLabel value={record.methodId} />
-          </FieldWrapper>
+            <FieldWrapper label="Method">
+              <PaymentMethodLabel value={record.methodId} />
+            </FieldWrapper>
 
-          <FieldWrapper label="Channel">
-            <PaymentChannelLabel value={record.channelId} />
-          </FieldWrapper>
-        </FieldStack>
+            <FieldWrapper label="Channel">
+              <PaymentChannelLabel value={record.channelId} />
+            </FieldWrapper>
+          </FieldStack>
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

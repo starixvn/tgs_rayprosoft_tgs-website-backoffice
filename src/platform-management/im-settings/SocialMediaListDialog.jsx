@@ -58,7 +58,8 @@ import { Trans } from "../../i18n"
 import { isDev } from "../../env"
 import { SWRConfig } from "swr"
 import { WrapperModal } from "../../styles/wrapper"
-import { SearchAndSubmitButton } from "../../styles/button"
+import { ModalButtonPlatForm, SearchAndSubmitButton } from "../../styles/button"
+import { cssCustomModalXs } from "../../styles/modal"
 
 //TODO: test case
 export const SocialMediaListDialogDisclosure = ({
@@ -124,35 +125,9 @@ const ListDialog = ({ brandId, dialog, dialogId, ...props }) => {
       title={title}
       {...dialog}
       id={dialogId}
-      css={css`
-        min-width: 50vw;
-        max-width: 70vw;
-        overflow: hidden;
-        & .bb-DialogContent {
-          max-height: 70vh;
-          padding: 0;
-          overflow-y: scroll;
-          &::-webkit-scrollbar {
-            display: none;
-          }
-        }
-
-        & .bb-DialogHeader {
-          padding: 1rem;
-          border-bottom: 1px solid #dbdfe6;
-          margin-bottom: 0;
-          position: fixed;
-          width: 100%;
-          z-index: 9999;
-          background: #fff;
-          border-radius: 6px 6px 0 0;
-          > button {
-            box-shadow: none !important;
-            background: none !important;
-          }
-        }
-      `}
+      css={cssCustomModalXs}
       {...props}
+      minWidth="50vw"
     >
       <WrapperModal>
         <Box alignX="right">
@@ -421,20 +396,9 @@ const DeleteDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <DeleteDisclosure
-        id={id}
-        {...dialog}
-        css={css`
-          padding: 10px 12px;
-          height: 38px;
-          min-height: 38px;
-          border: none;
-          &:focus {
-            box-shadow: none !important;
-            border: none;
-          }
-        `}
-      />
+      <ModalButtonPlatForm>
+        <DeleteDisclosure id={id} {...dialog} />
+      </ModalButtonPlatForm>
       {dialog.visible && (
         <DeleteDialog
           name={name}
@@ -497,16 +461,18 @@ const DeleteDialog = ({
           }
         }}
       >
-        <Alert
-          title={
-            <Trans
-              zh={`确认删除 “${name}”`}
-              en={`Confirm delete the “${name}”？`}
-            />
-          }
-          type="warning"
-          variant=""
-        />
+        <WrapperModal>
+          <Alert
+            title={
+              <Trans
+                zh={`确认删除 “${name}”`}
+                en={`Confirm delete the “${name}”？`}
+              />
+            }
+            type="warning"
+            variant=""
+          />
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

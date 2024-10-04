@@ -38,6 +38,11 @@ import { PaymentListDialog } from "./PaymentList"
 import { PaymentMethodChannelListDialog } from "./PaymentMethodChannelList"
 import { PaymentMethodListDialog } from "./PaymentMethodList"
 import { Code, Update, View } from "./menu"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
+import { ActionTableButton } from "../../styles/button"
+import { cssNowrap, cssPositionDropdownPayment } from "./style"
+import { css } from "@emotion/react"
 
 export { Code }
 
@@ -72,7 +77,11 @@ const Body = () => {
     <PageContent
       title={<Trans zh="平台支付管理" en="Platform Payment Management" />}
       actionBar={
-        <Level>
+        <Level
+          css={css`
+            position: relative;
+          `}
+        >
           <SearchBar
             search={(newState) => {
               setState({ pageIndex: 0, ...newState })
@@ -80,7 +89,7 @@ const Body = () => {
             }}
             isLoading={isLoading}
           />
-          <Set orientation="horizontal">
+          <Set orientation="horizontal" css={cssPositionDropdownPayment}>
             <PaymentListDropdownMenu onSubmitted={mutate} />
             <AddBrandPaymentDisclosure
               brandId={state.brandId}
@@ -90,17 +99,19 @@ const Body = () => {
         </Level>
       }
     >
-      <Table
-        columns={columns}
-        data={items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-        setPageSize={setPageSize}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+          setPageSize={setPageSize}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -178,15 +189,17 @@ const SearchBar = ({ search, isLoading, ...props }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-        <Set>
+        <Set css={cssNowrap}>
           <MerchantIdSelect required={false} />
           <BrandPaymentTransferTypeSelect name="transferType" />
           <BrandPaymentStatusSelect name="paymentStatus" />
-          <InputField
-            name="keyword"
-            showEmptyFieldValueAddonAfter
-            placeholder="Keyword"
-          />
+          <CustomInputSearch>
+            <InputField
+              name="keyword"
+              showEmptyFieldValueAddonAfter
+              placeholder="Keyword"
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -252,11 +265,13 @@ const useColumns = ({ items = [], mutate }) => {
         disableSortBy: true,
         Cell: ({ value }) => {
           return (
-            <EditBrandPaymentDisclosure
-              record={value}
-              platformPaymentId={value?.id}
-              onSubmitted={mutate}
-            />
+            <ActionTableButton>
+              <EditBrandPaymentDisclosure
+                record={value}
+                platformPaymentId={value?.id}
+                onSubmitted={mutate}
+              />
+            </ActionTableButton>
           )
         }
       })

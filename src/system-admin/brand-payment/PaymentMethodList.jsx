@@ -10,6 +10,10 @@ import { PaymentMethodCodeTrans } from "../../trans/Payment"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import { Update } from "./menu"
 import { AddPaymentMethodDisclosure } from "./PaymentMethod"
+import { cssCustomModalXs } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { SearchAndSubmitButton } from "../../styles/button"
 
 export const PaymentMethodListDialog = ({ dialog, onSubmitted }) => {
   let title = useTrans({
@@ -37,19 +41,24 @@ export const PaymentMethodListDialog = ({ dialog, onSubmitted }) => {
       {...dialog}
       footer={<CloseButtonFooter dialog={dialog} alignX="right" />}
       hideOnClickOutside={false}
+      css={cssCustomModalXs}
     >
-      <FieldStack>
+      <WrapperModal>
         <ActionBar onSubmitted={mutate} />
-        <Table columns={columns} data={items} />
-      </FieldStack>
+        <CustomTableStyle>
+          <Table columns={columns} data={items} />
+        </CustomTableStyle>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }
 
 const ActionBar = ({ onSubmitted }) => {
   return (
-    <Box alignX="right">
-      <AddPaymentMethodDisclosure onSubmitted={onSubmitted} />
+    <Box alignX="right" marginBottom="8px">
+      <SearchAndSubmitButton>
+        <AddPaymentMethodDisclosure onSubmitted={onSubmitted} />
+      </SearchAndSubmitButton>
     </Box>
   )
 }

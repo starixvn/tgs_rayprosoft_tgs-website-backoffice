@@ -4,6 +4,7 @@ export const ActionTableButton = styled.div`
   flex-wrap: nowrap;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   button {
     padding: 10px 12px;

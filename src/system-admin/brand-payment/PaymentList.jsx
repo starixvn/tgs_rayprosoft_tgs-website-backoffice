@@ -23,6 +23,10 @@ import { View, Update } from "./menu"
 import { CloseButtonFooter } from "../../form/ConfirmButtonFooter"
 import dateTimeColumn from "../../table/column/dateTime"
 import { AddPaymentDisclosure, EditPaymentDisclosure } from "./Payment"
+import { cssCustomModalXs } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { SearchAndSubmitButton } from "../../styles/button"
 
 export const PaymentListDialog = ({ dialog, onSubmitted }) => {
   let title = useTrans({
@@ -49,21 +53,26 @@ export const PaymentListDialog = ({ dialog, onSubmitted }) => {
       {...dialog}
       footer={<CloseButtonFooter dialog={dialog} alignX="right" />}
       hideOnClickOutside={false}
-      width="60vw"
+      minWidth="60vw"
       maxWidth="80vw"
+      css={cssCustomModalXs}
     >
-      <FieldStack>
+      <WrapperModal>
         <ActionBar onSubmitted={mutate} />
-        <Table columns={columns} data={items} />
-      </FieldStack>
+        <CustomTableStyle>
+          <Table columns={columns} data={items} />
+        </CustomTableStyle>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }
 
 const ActionBar = ({ onSubmitted }) => {
   return (
-    <Box alignX="right">
-      <AddPaymentDisclosure onSubmitted={onSubmitted} />
+    <Box alignX="right" marginBottom="8px">
+      <SearchAndSubmitButton>
+        <AddPaymentDisclosure onSubmitted={onSubmitted} />
+      </SearchAndSubmitButton>
     </Box>
   )
 }

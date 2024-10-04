@@ -64,6 +64,8 @@ import {
 } from "../../trans/Game"
 import { CurrencyTrans } from "../../trans/Payment"
 import { CompanyWinLossTrans } from "../../trans/Platform"
+import { CustomTableStyle } from "../../styles/tablle"
+import { RemoveBoxShadowInputButtonDateTime } from "../../styles/input"
 
 export { Code }
 
@@ -121,13 +123,13 @@ const ReportContent = ({}) => {
   return (
     <PageContent
       actionBar={
-        <Set orientation="vertical">
+        <Set orientation="horizontal">
           <FormProvider {...formMethods}>
-            <Set marginBottom="1.5rem">
+            <RemoveBoxShadowInputButtonDateTime>
               <DateMonthInput name="month" placeholder={monthPlaceholder} />
               <UpdateGameProviderReportButton month={month} />
               <UpdatePlatformGameProviderReport month={month} />
-            </Set>
+            </RemoveBoxShadowInputButtonDateTime>
           </FormProvider>
           <SearchBar
             from={state.from}
@@ -149,32 +151,34 @@ const ReportContent = ({}) => {
     >
       {validDateRange && (
         <>
-          <Table
-            columns={columns}
-            data={data?.items}
-            initialState={state}
-            controlledState={state}
-            pageCount={pageCount(state.pageSize, data?.totalCount)}
-            setPageIndex={setPageIndex}
-            setSortOrder={setSortOrder}
-            isLoading={isLoading}
-            getRowProps={({ original: { isTotal }, index } = {}) => {
-              if (isTotal) {
-                return {
-                  "data-row-type": "total",
-                  backgroundColor: "white600",
-                  fontWeight: "bold"
-                  /*
+          <CustomTableStyle>
+            <Table
+              columns={columns}
+              data={data?.items}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(state.pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+              getRowProps={({ original: { isTotal }, index } = {}) => {
+                if (isTotal) {
+                  return {
+                    "data-row-type": "total",
+                    backgroundColor: "white600",
+                    fontWeight: "bold"
+                    /*
               position: "sticky",
               bottom: "0",
               zIndex: state.pageSize - index
               */
+                  }
                 }
-              }
-              return {}
-            }}
-            stickyHead
-          />
+                return {}
+              }}
+              stickyHead
+            />
+          </CustomTableStyle>
           {error && <AlertDialog {...error} onClickClose={emptyData} />}
         </>
       )}
@@ -342,18 +346,20 @@ const SearchBar = ({
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set alignY="bottom">
           <TimezoneSelectField />
-          <DateHourRangeInput
-            id="date-range"
-            dateFormat="yyyy/MM/dd HH"
-            timeFormat="HH"
-            showTimeInput={false}
-            showTimeSelect
-            timeIntervals={60}
-            showDateDropdownMenu={false}
-            startProps={{ name: "from" }}
-            endProps={{ name: "to" }}
-            required
-          />
+          <RemoveBoxShadowInputButtonDateTime>
+            <DateHourRangeInput
+              id="date-range"
+              dateFormat="yyyy/MM/dd HH"
+              timeFormat="HH"
+              showTimeInput={false}
+              showTimeSelect
+              timeIntervals={60}
+              showDateDropdownMenu={false}
+              startProps={{ name: "from" }}
+              endProps={{ name: "to" }}
+              required
+            />
+          </RemoveBoxShadowInputButtonDateTime>
           <GameProviderSelect name="gameProviderId" valueField="id" />
           <CurrencySelectField name="currencyCode" />
           <SearchButton isLoading={isLoading} disabled={isLoading} />
@@ -392,27 +398,32 @@ const useColumns = ({ items = [], month }) => {
       numberColumn({
         accessor: "transactionCount",
         Header: <TransactionCountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "betAmount",
         Header: <BetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "originalTurnover",
         Header: <TurnoverTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "validBetAmount",
         Header: <ValidBetAmountTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       }),
       numberDecimalColumn({
         accessor: "companyWinLoss",
         Header: <CompanyWinLossTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        textAlign: "center"
       })
     ],
     [JSON.stringify(items)]

@@ -57,6 +57,7 @@ import { Update } from "./menu"
 import BrandPaymentTransferType from "../../system/brandpayments/BrandPaymentTransferType"
 import { PaymentLimitTrans } from "../../trans/Payment"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper"
 
 //TODO: rename to PlatformPaymentDisclosure?
 export const EditBrandPaymentDisclosure = ({
@@ -190,13 +191,15 @@ const EditDialog = ({
 
   if (platformPaymentError) {
     return (
-      <AlertDialog
-        {...platformPaymentError}
-        onClickClose={() => {
-          resetPlatformPayment()
-          dialog.hide()
-        }}
-      />
+      <WrapperModal>
+        <AlertDialog
+          {...platformPaymentError}
+          onClickClose={() => {
+            resetPlatformPayment()
+            dialog.hide()
+          }}
+        />
+      </WrapperModal>
     )
   }
 
@@ -280,7 +283,7 @@ const AddDepositDialog = ({ title, brandId, dialog, onSubmitted }) => {
       onCloseErrorAlert={reset}
       title={title}
       dialog={dialog}
-      width="65vw"
+      minWidth="65vw"
       maxWidth="80vw"
     >
       <FormBody brandId={brandId} />
@@ -340,36 +343,38 @@ const AddWithdrawDialog = ({ title, brandId, dialog, onSubmitted }) => {
 
 const FormBody = ({ brandId }) => {
   return (
-    <FieldStack>
-      <FieldStack orientation="horizontal">
-        {!brandId && (
-          <FieldWrapper label="Brand">
-            <MerchantIdSelect />
-          </FieldWrapper>
-        )}
-      </FieldStack>
+    <WrapperModal>
+      <FieldStack>
+        <FieldStack orientation="horizontal">
+          {!brandId && (
+            <FieldWrapper label="Brand">
+              <MerchantIdSelect />
+            </FieldWrapper>
+          )}
+        </FieldStack>
 
-      <Columns>
-        <Columns.Column>
-          <FieldStack>
-            <FieldStack orientation="horizontal">
-              <InputField name="channelName" label="Channel Name" flex="2" />
-              {/* <FieldWrapper label="Status">
+        <Columns>
+          <Columns.Column>
+            <FieldStack>
+              <FieldStack orientation="horizontal">
+                <InputField name="channelName" label="Channel Name" flex="2" />
+                {/* <FieldWrapper label="Status">
                                 <BrandPaymentStatusSelect name="paymentStatus" />
                             </FieldWrapper> */}
+              </FieldStack>
+
+              <PaymentMethodChannelIdSelect />
+
+              <TransferLimitRangeField />
             </FieldStack>
+          </Columns.Column>
 
-            <PaymentMethodChannelIdSelect />
-
-            <TransferLimitRangeField />
-          </FieldStack>
-        </Columns.Column>
-
-        <Columns.Column>
-          <ExtendedDataField />
-        </Columns.Column>
-      </Columns>
-    </FieldStack>
+          <Columns.Column>
+            <ExtendedDataField />
+          </Columns.Column>
+        </Columns>
+      </FieldStack>
+    </WrapperModal>
   )
 }
 
@@ -403,9 +408,16 @@ const TransferLimitRangeField = () => {
 const ExtendedDataField = ({ readOnly }) => {
   let FieldName = "extendedData"
   return (
-    <FieldWrapper label="Extended Data">
-      <JsonEditor name={FieldName} required height="30vh" disabled={readOnly} />
-    </FieldWrapper>
+    <WrapperModal>
+      <FieldWrapper label="Extended Data">
+        <JsonEditor
+          name={FieldName}
+          required
+          height="30vh"
+          disabled={readOnly}
+        />
+      </FieldWrapper>
+    </WrapperModal>
   )
 }
 
