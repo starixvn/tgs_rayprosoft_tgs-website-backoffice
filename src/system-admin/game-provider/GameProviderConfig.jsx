@@ -129,7 +129,7 @@ const AddConfigDialog = ({ gameProviderId, onSubmitted, dialog, ...props }) => {
         dialog={dialog}
         title={title}
         hideBackdrop
-        width="500px"
+        minWidth="500px"
       >
         <FormBody />
       </FormDialog>
@@ -297,10 +297,15 @@ const FormBody = ({ readOnly = false }) => {
           readOnly={readOnly}
           label="Description"
         />
-        <FieldStack orientation="horizontal">
-          <DefaultSwitchField readOnly={readOnly} />
-          <ConfigurationStatusSelectField readOnly={readOnly} />
-        </FieldStack>
+        <DefaultSwitchField readOnly={readOnly} />
+        <ConfigurationStatusSelectField
+          readOnly={readOnly}
+          css={css`
+            .bb-SelectWrapper {
+              width: 100%;
+            }
+          `}
+        />
         <InputField
           name="clientId"
           required
