@@ -50,6 +50,8 @@ import { getApiUrl } from "../../client"
 import { SelectField } from "../../select/Select"
 import { cssTableLineBg, CustomTableStyle } from "../../styles/tablle"
 import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { cssModalHiddenFooter } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
 
 export { Code }
 
@@ -282,25 +284,29 @@ const UploadGameProviderLocalizationListDialog = ({ dialog }) => {
         showCloseButton
         hideOnClickOutside={false}
         hideBackdrop
+        css={cssModalHiddenFooter}
+        minWidth="30vw"
       >
-        {notSelectFile && (
-          <Card
-            {...getRootProps({
-              id: "file-upload-dropzone",
-              refKey: "elementRef "
-            })}
-          >
-            <input {...getInputProps()} />
-            <p>
-              <Trans zh="选择档案" en="Select File" />
-            </p>
-          </Card>
-        )}
-        {isLoading && (
-          <Card alignX="center">
-            <Spinner />
-          </Card>
-        )}
+        <WrapperModal>
+          {notSelectFile && (
+            <Card
+              {...getRootProps({
+                id: "file-upload-dropzone",
+                refKey: "elementRef "
+              })}
+            >
+              <input {...getInputProps()} />
+              <p>
+                <Trans zh="选择档案" en="Select File" />
+              </p>
+            </Card>
+          )}
+          {isLoading && (
+            <Card alignX="center">
+              <Spinner />
+            </Card>
+          )}
+        </WrapperModal>
       </Dialog.Modal>
       {error && <AlertDialog {...error} onClickClose={reset} />}
     </Backdrop>

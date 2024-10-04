@@ -54,6 +54,10 @@ import { useDropzone } from "react-dropzone"
 import { ActionTrans, ExportTrans, OperatorTrans } from "../../trans/Action"
 import { UpdatedTimeTrans } from "../../trans/Date"
 import { getApiUrl } from "../../client"
+import { cssCustomModalXs } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
 
 export const SubGameProviderListDisclosure = ({ gameProviderId, ...props }) => {
   let dialog = useModalState()
@@ -104,34 +108,39 @@ const ListDialog = ({ gameProviderId, gameProviderCode, dialog, ...props }) => {
       showCloseButton
       hideOnClickOutside={false}
       placement="top"
-      width="80vw"
+      minWidth="70vw"
       maxWidth="80vw"
+      css={cssCustomModalXs}
     >
-      <FieldStack>
-        <ActionBar
-          gameProviderId={gameProviderId}
-          isLoading={isLoading}
-          search={(data) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          mutate={mutate}
-        />
-        <Table
-          id="sub-game-provider-list"
-          columns={columns}
-          data={items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(state.pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-        />
-      </FieldStack>
+      <WrapperModal>
+        <FieldStack>
+          <ActionBar
+            gameProviderId={gameProviderId}
+            isLoading={isLoading}
+            search={(data) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            mutate={mutate}
+          />
+          <CustomTableStyle>
+            <Table
+              id="sub-game-provider-list"
+              columns={columns}
+              data={items}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(state.pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+            />
+          </CustomTableStyle>
+        </FieldStack>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }
@@ -156,10 +165,12 @@ const ActionBar = ({ gameProviderId, search, mutate, isLoading, ...props }) => {
         </form>
       </FormProvider>
       <Set orientation="horizontal">
-        <AddSubGameProviderDisclosure
-          gameProviderId={gameProviderId}
-          onSubmitted={mutate}
-        />
+        <SearchAndSubmitButton>
+          <AddSubGameProviderDisclosure
+            gameProviderId={gameProviderId}
+            onSubmitted={mutate}
+          />
+        </SearchAndSubmitButton>
       </Set>
     </Level>
   )
@@ -319,10 +330,12 @@ const useColumns = ({ gameProviderId, items = [], mutate }) => {
           Cell: ({ value: record }) => {
             return (
               <Set orientation="horizontal" alignX="center">
-                <EditSubGameProviderDisclosure
-                  record={record}
-                  onSubmitted={mutate}
-                />
+                <ActionTableButton>
+                  <EditSubGameProviderDisclosure
+                    record={record}
+                    onSubmitted={mutate}
+                  />
+                </ActionTableButton>
               </Set>
             )
           }

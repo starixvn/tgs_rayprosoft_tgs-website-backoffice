@@ -47,13 +47,14 @@ import Checkbox from "../../checkbox"
 import { GameProviderCurrencyBetLimitFieldsBox } from "./GameProviderCurrencyBetLimitFieldsBox"
 import clone from "clone-deep"
 import Backdrop from "../../dialog/Backdrop"
+import { WrapperModal } from "../../styles/wrapper"
 
 const FormBody = ({ readOnly, isAdd = false }) => {
   let { getValues } = useFormContext()
 
   let IdFieldName = "id"
   return (
-    <>
+    <WrapperModal>
       <FieldValues>
         <NormalLabel>
           <Trans zh="子游戏商代码" en="Code" />
@@ -80,7 +81,7 @@ const FormBody = ({ readOnly, isAdd = false }) => {
         <TextareaField name="description" readOnly={readOnly} />
       </FieldValues>
       <Input type="hidden" name={IdFieldName} />
-    </>
+    </WrapperModal>
   )
 }
 

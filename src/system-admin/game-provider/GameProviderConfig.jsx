@@ -63,6 +63,7 @@ import {
   useStatusTrans
 } from "../../trans/Status.jsx"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper.js"
 
 export const AddGameProviderConfigDisclosure = ({
   gameProviderId,
@@ -182,7 +183,7 @@ const ViewDialog = ({ id, dialog, ...props }) => {
         dialog={dialog}
         title={title}
         hideBackdrop
-        width="500px"
+        minWidth="35vw"
       >
         <FormBody readOnly />
       </FormDialog>
@@ -281,58 +282,60 @@ const EditConfigDialog = ({ id, onSubmitted, dialog, ...props }) => {
 
 const FormBody = ({ readOnly = false }) => {
   return (
-    <FieldStack>
-      <InputField
-        name="name"
-        required
-        readOnly={readOnly}
-        autoComplete="off"
-        label="Name"
-      />
-      <InputField
-        name="description"
-        autoComplete="off"
-        readOnly={readOnly}
-        label="Description"
-      />
-      <FieldStack orientation="horizontal">
-        <DefaultSwitchField readOnly={readOnly} />
-        <ConfigurationStatusSelectField readOnly={readOnly} />
-      </FieldStack>
-      <InputField
-        name="clientId"
-        required
-        readOnly={readOnly}
-        autoComplete="off"
-        label="Client Id"
-      />
-      <InputField
-        name="secretKey"
-        required
-        readOnly={readOnly}
-        autoComplete="off"
-        label="Secret Key"
-      />
-      <InputField
-        name="desktopEndpoint"
-        readOnly={readOnly}
-        autoComplete="off"
-        label="Desktop Endpoint"
-      />
-      <InputField
-        name="mobileEndpoint"
-        readOnly={readOnly}
-        autoComplete="off"
-        label="Mobile Endpoint"
-      />
-      <FieldWrapper label="Configuration Data">
-        <JsonEditor
-          name="configurationData"
-          disabled={readOnly}
-          height="30vh"
+    <WrapperModal>
+      <FieldStack>
+        <InputField
+          name="name"
+          required
+          readOnly={readOnly}
+          autoComplete="off"
+          label="Name"
         />
-      </FieldWrapper>
-    </FieldStack>
+        <InputField
+          name="description"
+          autoComplete="off"
+          readOnly={readOnly}
+          label="Description"
+        />
+        <FieldStack orientation="horizontal">
+          <DefaultSwitchField readOnly={readOnly} />
+          <ConfigurationStatusSelectField readOnly={readOnly} />
+        </FieldStack>
+        <InputField
+          name="clientId"
+          required
+          readOnly={readOnly}
+          autoComplete="off"
+          label="Client Id"
+        />
+        <InputField
+          name="secretKey"
+          required
+          readOnly={readOnly}
+          autoComplete="off"
+          label="Secret Key"
+        />
+        <InputField
+          name="desktopEndpoint"
+          readOnly={readOnly}
+          autoComplete="off"
+          label="Desktop Endpoint"
+        />
+        <InputField
+          name="mobileEndpoint"
+          readOnly={readOnly}
+          autoComplete="off"
+          label="Mobile Endpoint"
+        />
+        <FieldWrapper label="Configuration Data">
+          <JsonEditor
+            name="configurationData"
+            disabled={readOnly}
+            height="30vh"
+          />
+        </FieldWrapper>
+      </FieldStack>
+    </WrapperModal>
   )
 }
 

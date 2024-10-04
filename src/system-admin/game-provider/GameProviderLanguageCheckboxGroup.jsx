@@ -14,6 +14,8 @@ import FormDialog from "../../form/FormDialog"
 import Disclosure from "../../dialog/Disclosure"
 import { CloseText, ConfirmText } from "../../button/ActionButtons"
 import { faLanguage } from "@fortawesome/free-solid-svg-icons"
+import { ModalButtonPlatForm } from "../../styles/button"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const GameProviderLanguageCheckboxGroupTable = ({
   name = "languages",
@@ -83,9 +85,11 @@ export const GameProviderLanguageCheckboxGroupTable = ({
                                 name={`${name}.${index}.cultureCode`}
                                 value={field.cultureCode}
                               />
-                              <Disclosure {...dialog}>
-                                <Icon icon={faLanguage} type="font-awesome" />
-                              </Disclosure>
+                              <ModalButtonPlatForm>
+                                <Disclosure {...dialog}>
+                                  <Icon icon={faLanguage} type="font-awesome" />
+                                </Disclosure>
+                              </ModalButtonPlatForm>
                               {dialog.visible && (
                                 <CodeDialog
                                   value={value}
@@ -130,9 +134,11 @@ const CodeDialog = ({ value, disabled, dialog, onChange }) => {
         dialog={dialog}
         title={title}
         hideBackdrop={true}
-        minWidth="max-content"
+        minWidth="22vw"
       >
-        <Input name="code" defaultValue={value} disabled={disabled} />
+        <WrapperModal>
+          <Input name="code" defaultValue={value} disabled={disabled} />
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

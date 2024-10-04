@@ -56,6 +56,7 @@ import { ActionTrans, ExportTrans } from "../../trans/Action.jsx"
 import { StatusTrans } from "../../trans/Status.jsx"
 import { GameNameTrans } from "../../trans/Game.jsx"
 import { getApiUrl } from "../../client/index.js"
+import { WrapperModal } from "../../styles/wrapper.js"
 
 export const BatchAddGameProviderGameListDisclosure = ({
   gameProviderId,
@@ -167,19 +168,21 @@ const BatchAddGameListDialog = ({ gameProviderId, onSubmitted, dialog }) => {
         }}
         dialog={dialog}
         hideBackdrop
-        width="80vw"
+        minWidth="40vw"
         maxWidth="80vw"
         placement="top"
       >
-        {uploadRequired && (
-          <UploadGameListCard
-            gameProviderId={gameProviderId}
-            onUploaded={(uploadedGames = []) => {
-              setValue(GameListFieldName, uploadedGames)
-            }}
-          />
-        )}
-        {fields.length > 0 && <Table columns={columns} data={items} />}
+        <WrapperModal>
+          {uploadRequired && (
+            <UploadGameListCard
+              gameProviderId={gameProviderId}
+              onUploaded={(uploadedGames = []) => {
+                setValue(GameListFieldName, uploadedGames)
+              }}
+            />
+          )}
+          {fields.length > 0 && <Table columns={columns} data={items} />}
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

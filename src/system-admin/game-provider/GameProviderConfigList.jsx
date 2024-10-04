@@ -51,6 +51,10 @@ import { Switch } from "../../switch/Switch"
 import { ActionTrans, OperatorTrans } from "../../trans/Action"
 import { StatusTrans } from "../../trans/Status"
 import { UpdatedTimeTrans } from "../../trans/Date"
+import { cssCustomModalXs } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
 
 export const GameProviderConfigListDisclosure = ({ gameProviderId }) => {
   let dialog = useModalState()
@@ -101,33 +105,38 @@ const ConfigListDialog = ({ gameProviderId, dialog, title, ...props }) => {
       showCloseButton
       hideOnClickOutside={false}
       placement="top"
-      width="80vw"
+      minWidth="70vw"
       maxWidth="80vw"
+      css={cssCustomModalXs}
     >
-      <FieldStack>
-        <ActionBar
-          gameProviderId={gameProviderId}
-          isLoading={isLoading}
-          search={(data = {}) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          mutate={mutate}
-        />
-        <Table
-          columns={columns}
-          data={items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(state.pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-        />
-      </FieldStack>
+      <WrapperModal>
+        <FieldStack>
+          <ActionBar
+            gameProviderId={gameProviderId}
+            isLoading={isLoading}
+            search={(data = {}) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            mutate={mutate}
+          />
+          <CustomTableStyle>
+            <Table
+              columns={columns}
+              data={items}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(state.pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+            />
+          </CustomTableStyle>
+        </FieldStack>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }
@@ -150,10 +159,12 @@ const ActionBar = ({ gameProviderId, search, mutate, ...props }) => {
         </form>
       </FormProvider>
       <Set orientation="horizontal">
-        <AddGameProviderConfigDisclosure
-          gameProviderId={gameProviderId}
-          onSubmitted={mutate}
-        />
+        <SearchAndSubmitButton>
+          <AddGameProviderConfigDisclosure
+            gameProviderId={gameProviderId}
+            onSubmitted={mutate}
+          />
+        </SearchAndSubmitButton>
       </Set>
     </Level>
   )
@@ -224,11 +235,13 @@ const useColumns = ({ items = [], mutate }) => {
           Cell: ({ value: record }) => {
             return (
               <Set orientation="horizontal" alignX="center">
-                <ViewGameProviderConfigDisclosure id={record.id} />
-                <EditGameProviderConfigDisclosure
-                  id={record.id}
-                  onSubmitted={mutate}
-                />
+                <ActionTableButton>
+                  <ViewGameProviderConfigDisclosure id={record.id} />
+                  <EditGameProviderConfigDisclosure
+                    id={record.id}
+                    onSubmitted={mutate}
+                  />
+                </ActionTableButton>
               </Set>
             )
           }

@@ -53,6 +53,7 @@ import { useGameProviderTrans } from "../../trans/Game"
 import { BasicInformationTrans } from "../../trans/Field"
 import { SWRConfig } from "swr"
 import { WrapperModal } from "../../styles/wrapper"
+import { spacingFormStart } from "../../styles/spacing"
 
 export const ViewGameProviderDisclosure = ({ gameProviderId }) => {
   let dialog = useModalState()
@@ -104,11 +105,6 @@ const ViewDialog = ({ gameProviderId, dialog }) => {
       placement="top"
       minWidth="45vw"
       maxWidth="90vw"
-      css={css`
-        & .bb-DialogContent {
-          position: relative;
-        }
-      `}
     >
       <FormBody readOnly />
     </FormDialog>
@@ -216,13 +212,8 @@ const AddDialog = ({ onSubmitted, dialog, ...props }) => {
       title={title}
       dialog={dialog}
       placement="top"
-      minWidth="80vw"
+      minWidth="60vw"
       maxWidth="90vw"
-      css={css`
-        & .bb-DialogContent {
-          position: relative;
-        }
-      `}
     >
       <FormBody isAdd={true} />
     </FormDialog>
@@ -288,13 +279,8 @@ const EditDialog = ({ gameProviderId, onSubmitted, dialog, ...props }) => {
       title={title}
       dialog={dialog}
       placement="top"
-      minWidth="80vw"
+      minWidth="60vw"
       maxWidth="90vw"
-      css={css`
-        & .bb-DialogContent {
-          position: relative;
-        }
-      `}
     >
       <FormBody />
     </FormDialog>
@@ -340,11 +326,11 @@ const FormBody = ({ readOnly, isAdd = false }) => {
   return (
     <WrapperModal>
       <Stack orientation="vertical">
-        <Heading use="h5" marginBottom="major-1">
+        <Heading use="h5" marginBottom="major-3">
           <BasicInformationTrans />
         </Heading>
 
-        <FieldValues>
+        <FieldValues css={spacingFormStart}>
           <NormalLabel>
             <Trans zh="游戏商代码" en="Code" />
           </NormalLabel>

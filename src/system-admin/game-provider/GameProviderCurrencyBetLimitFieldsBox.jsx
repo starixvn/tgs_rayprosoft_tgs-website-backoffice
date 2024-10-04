@@ -29,6 +29,7 @@ import { CloseText, ConfirmText } from "../../button/ActionButtons"
 import Backdrop from "../../dialog/Backdrop"
 import FormDialog from "../../form/FormDialog"
 import { CurrencyTrans } from "../../trans/Payment"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const GameProviderCurrencyBetLimitFieldsBox = ({
   currencyFieldName = "currencies",
@@ -324,7 +325,11 @@ const BetLimitRow = ({
   betLimitFieldIndex,
   disabled
 }) => (
-  <Table.Row>
+  <Table.Row
+    css={css`
+      background: #fff;
+    `}
+  >
     <Table.Cell></Table.Cell>
     <Table.Cell>
       <Button
@@ -484,9 +489,11 @@ const CurrencyCodeDialog = ({ value, disabled, onChange, dialog }) => {
         dialog={dialog}
         title={title}
         hideBackdrop={true}
-        minWidth="max-content"
+        minWidth="22vw"
       >
-        <Input name="code" defaultValue={value} disabled={disabled} />
+        <WrapperModal>
+          <Input name="code" defaultValue={value} disabled={disabled} />
+        </WrapperModal>
       </FormDialog>
     </Backdrop>
   )

@@ -87,3 +87,20 @@ export const cssCustomInputReport = css`
     }
   }
 `
+
+export const cssFullWidthSelect = css`
+  .bb-SelectWrapper {
+    width: 100%;
+  }
+`
+
+export const cssRemoveCheckBoxShadow = css`
+  .bb-FieldWrapper {
+    .bb-CheckboxIcon {
+      cursor: pointer;
+    }
+    input:focus + .bb-CheckboxIcon {
+      box-shadow: none !important;
+    }
+  }
+`

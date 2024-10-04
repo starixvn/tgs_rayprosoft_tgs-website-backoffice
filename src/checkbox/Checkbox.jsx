@@ -3,6 +3,7 @@ import { css, Global } from "@emotion/react"
 import { useForm, useFormContext, Controller } from "react-hook-form"
 import { Checkbox as _Checkbox, CheckboxField as _CheckboxField } from "bumbag"
 import get from "lodash-es/get"
+import { cssRemoveCheckBoxShadow } from "../styles/input"
 
 export const Checkbox = ({
   name,
@@ -89,6 +90,7 @@ export const CheckboxField = ({
       validationText={validationText}
       {...formProps}
       {...props}
+      css={cssRemoveCheckBoxShadow}
     />
   )
 }

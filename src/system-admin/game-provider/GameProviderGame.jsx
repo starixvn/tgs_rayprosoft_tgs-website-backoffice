@@ -50,6 +50,8 @@ import { View, Update } from "./menu"
 import { CloseButtonFooter } from "../../form/ConfirmButtonFooter"
 import { SubGameProviderSelectField } from "../../game/providers/SubGameProviderSelect"
 import { SWRConfig } from "swr"
+import { WrapperModal } from "../../styles/wrapper.js"
+import { cssFullWidthSelect } from "../../styles/input.js"
 
 export const ViewGameProviderGameDisclosure = ({ gameProviderId, record }) => {
   let dialog = useModalState()
@@ -196,12 +198,7 @@ const AddGameDialog = ({ gameProviderId, onSubmitted, dialog }) => {
         hideBackdrop
         title={title}
         dialog={dialog}
-        width="60vw"
-        css={css`
-          & .bb-DialogContent {
-            position: relative;
-          }
-        `}
+        minWidth="40vw"
       >
         <GameProviderGameFormBody />
       </FormDialog>
@@ -245,12 +242,7 @@ const EditGameDialog = ({ gameProviderId, record, onSubmitted, dialog }) => {
         hideBackdrop
         title={title}
         dialog={dialog}
-        width="60vw"
-        css={css`
-          & .bb-DialogContent {
-            position: relative;
-          }
-        `}
+        width="40vw"
       >
         <GameProviderGameFormBody />
       </FormDialog>
@@ -267,77 +259,99 @@ export const GameProviderGameFormBody = ({ readOnly = false }) => {
   let isEdit = !isCreate
   let disabled = readOnly
   return (
-    <FieldStack>
-      <FieldStack orientation="horizontal">
-        {isEdit && (
-          <InputField name="id" value={watch("id")} readOnly label="Id" />
-        )}
+    <WrapperModal>
+      <FieldStack>
+        <FieldStack orientation="horizontal">
+          {isEdit && (
+            <InputField name="id" value={watch("id")} readOnly label="Id" />
+          )}
+          <InputField
+            name="externalId"
+            required
+            readOnly={readOnly}
+            label="External ID"
+          />
+        </FieldStack>
+        <FieldStack orientation="horizontal">
+          <SubGameProviderSelectField
+            name="subGpCode"
+            gameProviderId={gameProviderId}
+            required
+            disabled={disabled}
+            label="Sub Game Provider"
+            css={cssFullWidthSelect}
+          />
+          <InputField name="code" required readOnly={readOnly} label="Code" />
+        </FieldStack>
+        <InputField name="name" required readOnly={readOnly} label="Name" />
         <InputField
-          name="externalId"
-          required
+          name="description"
           readOnly={readOnly}
-          label="External ID"
+          label="Description"
+        />
+        <FieldStack orientation="horizontal">
+          <GameStatusSelectField
+            name="status"
+            required
+            disabled={disabled}
+            label="Status"
+            css={cssFullWidthSelect}
+          />
+          <GameTypeSelectField
+            name="type"
+            required
+            disabled={disabled}
+            label="Type"
+            css={cssFullWidthSelect}
+          />
+          <GamePlatformTypeSelectField
+            name="platformType"
+            required
+            disabled={disabled}
+            label="Platform Type"
+            css={cssFullWidthSelect}
+          />
+        </FieldStack>
+        <InputField
+          name="endpointPath"
+          readOnly={readOnly}
+          label="Endpoint Path"
+        />
+        <InputField name="ruleUrl" readOnly={readOnly} label="Rule Url" />
+        <FieldStack
+          orientation="horizontal"
+          css={css`
+            .bb-FieldWrapper {
+              display: flex;
+              align-items: center;
+              flex-direction: row-reverse;
+              justify-content: flex-end;
+              gap: 8px;
+              .bb-FieldWrapperLabelWrapper {
+                margin-bottom: 0;
+              }
+            }
+          `}
+        >
+          <CheckboxField name="subGame" disabled={disabled} label="Sub Game" />
+          <CheckboxField
+            name="availableToBrand"
+            disabled={disabled}
+            label="Available To Brand"
+          />
+          <CheckboxField
+            name="hasTurnoverOnTieBet"
+            disabled={disabled}
+            label="Turnover On Tie Bet"
+          />
+          <CheckboxField name="html5" disabled={disabled} label="Html5" />
+        </FieldStack>
+        <InputField
+          name="availableCurrencies"
+          readOnly={readOnly}
+          label="Available Currencies"
         />
       </FieldStack>
-      <FieldStack orientation="horizontal">
-        <SubGameProviderSelectField
-          name="subGpCode"
-          gameProviderId={gameProviderId}
-          required
-          disabled={disabled}
-          label="Sub Game Provider"
-        />
-        <InputField name="code" required readOnly={readOnly} label="Code" />
-      </FieldStack>
-      <InputField name="name" required readOnly={readOnly} label="Name" />
-      <InputField name="description" readOnly={readOnly} label="Description" />
-      <FieldStack orientation="horizontal">
-        <GameStatusSelectField
-          name="status"
-          required
-          disabled={disabled}
-          label="Status"
-        />
-        <GameTypeSelectField
-          name="type"
-          required
-          disabled={disabled}
-          label="Type"
-        />
-        <GamePlatformTypeSelectField
-          name="platformType"
-          required
-          disabled={disabled}
-          label="Platform Type"
-        />
-      </FieldStack>
-      <InputField
-        name="endpointPath"
-        readOnly={readOnly}
-        label="Endpoint Path"
-      />
-      <InputField name="ruleUrl" readOnly={readOnly} label="Rule Url" />
-      <FieldStack orientation="horizontal">
-        <CheckboxField name="subGame" disabled={disabled} label="Sub Game" />
-        <CheckboxField
-          name="availableToBrand"
-          disabled={disabled}
-          label="Available To Brand"
-        />
-      </FieldStack>
-      <FieldStack orientation="horizontal">
-        <CheckboxField
-          name="hasTurnoverOnTieBet"
-          disabled={disabled}
-          label="Turnover On Tie Bet"
-        />
-        <CheckboxField name="html5" disabled={disabled} label="Html5" />
-      </FieldStack>
-      <InputField
-        name="availableCurrencies"
-        readOnly={readOnly}
-        label="Available Currencies"
-      />
-    </FieldStack>
+    </WrapperModal>
   )
 }

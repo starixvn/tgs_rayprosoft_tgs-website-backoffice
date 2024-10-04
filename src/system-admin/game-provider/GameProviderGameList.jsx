@@ -65,6 +65,11 @@ import {
 } from "../../trans/Game"
 import { UpdatedTimeTrans } from "../../trans/Date"
 import { getApiUrl } from "../../client"
+import { WrapperModal } from "../../styles/wrapper"
+import { cssCustomModalXs } from "../../styles/modal"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomInputSearch } from "../../styles/input"
 
 export const GameProviderGameListDisclosure = ({
   gameProviderId,
@@ -128,37 +133,42 @@ const GameListDialog = ({
       showCloseButton
       hideOnClickOutside={false}
       placement="top"
-      width="80vw"
+      minWidth="70vw"
       maxWidth="80vw"
+      css={cssCustomModalXs}
     >
-      <FieldStack>
-        <ActionBar
-          gameProviderId={gameProviderId}
-          gameProviderCode={gameProviderCode}
-          id={id}
-          code={code}
-          isLoading={isLoading}
-          search={(data) => {
-            setState({
-              pageIndex: 0,
-              ...data
-            })
-            mutate()
-          }}
-          mutate={mutate}
-        />
-        <Table
-          id="game-list"
-          columns={columns}
-          data={items}
-          initialState={state}
-          controlledState={state}
-          pageCount={pageCount(state.pageSize, data?.totalCount)}
-          setPageIndex={setPageIndex}
-          setSortOrder={setSortOrder}
-          isLoading={isLoading}
-        />
-      </FieldStack>
+      <WrapperModal>
+        <FieldStack>
+          <ActionBar
+            gameProviderId={gameProviderId}
+            gameProviderCode={gameProviderCode}
+            id={id}
+            code={code}
+            isLoading={isLoading}
+            search={(data) => {
+              setState({
+                pageIndex: 0,
+                ...data
+              })
+              mutate()
+            }}
+            mutate={mutate}
+          />
+          <CustomTableStyle>
+            <Table
+              id="game-list"
+              columns={columns}
+              data={items}
+              initialState={state}
+              controlledState={state}
+              pageCount={pageCount(state.pageSize, data?.totalCount)}
+              setPageIndex={setPageIndex}
+              setSortOrder={setSortOrder}
+              isLoading={isLoading}
+            />
+          </CustomTableStyle>
+        </FieldStack>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }
@@ -186,20 +196,24 @@ const ActionBar = ({
                             showEmptyFieldValueAddonAfter
                             placeholder="游戏ID"
                         /> */}
-            <InputField
-              name="code"
-              showEmptyFieldValueAddonAfter
-              placeholder="Code"
-            />
+            <CustomInputSearch>
+              <InputField
+                name="code"
+                showEmptyFieldValueAddonAfter
+                placeholder="Code"
+              />
+            </CustomInputSearch>
             <SearchButton isLoading={isLoading} disabled={isLoading} />
           </Set>
         </form>
       </FormProvider>
       <Set orientation="horizontal">
-        <AddGameProviderGameDisclosure
-          gameProviderId={gameProviderId}
-          onSubmitted={mutate}
-        />
+        <SearchAndSubmitButton>
+          <AddGameProviderGameDisclosure
+            gameProviderId={gameProviderId}
+            onSubmitted={mutate}
+          />
+        </SearchAndSubmitButton>
 
         <BatchAddGameProviderGameListDisclosure
           gameProviderId={gameProviderId}
@@ -272,15 +286,17 @@ const useColumns = ({ gameProviderId, items = [], mutate }) => {
           Cell: ({ value: record }) => {
             return (
               <Set orientation="horizontal" alignX="center">
-                <ViewGameProviderGameDisclosure
-                  gameProviderId={gameProviderId}
-                  record={record}
-                />
-                <EditGameProviderGameDisclosure
-                  gameProviderId={gameProviderId}
-                  record={record}
-                  onSubmitted={mutate}
-                />
+                <ActionTableButton>
+                  <ViewGameProviderGameDisclosure
+                    gameProviderId={gameProviderId}
+                    record={record}
+                  />
+                  <EditGameProviderGameDisclosure
+                    gameProviderId={gameProviderId}
+                    record={record}
+                    onSubmitted={mutate}
+                  />
+                </ActionTableButton>
               </Set>
             )
           }
@@ -385,25 +401,29 @@ const UploadGameLocalizationListDialog = ({ dialog }) => {
         showCloseButton
         hideOnClickOutside={false}
         hideBackdrop
+        css={cssCustomModalXs}
+        minWidth="22vw"
       >
-        {notSelectFile && (
-          <Card
-            {...getRootProps({
-              id: "file-upload-dropzone",
-              refKey: "elementRef "
-            })}
-          >
-            <input {...getInputProps()} />
-            <p>
-              <Trans zh="选择档案" en="Select File" />
-            </p>
-          </Card>
-        )}
-        {isLoading && (
-          <Card alignX="center">
-            <Spinner />
-          </Card>
-        )}
+        <WrapperModal>
+          {notSelectFile && (
+            <Card
+              {...getRootProps({
+                id: "file-upload-dropzone",
+                refKey: "elementRef "
+              })}
+            >
+              <input {...getInputProps()} />
+              <p>
+                <Trans zh="选择档案" en="Select File" />
+              </p>
+            </Card>
+          )}
+          {isLoading && (
+            <Card alignX="center">
+              <Spinner />
+            </Card>
+          )}
+        </WrapperModal>
       </Dialog.Modal>
       {error && <AlertDialog {...error} onClickClose={reset} />}
     </Backdrop>

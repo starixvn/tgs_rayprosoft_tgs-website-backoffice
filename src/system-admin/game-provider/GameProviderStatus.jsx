@@ -186,9 +186,15 @@ export const GameProviderStatusSelect = ({ name = "status", ...props }) => {
             </>
           }
         >
-          <Button palette={toPalette(value)} {...props}>
-            <GameProviderStatusLabel value={value} />
-          </Button>
+          <CustomBadgeButton
+            css={css`
+              cursor: pointer;
+            `}
+          >
+            <Button palette={toPalette(value)} {...props}>
+              <GameProviderStatusLabel value={value} />
+            </Button>
+          </CustomBadgeButton>
         </DropdownMenu>
       )}
     />
