@@ -1,6 +1,7 @@
 import { getAcceptLang } from "../../i18n"
 
 const Unauthorized = 401
+const NotFoundRole = 302
 const UnauthorizedDefaultMessage = "Unauthorized"
 const UnauthorizedTrans = {
   zh: "未经授权",
@@ -11,7 +12,7 @@ export const toDataOrError = (response, settings) => {
   let xCorrelationId = response.headers.get("x-correlation-id")
   if (!response?.ok) {
     if (response.status === Unauthorized) {
-      location.href = "/login"
+      location.href = "/logout"
       return Promise.reject({ title: errorTitle(response) })
     } else {
       return response
@@ -133,6 +134,7 @@ const errorTitle = (response) => {
     case NotFound:
       return NotFoundTrans?.[locale] ?? NotFoundDefaultMessage
     case MethodNotAllowed:
+    case NotFoundRole:
       return MethodNotAllowedTrans?.[locale] ?? MethodNotAllowedDefaultMessage
     case RequestTimeout:
       return RequestTimeoutTrans?.[locale] ?? RequestTimeoutDefaultMessage

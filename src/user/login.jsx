@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { css } from "@emotion/react"
-import { useAuth, useIsAuthLoading } from "./context"
-import { useForm, FormProvider, useFormContext } from "react-hook-form"
+import { useAuth, useIsAuthed, useIsAuthLoading } from "./context"
+import { useForm, FormProvider } from "react-hook-form"
 import {
   Flex,
   Box,
@@ -10,27 +10,19 @@ import {
   Button,
   Dialog,
   Modal,
-  Text,
-  Heading,
   Image,
   Icon
 } from "bumbag"
 import Input from "../input/Input"
 import { PasswordInputField } from "../input/PasswordInput"
-import { LangDropdownMenu, useLocale, useTrans } from "../i18n"
+import { LangDropdownMenu, useTrans } from "../i18n"
 import { CloseText } from "../button/ActionButtons"
 import {
   getLoginButtonBackground,
   getLoginButtonColor,
-  getLoginTitle,
-  getLoginTitleColor,
-  getLoginTitleFontSize,
-  getLoginTitleFontWeight,
-  getLoginSubTitle,
-  getLoginSubTitleFontSize,
   getLoginImageUrl
 } from "../env"
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
 import { faUserAlt, faLock } from "@fortawesome/free-solid-svg-icons"
 
@@ -47,6 +39,8 @@ export const Form = () => {
 
   const dialog = Modal.useState()
   let [error, setError] = useState()
+  const isAuthed = useIsAuthed()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const token = searchParams.get("token")
@@ -59,6 +53,10 @@ export const Form = () => {
         timestamp
       })
     }
+  }, [])
+
+  useEffect(() => {
+    isAuthed && navigate("/")
   }, [])
 
   const onSubmit = (data) => {

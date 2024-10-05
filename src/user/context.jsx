@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react"
-import { useNavigate, useLocation, useMatch } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import client from "../client"
 import memoize from "fast-memoize"
 import { memoizedFind as findMenu } from "../menu"
@@ -77,17 +77,38 @@ export const useAuth = () => {
   }
 }
 
+export const useRefreshAuthContext = () => {
+  const { state } = useContext(Store)
+  const deauth = useDeauth()
+  const resetState = useResetState()
+  return async () => {
+    var stringValue = localStorage.getItem(Key)
+    if (stringValue) {
+      const newState = JSON.parse(stringValue)
+      state?.userInfo?.userId != newState.userInfo?.userId &&
+        window.location.reload()
+    } else {
+      deauth()
+      resetState()
+    }
+  }
+}
+
 export const useIsAuthLoading = () => {
   let { isLoading } = useContext(Store)
   return isLoading
 }
 
 export const useDeauth = () => {
-  let { set } = useContext(Store)
   return async () => {
     await client.post("/api/logout")
-    set(InitialState)
+  }
+}
 
+export const useResetState = () => {
+  let { set } = useContext(Store)
+  return () => {
+    set(InitialState)
     try {
       localStorage.removeItem(Key)
     } catch (error) {
@@ -99,6 +120,7 @@ export const useDeauth = () => {
 export const useIsAuthed = () => {
   let { state = {} } = useContext(Store)
   let userId = state?.userInfo?.userId
+
   return !!userId
 }
 
