@@ -34,6 +34,6 @@ export default defineConfig({
             polyfill: false
         },
         outDir: "build",
-        sourcemap: "inline"
+        sourcemap: false
     }
 })
