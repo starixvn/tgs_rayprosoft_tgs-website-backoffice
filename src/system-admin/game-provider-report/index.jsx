@@ -65,6 +65,7 @@ import {
 import { CurrencyTrans } from "../../trans/Payment"
 import { CompanyWinLossTrans } from "../../trans/Platform"
 import { CustomTableStyle } from "../../styles/tablle"
+import { toGMT4 } from "../../date/range"
 import { RemoveBoxShadowInputButtonDateTime } from "../../styles/input"
 
 export { Code }
@@ -106,8 +107,8 @@ const ReportContent = ({}) => {
   let culture = useLangCode()
   let toSearchParams = () => ({
     ...toApiParams(state),
-    from: toZonedTime(state.from, state.timezoneOffset),
-    to: toZonedTime(state.to, state.timezoneOffset),
+    from: toGMT4(state.from),
+    to: toGMT4(state.to),
     culture
   })
 
@@ -236,7 +237,8 @@ const UpdateGameProviderReportButton = ({ month }) => {
         isLoading={isLoading}
         onClick={() => {
           setSubmit({
-            startDate: month,
+            // startDate: month,
+            startDate: new Date(toGMT4(month)),
             gameProviderId
           })
         }}
@@ -306,7 +308,8 @@ export const UpdatePlatformGameProviderReport = ({ month }) => {
         isLoading={isLoading}
         onClick={() => {
           setSubmit({
-            startDate: month,
+            // startDate: month,
+            startDate: new Date(toGMT4(month)),
             brandId: platformId
           })
         }}
@@ -345,7 +348,7 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)}>
         <Set alignY="bottom">
-          <TimezoneSelectField />
+          <TimezoneSelectField disabled />
           <RemoveBoxShadowInputButtonDateTime>
             <DateHourRangeInput
               id="date-range"

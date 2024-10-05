@@ -46,6 +46,7 @@ import {
 } from "../../trans/Platform"
 import { TotalTrans } from "../../trans/Field"
 import { CustomTableStyle } from "../../styles/tablle"
+import { toGMT4 } from "../../date/range"
 import { cssCustomInputReport } from "../../styles/input"
 import { WrapperBg } from "../../styles/wrapper"
 
@@ -87,7 +88,8 @@ const Body = ({}) => {
 
   let toSearchParams = () => ({
     ...toApiParams(state),
-    to: startOfNextDay(state.to),
+    from: toGMT4(state.from),
+    to: toGMT4(startOfNextDay(state.to)),
     culture
   })
 

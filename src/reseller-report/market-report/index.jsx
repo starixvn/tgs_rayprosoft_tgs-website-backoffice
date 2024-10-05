@@ -11,7 +11,7 @@ import {
   useUserLicenseeId,
   useUserResellerId
 } from "../../user/context"
-import { today, yesterday } from "../../date/range"
+import { today, toGMT4, yesterday } from "../../date/range"
 import { Code } from "./menu"
 import BrandBar from "../../report/BrandBar"
 import { startOfNextDay } from "../../date/startOfNextDay"
@@ -101,8 +101,8 @@ const ReportContent = ({ resellerId }) => {
   let toSearchParams = () => ({
     ...toApiParams(state),
     sortby: "currencyCode",
-    from,
-    to: startOfNextDay(to),
+    from: toGMT4(from),
+    to: toGMT4(startOfNextDay(to)),
     culture
   })
   let { isLoading, data, error, mutate, emptyData } =

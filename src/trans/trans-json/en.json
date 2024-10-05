@@ -565,6 +565,7 @@
   "interval_should_be_less_than": "Interval should be less than",
   "days": "days",
   "won": "Won",
+  "win": "Won",
   "lost": "Lost",
   "draw": "Draw",
   "void": "Void",

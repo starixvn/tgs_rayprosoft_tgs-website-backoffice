@@ -14,7 +14,7 @@ import {
 import SearchButton from "../../button/SearchButton"
 import equals from "fast-deep-equal"
 import { DateInputRange } from "../../date/DateTimeRangeInput"
-import { today, yesterday } from "../../date/range"
+import { today, toGMT4, yesterday } from "../../date/range"
 import dateTimeColumn from "../../table/column/dateTime"
 import { startOfNextDay } from "../../date/startOfNextDay"
 import numberColumn, {
@@ -84,8 +84,8 @@ export const MarketReportWithAgent = ({ brandId, useFetch, exportUrl }) => {
   let toSearchParams = () => ({
     ...toApiParams(state),
     sortby: "reportDate",
-    from,
-    to: startOfNextDay(to),
+    from: toGMT4(from),
+    to: toGMT4(startOfNextDay(to)),
     culture
   })
 
