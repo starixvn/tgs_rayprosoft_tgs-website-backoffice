@@ -635,19 +635,37 @@ const EditBox = ({ bankType, channelCode = "" }) => {
   }
 }
 
-const useBankInfo = (channelCode = "") => {
-  const isChannelCodeDisabled =
-    channelCode !== "CustomBank" && channelCode !== ""
-  const value = channelCode === "CustomBank" ? "" : channelCode
+const useBankInfoBankNameInput = (channelCode = "") => {
+  const isChannelCodeDisabled = true
+  const value = channelCode
+  const onValueChange = () => {}
 
   return {
     isChannelCodeDisabled,
-    value
+    value,
+    onValueChange
+  }
+}
+
+const useCustomBankInfoBankNameInput = () => {
+  const [value, setValue] = useState()
+  const isChannelCodeDisabled = false
+  const onValueChange = (e) => {
+    setValue(e.target.value)
+  }
+
+  return {
+    isChannelCodeDisabled,
+    value,
+    onValueChange
   }
 }
 
 const EditBank = ({ channelCode = "" }) => {
-  const { isChannelCodeDisabled, value } = useBankInfo(channelCode)
+  const { isChannelCodeDisabled, value, onValueChange } =
+    channelCode == "CustomBank"
+      ? useCustomBankInfoBankNameInput()
+      : useBankInfoBankNameInput(channelCode)
 
   return (
     <>
@@ -659,6 +677,7 @@ const EditBank = ({ channelCode = "" }) => {
           name="detail.bankName"
           value={value}
           disabled={isChannelCodeDisabled}
+          onChange={onValueChange}
         />
       </Box>
 
