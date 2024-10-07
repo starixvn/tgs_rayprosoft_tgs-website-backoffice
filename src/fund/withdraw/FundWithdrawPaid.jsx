@@ -138,11 +138,6 @@ const PaidDialog = ({ brandId, formId, onSubmitted, dialog, ...props }) => {
       }}
       title={title}
       dialog={dialog}
-      css={css`
-        & .bb-DialogHeader {
-          padding-right: 2rem;
-        }
-      `}
     >
       <WrapperModal>
         <Alert title={<ConfirmPaidTrans />} type="warning" variant="" />

@@ -74,6 +74,7 @@ import { VerifyFundWithdrawDisclosure } from "./VerifyFundWithdraw"
 import { ViewFundWithdrawDisclosure } from "./ViewFundWithdraw"
 import { WrapperBg } from "../../styles/wrapper"
 import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton } from "../../styles/button"
 
 const MainTable = "main"
 const TableLocalStorageKey = `${ModuleCode}:${PageCode}:${MainTable}`
@@ -678,60 +679,56 @@ const useColumns = ({
 
             let isPlayer = value?.userType === "Player"
             return (
-              <Set
-                alignX="center"
-                orientation="horizontal"
-                css={css`
-                  width: max-content;
-                `}
-              >
-                {underReview && (
-                  <VerifyFundWithdrawDisclosure
-                    id="verify-withdraw-dialog-disclosure"
+              <ActionTableButton>
+                <Set alignX="center" orientation="horizontal">
+                  {underReview && (
+                    <VerifyFundWithdrawDisclosure
+                      id="verify-withdraw-dialog-disclosure"
+                      brandId={brandId}
+                      formId={value.id}
+                      playerCode={isPlayer && value?.userId}
+                      onSubmitted={mutate}
+                      onVisibleChange={(visible) => {
+                        let delayUpdate = visible
+                        setDelayUpdate(delayUpdate)
+                      }}
+                    />
+                  )}
+                  {reviewPaid && (
+                    <FundWithdrawPaidDialogDisclosure
+                      id="review-paid-dialog-disclosure"
+                      brandId={brandId}
+                      formId={value.id}
+                      onSubmitted={mutate}
+                      onVisibleChange={(visible) => {
+                        let delayUpdate = visible
+                        setDelayUpdate(delayUpdate)
+                      }}
+                    />
+                  )}
+                  <ViewFundWithdrawDisclosure
+                    id="view-withdraw-dialog-disclosure"
                     brandId={brandId}
                     formId={value.id}
-                    playerCode={isPlayer && value?.userId}
-                    onSubmitted={mutate}
                     onVisibleChange={(visible) => {
                       let delayUpdate = visible
                       setDelayUpdate(delayUpdate)
                     }}
                   />
-                )}
-                {reviewPaid && (
-                  <FundWithdrawPaidDialogDisclosure
-                    id="review-paid-dialog-disclosure"
-                    brandId={brandId}
-                    formId={value.id}
-                    onSubmitted={mutate}
-                    onVisibleChange={(visible) => {
-                      let delayUpdate = visible
-                      setDelayUpdate(delayUpdate)
-                    }}
-                  />
-                )}
-                <ViewFundWithdrawDisclosure
-                  id="view-withdraw-dialog-disclosure"
-                  brandId={brandId}
-                  formId={value.id}
-                  onVisibleChange={(visible) => {
-                    let delayUpdate = visible
-                    setDelayUpdate(delayUpdate)
-                  }}
-                />
-                {invalid && (
-                  <RejectFundWithdrawDisclosure
-                    id="reject-withdraw-dialog-disclosure"
-                    brandId={brandId}
-                    formId={value.id}
-                    onSubmitted={mutate}
-                    onVisibleChange={(visible) => {
-                      let delayUpdate = visible
-                      setDelayUpdate(delayUpdate)
-                    }}
-                  />
-                )}
-              </Set>
+                  {invalid && (
+                    <RejectFundWithdrawDisclosure
+                      id="reject-withdraw-dialog-disclosure"
+                      brandId={brandId}
+                      formId={value.id}
+                      onSubmitted={mutate}
+                      onVisibleChange={(visible) => {
+                        let delayUpdate = visible
+                        setDelayUpdate(delayUpdate)
+                      }}
+                    />
+                  )}
+                </Set>
+              </ActionTableButton>
             )
           }
         })

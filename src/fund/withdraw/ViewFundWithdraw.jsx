@@ -50,6 +50,7 @@ import {
 } from "./FundWithdrawStatus"
 import { View } from "./menu"
 import { WrapperModal } from "../../styles/wrapper"
+import { spacingForm } from "../../styles/spacing"
 
 export const ViewFundWithdrawDisclosure = ({
   brandId,
@@ -135,12 +136,7 @@ export const FormBody = ({
   return (
     <WrapperModal>
       <FieldStack>
-        <FieldValues
-          css={css`
-            gap: 16px 24px;
-            align-items: center;
-          `}
-        >
+        <FieldValues css={spacingForm}>
           <NormalLabel>
             <UserNameTrans />
           </NormalLabel>
@@ -274,11 +270,18 @@ const PayerInfo = ({ brandId, record, disabled, showBalance }) => {
       <Heading use="h6">
         <Trans zh="出款信息" en="Payout Info" />
       </Heading>
-      <FieldValues>
+      <FieldValues css={spacingForm}>
         <NormalLabel>
           <Trans zh="出款渠道" en="Withdrawal Payment" />
         </NormalLabel>
-        <Box alignY="center">
+        <Box
+          alignY="center"
+          css={css`
+            .bb-SelectWrapper {
+              width: 100%;
+            }
+          `}
+        >
           <BrandPaymentSelect
             name={BrandPaymentIdField}
             brandId={brandId}
@@ -418,13 +421,12 @@ const PayeeInfo = ({ record }) => {
       <Heading use="h6">
         <Trans zh="收款人信息" en="Payee Info" />
       </Heading>
-      <FieldValues
-        css={css`
-          gap: 16px 24px;
-          align-items: center;
-        `}
-      >
-        <NormalLabel>
+      <FieldValues css={spacingForm}>
+        <NormalLabel
+          css={css`
+            min-width: 145px;
+          `}
+        >
           <Trans zh="收款通道" en="Channel" />
         </NormalLabel>
         <Box alignY="center">

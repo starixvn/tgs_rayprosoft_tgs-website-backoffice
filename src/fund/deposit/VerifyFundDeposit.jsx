@@ -177,9 +177,7 @@ const VerifyFundDepositDialog = ({
       }}
       title={title}
       dialog={dialog}
-      css={css`
-        min-width: 400px;
-      `}
+      minWidth="30vw"
     >
       <FormBody
         brandId={brandId}
