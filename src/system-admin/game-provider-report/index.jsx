@@ -126,7 +126,12 @@ const ReportContent = ({}) => {
       actionBar={
         <Set orientation="horizontal">
           <FormProvider {...formMethods}>
-            <RemoveBoxShadowInputButtonDateTime>
+            <RemoveBoxShadowInputButtonDateTime
+              css={css`
+                display: flex;
+                gap: 8px;
+              `}
+            >
               <DateMonthInput name="month" placeholder={monthPlaceholder} />
               <UpdateGameProviderReportButton month={month} />
               <UpdatePlatformGameProviderReport month={month} />

@@ -49,6 +49,10 @@ import {
 import { StatusTrans } from "../../trans/Status"
 import { SettleAmountTrans } from "../../trans/Field"
 import { WrapperModal } from "../../styles/wrapper"
+import {
+  cssCustomInputReport,
+  RemoveBoxShadowInputButtonDateTime
+} from "../../styles/input"
 
 export const AddGameProviderRoundDialogDisclosure = ({
   id,
@@ -128,6 +132,7 @@ const AddRoundDialog = ({ onSubmitted, dialog, dialogId, ...props }) => {
           disabled: isLoading
         }
       }}
+      minWidth="35vw"
     >
       <FormBody />
       {confirmSubmitDialog.visible && (
@@ -184,15 +189,36 @@ const FormBody = ({}) => {
     <WrapperModal>
       <FieldStack>
         <InputField name="playerCode" label={<PlayerCodeTrans />} required />
-        <FieldWrapper label={<GameProviderTrans />}>
-          <GameProviderSubGameProviderSelect
-            gameProviderProps={{
-              name: "gameProviderId",
-              required: true
-            }}
-            subGameProviderProps={{
-              name: SubGameProviderCodeField,
-              required: true
+        <FieldStack orientation="horizontal">
+          <FieldWrapper
+            label={<GameProviderTrans />}
+            css={css`
+              .bb-SelectWrapper {
+                width: 100%;
+              }
+            `}
+          >
+            <GameProviderSubGameProviderSelect
+              gameProviderProps={{
+                name: "gameProviderId",
+                required: true
+              }}
+              subGameProviderProps={{
+                name: SubGameProviderCodeField,
+                required: true
+              }}
+            />
+          </FieldWrapper>
+          <GameSelectField
+            name="gameId"
+            required
+            gameProviderId={gameProviderId}
+            label={<Trans zh="游戏" en="Game" />}
+            filter={(game) => {
+              if (subGameProviderCode) {
+                return game.subGpCode == subGameProviderCode
+              }
+              return true
             }}
             css={css`
               .bb-SelectWrapper {
@@ -200,24 +226,8 @@ const FormBody = ({}) => {
               }
             `}
           />
-        </FieldWrapper>
-        <GameSelectField
-          name="gameId"
-          required
-          gameProviderId={gameProviderId}
-          label={<Trans zh="游戏" en="Game" />}
-          filter={(game) => {
-            if (subGameProviderCode) {
-              return game.subGpCode == subGameProviderCode
-            }
-            return true
-          }}
-          css={css`
-            .bb-SelectWrapper {
-              width: 100%;
-            }
-          `}
-        />
+        </FieldStack>
+
         <InputField
           name="externalRoundId"
           label={<Trans zh="三方訂單ID" en="External ID" />}
@@ -228,22 +238,38 @@ const FormBody = ({}) => {
             id={ExternalCreatedOnField}
             label={<ExternalBetTimeTrans />}
           >
-            <DateTimeInput
-              name={ExternalCreatedOnField}
-              maxDate={externalClosedOn ?? now}
-              required
-            />
+            <RemoveBoxShadowInputButtonDateTime
+              css={css`
+                .react-datepicker-wrapper {
+                  width: 100%;
+                }
+              `}
+            >
+              <DateTimeInput
+                name={ExternalCreatedOnField}
+                maxDate={externalClosedOn ?? now}
+                required
+              />
+            </RemoveBoxShadowInputButtonDateTime>
           </FieldWrapper>
           <FieldWrapper
             id={ExternalClosedOnField}
             label={<Trans zh="三方结算时间" en="External Closed On" />}
           >
-            <DateTimeInput
-              name={ExternalClosedOnField}
-              minDate={externalCreatedOn}
-              maxDate={now}
-              required
-            />
+            <RemoveBoxShadowInputButtonDateTime
+              css={css`
+                .react-datepicker-wrapper {
+                  width: 100%;
+                }
+              `}
+            >
+              <DateTimeInput
+                name={ExternalClosedOnField}
+                minDate={externalCreatedOn}
+                maxDate={now}
+                required
+              />
+            </RemoveBoxShadowInputButtonDateTime>
           </FieldWrapper>
         </FieldStack>
         <FieldStack orientation="horizontal">

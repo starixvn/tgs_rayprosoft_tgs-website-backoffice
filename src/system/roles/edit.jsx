@@ -650,11 +650,6 @@ const EditDialog = ({
       placement="top"
       maxWidth="95vw"
       minWidth="60vw"
-      css={css`
-        & .bb-DialogContent {
-          position: relative;
-        }
-      `}
       id={dialogId}
     >
       <WrapperModal>

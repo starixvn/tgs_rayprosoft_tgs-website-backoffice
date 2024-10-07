@@ -102,6 +102,7 @@ export const FormDialog = ({
             max-height: 70vh;
             padding: 0;
             overflow-y: scroll;
+            position: relative;
             &::-webkit-scrollbar {
               display: none;
             }
