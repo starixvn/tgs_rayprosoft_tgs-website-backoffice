@@ -70,7 +70,7 @@ const VerifyDialog = ({ brandId, record, onSubmitted, dialog, ...props }) => {
     beginTime: parseISO(record.beginTime),
     endTime: record.endTime && parseISO(record.endTime),
     permanent: !record.endTime,
-    remarks: ""
+    remark: ""
   }
 
   if (isLoadingBanner) {
@@ -105,16 +105,15 @@ const EditVerifyDialog = ({
   let formMethods = useForm({ defaultValues })
 
   let [formData, setSubmit] = useState()
-
   let { isLoading, result, error, deleteCache } = useVerifyPlatformBanner(
     brandId,
     record?.id,
     formData
   )
 
-  const onSubmit = ({ remarks, reviewState }) => {
+  const onSubmit = ({ remark, reviewState }) => {
     let data = {
-      remarks,
+      remark,
       reviewState
     }
     setSubmit(data)
@@ -217,10 +216,10 @@ const VerifyBody = ({ readOnly = false } = {}) => {
       ></Box>
 
       <FieldValues padding="1rem 1rem 1rem 1rem">
-        <Label name="remarks">
+        <Label name="remark">
           <RemarkTrans />
         </Label>
-        <Textarea name="remarks" disabled={readOnly} />
+        <Textarea name="remark" disabled={readOnly} />
       </FieldValues>
     </Stack>
   )
