@@ -59,6 +59,7 @@ import {
 import { WrapperModal } from "../../styles/wrapper"
 import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
 import { cssCustomModalXs } from "../../styles/modal"
+import { cssSelectFullWidth } from "../../system/brandpayments/style"
 
 export const PaymentMethodChannelListDialog = ({ dialog, onSubmitted }) => {
   let { isLoading, data, error, mutate, deleteCache } =
@@ -169,17 +170,19 @@ export const AddPaymentMethodChannelDialog = ({ onSubmitted, dialog }) => {
 
 const FormBody = () => {
   return (
-    <FieldStack orientation="horizontal">
-      <FieldWrapper label="Payment Provider">
-        <PaymentProviderSelect name="paymentId" required />
-      </FieldWrapper>
-      <FieldWrapper label="Payment Method">
-        <PaymentMethodSelect name="methodId" required />
-      </FieldWrapper>
-      <FieldWrapper label="Payment Channel">
-        <PaymentChannelSelect name="channelId" required />
-      </FieldWrapper>
-    </FieldStack>
+    <WrapperModal>
+      <FieldStack orientation="horizontal" css={cssSelectFullWidth}>
+        <FieldWrapper label="Payment Provider">
+          <PaymentProviderSelect name="paymentId" required />
+        </FieldWrapper>
+        <FieldWrapper label="Payment Method">
+          <PaymentMethodSelect name="methodId" required />
+        </FieldWrapper>
+        <FieldWrapper label="Payment Channel">
+          <PaymentChannelSelect name="channelId" required />
+        </FieldWrapper>
+      </FieldStack>
+    </WrapperModal>
   )
 }
 
@@ -279,13 +282,18 @@ const DeleteDialog = ({ record, onSubmitted, dialog }) => {
         submitText={<DeleteText />}
         dialog={dialog}
         hideBackdrop
-        width="30vw"
+        minWidth="30vw"
         actionButtonsProps={{
           submitProps: {
             palette: "danger",
             variant: "outlined"
           }
         }}
+        css={css`
+          .bb-DialogIconWrapper {
+            margin-right: 0 !important;
+          }
+        `}
       >
         <WrapperModal>
           <FieldStack orientation="horizontal">

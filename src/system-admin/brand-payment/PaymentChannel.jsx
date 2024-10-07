@@ -11,6 +11,7 @@ import { useFormContext } from "react-hook-form"
 import { Input, InputField } from "../../input/Input"
 import { Update } from "./menu"
 import { useIsDisplayMenuByRoute } from "../../user/context"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const AddPaymentChannelDisclosure = ({ onSubmitted }) => {
   let dialog = useModalState()
@@ -78,9 +79,11 @@ const FormBody = ({}) => {
   let isAdd = !id
   let isEdit = !isAdd
   return (
-    <FieldStack>
-      <InputField name="code" label="Code" readOnly={isEdit} />
-      <Input type="hidden" name={IdFieldName} value={id} />
-    </FieldStack>
+    <WrapperModal>
+      <FieldStack>
+        <InputField name="code" label="Code" readOnly={isEdit} />
+        <Input type="hidden" name={IdFieldName} value={id} />
+      </FieldStack>
+    </WrapperModal>
   )
 }

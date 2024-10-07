@@ -238,7 +238,11 @@ const EditDialog = ({
 }
 
 const EditFormBody = ({ readOnly }) => {
-  return <ExtendedDataField readOnly={readOnly} />
+  return (
+    <WrapperModal>
+      <ExtendedDataField readOnly={readOnly} />
+    </WrapperModal>
+  )
 }
 
 const AddDepositDialog = ({ title, brandId, dialog, onSubmitted }) => {
@@ -408,16 +412,9 @@ const TransferLimitRangeField = () => {
 const ExtendedDataField = ({ readOnly }) => {
   let FieldName = "extendedData"
   return (
-    <WrapperModal>
-      <FieldWrapper label="Extended Data">
-        <JsonEditor
-          name={FieldName}
-          required
-          height="30vh"
-          disabled={readOnly}
-        />
-      </FieldWrapper>
-    </WrapperModal>
+    <FieldWrapper label="Extended Data">
+      <JsonEditor name={FieldName} required height="30vh" disabled={readOnly} />
+    </FieldWrapper>
   )
 }
 
