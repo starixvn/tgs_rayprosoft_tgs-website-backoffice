@@ -1,33 +1,24 @@
-import React, { useState, useEffect } from "react"
-import { Global, css } from "@emotion/react"
-import { Routes, Route, useLocation, Navigate } from "react-router-dom"
+import React, { useEffect } from "react"
+import { css } from "@emotion/react"
+import { Routes, Route, useLocation } from "react-router-dom"
 import {
-  Container,
-  PageContent,
   PageWithHeader,
   PageWithSidebar,
   TopNav,
   SideNav,
-  Stack,
   Box,
   DropdownMenu,
   Button,
   Text,
-  Alert,
-  Modal,
   Icon,
-  Flex,
   useModalState,
   Image,
   usePage,
   Hide
 } from "bumbag"
-import {
-  useIsAuthed as useUserIsAuthed,
-  useMenuCodes,
-  useUserId
-} from "./user/context"
+import { useUserId, useRefreshAuthContext } from "./user/context"
 import { Form as Login, Path as LoginPath } from "./user/login"
+import { Logout, LogoutPath } from "./user/logout"
 import { RequireAuth } from "./user/auth"
 import { AllMenus } from "./menu"
 import { AllContents } from "./content"
@@ -47,21 +38,13 @@ import {
   getHeaderBackground,
   getHeaderButtonBackground,
   getHeaderButtonColor,
-  getHeaderTitle,
-  getHeaderTitleColor,
-  getHeaderTitleFontSize,
-  getHeaderTitleFontWeight,
   getHeaderImageUrl,
-  isDev,
-  Features,
-  isFeatureEnabled
+  isDev
 } from "./env"
 import FundDepositTopNavItem from "./fund/deposit/FundDepositTopNavItem"
 import FundWithdrawTopNavItem from "./fund/withdraw/FundWithdrawTopNavItem"
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import { init as initConnection } from "./connection"
 import { ChangePasswordTrans } from "./trans/User"
-import client from "./client"
 
 //TODO: wait for PH's fix
 if (isDev()) {
@@ -80,6 +63,7 @@ function App() {
     >
       <Routes>
         <Route path={LoginPath} element={<Login />} />
+        <Route path={LogoutPath} element={<Logout />} />
         <Route
           path="*"
           element={
@@ -161,11 +145,23 @@ const Header = () => {
 
   let changePasswordDialog = useModalState()
 
+  const refreshAuthState = useRefreshAuthContext()
+
   const logout = async () => {
     await deauth()
     localStorage.removeItem("selectedMerchant")
-    location.replace(LoginPath)
+    location.replace(LogoutPath)
   }
+
+  const onVisibilityChange = () => {
+    refreshAuthState()
+  }
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", onVisibilityChange)
+    return () =>
+      document.removeEventListener("visibilitychange", onVisibilityChange)
+  }, [])
 
   let imgUrl = getHeaderImageUrl()
   // let title = getHeaderTitle()
