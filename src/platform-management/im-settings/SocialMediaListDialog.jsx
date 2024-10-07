@@ -54,7 +54,7 @@ import {
 } from "../../trans/Field"
 import { SelectField } from "../../select/Select"
 import { Table, useTable } from "../../table"
-import { Trans } from "../../i18n"
+import { useTrans } from "../../i18n"
 import { isDev } from "../../env"
 import { SWRConfig } from "swr"
 import { WrapperModal } from "../../styles/wrapper"
@@ -464,10 +464,9 @@ const DeleteDialog = ({
         <WrapperModal>
           <Alert
             title={
-              <Trans
-                zh={`确认删除 “${name}”`}
-                en={`Confirm delete the “${name}”？`}
-              />
+              useTrans({
+                en: `Confirm delete the `
+              }) + ` “${name}”？`
             }
             type="warning"
             variant=""

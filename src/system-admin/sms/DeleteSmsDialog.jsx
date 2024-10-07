@@ -5,7 +5,7 @@ import { useIsDisplayMenuByRoute } from "../../user/context"
 import { Update, View } from "./menu"
 import { DeleteDisclosure } from "../../dialog/Disclosure"
 import { DeleteTrans, useDeleteTrans } from "../../trans/Action"
-import { Trans } from "../../i18n"
+import { Trans, useTrans } from "../../i18n"
 import FormDialog from "../../form/FormDialog"
 import Backdrop from "../../dialog/Backdrop"
 import { SWRConfig } from "swr"
@@ -92,10 +92,9 @@ const DeleteSmsDialog = ({
       >
         <Alert
           title={
-            <Trans
-              zh={`确认删除 “${name}”`}
-              en={`Confirm delete the “${name}”？`}
-            />
+            useTrans({
+              en: `Confirm delete the `
+            }) + ` “${name}”？`
           }
           type="warning"
           variant=""

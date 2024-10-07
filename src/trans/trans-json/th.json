@@ -847,5 +847,12 @@
   "e_money_name": "ชื่อ E-money",
   "manual_payment": "การชำระเงินด้วยตนเอง",
   "select_payment": "เลือกวิธีการชำระเงิน",
-  "the_name_has_existed_already": "ชื่อมีอยู่แล้ว."
+  "the_name_has_existed_already": "ชื่อมีอยู่แล้ว.",
+  "delete_role": "ลบบทบาท",
+  "confirm_delete_the": "ยืนยันการลบ",
+  "if_an_administrator_is_still_usi": "หากผู้ดูแลระบบยังใช้บทบาทนี้อยู่ จะไม่สามารถลบได้",
+  "delete_department": "ลบแผนก",
+  "include_in_net_profit": "รวมอยู่ในกำไรสุทธิ",
+  "reset_approve": "รีเซ็ตการอนุมัติ",
+  "reset_reject": "รีเซ็ตการปฏิเสธ"
 }

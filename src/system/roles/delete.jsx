@@ -89,10 +89,9 @@ const DeleteDialog = ({
       <WrapperModal>
         <Alert
           title={
-            <Trans
-              zh={`确认删除 “${name}” 权限组？`}
-              en={`Confirm delete the “${name}”？`}
-            />
+            useTrans({
+              en: `Confirm delete the `
+            }) + ` “${name}”？`
           }
           type="warning"
           variant=""

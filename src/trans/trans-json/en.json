@@ -847,5 +847,12 @@
   "e_money_name": "E-money name",
   "manual_payment": "Manual Payment",
   "select_payment": "Select Payment",
-  "the_name_has_existed_already": "The name has existed already."
+  "the_name_has_existed_already": "The name has existed already.",
+  "delete_role": "Delete Role",
+  "confirm_delete_the": "Confirm delete the",
+  "if_an_administrator_is_still_usi": "If an administrator is still using this role, it cannot be deleted",
+  "delete_department": "Delete Department",
+  "include_in_net_profit": "Include in Net Profit",
+  "reset_approve": "Reset Approve",
+  "reset_reject": "Reset Reject"
 }
