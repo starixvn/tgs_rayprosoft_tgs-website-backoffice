@@ -635,50 +635,37 @@ const EditBox = ({ bankType, channelCode = "" }) => {
   }
 }
 
-const useBankInfoBankNameInput = (channelCode = "") => {
-  const isChannelCodeDisabled = true
-  const value = channelCode
-  const onValueChange = () => {}
+const BankNameContextPath = "detail.bankName"
+
+const useBankInfoNameInput = (channelCode) => {
+  const { setValue } = useFormContext()
+  const setBankNameValue = (value) => {
+    setValue(BankNameContextPath, value)
+  }
+  useEffect(() => {
+    if (channelCode !== "") {
+      setBankNameValue(channelCode)
+    }
+
+    if (channelCode == "CustomBank") {
+      setBankNameValue("")
+    }
+  }, [channelCode, setValue])
 
   return {
-    isChannelCodeDisabled,
-    value,
-    onValueChange
-  }
-}
-
-const useCustomBankInfoBankNameInput = () => {
-  const [value, setValue] = useState()
-  const isChannelCodeDisabled = false
-  const onValueChange = (e) => {
-    setValue(e.target.value)
-  }
-
-  return {
-    isChannelCodeDisabled,
-    value,
-    onValueChange
+    isBankNameInputDisabled: channelCode !== "CustomBank"
   }
 }
 
 const EditBank = ({ channelCode = "" }) => {
-  const { isChannelCodeDisabled, value, onValueChange } =
-    channelCode == "CustomBank"
-      ? useCustomBankInfoBankNameInput()
-      : useBankInfoBankNameInput(channelCode)
-
+  const { isBankNameInputDisabled } = useBankInfoNameInput(channelCode)
   return (
     <>
       <Box alignY="center">
         <BankNameLabel />
       </Box>
       <Box alignY="center">
-        <Input
-          name="detail.bankName"
-          value={value}
-          disabled={isChannelCodeDisabled}
-          onChange={onValueChange}
-        />
+        <Input name="detail.bankName" disabled={isBankNameInputDisabled} />
       </Box>
 
       <Box alignY="center">
