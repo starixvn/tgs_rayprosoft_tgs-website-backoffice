@@ -742,7 +742,7 @@ const EditEWallet = ({}) => {
         <PhoneLabel />
       </Box>
       <Box>
-        <Input name="detail.phone" />
+        <Input name="detail.phone" minLength={8} maxLength={10} />
       </Box>
     </>
   )
