@@ -27,6 +27,9 @@ import equals from "fast-deep-equal"
 import { LocalizationDropdownMenu } from "./Localization"
 import { ActionTrans, OperatorTrans } from "../../trans/Action"
 import { CreatedTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -70,21 +73,25 @@ const Body = () => {
           />
           <Set>
             <LocalizationDropdownMenu />
-            <AddSettingDisclosure onSubmitted={mutate} />
+            <SearchAndSubmitButton>
+              <AddSettingDisclosure onSubmitted={mutate} />
+            </SearchAndSubmitButton>
           </Set>
         </Level>
       }
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state?.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state?.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -99,11 +106,13 @@ const SearchBar = ({ _key: key = "", search, isLoading }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(search)}>
         <Set>
-          <InputField
-            name="key"
-            showEmptyFieldValueAddonAfter
-            placeholder="Key"
-          />
+          <CustomInputSearch>
+            <InputField
+              name="key"
+              showEmptyFieldValueAddonAfter
+              placeholder="Key"
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -158,10 +167,12 @@ const useColumns = ({ items = [], mutate }) => {
           disableSortBy: true,
           Cell: ({ value: record }) => {
             return (
-              <Set orientation="horizontal" alignX="center">
-                <ViewSettingDisclosure record={record} />
-                <EditSettingDisclosure record={record} onSubmitted={mutate} />
-              </Set>
+              <ActionTableButton>
+                <Set orientation="horizontal" alignX="center">
+                  <ViewSettingDisclosure record={record} />
+                  <EditSettingDisclosure record={record} onSubmitted={mutate} />
+                </Set>
+              </ActionTableButton>
             )
           }
         })

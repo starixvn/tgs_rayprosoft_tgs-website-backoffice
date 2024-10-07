@@ -28,6 +28,9 @@ import { useForm, Controller } from "react-hook-form"
 import { TextareaField } from "../../textarea"
 import { stringifyJSON } from "../../text/json"
 import { JsonEditor } from "../../text/editor/JsonEditor"
+import { WrapperModal } from "../../styles/wrapper"
+import { cssCustomModalXs } from "../../styles/modal"
+import { cssCustomModalComponent } from "./style"
 
 export const AddSettingDisclosure = ({ onSubmitted }) => {
   let dialog = useModalState()
@@ -93,30 +96,24 @@ const AddDialog = ({ dialog, onSubmitted }) => {
       dialog={dialog}
       showActionButtons
       maxWidth="90vw"
-      width="90vw"
-      height="90vh"
+      minWidth="70vw"
       maxHeight="90vh"
       placement="top"
       css={css`
-        & .bb-DialogContent {
-          flex: 1 100%;
-          max-height: unset;
-
-          > .bb-Box {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-          }
+        .bb-DialogContent {
+          max-height: 90vh;
         }
       `}
     >
-      <FieldStack orientation="vertical" flex="1 100%">
-        <FieldStack orientation="horizontal">
-          <InputField name="key" label="Key" required />
-          <InputField name="description" label="Description" />
+      <WrapperModal>
+        <FieldStack orientation="vertical">
+          <FieldStack orientation="horizontal">
+            <InputField name="key" label="Key" required />
+            <InputField name="description" label="Description" />
+          </FieldStack>
+          <JsonEditor name="value" required height="60vh" />
         </FieldStack>
-        <JsonEditor name="value" required height="60vh" />
-      </FieldStack>
+      </WrapperModal>
     </FormDialog>
   )
 }
@@ -197,30 +194,25 @@ const EditDialog = ({ record, onSubmitted, dialog, dialogId, ...props }) => {
       id={dialogId}
       showActionButtons
       maxWidth="90vw"
-      width="90vw"
-      height="90vh"
+      minWidth="70vw"
+      minHeight="70vh"
       maxHeight="90vh"
       placement="top"
       css={css`
-        & .bb-DialogContent {
-          flex: 1 100%;
-          max-height: unset;
-
-          > .bb-Box {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-          }
+        .bb-DialogContent {
+          max-height: 90vh;
         }
       `}
     >
-      <FieldStack orientation="vertical" flex="1 100%">
-        <FieldStack orientation="horizontal">
-          <InputField name="key" label="Key" disabled />
-          <InputField name="description" label="Description" />
+      <WrapperModal>
+        <FieldStack orientation="vertical" flex="1 100%">
+          <FieldStack orientation="horizontal">
+            <InputField name="key" label="Key" disabled />
+            <InputField name="description" label="Description" />
+          </FieldStack>
+          <JsonEditor name="value" required height="60vh" />
         </FieldStack>
-        <JsonEditor name="value" required height="60vh" />
-      </FieldStack>
+      </WrapperModal>
     </FormDialog>
   )
 }
@@ -264,30 +256,21 @@ const ViewDialog = ({ record, dialog, dialogId }) => {
       {...dialog}
       id={dialogId}
       maxWidth="90vw"
-      width="90vw"
-      height="90vh"
+      minWidth="70vw"
+      minHeight="70vh"
       maxHeight="90vh"
       placement="top"
-      css={css`
-        & .bb-DialogContent {
-          flex: 1 100%;
-          max-height: unset;
-
-          > .bb-Box {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-          }
-        }
-      `}
+      css={cssCustomModalComponent}
     >
-      <FieldStack orientation="vertical" flex="1 100%">
-        <FieldStack orientation="horizontal">
-          <InputField label="Key" value={key} disabled />
-          <InputField label="Description" value={description} disabled />
+      <WrapperModal>
+        <FieldStack orientation="vertical">
+          <FieldStack orientation="horizontal">
+            <InputField label="Key" value={key} disabled />
+            <InputField label="Description" value={description} disabled />
+          </FieldStack>
+          <JsonEditor height="60vh" value={value} disabled />
         </FieldStack>
-        <JsonEditor height="60vh" value={value} disabled />
-      </FieldStack>
+      </WrapperModal>
     </Dialog.Modal>
   )
 }

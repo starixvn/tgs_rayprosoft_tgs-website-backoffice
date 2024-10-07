@@ -28,6 +28,9 @@ import {
   BetLimitMaxBetTrans,
   BetLimitMinBetTrans
 } from "../../trans/BetLimit"
+import { CustomTableStyle } from "../../styles/tablle"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -70,20 +73,24 @@ const Body = () => {
             }}
             isLoading={isLoading}
           />
-          <AddBetLimitDisclosure onSubmitted={mutate} />
+          <SearchAndSubmitButton>
+            <AddBetLimitDisclosure onSubmitted={mutate} />
+          </SearchAndSubmitButton>
         </Flex>
       }
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state?.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state?.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -98,11 +105,13 @@ const SearchBar = ({ keyword = "", search, isLoading }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(search)}>
         <Set>
-          <InputField
-            name="keyword"
-            showEmptyFieldValueAddonAfter
-            placeholder="Keyword"
-          />
+          <CustomInputSearch>
+            <InputField
+              name="keyword"
+              showEmptyFieldValueAddonAfter
+              placeholder="Keyword"
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -165,9 +174,14 @@ const useColumns = ({ items = [], mutate }) => {
           disableSortBy: true,
           Cell: ({ value: record }) => {
             return (
-              <Set orientation="horizontal">
-                <EditBetLimitDisclosure record={record} onSubmitted={mutate} />
-              </Set>
+              <ActionTableButton>
+                <Set orientation="horizontal" alignX="center">
+                  <EditBetLimitDisclosure
+                    record={record}
+                    onSubmitted={mutate}
+                  />
+                </Set>
+              </ActionTableButton>
             )
           }
         })

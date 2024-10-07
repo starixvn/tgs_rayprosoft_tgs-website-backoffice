@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form"
 import { InputField, Input } from "../../input/Input"
 import clone from "clone-deep"
 import { useAddLanguage, useUpdateLanguage } from "../../language/client"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const EditLangDisclosure = ({
   record,
@@ -180,7 +181,7 @@ const FormBody = ({ isAdd = false }) => {
 
   let isEdit = !isAdd
   return (
-    <>
+    <WrapperModal>
       <FieldStack>
         <InputField
           name="cultureCode"
@@ -192,6 +193,6 @@ const FormBody = ({ isAdd = false }) => {
         <InputField name="name" label={nameLabel} required />
         <InputField name="localizedName" label={localizedNameLabel} required />
       </FieldStack>
-    </>
+    </WrapperModal>
   )
 }

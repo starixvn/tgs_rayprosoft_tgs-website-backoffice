@@ -22,6 +22,9 @@ import { useLanguageList } from "../../language/client"
 import equals from "fast-deep-equal"
 import { ActionTrans, OperatorTrans } from "../../trans/Action"
 import { CreatedTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -65,20 +68,24 @@ const Body = () => {
             }}
             isLoading={isLoading}
           />
-          <AddLangDisclosure onSubmitted={mutate} />
+          <SearchAndSubmitButton>
+            <AddLangDisclosure onSubmitted={mutate} />
+          </SearchAndSubmitButton>
         </Flex>
       }
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state?.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state?.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -98,16 +105,20 @@ const SearchBar = ({
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(search)}>
         <Set>
-          <InputField
-            name="cultureCode"
-            showEmptyFieldValueAddonAfter
-            placeholder="Culture Code"
-          />
-          <InputField
-            name="languageCode"
-            showEmptyFieldValueAddonAfter
-            placeholder="Language Code"
-          />
+          <CustomInputSearch>
+            <InputField
+              name="cultureCode"
+              showEmptyFieldValueAddonAfter
+              placeholder="Culture Code"
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="languageCode"
+              showEmptyFieldValueAddonAfter
+              placeholder="Language Code"
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -170,9 +181,11 @@ const useColumns = ({ items = [], mutate }) => {
           disableSortBy: true,
           Cell: ({ value: record }) => {
             return (
-              <Set orientation="horizontal">
-                <EditLangDisclosure record={record} onSubmitted={mutate} />
-              </Set>
+              <ActionTableButton>
+                <Set orientation="horizontal" alignX="center">
+                  <EditLangDisclosure record={record} onSubmitted={mutate} />
+                </Set>
+              </ActionTableButton>
             )
           }
         })

@@ -23,6 +23,7 @@ import clone from "clone-deep"
 import { useAddBetLimit, useUpdateBetLimit } from "../../betlimit/client"
 import { CurrencySelectField } from "../../currency/CurrencySelect"
 import { NumberInputField } from "../../input/NumberInput"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const EditBetLimitDisclosure = ({ record, onSubmitted }) => {
   let dialog = useModalState()
@@ -163,10 +164,18 @@ const FormBody = ({ isAdd = false }) => {
 
   let isEdit = !isAdd
   return (
-    <Box>
+    <WrapperModal>
       {isEdit && <Input type="hidden" name="id" />}
       <FieldStack>
-        <CurrencySelectField name="currencyCode" required />
+        <CurrencySelectField
+          name="currencyCode"
+          required
+          css={css`
+            .bb-SelectWrapper {
+              width: 100%;
+            }
+          `}
+        />
         <NumberInputField name="minBet" min="0" label={minBetLabel} required />
         <NumberInputField
           name="maxBet"
@@ -181,6 +190,6 @@ const FormBody = ({ isAdd = false }) => {
           required
         />
       </FieldStack>
-    </Box>
+    </WrapperModal>
   )
 }

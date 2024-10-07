@@ -24,6 +24,8 @@ import { useDropzone } from "react-dropzone"
 import { useUploadLocalization } from "./client"
 import AlertDialog from "../../dialog/Alert"
 import { getApiUrl } from "../../client"
+import { cssCustomModalXs } from "../../styles/modal"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const LocalizationDropdownMenu = () => {
   let dialog = useModalState()
@@ -146,26 +148,29 @@ const UploadDialog = ({ systemCode, dialog }) => {
         title={title}
         showCloseButton
         hideOnClickOutside={false}
+        css={cssCustomModalXs}
       >
-        {notSelectFile && (
-          <Card
-            title={systemCode}
-            {...getRootProps({
-              id: "file-upload-dropzone",
-              refKey: "elementRef "
-            })}
-          >
-            <input {...getInputProps()} />
-            <p>
-              <Trans zh="选择档案" en="Select File" />
-            </p>
-          </Card>
-        )}
-        {isLoading && (
-          <Card alignX="center">
-            <Spinner />
-          </Card>
-        )}
+        <WrapperModal>
+          {notSelectFile && (
+            <Card
+              title={systemCode}
+              {...getRootProps({
+                id: "file-upload-dropzone",
+                refKey: "elementRef "
+              })}
+            >
+              <input {...getInputProps()} />
+              <p>
+                <Trans zh="选择档案" en="Select File" />
+              </p>
+            </Card>
+          )}
+          {isLoading && (
+            <Card alignX="center">
+              <Spinner />
+            </Card>
+          )}
+        </WrapperModal>
       </Dialog.Modal>
       {error && <AlertDialog {...error} onClickClose={reset} />}
     </>

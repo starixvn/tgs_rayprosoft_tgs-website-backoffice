@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form"
 import { InputField, Input } from "../../input/Input"
 import clone from "clone-deep"
 import { useAddCurrency, useUpdateCurrency } from "../../currency/client"
+import { WrapperModal } from "../../styles/wrapper"
 
 export const EditCurrencyDisclosure = ({
   record,
@@ -177,13 +178,13 @@ const FormBody = ({ isAdd = false }) => {
 
   let isEdit = !isAdd
   return (
-    <>
+    <WrapperModal>
       <FieldStack>
         <InputField name="code" label={codeLabel} disabled={isEdit} />
         <InputField name="name" label={nameLabel} />
         <InputField name="nativeName" label={nativeNameLabel} />
         <InputField name="symbol" label={symbolLabel} />
       </FieldStack>
-    </>
+    </WrapperModal>
   )
 }

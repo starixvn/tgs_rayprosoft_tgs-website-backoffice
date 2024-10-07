@@ -23,6 +23,9 @@ import equals from "fast-deep-equal"
 import { ActionTrans, OperatorTrans } from "../../trans/Action"
 import { CreatedTimeTrans, UpdatedTimeTrans } from "../../trans/Date"
 import { CurrencyTrans } from "../../trans/Payment"
+import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CustomTableStyle } from "../../styles/tablle"
+import { CustomInputSearch } from "../../styles/input"
 
 export { Code }
 
@@ -66,20 +69,24 @@ const Body = () => {
             }}
             isLoading={isLoading}
           />
-          <AddCurrencyDisclosure onSubmitted={mutate} />
+          <SearchAndSubmitButton>
+            <AddCurrencyDisclosure onSubmitted={mutate} />
+          </SearchAndSubmitButton>
         </Flex>
       }
     >
-      <Table
-        columns={columns}
-        data={data?.items}
-        initialState={state}
-        controlledState={state}
-        pageCount={pageCount(state?.pageSize, data?.totalCount)}
-        setPageIndex={setPageIndex}
-        setSortOrder={setSortOrder}
-        isLoading={isLoading}
-      />
+      <CustomTableStyle>
+        <Table
+          columns={columns}
+          data={data?.items}
+          initialState={state}
+          controlledState={state}
+          pageCount={pageCount(state?.pageSize, data?.totalCount)}
+          setPageIndex={setPageIndex}
+          setSortOrder={setSortOrder}
+          isLoading={isLoading}
+        />
+      </CustomTableStyle>
       {error && <AlertDialog {...error} onClickClose={emptyData} />}
     </PageContent>
   )
@@ -94,16 +101,20 @@ const SearchBar = ({ code = "", name = "", search, isLoading }) => {
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(search)}>
         <Set>
-          <InputField
-            name="code"
-            showEmptyFieldValueAddonAfter
-            placeholder="Code"
-          />
-          <InputField
-            name="name"
-            showEmptyFieldValueAddonAfter
-            placeholder="Name"
-          />
+          <CustomInputSearch>
+            <InputField
+              name="code"
+              showEmptyFieldValueAddonAfter
+              placeholder="Code"
+            />
+          </CustomInputSearch>
+          <CustomInputSearch>
+            <InputField
+              name="name"
+              showEmptyFieldValueAddonAfter
+              placeholder="Name"
+            />
+          </CustomInputSearch>
           <SearchButton isLoading={isLoading} disabled={isLoading} />
         </Set>
       </form>
@@ -166,9 +177,14 @@ const useColumns = ({ items = [], mutate }) => {
           disableSortBy: true,
           Cell: ({ value: record }) => {
             return (
-              <Set orientation="horizontal">
-                <EditCurrencyDisclosure record={record} onSubmitted={mutate} />
-              </Set>
+              <ActionTableButton>
+                <Set orientation="horizontal" alignX="center">
+                  <EditCurrencyDisclosure
+                    record={record}
+                    onSubmitted={mutate}
+                  />
+                </Set>
+              </ActionTableButton>
             )
           }
         })
