@@ -17,7 +17,7 @@ import {
   Code,
   Group
 } from "bumbag"
-import { Trans } from "../i18n"
+import { Trans, useTrans } from "../i18n"
 import copy from "clipboard-copy"
 
 const BumbagZIndex = 19900410
@@ -34,13 +34,24 @@ export const AlertDialog = ({
   ...props
 }) => {
   let zIndexString = `${zIndex + 100}`
+
+  const getTitleTrans = (title) => {
+    let titleTrans = title || ""
+    if (title) {
+      titleTrans = useTrans({
+        en: title
+      })
+    }
+    return titleTrans
+  }
+
   return (
     <Modal.State visible={visible} {...props}>
       <Modal.Backdrop zIndex={zIndexString}>
         <Dialog.Modal
           type="danger"
           variant="alert"
-          title={title}
+          title={getTitleTrans(title)}
           placement={placement}
           footer={
             <Flex

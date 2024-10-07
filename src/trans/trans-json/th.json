@@ -565,6 +565,7 @@
   "interval_should_be_less_than": "ระยะเวลาควรน้อยกว่า",
   "days": "วัน",
   "won": "ชนะ",
+  "win": "ชนะ",
   "lost": "แพ้",
   "draw": "เสมอ",
   "void": "โมฆะ",
@@ -845,5 +846,6 @@
   "review_deposit": "ตรวจสอบเงินฝาก",
   "e_money_name": "ชื่อ E-money",
   "manual_payment": "การชำระเงินด้วยตนเอง",
-  "select_payment": "เลือกวิธีการชำระเงิน"
+  "select_payment": "เลือกวิธีการชำระเงิน",
+  "the_name_has_existed_already": "ชื่อมีอยู่แล้ว."
 }

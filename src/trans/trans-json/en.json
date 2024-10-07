@@ -846,5 +846,6 @@
   "review_deposit": "Review Deposit",
   "e_money_name": "E-money name",
   "manual_payment": "Manual Payment",
-  "select_payment": "Select Payment"
+  "select_payment": "Select Payment",
+  "the_name_has_existed_already": "The name has existed already."
 }
