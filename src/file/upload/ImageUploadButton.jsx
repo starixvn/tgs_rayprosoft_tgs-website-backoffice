@@ -9,7 +9,7 @@ import { useFormContext, useWatch } from "react-hook-form"
 import FileUploadButton from "./FileUploadButton"
 import { faEye } from "@fortawesome/free-solid-svg-icons"
 
-const DefaultAccept = "image/jpeg, image/png, image/webp, image/gif"
+const DefaultAccept = "image/jpeg, image/png, image/webp"
 
 export const ImageUploadButton = ({
   id,
@@ -158,7 +158,11 @@ const UploadButton = ({ label, prefix, ...props }) => {
   const useUpload = (body) => useUploadImage(prefix, body)
 
   return (
-    <FileUploadButton accept={DefaultAccept} useUpload={useUpload} {...props}>
+    <FileUploadButton
+      accept=".jpeg,.png,.webp"
+      useUpload={useUpload}
+      {...props}
+    >
       {label || <Trans zh="图片上传" en="Image Upload" />}
     </FileUploadButton>
   )

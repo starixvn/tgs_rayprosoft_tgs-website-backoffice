@@ -44,10 +44,11 @@ export const PlayerStatusSelect = ({ placeholder, ...props }) => {
       label: useUserStatusEnabledTrans(),
       value: Enabled
     },
-    {
-      label: usePlayerStatusRegisterUndoneTrans(),
-      value: RegisterUndone
-    },
+    // TODO: Remove for phase 1
+    // {
+    //   label: usePlayerStatusRegisterUndoneTrans(),
+    //   value: RegisterUndone
+    // },
     {
       label: useUserStatusDisabledTrans(),
       value: Disabled
