@@ -89,6 +89,7 @@ import {
   AutoOrManualSwitch,
   AutoOrManualSwitchLabel
 } from "../../switch/AutoOrManualSwitch"
+import { spacingForm } from "../../styles/spacing"
 
 export const PlayerInfoKey = "player"
 
@@ -441,11 +442,7 @@ export const PlayerInfoPanel = ({
     <TabPanel tabId={PlayerInfoKey} {...props}>
       <Columns>
         <Columns.Column spread={5}>
-          <FieldValues
-            css={css`
-              gap: 16px 24px;
-            `}
-          >
+          <FieldValues css={spacingForm}>
             {isAdmin && (
               <>
                 <Text fontWeight="bold">

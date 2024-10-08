@@ -69,6 +69,7 @@ import { CustomInputPlayerListCss, minWithSelect } from "../style"
 import { WrapperBg } from "../../styles/wrapper"
 import { CustomTableStyle } from "../../styles/tablle"
 import { ActionTableButton } from "../../styles/button"
+import { CopyTextBox } from "../../text/CopyTextBox"
 
 export { Code }
 
@@ -365,7 +366,9 @@ const useColumns = ({
       textColumn({
         accessor: "realName",
         Header: <RealNameTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        maxWidth: "8rem",
+        Cell: ({ value = "" }) => <CopyTextBox value={value} isCopy={false} />
       }),
       dateTimeColumn({
         accessor: "registeredTime",

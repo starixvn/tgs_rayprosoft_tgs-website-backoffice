@@ -24,6 +24,7 @@ export const CopyTextBox = ({
   width = "100%",
   overflow = "hidden",
   textOverflow = "ellipsis",
+  isCopy = true,
   value = "",
   ...props
 }) => {
@@ -32,7 +33,7 @@ export const CopyTextBox = ({
     <Box>
       <Popover.Disclosure
         {...popover}
-        onClick={() => copy(value)}
+        onClick={() => isCopy && copy(value)}
         width={width}
         overflow={overflow}
         textOverflow={textOverflow}
@@ -43,12 +44,16 @@ export const CopyTextBox = ({
       {popover.visible && (
         <Popover
           hasArrow
-          maxWidth="90vw"
+          maxWidth="70vw"
           whiteSpace="normal"
           {...popover}
           css={customPopover}
+          wordBreak="break-word"
         >
-          <Trans zh={`复制了 ${value}`} en={`${value} Copied`} />
+          <Trans
+            zh={`复制了 ${value}`}
+            en={`${value} ${!isCopy ? "" : "Copied"}`}
+          />
         </Popover>
       )}
     </Box>
