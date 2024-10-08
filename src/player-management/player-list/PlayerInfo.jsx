@@ -90,6 +90,7 @@ import {
   AutoOrManualSwitchLabel
 } from "../../switch/AutoOrManualSwitch"
 import { spacingForm } from "../../styles/spacing"
+import CustomToolTip from "../../text/CustomToolTip"
 
 export const PlayerInfoKey = "player"
 
@@ -458,9 +459,7 @@ export const PlayerInfoPanel = ({
             <Text fontWeight="bold">
               <RealNameTrans />
             </Text>
-            <Box>
-              <Text data-field="realName">{realName}</Text>
-            </Box>
+            <CustomToolTip text={realName} placement="bottom" maxLength={30} />
             <Text fontWeight="bold">
               <BirthdayTrans />
             </Text>
