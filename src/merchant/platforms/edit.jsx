@@ -333,6 +333,15 @@ const EditDialog = ({ brandId, licenseeId, onSubmitted, dialog, ...props }) => {
     formData
   )
 
+  const reset = () => {
+    // mutateBrand(undefined, false)
+    // deleteBrandCache()
+
+    deleteCache()
+    mutate(undefined, false)
+    setSubmit(null)
+  }
+
   let title = useEditTrans()
 
   if (isLoadingBrand) {
@@ -374,14 +383,7 @@ const EditDialog = ({ brandId, licenseeId, onSubmitted, dialog, ...props }) => {
     setSubmit(formData)
   }
 
-  const reset = () => {
-    mutateBrand(undefined, false)
-    deleteBrandCache()
 
-    deleteCache()
-    mutate(undefined, false)
-    setSubmit(null)
-  }
 
   let record = {
     domains: [],

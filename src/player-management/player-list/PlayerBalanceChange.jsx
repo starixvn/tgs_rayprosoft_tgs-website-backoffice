@@ -26,6 +26,7 @@ import PlayerAdjustBalanceType, {
   usePlayerAdjustBalanceTypeOptionList,
   PlayerAdjustBalanceTypeLabel
 } from "../balance-adjustment/PlayerAdjustBalanceType"
+import { CopyTextBox } from "../../text/CopyTextBox"
 import { BalanceChangeRecordsTrans, BalanceTrans } from "../../trans/User"
 import {
   RemarkTrans,
@@ -216,7 +217,9 @@ const useColumns = ({ items = [] }) =>
         accessor: "externalTransactionId",
         Header: <TransactionIdTrans />,
         textAlign: "center",
-        disableSortBy: true
+        disableSortBy: true,
+        maxWidth: "8rem",
+        Cell: ({ value = "" }) => <CopyTextBox value={value} isCopy={false} />
       }),
       numberDecimalColumn({
         accessor: "balance",

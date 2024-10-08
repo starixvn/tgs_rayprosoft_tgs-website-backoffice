@@ -447,6 +447,7 @@ const VerifyDialog = ({ record, onSubmitted, dialog, ...props }) => {
   }
 
   const reset = () => {
+    deleteCache()
     setSubmit(null)
   }
 
