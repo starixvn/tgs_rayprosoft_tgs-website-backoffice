@@ -7,7 +7,8 @@ import {
   usePut,
   usePutData,
   useDelete,
-  usePatchData
+  usePatchData,
+  getApiUrl
 } from "../../client"
 import { useApiMerge } from "../../client/useApiMerge."
 import { isEmpty, isNil, isBoolean } from "lodash-es"
@@ -15,7 +16,9 @@ import { either, pick } from "ramda"
 
 let isNilOrEmpty = either(isNil, isEmpty)
 
-export let API = "/api/player"
+const apiUrl = getApiUrl()
+
+export let API = `${apiUrl}/api/player`
 
 export const usePlayerList = (searchParams) => {
   let url = searchParams ? urlWith(searchParams, API) : ""

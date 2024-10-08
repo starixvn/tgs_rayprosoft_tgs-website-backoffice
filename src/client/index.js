@@ -95,7 +95,7 @@ export const fetchDelete = (url, options) => fetchApi("DELETE", url, options)
 
 export const getApiUrl = () => window?.envConfigs?.apiUrl || ""
 
-const getUrl = (endPoint) => {
+export const getUrl = (endPoint) => {
   const apiUrl = getApiUrl()
   return apiUrl ? new URL(endPoint, apiUrl).toString() : apiUrl + endPoint
 }

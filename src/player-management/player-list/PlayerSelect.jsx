@@ -11,7 +11,7 @@ import { css, Global } from "@emotion/react"
 import { Box, Popover } from "bumbag"
 import { AsyncPaginate } from "react-select-async-paginate"
 import { API, usePlayerList } from "./client"
-import { getApiUrl, urlWith } from "../../client"
+import { urlWith } from "../../client"
 import {
   useForm,
   useFormContext,
@@ -70,12 +70,7 @@ export const PlayerSelect = ({
                 sortby: "username",
                 orderby: SortOrder.Ascending
               }
-              const apiUrl = getApiUrl()
-              console.log("API URL: ", apiUrl)
-              const url = `${apiUrl}${urlWith(searchParams, API)}`
-              console.log("URL: ", url)
-
-              const response = await fetch(url)
+              const response = await fetch(urlWith(searchParams, API))
               const result = await response.json()
 
               let loadedSize = (page - 1) * rows + result.items.length
