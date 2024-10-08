@@ -10,7 +10,6 @@ import { isNull, isUndefined } from "lodash-es"
 const notNil = complement(isNil)
 
 export const urlWith = (searchParams = {}, url) => {
-  url = getUrl(url)
   let urlSearchParams = Object.entries(searchParams).reduce(
     (searchParams, [key, value]) => {
       if (isEmptyString(value) || isNilOrUndefined(value)) {
