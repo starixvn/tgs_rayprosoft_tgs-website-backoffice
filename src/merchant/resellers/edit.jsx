@@ -48,6 +48,8 @@ import { AddTrans, EditTrans } from "../../trans/Action"
 import { BasicInformationTrans } from "../../trans/Field"
 import { SWRConfig } from "swr"
 import { faPen } from "@fortawesome/free-solid-svg-icons"
+import { WrapperModal } from "../../styles/wrapper"
+import CustomToolTip from "../../text/CustomToolTip"
 
 export const AddButton = ({ onSubmitted, ...props }) => {
   let dialog = useModalState()
@@ -448,40 +450,43 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
 
   let editable = !readonly
   return (
-    <Stack orientation="vertical" padding="5rem 1rem 1rem 1rem">
-      <Heading use="h5" marginBottom="major-3">
-        <BasicInformationTrans />
-      </Heading>
-      <FieldValues
-        css={css`
-          gap: 18px 10px;
-          input,
-          textarea {
-            &:focus {
-              box-shadow: none !important;
+    <WrapperModal>
+      <Stack orientation="vertical">
+        <Heading use="h5" marginBottom="major-3">
+          <BasicInformationTrans />
+        </Heading>
+        <FieldValues
+          css={css`
+            gap: 18px 10px;
+            input,
+            textarea {
+              &:focus {
+                box-shadow: none !important;
+              }
             }
-          }
-          textarea {
-            border-radius: 6px !important;
-          }
-        `}
-      >
-        <NormalLabel>
-          <Trans zh="商户类型" en="Type" />
-        </NormalLabel>
-        <Box alignY="center">
-          {editable && <BusinessTypeRadioGroup disabled={readonly || !isAdd} />}
-          {readonly && <Text.Block>{record?.businessType}</Text.Block>}
-        </Box>
-        <NormalLabel>
-          <Trans zh="总公司代码" en="Code" />
-        </NormalLabel>
-        <Box alignY="center">
-          <Input
-            name="code"
-            type={isAdd ? "input" : "hidden"}
-            required={isAdd}
-            /*
+            textarea {
+              border-radius: 6px !important;
+            }
+          `}
+        >
+          <NormalLabel>
+            <Trans zh="商户类型" en="Type" />
+          </NormalLabel>
+          <Box alignY="center">
+            {editable && (
+              <BusinessTypeRadioGroup disabled={readonly || !isAdd} />
+            )}
+            {readonly && <Text.Block>{record?.businessType}</Text.Block>}
+          </Box>
+          <NormalLabel>
+            <Trans zh="总公司代码" en="Code" />
+          </NormalLabel>
+          <Box alignY="center">
+            <Input
+              name="code"
+              type={isAdd ? "input" : "hidden"}
+              required={isAdd}
+              /*
             inputProps={
               isDev()
                 ? {
@@ -497,34 +502,43 @@ const EditBody = ({ record = {}, readonly = false, isAdd = false }) => {
                 : {}
             }
              */
-          />
-          {!isAdd && <Text.Block>{getValues("code")}</Text.Block>}
-        </Box>
-        <NormalLabel>
-          <Trans zh="总公司名称" en="Name" />
-        </NormalLabel>
-        <Box alignY="center">
-          {editable && <Input name="name" required />}
-          {readonly && <Text.Block>{record?.name}</Text.Block>}
-        </Box>
-        <NormalLabel>
-          <Trans zh="总公司简介" en="Description" />
-        </NormalLabel>
-        <Box alignY="center">
-          {editable && <Textarea name="description" />}
-          {readonly && <Text.Block>{record.description}</Text.Block>}
-        </Box>
-        <NormalLabel>
-          <Trans zh="总公司邮箱" en="Email" />
-        </NormalLabel>
-        <Box alignY="center">
-          {editable && <Input type="email" name="operationalEmail" required />}
-          {readonly && <Text.Block>{record.operationalEmail}</Text.Block>}
-        </Box>
-        <LanguageFieldsBox readonly={readonly} />
-        <CurrencyBetLimitFieldsBox readonly={readonly} />
-        <GameProviderFieldsBox readonly={readonly} />
-      </FieldValues>
-    </Stack>
+            />
+            {!isAdd && <Text.Block>{getValues("code")}</Text.Block>}
+          </Box>
+          <NormalLabel>
+            <Trans zh="总公司名称" en="Name" />
+          </NormalLabel>
+          <Box alignY="center">
+            {editable && <Input name="name" required />}
+            {readonly && <Text.Block>{record?.name}</Text.Block>}
+          </Box>
+          <NormalLabel>
+            <Trans zh="总公司简介" en="Description" />
+          </NormalLabel>
+          <Box alignY="center">
+            {editable && <Textarea name="description" />}
+            {readonly && (
+              <CustomToolTip
+                text={record.description}
+                placement="bottom"
+                maxLength={60}
+              />
+            )}
+          </Box>
+          <NormalLabel>
+            <Trans zh="总公司邮箱" en="Email" />
+          </NormalLabel>
+          <Box alignY="center">
+            {editable && (
+              <Input type="email" name="operationalEmail" required />
+            )}
+            {readonly && <Text.Block>{record.operationalEmail}</Text.Block>}
+          </Box>
+          <LanguageFieldsBox readonly={readonly} />
+          <CurrencyBetLimitFieldsBox readonly={readonly} />
+          <GameProviderFieldsBox readonly={readonly} />
+        </FieldValues>
+      </Stack>
+    </WrapperModal>
   )
 }

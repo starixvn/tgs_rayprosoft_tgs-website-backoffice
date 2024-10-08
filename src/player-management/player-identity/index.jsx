@@ -49,6 +49,7 @@ import { CustomInputPlayerIdCss } from "../style"
 import { ActionTableButton } from "../../styles/button"
 import { WrapperBg } from "../../styles/wrapper"
 import { CustomTableStyle } from "../../styles/tablle"
+import { CopyTextBox } from "../../text/CopyTextBox"
 
 export { Code }
 
@@ -245,7 +246,9 @@ const useColumns = ({ mutate, items = [], brandId, brand } = {}) => {
       textColumn({
         accessor: "realName",
         Header: <RealNameTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        maxWidth: "8rem",
+        Cell: ({ value = "" }) => <CopyTextBox value={value} isCopy={false} />
       }),
       textColumn({
         accessor: "idNumber",

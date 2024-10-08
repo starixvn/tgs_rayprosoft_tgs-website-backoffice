@@ -240,7 +240,7 @@ const AddDialog = ({ dialog, dialogId, onSubmitted }) => {
           />
         )}
         {roleTypeOptions.length > 1 && (
-          <FieldValues marginBottom="16px">
+          <FieldValues css={spacingForm} marginBottom="16px">
             <Label name="roleType">
               <Trans zh="权限组类型" en="Role Type" />
             </Label>

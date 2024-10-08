@@ -26,6 +26,7 @@ import { StatusTrans } from "../../trans/Status"
 import { CustomTableStyle } from "../../styles/tablle"
 import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
 import { CustomInputSearch } from "../../styles/input"
+import { CopyTextBox } from "../../text/CopyTextBox"
 
 export { Code }
 
@@ -163,7 +164,7 @@ const useColumns = ({ items = [], mutate }) => {
         Header: <Trans zh="总公司名称" en="Name" />,
         disableSortBy: true
       }),
-      {
+      textColumn({
         accessor: "description",
         Header: <Trans zh="总公司简介" en="Description" />,
         disableSortBy: true,
@@ -171,10 +172,9 @@ const useColumns = ({ items = [], mutate }) => {
           textAlign: "center",
           whiteSpace: "nowrap"
         },
-        cell: {
-          textAlign: "center"
-        }
-      },
+        maxWidth: "30rem",
+        Cell: ({ value = "" }) => <CopyTextBox value={value} isCopy={false} />
+      }),
       {
         accessor: "operationalEmail",
         Header: <Trans zh="总公司邮箱" en="Email" />,
