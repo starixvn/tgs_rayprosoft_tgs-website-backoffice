@@ -861,5 +861,7 @@
   "name_exists_already": "ชื่อนี้มีอยู่แล้ว",
   "language_is_required": "จำเป็นต้องระบุภาษา",
   "currency_is_required": "จำเป็นต้องระบุสกุลเงิน",
-  "game_provider_is_required": "จำเป็นต้องระบุผู้ให้บริการเกม"
+  "game_provider_is_required": "จำเป็นต้องระบุผู้ให้บริการเกม",
+  "set_this_card_as_default": "ตั้งค่าบัตรนี้เป็นบัตรเริ่มต้น?",
+  "do_you_want_to_delete_this_card": "คุณต้องการลบบัตรนี้หรือไม่?"
 }

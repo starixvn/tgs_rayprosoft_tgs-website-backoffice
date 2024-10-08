@@ -861,5 +861,7 @@
   "name_exists_already": "Name exists already.",
   "language_is_required": "Language is Required.",
   "currency_is_required": "Currency is required.",
-  "game_provider_is_required": "Game Provider is required."
+  "game_provider_is_required": "Game Provider is required.",
+  "set_this_card_as_default": "Set this card as default?",
+  "do_you_want_to_delete_this_card": "Do you want to delete this card?"
 }
