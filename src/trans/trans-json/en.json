@@ -854,5 +854,12 @@
   "delete_department": "Delete Department",
   "include_in_net_profit": "Include in Net Profit",
   "reset_approve": "Reset Approve",
-  "reset_reject": "Reset Reject"
+  "reset_reject": "Reset Reject",
+  "system_is_busy_please_contact_sy": "System is busy, please contact system administrator for more info.",
+  "one_or_more_validation_errors_oc": "One or more validation errors occurred.",
+  "code_exists_already": "Code exists already.",
+  "name_exists_already": "Name exists already.",
+  "language_is_required": "Language is Required.",
+  "currency_is_required": "Currency is required.",
+  "game_provider_is_required": "Game Provider is required."
 }

@@ -854,5 +854,12 @@
   "delete_department": "ลบแผนก",
   "include_in_net_profit": "รวมอยู่ในกำไรสุทธิ",
   "reset_approve": "รีเซ็ตการอนุมัติ",
-  "reset_reject": "รีเซ็ตการปฏิเสธ"
+  "reset_reject": "รีเซ็ตการปฏิเสธ",
+  "system_is_busy_please_contact_sy": "ระบบกำลังยุ่ง กรุณาติดต่อผู้ดูแลระบบเพื่อขอข้อมูลเพิ่มเติม",
+  "one_or_more_validation_errors_oc": "เกิดข้อผิดพลาดในการตรวจสอบอย่างน้อยหนึ่งรายการ",
+  "code_exists_already": "โค้ดนี้มีอยู่แล้ว",
+  "name_exists_already": "ชื่อนี้มีอยู่แล้ว",
+  "language_is_required": "จำเป็นต้องระบุภาษา",
+  "currency_is_required": "จำเป็นต้องระบุสกุลเงิน",
+  "game_provider_is_required": "จำเป็นต้องระบุผู้ให้บริการเกม"
 }
