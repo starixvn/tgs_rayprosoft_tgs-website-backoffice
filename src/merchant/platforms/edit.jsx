@@ -10,7 +10,8 @@ import {
   Button,
   Set,
   Group,
-  Icon
+  Icon,
+  Tooltip
 } from "bumbag"
 import { useIsDisplayMenuByRoute, useUserLicenseeId } from "../../user/context"
 import Disclosure, {
@@ -279,21 +280,23 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure
-        data-platform-id={record?.id}
-        {...dialog}
-        {...props}
-        palette="secondary"
-      >
-        {/* <EditTrans /> */}
-        <Icon
-          icon={faPen}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip content={<EditTrans />} hasArrow placement="bottom">
+        <Disclosure
+          data-platform-id={record?.id}
+          {...dialog}
+          {...props}
+          palette="secondary"
+        >
+          <Icon
+            icon={faPen}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <EditDialog

@@ -10,7 +10,8 @@ import {
   FieldStack,
   Columns,
   Code,
-  Icon
+  Icon,
+  Tooltip
 } from "bumbag"
 import { useIsDisplayMenuByRoute, useUserResellerId } from "../../user/context"
 import Disclosure, { ViewDisclosure } from "../../dialog/Disclosure"
@@ -275,16 +276,18 @@ export const EditButton = ({ record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} palette="secondary">
-        {/* <EditTrans /> */}
-        <Icon
-          icon={faPen}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip content={<EditTrans />} hasArrow placement="bottom">
+        <Disclosure {...dialog} palette="secondary">
+          <Icon
+            icon={faPen}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <EditDialog

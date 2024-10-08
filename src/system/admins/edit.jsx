@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Stack, Box, Button, Text, Modal, Set, Icon } from "bumbag"
+import { Stack, Box, Button, Text, Modal, Set, Icon, Tooltip } from "bumbag"
 import { DepartmentSelect } from "../departments/DepartmentSelect"
 import { RoleSelect } from "../roles/select"
 import { Trans, useTrans } from "../../i18n"
@@ -83,16 +83,18 @@ export const EditButton = ({ user, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props} palette="secondary">
-        {/* <EditTrans /> */}
-        <Icon
-          icon={faPen}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip content={<EditTrans />} hasArrow placement="bottom">
+        <Disclosure {...dialog} {...props} palette="secondary">
+          <Icon
+            icon={faPen}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <EditDialog user={user} onSubmitted={onSubmitted} dialog={dialog} />
       )}

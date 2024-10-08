@@ -13,7 +13,8 @@ import {
   Card,
   Link,
   Table,
-  useModalState
+  useModalState,
+  Tooltip
 } from "bumbag"
 import {
   useTrans,
@@ -56,6 +57,7 @@ import { UserNameTrans } from "../../trans/User"
 import { cssCustomModalXs } from "../../styles/modal"
 import { WrapperModal } from "../../styles/wrapper"
 import { spacingForm } from "../../styles/spacing"
+import { ViewTrans } from "../../trans/Action"
 
 loader.config({
   paths: ConfigPaths
@@ -73,9 +75,12 @@ export const GameRoundDialogDisclosure = ({
   id = id ?? (dialogId ? `${dialogId}-disclosure` : undefined)
   return (
     <>
-      <Disclosure id={id} {...dialog} {...props} palette="success">
-        {label}
-      </Disclosure>
+      <Tooltip content={<ViewTrans />} hasArrow placement="bottom">
+        <Disclosure id={id} {...dialog} {...props} palette="success">
+          {label}
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <GameRoundDialog record={record} dialog={dialog} dialogId={dialogId} />
       )}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Stack, Modal, Box, Icon } from "bumbag"
+import { Stack, Modal, Box, Icon, Tooltip } from "bumbag"
 import { Create as CreateMenu, Update as UpdateMenu } from "./menu"
 import {
   useIsDisplayMenuByRoute,
@@ -207,16 +207,19 @@ export const EditButton = ({ id = "", record, onSubmitted, ...props }) => {
   let disclosureId = `${dialogId}-disclosure`
   return (
     <>
-      <Disclosure id={disclosureId} {...dialog} palette="secondary">
-        {/* <EditTrans /> */}
-        <Icon
-          icon={faPen}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip content={<EditTrans />} hasArrow placement="bottom">
+        <Disclosure id={disclosureId} {...dialog} palette="secondary">
+          {/* <EditTrans /> */}
+          <Icon
+            icon={faPen}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <EditDialog
           id={id}

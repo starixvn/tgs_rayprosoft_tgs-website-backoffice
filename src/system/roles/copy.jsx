@@ -13,7 +13,8 @@ import {
   Dialog,
   Modal,
   useClassName,
-  Icon
+  Icon,
+  Tooltip
 } from "bumbag"
 import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import AlertDialog from "../../dialog/Alert"
@@ -45,25 +46,31 @@ export const CopyButton = ({ id, name, onSubmitted, disabled, ...props }) => {
           cursor: ${disabled ? "not-allowed" : "pointer"} !important;
         `}
       >
-        <Disclosure
-          id={disclosureId}
-          // disabled={disabled}
-          {...dialog}
-          palette="secondary"
-          css={css`
-            opacity: ${disabled ? "0.7" : "1"} !important;
-            pointer-events: ${disabled ? "none" : "unset"} !important;
-          `}
+        <Tooltip
+          content={<Trans zh="复制" en="Copy" />}
+          hasArrow
+          placement="bottom"
         >
-          {/* <Trans zh="复制" en="Copy" /> */}
-          <Icon
-            icon={faCopy}
-            type="font-awesome"
-            color="#080a0c"
-            fontSize="16px"
-            fontWeight="400"
-          />
-        </Disclosure>
+          <Disclosure
+            id={disclosureId}
+            // disabled={disabled}
+            {...dialog}
+            palette="secondary"
+            css={css`
+              opacity: ${disabled ? "0.7" : "1"} !important;
+              pointer-events: ${disabled ? "none" : "unset"} !important;
+            `}
+          >
+            {/* <Trans zh="复制" en="Copy" /> */}
+            <Icon
+              icon={faCopy}
+              type="font-awesome"
+              color="#080a0c"
+              fontSize="16px"
+              fontWeight="400"
+            />
+          </Disclosure>
+        </Tooltip>
       </div>
       {dialog.visible && (
         <CopyDialog

@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { css, Stack, Heading, Box, Button, useModalState, Icon } from "bumbag"
+import {
+  css,
+  Stack,
+  Heading,
+  Box,
+  Button,
+  useModalState,
+  Icon,
+  Tooltip
+} from "bumbag"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import { ViewDetail, UpdateDetail } from "./menu"
 import Disclosure, { EditDisclosure } from "../../dialog/Disclosure"
@@ -52,16 +61,18 @@ export const PlatformGameDetailButton = ({ record, onSubmitted, ...props }) => {
   let readOnly = !editable
   return (
     <>
-      <Disclosure {...dialog} {...props} palette="success">
-        {/* <GameDetailTrans /> */}
-        <Icon
-          icon={faMagnifyingGlass}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip content={<GameDetailTrans />} hasArrow placement="bottom">
+        <Disclosure {...dialog} {...props} palette="success">
+          <Icon
+            icon={faMagnifyingGlass}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <SWRConfig value={{ provider: () => new Map() }}>
           <PlatformGameDetailDialog

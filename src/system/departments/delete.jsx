@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Alert, Button, Icon, Modal } from "bumbag"
+import { Alert, Button, Icon, Modal, Tooltip } from "bumbag"
 import { Delete as DeleteMenu } from "./menu"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import Disclosure from "../../dialog/Disclosure"
@@ -22,16 +22,23 @@ export const DeleteButton = ({ id, name, onSubmitted, ...props }) => {
   let disclosureId = `${dialogId}-disclosure`
   return (
     <>
-      <Disclosure id={disclosureId} palette="danger" {...dialog}>
-        {/* <Trans zh="删除" en="Delete" /> */}
-        <Icon
-          icon={faTrash}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip
+        content={<Trans zh="删除" en="Delete" />}
+        hasArrow
+        placement="bottom"
+      >
+        <Disclosure id={disclosureId} palette="danger" {...dialog}>
+          {/* <Trans zh="删除" en="Delete" /> */}
+          <Icon
+            icon={faTrash}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <DeleteDialog
           id={id}

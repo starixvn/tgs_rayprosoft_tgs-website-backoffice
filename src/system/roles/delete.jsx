@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from "react"
 import { css, Global } from "@emotion/react"
-import { Alert, Button, Text, Modal, Icon } from "bumbag"
+import { Alert, Button, Text, Modal, Icon, Tooltip } from "bumbag"
 import { Delete as DeleteMenu } from "./menu"
 import { useIsDisplayMenuByRoute } from "../../user/context"
 import Disclosure from "../../dialog/Disclosure"
@@ -22,25 +22,31 @@ export const DeleteButton = ({ id, name, onSubmitted, ...props }) => {
   let disclosureId = `${dialogId}-disclosure`
   return (
     <>
-      <Disclosure palette="danger" id={disclosureId} {...dialog}>
-        {/* <Trans zh="删除" en="Delete" /> */}
-        <Icon
-          icon={faTrash}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
-      {dialog.visible && (
-        <DeleteDialog
-          id={id}
-          name={name}
-          onSubmitted={onSubmitted}
-          dialog={dialog}
-          dialogId={dialogId}
-        />
-      )}
+      <Tooltip
+        content={<Trans zh="删除" en="Delete" />}
+        hasArrow
+        placement="bottom"
+      >
+        <Disclosure palette="danger" id={disclosureId} {...dialog}>
+          {/* <Trans zh="删除" en="Delete" /> */}
+          <Icon
+            icon={faTrash}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+        {dialog.visible && (
+          <DeleteDialog
+            id={id}
+            name={name}
+            onSubmitted={onSubmitted}
+            dialog={dialog}
+            dialogId={dialogId}
+          />
+        )}
+      </Tooltip>
     </>
   )
 }

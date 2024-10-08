@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef, forwardRef } from "react"
-import { Button, Modal, css, Icon } from "bumbag"
+import { Button, Modal, css, Icon, Tooltip } from "bumbag"
 import { Trans } from "../i18n"
 import {
   faCog,
@@ -40,29 +40,31 @@ export const Disclosure = forwardRef(
 )
 
 export const ViewDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props} palette="success">
-    {/* <ViewTrans /> */}
-    <Icon
-      icon={faMagnifyingGlass}
-      type="font-awesome"
-      color="#080a0c"
-      fontSize="16px"
-      fontWeight="400"
-    />
-  </Disclosure>
+  <Tooltip content={<ViewTrans />} hasArrow placement="bottom">
+    <Disclosure ref={ref} {...props} palette="success">
+      <Icon
+        icon={faMagnifyingGlass}
+        type="font-awesome"
+        color="#080a0c"
+        fontSize="16px"
+        fontWeight="400"
+      />
+    </Disclosure>
+  </Tooltip>
 ))
 
 export const EditDisclosure = forwardRef((props, ref) => (
-  <Disclosure ref={ref} {...props} palette="secondary">
-    <Icon
-      icon={faPen}
-      type="font-awesome"
-      color="#080a0c"
-      fontSize="16px"
-      fontWeight="400"
-    />
-    {/* <EditTrans /> */}
-  </Disclosure>
+  <Tooltip content={<EditTrans />} hasArrow placement="bottom">
+    <Disclosure ref={ref} {...props} palette="secondary">
+      <Icon
+        icon={faPen}
+        type="font-awesome"
+        color="#080a0c"
+        fontSize="16px"
+        fontWeight="400"
+      />
+    </Disclosure>
+  </Tooltip>
 ))
 
 export const AddDisclosure = forwardRef((props, ref) => (
@@ -73,16 +75,17 @@ export const AddDisclosure = forwardRef((props, ref) => (
 
 export const DeleteDisclosure = forwardRef(
   ({ palette = "danger", variant = "primary", ...props }, ref) => (
-    <Disclosure ref={ref} palette={palette} variant={variant} {...props}>
-      {/* <DeleteTrans /> */}
-      <Icon
-        icon={faTrash}
-        type="font-awesome"
-        color="#080a0c"
-        fontSize="16px"
-        fontWeight="400"
-      />
-    </Disclosure>
+    <Tooltip content={<DeleteTrans />} hasArrow placement="bottom">
+      <Disclosure ref={ref} palette={palette} variant={variant} {...props}>
+        <Icon
+          icon={faTrash}
+          type="font-awesome"
+          color="#080a0c"
+          fontSize="16px"
+          fontWeight="400"
+        />
+      </Disclosure>
+    </Tooltip>
   )
 )
 

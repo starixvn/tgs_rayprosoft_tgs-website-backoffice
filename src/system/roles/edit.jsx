@@ -12,7 +12,8 @@ import {
   useModalState,
   Table,
   Set,
-  Icon
+  Icon,
+  Tooltip
 } from "bumbag"
 import LoadingBackdrop from "../../dialog/LoadingBackdrop"
 import AlertDialog from "../../dialog/Alert"
@@ -542,16 +543,18 @@ export const EditButton = ({ id, record, onSubmitted, ...props }) => {
   let disclosureId = `${dialogId}-disclosure`
   return (
     <>
-      <Disclosure id={disclosureId} {...dialog} palette="secondary">
-        {/* <EditTrans /> */}
-        <Icon
-          icon={faPen}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip content={<EditTrans />} hasArrow placement="bottom">
+        <Disclosure id={disclosureId} {...dialog} palette="secondary">
+          <Icon
+            icon={faPen}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
+
       {dialog.visible && (
         <EditRoleDialog
           id={id}

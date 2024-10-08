@@ -8,7 +8,8 @@ import {
   Modal,
   Alert,
   FieldStack,
-  Icon
+  Icon,
+  Tooltip
 } from "bumbag"
 import {
   Create as CreateMenu,
@@ -162,16 +163,17 @@ export const EditButton = ({ brandId, record, onSubmitted, ...props }) => {
 
   return (
     <>
-      <Disclosure {...dialog} {...props} palette="info">
-        {/* <EditTrans /> */}
-        <Icon
-          icon={faPen}
-          type="font-awesome"
-          color="#080a0c"
-          fontSize="16px"
-          fontWeight="400"
-        />
-      </Disclosure>
+      <Tooltip content={<EditTrans />} hasArrow placement="bottom">
+        <Disclosure {...dialog} {...props} palette="info">
+          <Icon
+            icon={faPen}
+            type="font-awesome"
+            color="#080a0c"
+            fontSize="16px"
+            fontWeight="400"
+          />
+        </Disclosure>
+      </Tooltip>
       {dialog.visible && (
         <EditDialog
           brandId={brandId}
