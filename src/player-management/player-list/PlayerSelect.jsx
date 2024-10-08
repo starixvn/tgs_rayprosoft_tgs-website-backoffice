@@ -20,7 +20,7 @@ import {
   useFormState
 } from "react-hook-form"
 import { Components } from "../../select/MultiSelectBox"
-import { useTrans } from "../../i18n"
+import { getAcceptLangCulture, useTrans } from "../../i18n"
 import { isArray } from "lodash-es"
 import { SortOrder } from "../../table/order"
 import { usePlayerUsernameTrans } from "../../trans/Player"
@@ -70,7 +70,14 @@ export const PlayerSelect = ({
                 sortby: "username",
                 orderby: SortOrder.Ascending
               }
-              const response = await fetch(urlWith(searchParams, API))
+
+              let headers = {}
+              headers["Accept-Language"] = getAcceptLangCulture()
+
+              const response = await fetch(urlWith(searchParams, API), {
+                headers,
+                credentials: "include"
+              })
               const result = await response.json()
 
               let loadedSize = (page - 1) * rows + result.items.length
