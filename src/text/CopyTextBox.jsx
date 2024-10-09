@@ -21,12 +21,14 @@ export const CopyTextBox = ({
   const truncatedText = truncateString(value, maxLength)
 
   let popover = usePopoverState()
+
   return (
     <Box>
       <Popover.Disclosure
         {...popover}
         onClick={() => isCopy && copy(value)}
         {...props}
+        style={{ cursor: value?.length > maxLength ? "pointer" : "default" }}
       >
         <span title={value}>{truncatedText}</span>
       </Popover.Disclosure>
