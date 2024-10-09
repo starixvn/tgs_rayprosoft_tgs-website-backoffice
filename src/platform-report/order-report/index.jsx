@@ -422,7 +422,7 @@ export const useColumns = ({ items = [], filter: predicate }) => {
         Header: <UserNameTrans />,
         disableSortBy: true,
         Cell: ({ value = "" }) => (
-          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+          <CopyTextBox value={value} maxLength={16} isCopy={true} />
         )
       }),
       ellipsisTextColumn({
@@ -435,7 +435,7 @@ export const useColumns = ({ items = [], filter: predicate }) => {
         },
         disableSortBy: true,
         Cell: ({ value = "" }) => (
-          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+          <CopyTextBox value={value} maxLength={16} isCopy={true} />
         )
       }),
       ellipsisTextColumn({
@@ -448,7 +448,7 @@ export const useColumns = ({ items = [], filter: predicate }) => {
         },
         disableSortBy: true,
         Cell: ({ value = "" }) => (
-          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+          <CopyTextBox value={value} maxLength={16} isCopy={true} />
         )
       }),
       dateTimeColumn({
