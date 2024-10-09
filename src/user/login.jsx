@@ -25,6 +25,14 @@ import {
 import { useNavigate, useSearchParams } from "react-router-dom"
 
 import { faUserAlt, faLock } from "@fortawesome/free-solid-svg-icons"
+import {
+  cssCardPadding,
+  cssInputName,
+  cssInputPassWord,
+  cssWrapper,
+  cssWrapperIcon,
+  cssWrapperInput
+} from "./style"
 
 export const Path = "/login"
 
@@ -94,18 +102,7 @@ export const Form = () => {
         height: 80vh;
       `}
     >
-      <Box
-        css={css`
-          width: 400px;
-          border: 1px solid #d9d9e1;
-          border-radius: 5px;
-          padding: 20px 2.5rem 2.5rem;
-          background: #ffffff;
-          @media screen and (max-width: 576px) {
-            width: 95%;
-          }
-        `}
-      >
+      <Box css={cssWrapper}>
         <img
           src="/images/bo-logo.png"
           alt="bo-logo"
@@ -151,32 +148,13 @@ export const Form = () => {
               <LangDropdownMenu />
             </Set>
           }
-          css={css`
-            padding: 0;
-            background: none;
-          `}
+          css={cssCardPadding}
         >
           <FormProvider {...formMethods}>
             <form onSubmit={formMethods.handleSubmit(onSubmit)}>
               <Set orientation="vertical" isFilled>
-                <Box
-                  css={css`
-                    border: 1px solid #d9d9e1;
-                    border-radius: 5px;
-                    overflow: hidden;
-                    margin-bottom: 16px !important;
-                    display: flex;
-                  `}
-                >
-                  <Box
-                    css={css`
-                      padding: 0.375rem 0.75rem;
-                      background-color: #f3f4f7;
-                      border-right: 1px solid #dbdfe6;
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
+                <Box css={cssWrapperInput}>
+                  <Box css={cssWrapperIcon}>
                     <Icon
                       icon={faUserAlt}
                       type="font-awesome"
@@ -188,34 +166,11 @@ export const Form = () => {
                     name="username"
                     placeholder={usernameLabel}
                     autoComplete="username"
-                    css={css`
-                      width: 100%;
-                      > input {
-                        border: none !important;
-                        height: 38px;
-                        border-radius: 0 !important;
-                      }
-                    `}
+                    css={cssInputName}
                   />
                 </Box>
-                <Box
-                  css={css`
-                    border: 1px solid #d9d9e1;
-                    border-radius: 5px;
-                    overflow: hidden;
-                    margin-bottom: 16px !important;
-                    display: flex;
-                  `}
-                >
-                  <Box
-                    css={css`
-                    padding: 0.375rem 0.75rem;
-                    background-color: #f3f4f7;
-                    border-right: 1px solid #dbdfe6;
-                    display: flex;
-                    align-items: center;s
-                  `}
-                  >
+                <Box css={cssWrapperInput}>
+                  <Box css={cssWrapperIcon}>
                     <Icon
                       icon={faLock}
                       type="font-awesome"
@@ -228,18 +183,7 @@ export const Form = () => {
                     type="password"
                     placeholder={passwordLabel}
                     autoComplete="current-password"
-                    css={css`
-                      width: 100%;
-                      > div {
-                        width: 100%;
-                        input {
-                          border: none !important;
-                          height: 38px;
-                          width: 100%;
-                          border-radius: 0 !important;
-                        }
-                      }
-                    `}
+                    css={cssInputPassWord}
                   />
                 </Box>
                 <Button
