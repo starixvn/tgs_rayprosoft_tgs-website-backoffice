@@ -367,8 +367,9 @@ const useColumns = ({
         accessor: "realName",
         Header: <RealNameTrans />,
         disableSortBy: true,
-        maxWidth: "8rem",
-        Cell: ({ value = "" }) => <CopyTextBox value={value} isCopy={false} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       dateTimeColumn({
         accessor: "registeredTime",

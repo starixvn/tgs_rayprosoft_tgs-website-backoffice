@@ -1,20 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { css } from "@emotion/react"
-import {
-  Box,
-  Button,
-  Text,
-  Set,
-  Icon,
-  useModalState,
-  Dialog,
-  Card,
-  Flex,
-  Heading,
-  FieldStack,
-  Popover,
-  usePopoverState
-} from "bumbag"
+import React from "react"
+import { Box, Popover, usePopoverState } from "bumbag"
 import { faClipboard } from "@fortawesome/free-solid-svg-icons"
 import copy from "clipboard-copy"
 import { Trans } from "../i18n"
@@ -22,26 +7,30 @@ import { customPopover } from "../styles/popover"
 
 export const CopyTextBox = ({
   width = "100%",
-  overflow = "hidden",
-  textOverflow = "ellipsis",
   isCopy = true,
   value = "",
+  maxLength = null,
   ...props
 }) => {
+  const truncateString = (str, maxLength) => {
+    if (str.length <= maxLength) {
+      return str
+    }
+    return str.substring(0, maxLength) + "..."
+  }
+  const truncatedText = truncateString(value, maxLength)
+
   let popover = usePopoverState()
   return (
     <Box>
       <Popover.Disclosure
         {...popover}
         onClick={() => isCopy && copy(value)}
-        width={width}
-        overflow={overflow}
-        textOverflow={textOverflow}
         {...props}
       >
-        <span title={value}>{value}</span>
+        <span title={value}>{truncatedText}</span>
       </Popover.Disclosure>
-      {popover.visible && (
+      {popover.visible && value?.length > maxLength && (
         <Popover
           hasArrow
           maxWidth="70vw"

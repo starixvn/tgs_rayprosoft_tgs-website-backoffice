@@ -248,7 +248,9 @@ const useColumns = ({ mutate, items = [], brandId, brand } = {}) => {
         Header: <RealNameTrans />,
         disableSortBy: true,
         maxWidth: "8rem",
-        Cell: ({ value = "" }) => <CopyTextBox value={value} isCopy={false} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       textColumn({
         accessor: "idNumber",

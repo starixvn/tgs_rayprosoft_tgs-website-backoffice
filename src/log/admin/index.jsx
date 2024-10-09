@@ -495,19 +495,25 @@ const useColumns = ({ items = [] } = {}) => {
         accessor: "id",
         Header: <Trans zh="ID" en="ID" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox maxLength={25} isCopy={false} value={value} />
+        )
       }),
       textColumn({
         accessor: "trackingId",
         Header: <Trans zh="Tracking Id" en="Tracking Id" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox maxLength={25} isCopy={false} value={value} />
+        )
       }),
       textColumn({
         accessor: "ip",
         Header: <Trans zh="IP" en="IP" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox maxLength={25} isCopy={false} value={value} />
+        )
       }),
       textColumn({
         accessor: "path",
@@ -515,7 +521,13 @@ const useColumns = ({ items = [] } = {}) => {
         disableSortBy: true,
         textAlign: "left",
         Cell: ({ value = "" }) => (
-          <CopyTextBox value={value} alignX="left" textAlign="left" />
+          <CopyTextBox
+            maxLength={25}
+            isCopy={false}
+            value={value}
+            alignX="left"
+            textAlign="left"
+          />
         )
       }),
       textColumn({

@@ -421,7 +421,9 @@ export const useColumns = ({ items = [], filter: predicate }) => {
         accessor: "playerName",
         Header: <UserNameTrans />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       ellipsisTextColumn({
         accessor: "externalRoundId",
@@ -432,8 +434,9 @@ export const useColumns = ({ items = [], filter: predicate }) => {
           }
         },
         disableSortBy: true,
-        maxWidth: "8rem",
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       ellipsisTextColumn({
         accessor: "id",
@@ -444,8 +447,9 @@ export const useColumns = ({ items = [], filter: predicate }) => {
           }
         },
         disableSortBy: true,
-        maxWidth: "8rem",
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       dateTimeColumn({
         accessor: "createdOn",

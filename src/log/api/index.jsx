@@ -221,19 +221,25 @@ const useColumns = ({ items = [] } = {}) => {
         accessor: "id",
         Header: <Trans zh="ID" en="ID" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={25} isCopy={false} />
+        )
       }),
       textColumn({
         accessor: "trackingId",
         Header: <Trans zh="Tracking Id" en="Tracking Id" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={25} isCopy={false} />
+        )
       }),
       textColumn({
         accessor: "ip",
         Header: <Trans zh="IP" en="IP" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={25} isCopy={false} />
+        )
       }),
       ellipsisTextColumn({
         accessor: "path",
@@ -242,7 +248,12 @@ const useColumns = ({ items = [] } = {}) => {
         textAlign: "left",
         maxWidth: "20rem",
         Cell: ({ value = "" }) => (
-          <CopyTextBox value={value} whiteSpace="normal" textAlign="left" />
+          <CopyTextBox
+            value={value}
+            maxLength={25}
+            isCopy={false}
+            textAlign="left"
+          />
         )
       }),
       textColumn({

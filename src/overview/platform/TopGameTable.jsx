@@ -189,11 +189,9 @@ const GameRow = ({ game = {}, index, gameProviderCodeStylePairs = [] }) => {
         <Table.Cell textAlign="left">
           <CopyTextBox
             value={game.gameName}
+            maxLength={30}
+            isCopy={false}
             textAlign="left"
-            css={css`
-              white-space: nowrap;
-              max-width: 18rem;
-            `}
           />
         </Table.Cell>
         <Table.Cell textAlign="right">

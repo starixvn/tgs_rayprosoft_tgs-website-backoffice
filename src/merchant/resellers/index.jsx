@@ -172,8 +172,9 @@ const useColumns = ({ items = [], mutate }) => {
           textAlign: "center",
           whiteSpace: "nowrap"
         },
-        maxWidth: "30rem",
-        Cell: ({ value = "" }) => <CopyTextBox value={value} isCopy={false} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={40} isCopy={false} />
+        )
       }),
       {
         accessor: "operationalEmail",

@@ -193,13 +193,17 @@ const useColumns = ({ items = [], mutate }) => {
         accessor: "clientId",
         Header: <Trans zh="Client Id" en="Client Id" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       textColumn({
         accessor: "secretKey",
         Header: <Trans zh="Secret Key" en="secret Key" />,
         disableSortBy: true,
-        Cell: ({ value = "" }) => <CopyTextBox value={value} />
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       textColumn({
         accessor: "isDefault",

@@ -214,7 +214,10 @@ const useColumns = ({ items = [], mutate }) => {
       textColumn({
         accessor: "externalRoundId",
         Header: <ExternalRoundIdTrans />,
-        disableSortBy: true
+        disableSortBy: true,
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={16} isCopy={false} />
+        )
       }),
       textColumn({
         accessor: "brandCode",
