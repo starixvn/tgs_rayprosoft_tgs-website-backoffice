@@ -128,7 +128,7 @@ const ViewFundDepositDialog = ({
       hideOnClickOutside={false}
       {...dialog}
       css={cssModalHiddenFooter}
-      minWidth="30vw"
+      minWidth="40vw"
     >
       <FormBody
         record={depositForm}
@@ -531,7 +531,7 @@ const PlayerApplyInfoCard = ({ applyInfo, bankType, paymentReturn }) => {
         flex: 1;
       `}
     >
-      <FieldValues>
+      <FieldValues css={spacingForm}>
         <PlayerApplyInfoCardBody
           applyInfo={applyInfo}
           bankType={bankType}
@@ -591,7 +591,7 @@ const PlatformApplyInfoCard = ({ applyInfo, bankType, paymentReturn }) => {
         flex: 1;
       `}
     >
-      <FieldValues>
+      <FieldValues css={spacingForm}>
         <PlatformApplyInfoCardBody
           applyInfo={applyInfo}
           bankType={bankType}
