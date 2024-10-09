@@ -733,7 +733,10 @@ const GroupGameListDialog = ({
     checkedGames,
     gameProviders
   )
-
+  const reset = () => {
+    mutateBrand(undefined, false)
+    deleteBrandCache()
+  }
   let editable = !readonly
   return (
     <Backdrop {...dialog}>
@@ -748,6 +751,8 @@ const GroupGameListDialog = ({
           dialog.hide()
         }}
         submitText={readonly ? <CloseText /> : <ConfirmText />}
+        showActionButtons={!readonly}
+        footer={readonly && <CloseButtonFooter dialog={dialog} onClickClose={reset} />}
         actionButtonsProps={{
           submitProps: {
             variant: "outlined"
@@ -954,6 +959,11 @@ const GameProviderGameListDialog = ({
     }
   })
 
+  const reset = () => {
+    mutateBrand(undefined, false)
+    deleteBrandCache()
+  }
+
   let editable = !readonly
   return (
     <Backdrop {...dialog}>
@@ -974,6 +984,8 @@ const GameProviderGameListDialog = ({
           dialog.hide()
         }}
         submitText={readonly ? <CloseText /> : <ConfirmText />}
+        showActionButtons={!readonly}
+        footer={readonly && <CloseButtonFooter dialog={dialog} onClickClose={reset} />}
         actionButtonsProps={{
           submitProps: {
             variant: "outlined"
@@ -1120,6 +1132,11 @@ const BetLimitDialog = ({
     return pairs
   }, {})
 
+  const reset = () => {
+    mutateBrand(undefined, false)
+    deleteBrandCache()
+  }
+
   let editable = !readonly
   return (
     <Backdrop {...dialog}>
@@ -1133,6 +1150,8 @@ const BetLimitDialog = ({
           dialog.hide()
         }}
         submitText={readonly ? <CloseText /> : <ConfirmText />}
+        showActionButtons={!readonly}
+        footer={readonly && <CloseButtonFooter dialog={dialog} onClickClose={reset} />}
         hideBackdrop={true}
         dialog={dialog}
         title={title}

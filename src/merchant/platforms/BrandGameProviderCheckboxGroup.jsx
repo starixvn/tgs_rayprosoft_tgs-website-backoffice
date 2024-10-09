@@ -38,6 +38,7 @@ import { GameProviderTrans } from "../../trans/Game"
 import { useQueryStringTrans } from "../../trans/Platform"
 import { WrapperModal } from "../../styles/wrapper"
 import { ModalButtonPlatForm } from "../../styles/button"
+import { CloseButtonFooter } from "../../form/ConfirmButtonFooter.jsx"
 
 export const BrandGameProviderCheckboxGroupTable = ({
   name = "gameProviders",
@@ -376,6 +377,10 @@ const useQueryStringTitle = (type = QueryStringType.Desktop) => {
 
 const QueryStringDialog = ({ type, value, disabled, dialog, onChange }) => {
   let title = useQueryStringTitle(type)
+  const reset = () => {
+    mutateBrand(undefined, false)
+    deleteBrandCache()
+  }
   return (
     <Backdrop {...dialog}>
       <FormDialog
@@ -385,6 +390,8 @@ const QueryStringDialog = ({ type, value, disabled, dialog, onChange }) => {
           dialog.hide()
         }}
         submitText={disabled ? <CloseText /> : <ConfirmText />}
+        showActionButtons={!disabled}
+        footer={disabled && <CloseButtonFooter dialog={dialog} onClickClose={reset} />}
         dialog={dialog}
         title={title}
         hideBackdrop={true}
@@ -416,7 +423,10 @@ const ConfigDialog = ({
     zh: `游戏商配置`,
     en: `Game Provider Configuration`
   })
-
+  const reset = () => {
+    mutateBrand(undefined, false)
+    deleteBrandCache()
+  }
   return (
     <Backdrop {...dialog}>
       <FormDialog
@@ -432,6 +442,8 @@ const ConfigDialog = ({
           dialog.hide()
         }}
         submitText={disabled ? <CloseText /> : <ConfirmText />}
+        showActionButtons={!disabled}
+        footer={disabled && <CloseButtonFooter dialog={dialog} onClickClose={reset} />}
         dialog={dialog}
         title={title}
         hideBackdrop={true}
