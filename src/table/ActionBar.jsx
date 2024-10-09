@@ -270,12 +270,10 @@ const ColumnOrderPopover = ({ table }) => {
   })
 
   function handleDragEnd(event) {
-    console.log("onDragEnd event", event)
     const { active, over } = event
     if (active.id !== over.id) {
       const oldIndex = items.indexOf(active.id)
       const newIndex = items.indexOf(over.id)
-      console.log("active", active, "over", over)
       let result = arrayMove(items, oldIndex, newIndex)
       setColumnOrder(result)
     }

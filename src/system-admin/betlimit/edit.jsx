@@ -57,7 +57,6 @@ const EditDialog = ({ record = {}, onSubmitted, dialog, ...props }) => {
   })
 
   const onSubmit = (data) => {
-    console.log("DATA::: ", data)
     setSubmit(data)
   }
 

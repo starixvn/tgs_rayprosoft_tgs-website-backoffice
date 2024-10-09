@@ -792,8 +792,6 @@ const UploadListColumn = ({ name = "", title, fileName = "", list = null }) => {
                 type="button"
                 size="small"
                 onClick={() => {
-                  console.log("name what: ")
-                  console.log(name)
                   setValue(name, [])
                 }}
               >

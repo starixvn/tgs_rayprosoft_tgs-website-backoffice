@@ -131,7 +131,6 @@ const SettingDisclosure = ({ name = SettingFieldName, readOnly, ...props }) => {
                 onChange={(data) => {
                   let editable = !readOnly
                   if (editable) {
-                    console.log(`setValue ${name} > `, data)
                     setValue(name, data, { shouldValidate: true })
                   }
                 }}

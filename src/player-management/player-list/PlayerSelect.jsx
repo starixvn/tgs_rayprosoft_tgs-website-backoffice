@@ -43,6 +43,47 @@ export const PlayerSelect = ({
 
   placeholder = placeholder ?? defaultPlaceholder
 
+  const [options, setOptions] = useState([])
+  const [hasMore, setHasMore] = useState(true)
+  const [page, setPage] = useState(1)
+  const [search, setSearch] = useState("")
+
+  const { data, isLoading, error } = usePlayerList({
+    brandId,
+    page,
+    rows,
+    username: search,
+    sortby: "username",
+    orderby: SortOrder.Ascending
+  })
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      const newOptions = data.items.map((player) => ({
+        label: player.username,
+        value: player.playerCode
+      }))
+
+      setOptions((prev) => (page === 1 ? newOptions : [...prev, ...newOptions]))
+
+      const loadedSize = (page - 1) * rows + data.items.length
+      setHasMore(loadedSize < data.totalCount)
+    }
+  }, [data, page, isLoading])
+
+  const loadOptions = (inputValue, loadedOptions, { page }) => {
+    setSearch(inputValue)
+    setPage(page)
+
+    return {
+      options,
+      hasMore,
+      additional: {
+        page: page + 1
+      }
+    }
+  }
+
   return (
     <Controller
       name={name}
@@ -61,49 +102,13 @@ export const PlayerSelect = ({
             placeholder={placeholder}
             // menuIsOpen={true}
             defaultOptions
-            loadOptions={async (search, loadedOptions, { page }) => {
-              let searchParams = {
-                brandId,
-                page,
-                rows,
-                username: search,
-                sortby: "username",
-                orderby: SortOrder.Ascending
-              }
-
-              let headers = {}
-              headers["Accept-Language"] = getAcceptLangCulture()
-
-              const response = await fetch(urlWith(searchParams, API), {
-                headers,
-                credentials: "include"
-              })
-              const result = await response.json()
-
-              let loadedSize = (page - 1) * rows + result.items.length
-              let hasMore = loadedSize < result.totalCount
-              let options = result.items.map((player) => ({
-                label: player.username,
-                value: player.playerCode
-              }))
-
-              return {
-                options,
-                hasMore,
-                additional: {
-                  page: page + 1
-                }
-              }
-            }}
+            loadOptions={loadOptions}
             onChange={(raw) => {
-              let value = isArray(raw)
+              const value = isArray(raw)
                 ? raw.map(({ value }) => value)
                 : raw.value
 
-              if (name && formMethods.setValue) {
-                formMethods.setValue(name, value)
-              }
-
+              formMethods.setValue(name, value)
               props?.onChange?.(value, raw)
             }}
             additional={{
