@@ -381,6 +381,8 @@ const QueryStringDialog = ({ type, value, disabled, dialog, onChange }) => {
     mutateBrand(undefined, false)
     deleteBrandCache()
   }
+
+  
   return (
     <Backdrop {...dialog}>
       <FormDialog
