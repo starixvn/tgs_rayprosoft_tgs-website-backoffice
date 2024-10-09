@@ -42,6 +42,7 @@ import { AccountFundSettingDialogDisclosure } from "./AccountFundSettingDialog"
 import { WrapperBg } from "../../styles/wrapper"
 import { CustomTableStyle } from "../../styles/tablle"
 import { ActionTableButton, SearchAndSubmitButton } from "../../styles/button"
+import { CopyTextBox } from "../../text/CopyTextBox"
 // import { PlatformDomainDialogDisclosure } from "./PlatformDomain"
 
 export { Code }
@@ -214,7 +215,7 @@ const useColumns = ({ items = [], mutate }) => {
         Header: <Trans zh="平台名称" en="Name" />,
         disableSortBy: true
       }),
-      {
+      textColumn({
         accessor: "description",
         Header: <Trans zh="平台简介" en="Description" />,
         disableSortBy: true,
@@ -224,8 +225,11 @@ const useColumns = ({ items = [], mutate }) => {
         },
         cell: {
           textAlign: "center"
-        }
-      },
+        },
+        Cell: ({ value = "" }) => (
+          <CopyTextBox value={value} maxLength={50} isCopy={true} />
+        )
+      }),
       {
         accessor: "operationalEmail",
         Header: <Trans zh="平台邮箱" en="Email" />,
